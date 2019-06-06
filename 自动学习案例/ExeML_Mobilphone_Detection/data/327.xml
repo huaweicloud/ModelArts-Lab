@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<annotation>
+    <folder>Images</folder>
+    <filename>327.jpg</filename>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>275</width>
+        <height>183</height>
+        <depth>1</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>mobil</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>119.00</xmin>
+            <ymin>58.00</ymin>
+            <xmax>211.00</xmax>
+            <ymax>118.00</ymax>
+        </bndbox>
+    </object>
+</annotation>
