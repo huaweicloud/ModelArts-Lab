@@ -1,0 +1,38 @@
+{
+    "version": "v1.0",
+    "author": "ModelArts Service of Huawei Cloud",
+    "authorEmail": "zhangzhenyu6@huawei.com",
+    "framework": "TensorFlow v1.8.0",
+    "codeURL": "https://github.com/huaweicloud/dls-example/tree/master/fast_imagenet/fast_imagenet_dym_node_16.py",
+    "model": "ResNet-50",
+    "hardware": "modelarts",
+    "timestamp": "2018-11-22",
+    "misc": {
+        "model implementation": "https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v1.py",
+        "backend": "8*Tesla-V100 + CUDA-9.0 + CuDNN-7.0.5",
+        "optimizer": "SGD with Dynamic Momentum",
+        "use_nesterov": true,
+        "momentum": 0.9,
+        "weightDecay": 0.0001,
+        "schedule": {
+            "learning_rate": "linear cosine decay",
+            "warmup":0.1,
+            "cooldown": 0.08,
+            "max_lr": 8.5,
+            "min_lr": 0.05
+        },
+
+        "imageSize": [
+            {"image_size": 128, "epochs": 21},
+            {"image_size": 224, "epochs": 21},
+            {"image_size": 288, "epochs": 2}
+        ],
+
+        "batchSize": [
+            {"batch_size": 28672, "epochs": 21},
+            {"batch_size": 28672, "epochs": 21},
+            {"batch_size": 16384, "epochs": 2}
+        ]
+    },
+    "usedBlacklist": true
+}
