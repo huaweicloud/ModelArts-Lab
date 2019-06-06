@@ -1,0 +1,39 @@
+{
+    "version": "v1.0",
+    "author": "ModelArts Service of Huawei Cloud",
+    "authorEmail": "tianchudong@huawei.com",
+    "framework": "MXNet v1.2.1",
+    "codeURL": "https://github.com/huawei-clouds/modelarts-example/blob/master/MXNet-ImageNet-10min/16_32_dysizelr.py",
+    "model": "ResNet-50-v1",
+    "hardware": "16*8*Tesla-V100(ModelArts Service)",
+    "timestamp": "2018-11-27",
+    "misc": {
+        "model implementation": "https://github.com/apache/incubator-mxnet/blob/master/example/image-classification/symbols/resnet-v1.py",
+        "backend": "CUDA-9.0 + CuDNN-7.0.5",
+        "optimizer": "NAG",
+        "Initializer": "MSRAPrelu",
+        "momentum": 0.9,
+        "weightDecay": 0.0001,
+        "schedule": [
+            {"ep":0, "lr":1.92, "mode":"warmup"},
+            {"ep":6, "lr":3.84, "mode":"node"},
+            {"ep":11, "lr":3.84, "mode":"node"},
+            {"ep":14, "lr":3.84, "mode":"linear"},
+            {"ep":17, "lr":1.92, "mode":"cosine"},
+            {"ep":32, "lr":0.0192, "mode":"node"},
+        ],
+         "imageSize": [
+            {"image_size": 128, "epochs": 14},
+            {"image_size": 224, "epochs": 14},
+            {"image_size": 288, "epochs": 4}
+        ],
+         "batchSize": [
+            {"batch_size": 8192, "epochs": 6},
+            {"batch_size": 16384, "epochs": 8},
+            {"batch_size": 16384, "epochs": 3},
+            {"batch_size": 20480, "epochs": 11},
+            {"batch_size": 16384, "epochs": 4}
+        ]
+    },
+    "usedBlacklist": false
+}
