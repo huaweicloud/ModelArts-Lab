@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<annotation>
+    <folder>Images</folder>
+    <filename>267.jpg</filename>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>237</width>
+        <height>213</height>
+        <depth>1</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>mobil</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>15.00</xmin>
+            <ymin>34.00</ymin>
+            <xmax>152.00</xmax>
+            <ymax>211.00</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>mobil</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>98.00</xmin>
+            <ymin>0.00</ymin>
+            <xmax>234.00</xmax>
+            <ymax>154.00</ymax>
+        </bndbox>
+    </object>
+</annotation>
