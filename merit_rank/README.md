@@ -1,31 +1,34 @@
 ## 贡献积分规则：
-1.完成XX期活动所有案例实践的，获得一个积分（在活动页跟帖，以完成的截图为凭证）
-2.分享实践体验文章的，获得一个积分（提交内容PR到docs里）
-3.分享了XX期主题相关的扩展案例，获得一个积分（提交案例PR到contrib里）
-4.分享与实际应用场景结合的高价值案例，获得二个积分（提交案例PR到contrib里）
+* 完成XX期活动所有案例实践的，获得一个积分（在活动页跟帖，以完成的截图为凭证）
+* 分享实践体验文章的，获得一个积分（提交内容PR到docs里）
+* 分享了XX期主题相关的扩展案例，获得一个积分（提交案例PR到contrib里）
+* 分享与实际应用场景结合的高价值案例，获得二个积分（提交案例PR到contrib里）
 
 ## 积分获得礼品
-完成5个积分的   level1礼包
-完成10个积分的  level2礼包
-完成15个积分的  level3礼包
-完成20个积分的  level4礼包  
-完成25个积分的(必须要有一个高价值案例) level5礼包
-完成30个积分的(必须要有二个高价值案例) level6礼包
+* 完成5个积分获得 level1礼包
+* 完成10个积分获得level2礼包
+* 完成15个积分获得level3礼包
+* 完成20个积分获得level4礼包  
+* 完成25个积分获得level5礼包(必须要有一个与实际应用结合的高价值案例) 
+* 完成30个积分获得level6礼包(必须要有一个与实际应用结合的高价值案例) 
 
-礼品                                                                      云代金券
-Level1礼包：ModelArts纪念T恤+自拍杆或蓝牙小音箱                       2张满减代金券             
-Level2礼包：手环（价值500）                                           4张满减代金券
-Level3礼包：机械键盘或华为手表（价值1000-1500）                       6张满减代金券
-Level4礼包：华为手表（2000）                                          8张满减代金券
-Level5礼包：华为手机（3000）                                          10张满减代金券
-Level6礼包：华为旗舰手机或华为matebook电脑（价值5000以上）            15张满减代金券 \
+|礼品                                                                                                  |                    |云代金券           |
+|Level1礼包 : ModelArts纪念T恤+自拍杆或蓝牙小音箱               |                    |2张满减代金券 |             
+|Level2礼包 : 华为荣耀手环(价值500左右)                                     |                     |4张满减代金券 |
+|Level3礼包 : 机械键盘或华为手表(价值1000左右)                        |                     |6张满减代金券 |
+|Level4礼包 : 华为手表(价值2000左右）                                         |                     |8张满减代金券 |
+|Level5礼包 : 华为手机(价值3000左右）                                          |                    |10张满减代金券|
+|Level6礼包 : 华为旗舰手机或华为matebook电脑(价值5000以上)|                    | 15张满减代金券 |
 
 ## 当前积分排名
 
-benmcq2019 : 2个积分
-wonleing : 2个积分
+* benmcq2019 : 2个积分, 贡献点：
+     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/6
+     * 扩展案例：https://github.com/huaweicloud/ModelArts-Lab/issues/21
+* wonleing : 2个积分, 贡献点：
+     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/8
+     * 实践体验文章：https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize
 
-
-
-
+* zhd : 1个积分, 贡献点：
+     * [https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman%E6%B5%8B%E8%AF%95](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
 
