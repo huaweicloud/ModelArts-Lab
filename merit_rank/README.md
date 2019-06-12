@@ -1,3 +1,16 @@
+## 当前积分排名
+* benmcq2019 : 2个积分, 贡献点：
+     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/6
+     * 扩展案例：https://github.com/huaweicloud/ModelArts-Lab/issues/21
+* wonleing : 2个积分, 贡献点：
+     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/8
+     * 实践体验文章：https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize
+
+* zhd : 1个积分, 贡献点：
+     * [https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman%E6%B5%8B%E8%AF%95](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
+
+贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
+
 ## 贡献积分规则：
 * 完成XX期活动所有案例实践的，获得一个积分（在活动页跟帖，以完成的截图为凭证）
 * 分享实践体验文章的，获得一个积分（提交内容PR到docs里）
@@ -19,15 +32,3 @@
 * Level5礼包 : 华为手机(价值3000左右） + 10张满减代金券
 * Level6礼包 : 华为旗舰手机或华为matebook电脑(价值5000以上) + 15张满减代金券
 
-## 当前积分排名
-* benmcq2019 : 2个积分, 贡献点：
-     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/6
-     * 扩展案例：https://github.com/huaweicloud/ModelArts-Lab/issues/21
-* wonleing : 2个积分, 贡献点：
-     * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/8
-     * 实践体验文章：https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize
-
-* zhd : 1个积分, 贡献点：
-     * [https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman%E6%B5%8B%E8%AF%95](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
-
-贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
