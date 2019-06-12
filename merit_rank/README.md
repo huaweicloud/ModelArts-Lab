@@ -5,13 +5,13 @@
 * 分享与实际应用场景结合的高价值案例，获得二个积分（提交案例PR到contrib里）
 
 ## 积分获得礼品
-* 完成5个积分获得 level1礼包
+* 完成5个积分获得level1礼包
 * 完成10个积分获得level2礼包
 * 完成15个积分获得level3礼包
 * 完成20个积分获得level4礼包  
 * 完成25个积分获得level5礼包(必须要有一个与实际应用结合的高价值案例) 
 * 完成30个积分获得level6礼包(必须要有一个与实际应用结合的高价值案例) 
-
+### 礼包如
 * Level1礼包 : ModelArts纪念T恤 + 自拍杆或蓝牙小音箱 + 2张华为云ModelArts满减代金券            
 * Level2礼包 : 华为荣耀手环(价值500左右) + 4张满减代金券
 * Level3礼包 : 机械键盘或华为手表(价值1000左右) + 6张满减代金券
@@ -20,7 +20,6 @@
 * Level6礼包 : 华为旗舰手机或华为matebook电脑(价值5000以上) + 15张满减代金券
 
 ## 当前积分排名
-
 * benmcq2019 : 2个积分, 贡献点：
      * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/6
      * 扩展案例：https://github.com/huaweicloud/ModelArts-Lab/issues/21
@@ -31,3 +30,4 @@
 * zhd : 1个积分, 贡献点：
      * [https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman%E6%B5%8B%E8%AF%95](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
 
+贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
