@@ -17,5 +17,6 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
     如果用户需要将内容同步到实例空间，需要选中内容，单击Sync OBS按钮来实现将选中内容同步到当前容器空间。
  
 
+##如何在Notebook中读写本地及OBS文件？
 
-
+MoXing是华为云ModelArts团队自研的分布式训练加速框架，构建于开源的深度学习引擎TensorFlow、MXNet、PyTorch、Keras之上，使用MoXing API可让模型代码的编写更加简单、高效。解决方法MoXing提供了一套文件对象API，可以用来读写本地文件及OBS文件。其MoXing API与Python、TensorFlow原生API对应关系和MoXing文件操作调用示例详情请参见：https://github.com/huawei-clouds/modelarts-example/blob/master/moxing-apidoc/MoXing-API-File.md。
