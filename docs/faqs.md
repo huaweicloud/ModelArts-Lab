@@ -7,7 +7,7 @@
 * [Notebook中Upload之后，文件上传到哪里了](#Notebook中Upload之后，文件上传到哪里了)
 * [Terminal中如何进入跟当前实例kernel一样的python环境](#Terminal中如何进入跟当前实例Kernel一样的python环境)
 * [运行训练代码，出现“内存不够”问题，并导致实例崩溃](#运行训练代码，出现“内存不够”问题，并导致实例崩溃)
-* [出现“save error”错误, 可以运行代码，但是无法保存](#Notebook出现保存失败)
+* [Notebook出现保存文件失败](#Notebook出现保存失败)
 
 ## ModelArts是否支持Keras?
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
@@ -52,6 +52,6 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 在Notebook实例中运行训练代码，如果数据量太大或者训练层数太多，亦或者或者其他原因，导致出现“内存不够”问题，最终导致该容器实例崩溃。
 出现此问题后，如果您重新打开此Notebook，系统将自动重启Notebook，来修复实例崩溃的问题。此时只是解决了崩溃问题，如果重新运行训练代码仍将失败。如果您需要解决“内存不够”的问题，建议您创建一个新的Notebook，使用更高规格的资源池，比如GPU或专属资源池来运行此训练代码。
 
-## Notebook出现保存失败
+## Notebook出现保存文件失败
 如果当前Notebook还可以运行代码，但是无法保存，保存时会提示“save error”错误。
 大多数原因是华为云WAF安全拦截导致的，当前页面，即用户的输入或者代码运行的输出有一些字符被华为云拦截，认为有安全风险。出现此问题时，请提交工单，联系专业的工程师帮您核对并处理问题。
