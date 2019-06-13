@@ -1,11 +1,14 @@
 
 # FAQs
 
+* [ModelArts是否支持Keras?](#ModelArts是否支持Keras)
+* [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建Notebook时存储配置选择EVS和OBS有什么区别)
+
 ## ModelArts是否支持Keras?
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
 TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-cn
 
-## 创建Notebook时，“存储配置”选择EVS和OBS有什么区别？
+## 创建Notebook时“存储配置”选择EVS和OBS有什么区别？
 
   * 选择EVS的实例
     用户在Notebook实例中的所有文件读写操作都是针对容器中的内容，与OBS没有任何关系。重启该实例，内容不丢失。
