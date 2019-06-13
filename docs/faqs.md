@@ -2,7 +2,12 @@
 # FAQs
 
 * [ModelArts是否支持Keras?](#ModelArts是否支持Keras)
-* [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建Notebook时存储配置选择EVS和OBS有什么区别)
+* [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建Notebook时存储配置选择EVS和OBS有什么区别?)
+* [使用pip install时出现“没有空间”的错误](#使用pip install时出现“没有空间”的错误)
+* [Notebook中Upload之后，文件上传到哪里了](#Notebook中Upload之后，文件上传到哪里了)
+* [Notebook terminal中如何进入跟当前实例Notebook kernel一样的python环境](Notebook terminal中如何进入跟当前实例Notebook kernel一样的python环境)
+* [运行训练代码，出现“内存不够”问题，并导致实例崩溃](#运行训练代码，出现“内存不够”问题，并导致实例崩溃)
+* [出现“save error”错误, 可以运行代码，但是无法保存](#出现“save error”错误, 可以运行代码，但是无法保存)
 
 ## ModelArts是否支持Keras?
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
@@ -33,7 +38,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 如果您创建的Notebook使用OBS存储实例时单击“upload”后，数据将直接上传到该Notebook实例对应的OBS路径下，即创建Notebook时指定的OBS路径。
 如果您创建的Notebook不使用OBS存储单击“upload”后，数据将直接上传至当前实例容器中，即在“terminal”中的“~/work”目录下。
 
-## Notebook terminal中需要进入跟当前实例Notebook kernel一样的python环境吗？
+## Notebook terminal中如何进入跟当前实例Notebook kernel一样的python环境？
 如果您习惯于使用Notebook terminal来运行代码，那么需要切换到和对应Notebook kernel一样的python环境。
 * 如果使用单独的AI引擎创建的Notebook实例。
 1. 运行conda info -e命令查看当前实例下的python虚拟环境。
