@@ -1,4 +1,4 @@
-## 当前积分排名
+## 当前积分排-[总排名](https://github.com/huaweicloud/ModelArts-Lab/blob/master/merit_rank/all_ranking.md)
 * benmcq2019：2个积分，贡献点：
      * 完成案例实践：https://github.com/huaweicloud/ModelArts-Lab/issues/6
      * 扩展案例：https://github.com/huaweicloud/ModelArts-Lab/issues/21
