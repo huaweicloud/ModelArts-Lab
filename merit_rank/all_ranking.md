@@ -9,5 +9,5 @@ huangmeiling | ---- | [一位互联网9年AI开发者的ModelArts开发实践](h
 chenliang419 | [图像分类第一期实践截图](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502063252) | ---- | ---- | 1
 liweigu | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502262658) |  [图像分类实践体验文章-liweigu.md](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/Lab%20AI%E5%AE%9E%E6%88%98%E8%90%A5/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E4%B8%93%E5%9C%BA-liweigu.md) | ---- | 2
 fjqsun | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865) | ---- | ---- | 1 | 
----- | ---- | ---- | ---- | ---- | ----
+linus086 | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892) | ---- | ---- | 1 | 
 ---- | ---- | ---- | ---- | ---- | ----
