@@ -7,12 +7,12 @@
      * 扩展案例：[图像分类扩展案例](https://github.com/huaweicloud/ModelArts-Lab/issues/21)
      * 实际应用案例：
 
-* wonleing：2个积分，贡献点：
-     * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/8)
+* wonleing：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize)
-     * 扩展案例：
+     * 扩展案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/8)
      * 实际应用案例：
-
+     
 * zhd：1个积分，贡献点：
      * 完成案例：
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
@@ -55,4 +55,10 @@
      * 扩展案例：
      * 实际应用案例：
 
+* from1996iter：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
