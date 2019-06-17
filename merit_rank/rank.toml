@@ -4,13 +4,13 @@ title = "积分提交演示"
 总积分 = 5
   
   [图像分类第一期实践]
-  type = "完成作业"
+  type = "完成实践"
   link = "https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502063252"
   积分 = 1
   
-  [使用华为云ModelArts的图像分类技术在小程序上实现拍照识别]
-  type = "实践体验文章"
-  link = "https://github.com/huaweicloud/ModelArts-Lab/issues/21"
+  [深度解读华为云 AI 开发平台 ModelArts 技术架构]
+  type = "技术分享文章"
+  link = "https://www.infoq.cn/article/wMzAP-QomqEaOug3ua2A"
   积分 = 2
 
   [支持keras等其他AI框架部署服务]
@@ -31,3 +31,4 @@ title = "积分提交演示"
   type = "实践体验文章"
   link = "https://github.com/huaweicloud/ModelArts-Lab/issues/21"
   积分 = 2
+
