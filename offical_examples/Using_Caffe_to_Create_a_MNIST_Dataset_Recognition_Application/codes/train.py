@@ -57,6 +57,15 @@ if __name__ == "__main__":
             #copy data from obs to local
             print("data obs url exists")
             mox.file.copy_parallel(src_url=data_url, dst_url=local_dataset_url)
+
+            #converts the mnist data into lmdb/leveldb format
+            DATA = '/home/work/dataset/'
+            BUILD = '/home/work/caffe/bin'
+            BACKEND = 'lmdb'
+            cmd = '{BUILD}/convert_mnist_data.bin {DATA}/train-images-idx3-ubyte {DATA}/train-labels-idx1-ubyte {DATA}/mnist_train_{BACKEND} --backend={BACKEND}'.format(BUILD = BUILD, DATA = DATA, BACKEND = BACKEND)
+            os.system(cmd)
+            cmd = '{BUILD}/convert_mnist_data.bin {DATA}/t10k-images-idx3-ubyte {DATA}/t10k-labels-idx1-ubyte {DATA}/mnist_test_{BACKEND} --backend={BACKEND}'.format(BUILD = BUILD, DATA = DATA, BACKEND = BACKEND)
+            os.system(cmd)
             
             # model save path
             model_local_output = args.model_local_path
