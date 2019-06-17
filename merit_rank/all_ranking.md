@@ -42,5 +42,8 @@
 * Irisfz8321：1个积分，贡献点：
      * 完成案例：
          [案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502367102)
+* medidata: 1个积分，贡献点：
+     * 完成案例：
+         [案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502622661)
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
