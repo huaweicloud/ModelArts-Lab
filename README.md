@@ -1,9 +1,13 @@
-## ModelArts Lab
+# ModelArts-Lab
 
 此库是AI开发者交流和学习平台，所有案例、样例代码是基于业界领先的AI开发平台ModelArts设计，帮助AI开发者快速掌握人工智能实战技能。
 This library is an AI developer communication and learning platform for ModelArts. All cases and sample code are designed based on the industry-leading AI development platform ModelArts (huawei cloud), helping AI developers to quickly master the artificial intelligence skills.
 
 Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
+
+## Online Documents
+* [MoXing-API](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/moxing_api_doc)
+* [FAQs](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/faqs.md) 
 
 ## 案例内容介绍 Introduction of Cases
 
