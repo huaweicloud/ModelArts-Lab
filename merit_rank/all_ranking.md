@@ -11,3 +11,4 @@ liweigu | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://g
 fjqsun | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865) | ---- | ---- | 1 | 
 linus086 | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892) | ---- | ---- | 1 | 
 Irisfz8321 | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502367102) | ---- | ---- | 1 | ----
+bochuan007 | [华为云ModelArts-Lab AI实战营第一期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502328274) | ---- | ---- | 1
