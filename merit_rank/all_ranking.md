@@ -23,7 +23,7 @@
 
 * chenliang419：1个积分，贡献点：
      * 完成案例：
-         [扩展1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502063252)
+         [案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502063252)
 
 * liweigu：2个积分，贡献点：
      * 完成案例：
