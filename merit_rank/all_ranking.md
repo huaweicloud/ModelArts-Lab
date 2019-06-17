@@ -51,5 +51,8 @@
      * 完成案例：
          [案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502328274)
 
+* 我的GITHUB名: 1个积分，贡献点：
+     * 完成案例：
+         [案例1](我的案例链接)
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
