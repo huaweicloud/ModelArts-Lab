@@ -1,3 +1,5 @@
+华为ID：wjsandy
+
 第一步，创建OSB桶后，用到OBSBrowser工具--添加相应的AK-SK密钥后-上传说图片数据--------动物-植物-（美女-大老婆-小老婆）也行！
 
 <img src="images/第一步.png" width="800px" />
