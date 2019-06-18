@@ -1,6 +1,6 @@
 ##  [总排名链接 all_ranking.md](https://github.com/huaweicloud/ModelArts-Lab/blob/master/merit_rank/all_ranking.md)
 
-贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
+贡献者可以提交PR，更新自己的积分和贡献点，具体操作流程[在此](https://github.com/huaweicloud/ModelArts-Lab/wiki/Pull-Requests-%E6%9B%B4%E6%96%B0%E7%A7%AF%E5%88%86)；社区committers核实后，合并PR，积分正式生效。
 
 ## 贡献积分规则：
 * 完成案例：完成XX期活动所有案例实践的，获得一个积分（在活动页跟帖，以完成的截图为凭证）
