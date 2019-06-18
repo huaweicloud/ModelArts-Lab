@@ -34,7 +34,7 @@
 </tr>
 <tr id="row103001522142615"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p15300162213269"><a name="p15300162213269"></a><a name="p15300162213269"></a>2</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p1330092217265"><a name="p1330092217265"></a><a name="p1330092217265"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_ExeML_for_Bank_Deposit_Prediction">银行存款预测</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p1330092217265"><a name="p1330092217265"></a><a name="p1330092217265"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_ModelArts_to_Create_a_Bank_Marketing_Application">银行存款预测</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p107862051142613"><a name="p107862051142613"></a><a name="p107862051142613"></a>不涉及</p>
 </td>
