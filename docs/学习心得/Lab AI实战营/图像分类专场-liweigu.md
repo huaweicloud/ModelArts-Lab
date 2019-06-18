@@ -1,24 +1,51 @@
-[课程介绍](https://shimo.im/docs/FTRMKWzZ0t01ik02/read)
+第一步，创建OSB桶后，用到OBSBrowser工具--添加相应的AK-SK密钥后-上传说图片数据--------动物-植物-（美女-大老婆-小老婆）也行！
 
+<img src="images/第一步.png" width="800px" />
 
-[课程说明](https://github.com/huaweicloud/ModelArts-Lab/issues/49)
+第二步，我这上传的是动物类，狮子，马，熊，兔子，老虎
 
+<img src="images/第二步.png" width="800px" />
 
-学习心得：
+第三步，机器学习，一个个标注分类，图片分类也多，提供样例越多，越训练学习分辨成功率越高！
 
+<img src="images/第三步.png" width="800px" />
 
-第一期实战活动介绍——图像分类（I）
+第四步-部署上线后就可以上传让机器学习识别了，以下是我上传后机器识别的效果
 
-  用git将 https://github.com/huaweicloud/ModelArts-Lab 拷贝（clone）到本地，然后在 /ExeML/ExeML_Flowers_Recognition/data 目录里能找到训练数据（40张）和测试数据（4张）。
+<img src="images/第四步.png" width="800px" />
 
-  数据可以换成自己的分类数据，比如动物分类、交通标志分类等等，图片分类差异越大、内容干扰信息越少、数据越多，则训练出的模型会更好。
+<img src="images/第四步2.png" width="800px" />
 
+<img src="images/第四步3.png" width="800px" />
 
-第二期实战活动介绍——图像分类（II）
+第五，大家可以再用python获取下Notebook案例！祝君好运！
 
+<img src="images/第五步.png" width="800px" />
 
-  猫狗识别训练集是用代码下载到notebook运行环境本地的。
+同学们，来学习吧，有积分好礼送哦！点我送你一程
 
-  dogcat_model是模型定义。由于是做二分类，因此激活函数选用'sigmoid'，损失函数使用'binary_crossentropy'。
+积分获得礼品
+完成5个积分获得level1礼包
 
-  防止过拟合，除了使用了early stopping策略，还应考虑扩充训练数据集。
+完成10个积分获得level2礼包
+
+完成15个积分获得level3礼包
+
+完成20个积分获得level4礼包  
+
+完成25个积分获得level5礼包(必须要有一个与实际应用结合的高价值案例) 
+
+完成30个积分获得level6礼包(必须要有一个与实际应用结合的高价值案例) 
+
+礼包
+Level1礼包 : ModelArts纪念T恤 + 自拍杆或蓝牙小音箱 + 2张华为云ModelArts满减代金券
+
+Level2礼包 : 华为荣耀手环(价值500左右) + 4张满减代金券
+
+Level3礼包 : 机械键盘或华为手表(价值1000左右) + 6张满减代金券
+
+Level4礼包 : 华为手表(价值2000左右） + 8张满减代金券
+
+Level5礼包 : 华为手机(价值3000左右） + 10张满减代金券
+
+Level6礼包 : 华为旗舰手机或华为matebook电脑(价值5000以上) + 15张满减代金券
