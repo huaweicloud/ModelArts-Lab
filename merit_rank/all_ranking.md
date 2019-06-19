@@ -140,5 +140,10 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+* bnjsj：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502435352)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
