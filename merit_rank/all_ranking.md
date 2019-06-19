@@ -78,6 +78,49 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+ 
+ * BennySYL2046：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502996884)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
      
+* rgx-gg16：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503019492)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+
+* zhongpenglai：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503021587)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+        
+* createusernameWenSir：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503012610)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     
+* lishi-daima：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503013628)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例:
+     
+
+* work2020：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502380659)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例:
+     
+* nipingyu：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502361195)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例:
+    
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
