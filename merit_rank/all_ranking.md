@@ -1,4 +1,4 @@
-# 总体排名
+# 总积分
 
 ## 积分反馈格式如下（加粗字体请更新替换）：
 * <B>githubname</B>：<B>X</B>个积分，贡献点：
@@ -7,7 +7,7 @@
      * 扩展案例：<B>请提供扩展案例链接</B>
      * 实际应用案例：<B>请提供应用案例链接</B>
 
-## 当前积分排名
+## 贡献者积分
 * wonleing：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize)
