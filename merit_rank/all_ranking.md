@@ -1,5 +1,12 @@
 # 总体排名
 
+## 积分反馈格式如下（加粗字体请更新替换）：
+* <B>githubname</B>：<B>X</B>个积分，贡献点：
+     * 完成案例：<B>请提供完成实践跟帖issue链接</B>
+     * 体验文章：<B>请提供体验文章链接</B>
+     * 扩展案例：<B>请提供扩展案例链接</B>
+     * 实际应用案例：<B>请提供应用案例链接</B>
+
 ## 当前积分排名
 * wonleing：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
@@ -113,25 +120,25 @@
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503013628)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例:
+     * 实际应用案例：
      
 
 * work2020：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502380659)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例:
+     * 实际应用案例：
      
 * nipingyu：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502361195)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例:
+     * 实际应用案例：
 
-* medidata: 1个积分，贡献点：
+* malajisi: 1个积分，贡献点：
      * 完成案例：[案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502622661)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例:
+     * 实际应用案例：
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
