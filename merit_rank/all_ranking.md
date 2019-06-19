@@ -152,5 +152,11 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+* wjsandy：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/102#issuecomment-805f6d1)
+     * 体验文章：[文章1](https://blog.yxmos.com)
+     * 扩展案例：[物体检测案例]（https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=18298&page=1&authorid=44942）
+     * 实际应用案例：
+
 
 贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
