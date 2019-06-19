@@ -91,8 +91,7 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-     
-     
+        
 * createusernameWenSir：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503012610)
      * 体验文章：
@@ -105,8 +104,15 @@
      * 扩展案例：
      * 实际应用案例:
      
+
 * work2020：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502380659)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例:
+     
+* nipingyu：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502361195)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例:
