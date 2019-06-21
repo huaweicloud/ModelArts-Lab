@@ -111,7 +111,7 @@ cat类别的图片确认完之后，按照相同的方式处理dog类别。
 
 训练脚本的名称可以自定义。
 
-**步骤 2**  &#160; &#160; 下载[训练数据集](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/end2end/image_recognition/dog_and_cat_25000.tar.gz)至本地，**无需解压** OBS客户端同时上传超大批量文件会导致OBS客户端卡死。然后上传训练数据集压缩包至OBS路径`/ai-course-001/dog_and_cat_recognition/data/`下（data文件夹如果不存在，需创建，该文件夹名称可以自定义）。
+**步骤 2**  &#160; &#160; 下载[训练数据集](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/end2end/image_recognition/dog_and_cat_25000.tar.gz)至本地，**无需解压** ，因为OBS客户端同时上传超大批量文件会导致OBS客户端卡死。然后上传训练数据集压缩包至OBS路径`/ai-course-001/dog_and_cat_recognition/data/`下（data文件夹如果不存在，需创建，该文件夹名称可以自定义）。
 
 该训练数据集压缩包共五百多MB，包含猫和狗图片各12500张，数据集文件名称是 dog_and_cat_25000.tar.gz 。
 
