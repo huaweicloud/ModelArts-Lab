@@ -1,13 +1,15 @@
 # 总积分表
 
+> 完成案例实践者和贡献者可修改本帖，提交 Pull Request (PR)，更新自己的实践点、贡献点和对应积分；社区 committers 核实后，合并 PR 到本仓库，积分即正式生效。
+
 ## 积分反馈格式如下（加粗字体请更新替换）
-* <B>githubname</B>：<B>X</B>个积分，贡献点：
-     * 完成案例：<B>请提供完成实践跟帖issue链接</B>
+* <B>github-id</B>：<B>X</B>个积分，贡献点：
+     * 完成案例：<B>请提供完成实践跟帖 Issue 链接</B>
      * 体验文章：<B>请提供体验文章链接</B>
      * 扩展案例：<B>请提供扩展案例链接</B>
      * 实际应用案例：<B>请提供应用案例链接</B>
 
-## 贡献者积分
+## 实践者/贡献者积分
 * wonleing：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize)
@@ -188,4 +190,4 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-贡献者可以提交PR，更新自己的积分和贡献点；社区committers核实后，合并PR，积分正式生效。
+
