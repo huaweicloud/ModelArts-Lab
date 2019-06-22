@@ -12,7 +12,7 @@
 ## 实践者/贡献者积分
 * wonleing：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/Leon_number_recognize)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/number_recognize%E6%89%A9%E5%B1%95%E6%A1%88%E4%BE%8B-wonleing)
      * 扩展案例：[验证码识别应用](https://github.com/huaweicloud/ModelArts-Lab/issues/8)
      * 实际应用案例：
      
@@ -24,19 +24,19 @@
      
 * liweigu：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502262658)
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/Lab%20AI%E5%AE%9E%E6%88%98%E8%90%A5/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E4%B8%93%E5%9C%BA-liweigu.md)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-liweigu/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BBliweigu%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB.md)
      * 扩展案例：
      * 实际应用案例：
 
 * yiakwy：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/expand_model_arts_online_services.md)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/ModelArts%E4%BD%93%E9%AA%8C%E6%96%87%E7%AB%A0-yiakwy/expand_model_arts_online_services.md)
      * 扩展案例：
      * 实际应用案例：
 
 * zhd：1个积分，贡献点：
      * 完成案例：
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman测试)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/Postman%E6%B5%8B%E8%AF%95%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/%E4%BD%BF%E7%94%A8Postman%E6%B5%8B%E8%AF%95Modelarts%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1.md)
      * 扩展案例：
      * 实际应用案例：
          
