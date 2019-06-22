@@ -13,7 +13,7 @@
 4. 在“总览”页中，请确保各个服务皆为“0计费中”。
 
 # ModelArts使用FAQs
-* [自动学习训练失败原因是什么？](#自动学习训练失败因是什么)
+* [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
 * [ModelArts是否支持Keras?](#ModelArts是否支持Keras)
 * [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建Notebook时存储配置选择EVS和OBS有什么区别)
 * [使用pip install时出现没有空间的错误](#使用pip-install时出现没有空间的错误)
