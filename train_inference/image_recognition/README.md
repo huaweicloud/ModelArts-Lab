@@ -185,7 +185,7 @@ TensorBoard可以直观地显示训练过程中loss、accuracy等评估指标的
 
 模型训练完成后，可以在ModeArts上将模型部署为在线预测服务。
 
-**步骤 1**  &#160; &#160; 在本地的ModelArts-Lab代码库`train_inference/image_recognition/codes/`路径下中找到推理脚本<a href ="codes/customize_service.py">customize_service.py</a>  和模型部署配置文件<a href ="codes/config.json">config.json</a> （或者根据 [此FAQ](<https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/faqs.md#%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E4%BB%A3%E7%A0%81%E5%BA%93%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6> ) 将推理脚本和配置文件下载至本地），然后将这两个文件上传到OBS路径`/ai-course-001/dog_and_cat_recognition/output/model/`下（其中，`/ai-course-001/dog_and_cat_recognition/output/`是训练输出位置，下面的model目录是训练作业输出的模型）。
+**步骤 1**  &#160; &#160; 在本地的ModelArts-Lab代码库`train_inference/image_recognition/codes/`路径下中找到推理脚本<a href ="codes/customize_service.py">customize_service.py</a>  和模型部署配置文件<a href ="codes/config.json">config.json</a> （或者根据 [此FAQ](<https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/faqs.md#%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E4%BB%A3%E7%A0%81%E5%BA%93%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6> ) 将推理脚本和配置文件下载至本地），然后将这两个文件上传到训练输出位置`/ai-course-001/dog_and_cat_recognition/output/`下的model目录下（其中，model目录是训练作业保存模型的目录。如果使用多版本训练，注意训练输出位置中包含版本号）。
 
 customize_service.py推理脚本中有两个方法。`_preprocess` 是预处理方法，在推理请求前调用，用于将API接口用户原始请求数据转换为模型期望输入数据。`_postprocess ` 是后处理方法，在推理请求完成后调用，用于将模型输出转换为API接口输出。
 
