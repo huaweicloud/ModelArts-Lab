@@ -22,6 +22,12 @@
      * 扩展案例：[图像分类扩展案例](https://github.com/huaweicloud/ModelArts-Lab/issues/21)
      * 实际应用案例：
      
+* leewishyuanfang：3个积分，贡献点：
+     * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/4)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503563468)，[第二期]（https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504765824）
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     
 * liweigu：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502262658)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-liweigu/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BBliweigu%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB.md)
@@ -149,12 +155,6 @@
      * 扩展案例：
      * 实际应用案例：
 
-* leewishyuanfang：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503563468)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     
 * bnjsj：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502435352)
      * 体验文章：
