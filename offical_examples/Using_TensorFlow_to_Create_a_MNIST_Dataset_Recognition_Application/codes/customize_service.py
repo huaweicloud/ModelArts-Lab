@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import tensorflow as tf
 from model_service.tfserving_model_service import TfServingBaseService
 
 
@@ -22,5 +21,11 @@ class mnist_service(TfServingBaseService):
     outputs = {}
     logits = data['scores'][0]
     label = logits.index(max(logits))
-    outputs['predict label'] = label
+    logits = ['%.3f' % logit for logit in logits]
+    outputs['predicted_label'] = str(label)
+    label_list = [str(label) for label in list(range(10))]
+    scores = dict(zip(label_list, logits))
+    scores = sorted(scores.items(), key=lambda item: item[1], reverse=True)[:5]
+    outputs['scores'] = scores
+  
     return outputs
