@@ -203,8 +203,8 @@
      * 扩展案例：
      * 实际应用案例：
 
-* renruyi：1个积分，贡献点：   
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-504748580)
+* renruyi：3个积分，贡献点：   
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-504748580), [第二期]([第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504764481)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：二期的训练精度在84%以上(为84.38%)
      * 实际应用案例
