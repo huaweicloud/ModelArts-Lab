@@ -58,6 +58,12 @@
      * 扩展案例：
      * 实际应用案例
      
+* hellfire0925：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502413880), [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504882227)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     
 * zhd：1个积分，贡献点：
      * 完成案例：
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/Postman%E6%B5%8B%E8%AF%95%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/%E4%BD%BF%E7%94%A8Postman%E6%B5%8B%E8%AF%95Modelarts%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1.md)
@@ -96,12 +102,6 @@
 
 * from1996iter：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     
-* hellfire0925：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502413880), [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504882227)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
@@ -162,7 +162,7 @@
      * 实际应用案例：
 
 * malajisi: 1个积分，贡献点：
-     * 完成案例：[案例1](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502622661)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502622661)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
