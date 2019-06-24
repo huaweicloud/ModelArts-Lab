@@ -58,7 +58,7 @@
      * 扩展案例：
      * 实际应用案例
      
-* hellfire0925：2个积分，贡献点：
+* hellfire0820-ty：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502413880), [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504882227)
      * 体验文章：
      * 扩展案例：
@@ -112,7 +112,7 @@
      * 扩展案例：
      * 实际应用案例：
  
- * BennySYL2046：1个积分，贡献点：
+ * HCIS2020：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502996884)
      * 体验文章：
      * 扩展案例：
