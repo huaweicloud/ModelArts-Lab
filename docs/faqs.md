@@ -80,7 +80,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 使用ModelArts SDK可以上传notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
 
 ## 如何在notebook中安装Python依赖
-可以使用pip install命令安装即可，但是要注意在对应的Python虚拟环境中安装，有两种方式。
+可以使用`pip install`命令安装即可，但是要注意在对应的Python虚拟环境中安装，有两种方式。
 第一种（推荐），直接在ipynb开发环境中使用：`!pip install <package_name>`安装，如下图：
 <img src="images/在ipynb中安装Python依赖.PNG" width="1000px" />
 
