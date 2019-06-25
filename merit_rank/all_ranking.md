@@ -191,8 +191,8 @@
      * 扩展案例：
      * 实际应用案例：
      
-* 15940983626：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502551428)
+* 15940983626：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502551428),  [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505038712)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
