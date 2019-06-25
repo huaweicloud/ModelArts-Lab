@@ -23,10 +23,10 @@
      * 扩展案例：[验证码识别应用](https://github.com/huaweicloud/ModelArts-Lab/issues/8)
      * 实际应用案例：
       
-* leewishyuanfang：3个积分，贡献点：
+* leewishyuanfang：4个积分，贡献点：
      * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/4)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503563468)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504765824)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[第二期扩展实践：提升模型精度的几种尝试](https://github.com/huaweicloud/ModelArts-Lab/issues/142)
      * 实际应用案例：
      
 * liweigu：3个积分，贡献点：
