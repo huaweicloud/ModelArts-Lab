@@ -18,6 +18,9 @@
 * [运行训练代码出现内存不够问题并导致实例崩溃](#运行训练代码出现内存不够问题并导致实例崩溃)
 * [Notebook出现保存文件失败](#Notebook出现保存文件失败)
 * [如何下载github代码库里面的单个文件](#如何下载github代码库里面的单个文件)
+* [notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到OBS)
+* [如何在notebook中安装Python依赖](#如何在notebook中安装Python依赖)
+* [Notebook中调测好的代码如何用于训练作业](#Notebook中调测好的代码如何用于训练作业)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -31,7 +34,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
   * 选择EVS的实例
     用户在Notebook实例中的所有文件读写操作都是针对容器中的内容，与OBS没有任何关系。重启该实例，内容不丢失。
-    EVS磁盘规格默认为5GB，最小为5G，最大为500G。
+    EVS磁盘规格默认为5GB，最小为5G，最大为500G。磁盘会挂载到`~\work`目录下。
     当磁盘规格为5GB时不收费，超出5GB时，从Notebook实例创建成功起，直至删除成功，超出部分每GB按照规定费用收费。计费详情https://www.huaweicloud.com/price_detail.html#/modelarts_detail。
   * 选择OBS的实例
     用户在Notebook实例中的所有文件读写操作都是针对所选择的OBS路径下的内容，即新增，修改，删除等都是对相应的OBS路径下的内容来进行的操作，跟当前实例空间没有关系。
@@ -73,4 +76,24 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 ## 如何下载github代码库里面的单个文件
 在github中，打开要下载的文件（源代码或者图片等），右击`Raw`按钮，然后点击"链接另存为"，保存文件到本地，如下图所示：
 <img src="images/下载单个文件.PNG" width="1000px" />
+
+## notebook运行生成的文件如何保存到OBS
+使用ModelArts SDK可以上传notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
+
+## 如何在notebook中安装Python依赖
+可以使用`pip install`命令安装即可，但是要注意在对应的Python虚拟环境中安装，有两种方式。
+* 第一种（推荐），在ipynb开发环境中安装
+直接在ipynb开发环境中使用：`!pip install <package_name>`安装，如下图：
+<img src="images/在ipynb中安装Python依赖.PNG" width="1000px" />
+
+* 第二种，在terminal中安装
+打开notebook terminal，使用`conda env list`命令列举所有的Python虚拟环境，然后使用`source activate <env_name>`命令进入一个Python虚拟环境，最后使用`pip install <package_name>`命令安装。如下图所示：
+<img src="images/在terminal中安装Python依赖.PNG" width="1000px" />
+
+## Notebook中调测好的代码如何用于训练作业
+在Notebook中调测好训练代码之后，需要将当前ipynb转化为Python文件，才能用于ModelArts训练作业。
+单击当前ipynb页面上方的“Convert to Python File”，即可生成用于ModelArts训练作业的启动文件（.py文件）。如下图所示：
+<img src="images/转换为Python文件.PNG" width="1000px" />
+
+
 
