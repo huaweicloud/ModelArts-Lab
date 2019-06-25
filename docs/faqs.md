@@ -19,6 +19,7 @@
 * [Notebook出现保存文件失败](#Notebook出现保存文件失败)
 * [如何下载github代码库里面的单个文件](#如何下载github代码库里面的单个文件)
 * [notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到OBS)
+* [如何在notebook中安装Python依赖](#如何在notebook中安装Python依赖)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -78,5 +79,12 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 ## notebook运行生成的文件如何保存到OBS
 使用ModelArts SDK可以上传notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
 
+## 如何在notebook中安装Python依赖
+可以使用pip install命令安装即可，但是要注意在对应的Python虚拟环境中安装，有两种方式。
+第一种（推荐），直接在ipynb开发环境中使用：`!pip install <package_name>`安装，如下图：
+<img src="images/在ipynb中安装Python依赖.PNG" width="1000px" />
+
+第二种，打开notebook terminal，使用`conda env list`命令列举所有的Python虚拟环境，然后使用`source activate <env_name>`命令进入一个Python虚拟环境，最后使用`pip install <package_name>`命令安装。如下图所示：
+<img src="images/在terminal中安装Python依赖.PNG" width="1000px" />
 
 
