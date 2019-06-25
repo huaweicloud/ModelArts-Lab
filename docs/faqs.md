@@ -18,6 +18,7 @@
 * [运行训练代码出现内存不够问题并导致实例崩溃](#运行训练代码出现内存不够问题并导致实例崩溃)
 * [Notebook出现保存文件失败](#Notebook出现保存文件失败)
 * [如何下载github代码库里面的单个文件](#如何下载github代码库里面的单个文件)
+* [notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到OBS)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -74,7 +75,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 在github中，打开要下载的文件（源代码或者图片等），右击`Raw`按钮，然后点击"链接另存为"，保存文件到本地，如下图所示：
 <img src="images/下载单个文件.PNG" width="1000px" />
 
-## notebook运行生成的文件，如何保存到OBS
+## notebook运行生成的文件如何保存到OBS
 使用ModelArts SDK可以上传notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
 
 
