@@ -34,7 +34,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
   * 选择EVS的实例
     用户在Notebook实例中的所有文件读写操作都是针对容器中的内容，与OBS没有任何关系。重启该实例，内容不丢失。
-    EVS磁盘规格默认为5GB，最小为5G，最大为500G。
+    EVS磁盘规格默认为5GB，最小为5G，最大为500G。磁盘会挂载到`~\work`目录下。
     当磁盘规格为5GB时不收费，超出5GB时，从Notebook实例创建成功起，直至删除成功，超出部分每GB按照规定费用收费。计费详情https://www.huaweicloud.com/price_detail.html#/modelarts_detail。
   * 选择OBS的实例
     用户在Notebook实例中的所有文件读写操作都是针对所选择的OBS路径下的内容，即新增，修改，删除等都是对相应的OBS路径下的内容来进行的操作，跟当前实例空间没有关系。
@@ -82,10 +82,12 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 ## 如何在notebook中安装Python依赖
 可以使用`pip install`命令安装即可，但是要注意在对应的Python虚拟环境中安装，有两种方式。
-第一种（推荐），直接在ipynb开发环境中使用：`!pip install <package_name>`安装，如下图：
+* 第一种（推荐），在ipynb开发环境中安装
+直接在ipynb开发环境中使用：`!pip install <package_name>`安装，如下图：
 <img src="images/在ipynb中安装Python依赖.PNG" width="1000px" />
 
-第二种，打开notebook terminal，使用`conda env list`命令列举所有的Python虚拟环境，然后使用`source activate <env_name>`命令进入一个Python虚拟环境，最后使用`pip install <package_name>`命令安装。如下图所示：
+* 第二种，在terminal中安装
+打开notebook terminal，使用`conda env list`命令列举所有的Python虚拟环境，然后使用`source activate <env_name>`命令进入一个Python虚拟环境，最后使用`pip install <package_name>`命令安装。如下图所示：
 <img src="images/在terminal中安装Python依赖.PNG" width="1000px" />
 
 ## Notebook中调测好的代码如何用于训练作业
