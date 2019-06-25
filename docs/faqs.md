@@ -20,6 +20,7 @@
 * [如何下载github代码库里面的单个文件](#如何下载github代码库里面的单个文件)
 * [notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到OBS)
 * [如何在notebook中安装Python依赖](#如何在notebook中安装Python依赖)
+* [Notebook中调测好的代码如何用于训练作业](#Notebook中调测好的代码如何用于训练作业)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -86,5 +87,11 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 第二种，打开notebook terminal，使用`conda env list`命令列举所有的Python虚拟环境，然后使用`source activate <env_name>`命令进入一个Python虚拟环境，最后使用`pip install <package_name>`命令安装。如下图所示：
 <img src="images/在terminal中安装Python依赖.PNG" width="1000px" />
+
+## Notebook中调测好的代码如何用于训练作业
+在Notebook中调测好训练代码之后，需要将当前ipynb转化为Python文件，才能用于ModelArts训练作业。
+单击当前ipynb页面上方的“Convert to Python File”，即可生成用于ModelArts训练作业的启动文件（.py文件）。如下图所示：
+<img src="images/转换为Python文件.PNG" width="1000px" />
+
 
 
