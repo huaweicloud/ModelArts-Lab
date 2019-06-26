@@ -8,7 +8,7 @@ wonleing | [搭建数字识别在线服务及完整的验证码的识别应用�
 zhd | ---- | [使用Postman测试Modelarts在线服务](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/Postman%E6%B5%8B%E8%AF%95) | ---- | 1
 huangmeiling | ---- | [一位互联网9年AI开发者的ModelArts开发实践](https://github.com/huaweicloud/ModelArts-Lab/wiki/%E4%B8%80%E4%BD%8D%E4%BA%92%E8%81%94%E7%BD%919%E5%B9%B4AI%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84ModelArts%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5) | ---- | 1
 chenliang419 | https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502063252 | ---- | ---- | 1
----- | ---- | ---- | ---- | --
+from1996iter | https://github.com/huaweicloud/ModelArts-Lab/issues/113 | ---- | ---- | 1
 ---- | ---- | ---- | ---- | --
 ---- | ---- | ---- | ---- | --
 ---- | ---- | ---- | ---- | --
