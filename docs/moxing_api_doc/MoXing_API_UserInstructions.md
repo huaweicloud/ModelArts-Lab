@@ -176,7 +176,7 @@ MoXing本身会定义一些默认的运行参数，[具体参考](http://x)，�
     --worker_hosts=192.168.1.100:2223,192.168.1.101:2223
     --num_gpus=4
 
-MoXing内部定义运行参数的相关API：[mox.get_flag](http://moxing.inhuawei.com/moxing.tensorflow.executor.html#moxing.tensorflow.executor.get_flag), [mox.set_flag](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=set_flag#moxing.tensorflow.executor.set_flag)
+MoXing内部定义运行参数的相关API：mox.get_flag, mox.set_flag
 
 
 > #### 踩坑 2-3-1 (关键字：分布式waiting, 分布式阻塞)
@@ -327,7 +327,7 @@ MoXing将数据的输入定义在input_fn方法中，并在mox.run时注册该�
 
 输入参数：
 
-- `mode`: 当前调用`input_fn`时的运行模式，需要用户在`input_fn`中做好判断使用相应的数据集和数据集增强、预处理方法。`mox.ModeKeys`中的一个，[参考API](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=modekeys#moxing.tensorflow.executor.ModeKeys)。
+- `mode`: 当前调用`input_fn`时的运行模式，需要用户在`input_fn`中做好判断使用相应的数据集和数据集增强、预处理方法。`mox.ModeKeys`中的一个。
 - `**kwargs`: 扩展参数的预留位置。
 
 返回值：
@@ -399,7 +399,7 @@ MoXing会自动将`input_fn`中的输入以batch为单位聚合，并将含有ba
 	  image.set_shape([224, 224, 3])
 	  return image, label
 
-API参考文档： [ImageClassificationRawMetadata](http://moxing.inhuawei.com/moxing.tensorflow.datasets.html#moxing.tensorflow.datasets.ImageClassificationRawMetadata)， [ImageClassificationRawDataset](http://moxing.inhuawei.com/moxing.tensorflow.datasets.html#moxing.tensorflow.datasets.ImageClassificationRawDataset)
+API参考文档： ImageClassificationRawMetadata, ImageClassificationRawDataset
 
 数据集必须是如下目录结构的：
 
@@ -521,7 +521,7 @@ labels.txt是一个label_index到label_string的映射，可以提供也可以�
 
     image, label = dataset.get(['image', 'label'])
 
-相关API: [mox.get_tfrecord](http://moxing.inhuawei.com/moxing.tensorflow.datasets.html?highlight=get_tfrecord#moxing.tensorflow.datasets.get_tfrecord)，tfrecord的用法请参考[TensorFlow官方教程](https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data)
+相关API: mox.get_tfrecord，tfrecord的用法请参考[TensorFlow官方教程](https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data)
 
 ### 3.3 利用`tf.data`模块读取任意数据集
 
@@ -548,7 +548,7 @@ labels.txt是一个label_index到label_string的映射，可以提供也可以�
 
 ### 3.4 数据增强
 
-MoXing提供了部分的[数据增强方法](http://moxing.inhuawei.com/moxing.tensorflow.preprocessing.html?highlight=preprocessingkeys#moxing.tensorflow.preprocessing.PreprocessingKeys)，这些数据增强方法都是和模型名称绑定，如：
+MoXing提供了部分的数据增强方法，这些数据增强方法都是和模型名称绑定，如：
 
     data_augmentation_fn = mox.get_data_augmentation_fn(
           name='resnet_v1_50', run_mode=mox.ModeKeys.TRAIN,
@@ -649,12 +649,12 @@ MoXing将模型定义在model_fn方法中，并在mox.run时注册该方法。
 输入参数：
 
 - `inputs`: 对应`input_fn`返回值的输入数据。
-- `mode`: 当前调用`model_fn`时的运行模式，需要用户在`model_fn`中做好判断使用相应的模型。`mox.ModeKeys`中的一个，[参考API](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=modekeys#moxing.tensorflow.executor.ModeKeys)。如训练态(mox.ModeKeys.TRAIN)和验证态(mox.ModeKeys.EVAL)下的模型是不一样的（如BN层和Dropout层）。
+- `mode`: 当前调用`model_fn`时的运行模式，需要用户在`model_fn`中做好判断使用相应的模型。`mox.ModeKeys`中的一个。如训练态(mox.ModeKeys.TRAIN)和验证态(mox.ModeKeys.EVAL)下的模型是不一样的（如BN层和Dropout层）。
 - `**kwargs`: 扩展参数的预留位置。
 
 返回值：
 
-- `mox.ModelSpec`的实例，[API参考](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=modelspec#moxing.tensorflow.executor.ModelSpec)
+- `mox.ModelSpec`的实例
 
 > #### 踩坑 4-0-1 (关键字：input_fn返回值，model_fn输入参数)
 > 
@@ -690,13 +690,13 @@ MoXing将模型定义在model_fn方法中，并在mox.run时注册该方法。
 - `var_scope`: 指定从`loss`中计算出的梯度需要对应的变量范围，只有在`var_scope`范围内的`tf.Variable`的梯度才会被计算和更新。如果`loss`是一个0阶`tf.Tensor`，则`var_scope`为`str`的`list`，指定一个或多个[variable_scope](https://www.tensorflow.org/api_docs/python/tf/variable_scope)。当`loss`是0阶`tf.Tensor`的`list`时，`var_scope`为二阶`list`，`list[i]`表示`loss[i]`的variable_scope，参考[生成对抗模型GAN](#成对抗模型GAN)
 - `log_info`: 一个`dict`，运行作业时控制台需要打印的指标信息，仅支持0阶`tf.Tensor`，如`{'loss': loss, 'acc': accuracy}`，当`mode==mox.ModeKey.EVAL`时必须提供。
 - `output_info`: 一个`dict`，运行作业的同时输出`tf.Tensor`中具体的值到`output_fn`中，当`mode==mox.ModeKey.PREDICT`时必须提供，参考[利用output_fn做预测](利用output_fn做预测)
-- `export_spec`: 一个`dict`，导出PB模型时指定输入输出节点，必须是一个`mox.ExportSpec`的实例([参考API](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=exportspec#moxing.tensorflow.executor.ExportSpec))，当`mode==mox.ModeKey.EXPORT`时必须提供(注意`mox.ModeKey.EXPORT`是无法在`mox.run`中显示指定的，仅当`mox.run`参数中`export_model`为有效值时会自动添加该模式)，参考[导出PB模型](导出PB模型)
-- `hooks`: 一个`list`, 每个元素都必须是`mox.AggregativeSessionRunHook`子类的实例([参考API](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=aggregativesessionrunhook#moxing.tensorflow.executor.AggregativeSessionRunHook))，会被`tf.Session()`执行的hook。参考[在model_fn中使用placeholder](在model_fn中使用placeholder)，[训练时打印验证集指标](训练时打印验证集指标)，[使用Early Stopping](使用Early Stopping)
+- `export_spec`: 一个`dict`，导出PB模型时指定输入输出节点，必须是一个`mox.ExportSpec`的实例，当`mode==mox.ModeKey.EXPORT`时必须提供(注意`mox.ModeKey.EXPORT`是无法在`mox.run`中显示指定的，仅当`mox.run`参数中`export_model`为有效值时会自动添加该模式)，参考[导出PB模型](导出PB模型)
+- `hooks`: 一个`list`, 每个元素都必须是`mox.AggregativeSessionRunHook`子类的实例，会被`tf.Session()`执行的hook。参考[在model_fn中使用placeholder](在model_fn中使用placeholder)，[训练时打印验证集指标](训练时打印验证集指标)，[使用Early Stopping](使用Early Stopping)
 
 
 ### 4.1 使用MoXing模型库的内置模型
 
-目前MoXing集成了一些[神经网络模型](http://moxing.inhuawei.com/moxing.tensorflow.nets.html?highlight=networkkeys#moxing.tensorflow.nets.NetworkKeys)，用户可以直接使用[mox.get_model_fn](http://moxing.inhuawei.com/moxing.tensorflow.nets.html?highlight=get_model_fn#moxing.tensorflow.nets.get_model_fn)获取这些模型。以及使用[mox.get_model_meta](http://moxing.inhuawei.com/moxing.tensorflow.nets.html?highlight=get_model_meta#moxing.tensorflow.nets.get_model_meta)获取这些模型的元信息。
+目前MoXing集成了一些神经网络模型，用户可以直接使用mox.get_model_fn获取这些模型。以及使用mox.get_model_meta获取这些模型的元信息。
 
 例，训练一个ResNet_v1_50:
 
@@ -1047,7 +1047,7 @@ MoXing在`mox.run`执行完毕后（训练完成或是验证完成），可以�
 	        export_model=mox.ExportKeys.XXX,
 	        ...)
 
-其中，[mox.ExportSpec](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=mox%20exportspec#moxing.tensorflow.executor.ExportSpec)指定了导出模型的输入输出节点，仅能选取`model_fn`内部定义的`tf.Tensor`，[mox.ExportKeys](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=exportkeys#moxing.tensorflow.executor.ExportKeys)指定了导出模型的类型。
+其中，mox.ExportSpec指定了导出模型的输入输出节点，仅能选取`model_fn`内部定义的`tf.Tensor`，mox.ExportKeys指定了导出模型的类型。
 
 案例，训练一个ResNet_v1_50模型，在训练结束后导出用于TF-Serving的PB模型：
 
@@ -1163,7 +1163,7 @@ DLS服务中`预测作业`使用的即是`mox.ExportKeys.TF_SERVING`类型的PB�
 
 ### 4.5 Hook的使用
 
-MoXing提供了允许在[tf.train.MoniteredSession](https://www.tensorflow.org/api_docs/python/tf/train/MonitoredSession)中注册hooks的方法，hooks要求为继承于[tf.train.SessionRunHook](https://www.tensorflow.org/api_docs/python/tf/train/SessionRunHook)的子类。MoXing中由于兼容了多GPU和分布式，因此要求用户注册的hooks为[mox.AggregativeSessionRunHook](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=aggregativesessionrunhook#moxing.tensorflow.executor.AggregativeSessionRunHook)的子类。`AggregativeSessionRunHook`继承于`SessionRunHook`，用户可以添加由`SessionRunHook`定义的回调函数`begin`, `after_create_session`, `before_run`, `after_run`, `end`。另外，用户还必须额外实现三个返回布尔值方法，`support_aggregation`，`support_sync_workers`，`run_inter_mode`，基本用法如下：
+MoXing提供了允许在[tf.train.MoniteredSession](https://www.tensorflow.org/api_docs/python/tf/train/MonitoredSession)中注册hooks的方法，hooks要求为继承于[tf.train.SessionRunHook](https://www.tensorflow.org/api_docs/python/tf/train/SessionRunHook)的子类。MoXing中由于兼容了多GPU和分布式，因此要求用户注册的hooks为mox.AggregativeSessionRunHook的子类。`AggregativeSessionRunHook`继承于`SessionRunHook`，用户可以添加由`SessionRunHook`定义的回调函数`begin`, `after_create_session`, `before_run`, `after_run`, `end`。另外，用户还必须额外实现三个返回布尔值方法，`support_aggregation`，`support_sync_workers`，`run_inter_mode`，基本用法如下：
 
 	import tensorflow as tf
 	import moxing.tensorflow as mox
@@ -1275,7 +1275,7 @@ MoXing提供了允许在[tf.train.MoniteredSession](https://www.tensorflow.org/a
 
 其中`input_fn`和`model_fn`都会以`mox.ModeKeys.TRAIN`和`inter_mode=mox.ModeKeys.EVAL`这两个模式被调用。
 
-样例，训练一个ResNet_v1_50，使用[mox.LogEvaluationMetricHook](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=logevaluationmetrichook#moxing.tensorflow.executor.LogEvaluationMetricHook)，每隔一定训练步数在验证数据集上打印`loss`和`accuracy`：
+样例，训练一个ResNet_v1_50，使用mox.LogEvaluationMetricHook，每隔一定训练步数在验证数据集上打印`loss`和`accuracy`：
 
 	import tensorflow as tf
 	import moxing.tensorflow as mox
@@ -1351,7 +1351,7 @@ MoXing提供了允许在[tf.train.MoniteredSession](https://www.tensorflow.org/a
 
 #### 4.5.3 使用Early Stopping
 
-在Keras-API中提供了[tf.keras.callbacks.EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping)的功能，MoXing中也用同样的API，用法和Keras的相似，为[mox.EarlyStoppingHook](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=earlystopping#moxing.tensorflow.executor.EarlyStoppingHook)
+在Keras-API中提供了[tf.keras.callbacks.EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping)的功能，MoXing中也用同样的API，用法和Keras的相似，为mox.EarlyStoppingHook
 
 Early Stopping是建立在同时提供训练集和验证集的前提上，当训练的模型在验证数据集上的指标(minotor)趋于稳定时，则停止训练。
 
@@ -1434,7 +1434,7 @@ Early Stopping是建立在同时提供训练集和验证集的前提上，当训
 	
 	Process finished with exit code 0
 
-除了EarlyStopping，MoXing还提供了当检测到Plateau时自动下降学习率，当检测到多次Plateau并且评价指标没有上升或下降是，则停止训练，参考API：[mox.PlateauLREarlyStoppingHook](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=plateaulrearlystoppinghook#moxing.tensorflow.executor.PlateauLREarlyStoppingHook)
+除了EarlyStopping，MoXing还提供了当检测到Plateau时自动下降学习率，当检测到多次Plateau并且评价指标没有上升或下降是，则停止训练，参考API：mox.PlateauLREarlyStoppingHook
 
 ### 4.6 利用Keras构建模型
 
@@ -1626,7 +1626,7 @@ MoXing本身除了支持TensorFlow和TensorFlow-slim的API来构建模型以外�
 
 ## 5. 优化器
 
-用户可以使用[mox.get_optimizer_fn](http://moxing.inhuawei.com/moxing.tensorflow.optimizer.html?highlight=get_optimizer_fn#moxing.tensorflow.optimizer.get_optimizer_fn)来获取MoXing内置的Optimizer，也可以使用TensorFlow定义或由用户自己实现的`Optimizer`。此外，MoXing还提供了OptimizerWrapper的用法。[所有支持的Optimizer列表](http://moxing.inhuawei.com/moxing.tensorflow.optimizer.html?highlight=optimizerkeys#moxing.tensorflow.optimizer.OptimizerKeys)。
+用户可以使用mox.get_optimizer_fn来获取MoXing内置的Optimizer，也可以使用TensorFlow定义或由用户自己实现的`Optimizer`。此外，MoXing还提供了OptimizerWrapper的用法。
 
 ### 5.1 基础Optimizer
 
@@ -1672,7 +1672,7 @@ MoXing本身除了支持TensorFlow和TensorFlow-slim的API来构建模型以外�
 
 ### 5.2 封装器OptimizerWrapper
 
-使用[mox.get_optimizer_wrapper_fn](http://moxing.inhuawei.com/moxing.tensorflow.optimizer.html?highlight=get_optimizer_wrapper_fn#moxing.tensorflow.optimizer.get_optimizer_wrapper_fn)可以获取Optimizer的高级应用方法。`OptimizerWrapper`是对optimizer的一层封装，类似[tf.train.SyncReplicasOptimizer](https://www.tensorflow.org/api_docs/python/tf/train/SyncReplicasOptimizer)的用法。并且在允许的范围内，可以使用多层封装。样例代码如下。
+使用mox.get_optimizer_wrapper_fn可以获取Optimizer的高级应用方法。`OptimizerWrapper`是对optimizer的一层封装，类似[tf.train.SyncReplicasOptimizer](https://www.tensorflow.org/api_docs/python/tf/train/SyncReplicasOptimizer)的用法。并且在允许的范围内，可以使用多层封装。样例代码如下。
 
 使用Batch Gradient Descent，基础OPT为Momentum，每经过8个step的周期提交一次累计梯度。
 
@@ -1706,7 +1706,7 @@ MoXing本身除了支持TensorFlow和TensorFlow-slim的API来构建模型以外�
 
 ## 6. 运行
 
-MoXing中运行仅需执行一个API，即[mox.run](http://moxing.inhuawei.com/moxing.tensorflow.executor.html?highlight=run#moxing.tensorflow.executor.run)。`mox.run`中`log_dir`主要用来输出TensorBoard的Summary文件和checkpoint文件，`checkpoint_path`用来指定载入checkpoint的路径。`mox.run`对checkpoint文件的载入优先级如下：
+MoXing中运行仅需执行一个API，即mox.run。`mox.run`中`log_dir`主要用来输出TensorBoard的Summary文件和checkpoint文件，`checkpoint_path`用来指定载入checkpoint的路径。`mox.run`对checkpoint文件的载入优先级如下：
 
 - 当`log_dir`中存在checkpoint时，无视`checkpoint_path`，从`log_dir`中载入checkpoint。如果当前模式为mox.ModeKeys.TRAIN，则将新的checkpoint保存在`log_dir`中。
 - 当`log_dir`中不存在checkpoint时，从`checkpoint_path`中载入checkpoint。如果当前当前模式为mox.ModeKeys.TRAIN，则将新的checkpoint保存在`log_dir`中。
