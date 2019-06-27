@@ -197,6 +197,24 @@
      * 扩展案例：
      * 实际应用案例：
      
+* jimmy9778：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503884848)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+
+* yiakwy：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/expand_model_arts_online_services.md)
+     * 扩展案例：[二期训练精度95%以上](https://github.com/huaweicloud/ModelArts-Lab/contrib/第二期图像分类经验分享-yiakwy)
+     * 实际应用案例：
+
+* 15940983626：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502551428)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+
 * tHaxWLa：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503855526)
      * 体验文章：
