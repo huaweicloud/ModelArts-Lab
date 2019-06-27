@@ -133,7 +133,7 @@ argparse是python自带的运行参数定义模块，具体使用方法请参考
 
 ### 2.3 MoXing定义的默认运行参数
 
-MoXing本身会定义一些默认的运行参数，[具体参考](http://x)，这些参数不需要在用户脚本中额外定义，当用户使用如下导入代码时即生效，直接可以在外部命令行或DLS服务的`运行参数`中传入。
+MoXing本身会定义一些默认的运行参数，这些参数不需要在用户脚本中额外定义，当用户使用如下导入代码时即生效，直接可以在外部命令行或DLS服务的`运行参数`中传入。
 
 	import moxing.tensorflow as mox
 
@@ -210,10 +210,6 @@ MoXing内部定义运行参数的相关API：mox.get_flag, mox.set_flag
 >     os.enrivon.pop('https_proxy')
 
 ### 2.4 DLS服务中训练作业的运行参数
-
-<img src="../../../docs/images_moxing_tensorflow/dls_training_job_create.jpg" />
-
-DLS服务-创建训练作业的界面。DLS服务中，用户不需要考虑代理问题。
 
 如果用户使用原生TensorFlow-API的脚本进行训练，用户需要定义DLS服务规定的几项参数，说明如下：
 
@@ -686,12 +682,12 @@ MoXing将模型定义在model_fn方法中，并在mox.run时注册该方法。
 
 `model_fn`必须返回`ModelSpec`的实例，根据`model_fn`中的`mode`不同，`ModelSpec`的入参情况为：
 
-- `loss`: 指定模型的损失值，一个0阶`tf.Tensor`，或者0阶`tf.Tensor`的`list`，多loss案例参考[生成对抗模型GAN](#成对抗模型GAN)，当`mode==mox.ModeKey.TRAIN`时必须提供。
-- `var_scope`: 指定从`loss`中计算出的梯度需要对应的变量范围，只有在`var_scope`范围内的`tf.Variable`的梯度才会被计算和更新。如果`loss`是一个0阶`tf.Tensor`，则`var_scope`为`str`的`list`，指定一个或多个[variable_scope](https://www.tensorflow.org/api_docs/python/tf/variable_scope)。当`loss`是0阶`tf.Tensor`的`list`时，`var_scope`为二阶`list`，`list[i]`表示`loss[i]`的variable_scope，参考[生成对抗模型GAN](#成对抗模型GAN)
+- `loss`: 指定模型的损失值，一个0阶`tf.Tensor`，或者0阶`tf.Tensor`的`list`，多loss案例参考[生成对抗模型GAN](#42-生成对抗模型gan)，当`mode==mox.ModeKey.TRAIN`时必须提供。
+- `var_scope`: 指定从`loss`中计算出的梯度需要对应的变量范围，只有在`var_scope`范围内的`tf.Variable`的梯度才会被计算和更新。如果`loss`是一个0阶`tf.Tensor`，则`var_scope`为`str`的`list`，指定一个或多个[variable_scope](https://www.tensorflow.org/api_docs/python/tf/variable_scope)。当`loss`是0阶`tf.Tensor`的`list`时，`var_scope`为二阶`list`，`list[i]`表示`loss[i]`的variable_scope，参考[生成对抗模型GAN](#42-生成对抗模型gan)
 - `log_info`: 一个`dict`，运行作业时控制台需要打印的指标信息，仅支持0阶`tf.Tensor`，如`{'loss': loss, 'acc': accuracy}`，当`mode==mox.ModeKey.EVAL`时必须提供。
-- `output_info`: 一个`dict`，运行作业的同时输出`tf.Tensor`中具体的值到`output_fn`中，当`mode==mox.ModeKey.PREDICT`时必须提供，参考[利用output_fn做预测](利用output_fn做预测)
-- `export_spec`: 一个`dict`，导出PB模型时指定输入输出节点，必须是一个`mox.ExportSpec`的实例，当`mode==mox.ModeKey.EXPORT`时必须提供(注意`mox.ModeKey.EXPORT`是无法在`mox.run`中显示指定的，仅当`mox.run`参数中`export_model`为有效值时会自动添加该模式)，参考[导出PB模型](导出PB模型)
-- `hooks`: 一个`list`, 每个元素都必须是`mox.AggregativeSessionRunHook`子类的实例，会被`tf.Session()`执行的hook。参考[在model_fn中使用placeholder](在model_fn中使用placeholder)，[训练时打印验证集指标](训练时打印验证集指标)，[使用Early Stopping](使用Early Stopping)
+- `output_info`: 一个`dict`，运行作业的同时输出`tf.Tensor`中具体的值到`output_fn`中，当`mode==mox.ModeKey.PREDICT`时必须提供，参考[利用output_fn做预测](#43-利用output_fn做预测)
+- `export_spec`: 一个`dict`，导出PB模型时指定输入输出节点，必须是一个`mox.ExportSpec`的实例，当`mode==mox.ModeKey.EXPORT`时必须提供(注意`mox.ModeKey.EXPORT`是无法在`mox.run`中显示指定的，仅当`mox.run`参数中`export_model`为有效值时会自动添加该模式)，参考[导出PB模型](#44-导出pb模型)
+- `hooks`: 一个`list`, 每个元素都必须是`mox.AggregativeSessionRunHook`子类的实例，会被`tf.Session()`执行的hook。参考[在model_fn中使用placeholder](#451-在model_fn中使用placeholder)，[训练时打印验证集指标](#452-训练时打印验证集指标)，[使用Early Stopping](#453-使用early-stopping)
 
 
 ### 4.1 使用MoXing模型库的内置模型
