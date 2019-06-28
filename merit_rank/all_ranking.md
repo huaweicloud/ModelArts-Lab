@@ -59,11 +59,10 @@
      * 扩展案例：
      * 实际应用案例：
 
-* yiakwy：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/expand_model_arts_online_services.md)
-     * 扩展案例：[二期训练精度95%以上](https://github.com/huaweicloud/ModelArts-Lab/contrib/第二期图像分类经验分享-yiakwy)
-     * 实际应用案例：
+* yiakwy：7个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506477057)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/ModelArts%E4%BD%93%E9%AA%8C%E6%96%87%E7%AB%A0-yiakwy/expand_model_arts_online_services.md)
+     * 扩展案例：[第二期猫狗识别率调到95%以上-yiakwy](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/第二期猫狗识别率调到95%以上-yiakwy)[dog_cat_detection扩展案例-yiakwy](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/dog_cat_detection扩展案例-yiakwy)
 
 * from1996iter：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)、 [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505851131)
