@@ -16,7 +16,7 @@
 
 <img src="images/trained.png" width="800px" />
 
-<img src="images/tensorboard.pgn" width="800px" />
+<img src="images/tensorboard.png" width="800px" />
 
 ## 部署
 
