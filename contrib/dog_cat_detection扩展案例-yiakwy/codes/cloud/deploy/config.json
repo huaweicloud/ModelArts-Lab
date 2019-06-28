@@ -1,0 +1,92 @@
+{
+	"model_type": "TensorFlow",
+	"metrics": {
+		"f1": 0.0,
+		"accuracy": 0.0,
+		"precision": 0.0,
+		"recall": 0.0
+	},
+	"dependencies": [{
+		"installer": "pip",
+		"packages": [{
+			"restraint": "ATLEAST",
+			"package_version": "3.4.1",
+			"package_name": "opencv-python"
+		},{
+			"restraint": "ATLEAST",
+			"package_version": "5.2.0",
+			"package_name": "Pillow"
+		},{
+			"restraint": "ATLEAST",
+			"package_version": "1.15.0",
+			"package_name": "numpy"
+		},{
+			"restraint": "ATLEAST",
+			"package_version": "1.3.0",
+			"package_name": "scipy"
+        },{
+			"restraint": "ATLEAST",
+			"package_version": "0.24.2",
+			"package_name": "pandas"
+        },{
+			"restraint": "ATLEAST",
+			"package_version": "2.9.0",
+			"package_name": "h5py"
+        },{
+			"restraint": "ATLEAST",
+			"package_version": "0.21.2",
+			"package_name": "scikit-learn"
+        },{
+			"restraint": "ATLEAST",
+			"package_version": "1.3.0",
+			"package_name": "scikit-image"
+        },{
+			"restraint": "ATLEAST",
+			"package_version": "2.2.0",
+			"package_name": "keras"
+        }]
+	}],
+	"model_algorithm": "image_classification",
+	"apis": [{
+		"procotol": "http",
+		"url": "/",
+		"request": {
+			"Content-type": "multipart/form-data",
+			"data": {
+				"type": "object",
+				"properties": {
+					"images": {
+						"type": "file"
+					}
+				}
+			}
+		},
+		"method": "post",
+		"response": {
+			"Content-type": "multipart/form-data",
+			"data": {
+				"required": ["predicted_label", "scores"],
+				"type": "object",
+				"properties": {
+					"predicted_label": {
+						"type": "string"
+					},
+					"scores": {
+						"items": {
+							"minItems": 2,
+							"items": [{
+								"type": "string"
+							}, {
+								"type": "number"
+							}],
+							"type": "array",
+							"maxItems": 2
+						},
+						"type": "array"
+					}
+				}
+			}
+		}
+	}]
+}
+
