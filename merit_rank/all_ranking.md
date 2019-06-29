@@ -238,17 +238,24 @@
      * 扩展案例：
      * 实际应用案例：
 
- * defend-hw: 1个积分，贡献点：
+* defend-hw: 1个积分，贡献点：
      * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505270779)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-  * zss33266: 1个积分，贡献点：
+     
+* zss33266: 1个积分，贡献点：
      * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506277540)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
-     
+    
+* leighshanie：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506839157), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506884775)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例
+ 
 * LgyLab: 1个积分，贡献点：
      * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506790721
      * 体验文章：
@@ -260,3 +267,4 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：  
+
