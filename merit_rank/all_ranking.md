@@ -267,4 +267,8 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：  
-
+ * wjsandy:4个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506201596),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/issues/145#issue-460724722),[文章2](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505685770)
+     * 扩展案例：
+     * 实际应用案例：
