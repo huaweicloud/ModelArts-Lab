@@ -149,10 +149,11 @@
      * 扩展案例：
      * 实际应用案例：
 
-* linus086：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892)
-     * 体验文章：
+* linus086：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892), [第二期]https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452
+     * 体验文章：https://blog.csdn.net/weixin_37896608/article/details/94342166
      * 扩展案例：
+     * 微认证：[ModelArts实现零售商客户分群]https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507030821
      * 实际应用案例：
 
 * Irisfz8321：1个积分，贡献点：
