@@ -1,2 +1,2 @@
-# ModelArts Lab文档集：包含各种FAQ，API介绍，技术文档等
+## ModelArts Lab文档集：包含各种技术文档、API介绍等
 
