@@ -16,10 +16,11 @@
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/ModelArts%E4%BD%93%E9%AA%8C%E6%96%87%E7%AB%A0-yiakwy/expand_model_arts_online_services.md)
      * 扩展案例：[第二期猫狗识别率调到95%以上-yiakwy](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E8%AF%86%E5%88%AB%E7%8E%87%E8%B0%83%E5%88%B095%25%E4%BB%A5%E4%B8%8A-yiakwy), [dog_cat_detection扩展案例-yiakwy](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/dog_cat_detection%E6%89%A9%E5%B1%95%E6%A1%88%E4%BE%8B-yiakwy)
      
-* benmcq2019：6个积分，贡献点：
+* benmcq2019：7个积分，贡献点：
      * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/6)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505020322)， [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504632254)
      * 体验文章：[文章1](https://github.com/benmcq2019/ModelArts-Lab/wiki/%E5%AE%9E%E6%88%98%E5%8D%8E%E4%B8%BA%E4%BA%91ModelArts%EF%BC%8C%E4%B8%89%E6%AD%A5%E5%AE%9E%E7%8E%B0%E4%BD%A0%E7%9A%84AI%E6%A2%A6)，[文章2](https://github.com/benmcq2019/ModelArts-Lab/wiki/%E3%80%90%E5%8D%8E%E4%B8%BA%E4%BA%91-ModelArts-Lab-AI%E5%AE%9E%E6%88%98%E8%90%A5%E3%80%91%E7%AC%AC%E4%BA%8C%E6%9C%9F%E4%B8%AD%E7%9A%84%E6%80%9D%E8%B7%AF1%E4%BD%93%E9%AA%8C)
      * 扩展案例：[图像分类扩展案例](https://github.com/huaweicloud/ModelArts-Lab/issues/21)
+     * 认证：[零售](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507012991)
      * 实际应用案例：
      
 * leewishyuanfang：6个积分，贡献点：
@@ -58,10 +59,11 @@
      * 扩展案例：[二期的训练精度在84%以上(为84.48%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505309270)
      * 实际应用案例：
      
-* bochuan007：3个积分，贡献点：
+* bochuan007：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502328274), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504643500)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%ABMNIST%E6%95%B0%E6%8D%AE%E9%9B%86%E5%A4%84%E7%90%86%E7%BB%8F%E9%AA%8C-bochuan007/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%ABMNIST%E6%95%B0%E6%8D%AE%E9%9B%86%E5%A4%84%E7%90%86%E7%BB%8F%E9%AA%8C-bochuan007.md)
      * 扩展案例：
+     * 认证：[零售商客户分类](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507012984)
      * 实际应用案例：
 
 * from1996iter：2个积分，贡献点：
@@ -118,6 +120,12 @@
      * 扩展案例：
      * 实际应用案例
  
+* anselmiao: 2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506668522), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506929637)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：  
+
 * zhd：1个积分，贡献点：
      * 完成案例：
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/Postman%E6%B5%8B%E8%AF%95%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/%E4%BD%BF%E7%94%A8Postman%E6%B5%8B%E8%AF%95Modelarts%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1.md)
@@ -262,13 +270,20 @@
      * 扩展案例：
      * 实际应用案例：
      
-* anselmiao: 1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506668522)
+* danlidev: 1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507007374)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例：  
- * wjsandy:4个积分，贡献点：
+     * 实际应用案例： 
+     
+* wjsandy:2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506201596),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
-     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/issues/145#issue-460724722),[文章2](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505685770)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     
+* cnfox0273: 1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507038527)
+     * 体验文章：
      * 扩展案例：
      * 实际应用案例：
