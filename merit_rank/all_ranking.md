@@ -274,6 +274,12 @@
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507007374)
      * 体验文章：
      * 扩展案例：
+     * 实际应用案例： 
+     
+* wjsandy:2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506201596),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
+     * 体验文章：
+     * 扩展案例：
      * 实际应用案例：
      
 * cnfox0273: 1个积分，贡献点：
