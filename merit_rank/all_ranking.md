@@ -66,6 +66,13 @@
      * 扩展案例：[二期的训练精度在84%以上(为84.48%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505309270)
      * 实际应用案例：
      
+* linus086：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452)
+     * 体验文章：
+     * 扩展案例：
+     * 认证：[零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507030821)
+     * 实际应用案例：
+     
 * from1996iter：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)、 [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505851131)
      * 体验文章：
@@ -154,13 +161,6 @@
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865)
      * 体验文章：
      * 扩展案例：
-     * 实际应用案例：
-
-* linus086：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452)
-     * 体验文章：
-     * 扩展案例：
-     * 认证：[零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507030821)
      * 实际应用案例：
 
 * Irisfz8321：1个积分，贡献点：
