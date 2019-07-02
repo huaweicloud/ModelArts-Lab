@@ -1,0 +1,13 @@
+numpy
+scipy
+pandas
+Pillow
+cython
+tensorflow-gpu
+keras>=2.0.8
+h5py
+imgaug
+opencv-python
+scikit-image
+scikit-learn==0.21.2
+matplotlib
