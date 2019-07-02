@@ -150,6 +150,12 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
+     
+     * hwstaff_t00322865: 2个积分，贡献点：
+     * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507490965),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507546938)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：    
     
 * shankewei: 2个积分，贡献点：
      * 完成案例：
@@ -308,8 +314,15 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+
 * ilovescrapy: 1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507528406)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+
+* langziwuqing: 1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507589979)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
