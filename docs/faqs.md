@@ -21,6 +21,7 @@
 * [notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到OBS)
 * [如何在notebook中安装Python依赖](#如何在notebook中安装Python依赖)
 * [Notebook中调测好的代码如何用于训练作业](#Notebook中调测好的代码如何用于训练作业)
+* [是否支持在本地安装MoXing](#是否支持在本地安装MoXing)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -95,5 +96,6 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 单击当前ipynb页面上方的“Convert to Python File”，即可生成用于ModelArts训练作业的启动文件（.py文件）。如下图所示：
 <img src="images/转换为Python文件.PNG" width="1000px" />
 
-
+## 是否支持在本地安装MoXing
+不支持，目前MoXing只支持在ModelArts里面使用
 

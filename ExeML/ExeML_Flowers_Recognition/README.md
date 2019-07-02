@@ -78,7 +78,7 @@
 
 ### 2. 图片标注
 
-**步骤 1** &#160; &#160;**准备数据集**。将ModelArts代码仓库clone至本地，命令为`git clone --depth 1 https://github.com/huaweicloud/ModelArts-Lab.git`。训练数据集位于本地路径`ModelArts-Lab/ExeML/ExeML_Flowers_Recognition/data/train`下，共4个花卉类别，每个类别10张图片。
+**步骤 1** &#160; &#160;**准备数据集**。点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Flowers_Recognition/flowers_recognition.tar.gz)下载数据集，然后解压。数据集文件夹名称是flowers_recognition，训练集位于`flowers_recognition\train`目录下，共4个花卉类别，每个类别10张图片。测试集位于`flowers_recognition\test`目录下。
 
 该数据集包含的花朵及其类别如下图所示：
 
@@ -132,7 +132,7 @@
 
 ### 5. 服务测试
 
-在“部署上线”页面，等待服务部署成功。部署成功后，点击“上传本地图片”按钮，上传一张本地的测试图片（位于./data/test目录下）。如下图所示：
+在“部署上线”页面，等待服务部署成功。部署成功后，点击“上传本地图片”按钮，上传一张本地的测试图片（从测试集中选取）。如下图所示：
 
 <img src="images/上传本地图片.png" width="1000px" />
 
