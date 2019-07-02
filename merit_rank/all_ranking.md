@@ -294,3 +294,12 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     
+     
+* shankewei: 2个积分，贡献点：
+     * 完成案例：
+        [第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507259049)[](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507484402)
+     * 体验文章：
+     * 微认证：[零售客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507298720)
+     * 扩展案例：
+     * 实际应用案例：
