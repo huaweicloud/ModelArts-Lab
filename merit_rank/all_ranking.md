@@ -259,8 +259,8 @@
      * 扩展案例：
      * 实际应用案例：
 
-* defend-hw: 1个积分，贡献点：
-     * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505270779)
+* defend-hw: 2个积分，贡献点：
+     * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505270779),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507512067)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
