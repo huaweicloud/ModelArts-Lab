@@ -181,6 +181,8 @@ AI引擎：TensorFlow，TF-1.13.1-python3.6
 
 TensorBoard可以直观地显示训练过程中loss、accuracy等评估指标的变化曲线，为开发者优化模型精度提供依据。
 
+**注意：TensorBoard使用完后需要及时关闭，否则会继续扣费。**
+
 ### 4. 部署模型
 
 模型训练完成后，可以在ModeArts上将模型部署为在线预测服务。
