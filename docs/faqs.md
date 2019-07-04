@@ -7,8 +7,10 @@
 4. 公有云的按需使用，都是后付费模式，也就是说，先使用再付费，一个小时会出一次话单，比如：2019.6.24 04:00~05:00这段时间使用的费用，在05:00时刻采集完成后，才会出话单，进行扣费。
 5. 在 “总览” 页中，请确保各个服务皆为 “<b>0 计费中</b>”，如下图所示：
 <img src="images/Overview-billing.png" width="1000px" />
-**此外注意TensorBoard 的服务关闭，关闭方法： 进入ModelArts控制台--训练作业--TensorBoard --停止**
+
+<b> 此外注意TensorBoard 的服务关闭，关闭方法： 进入ModelArts控制台--训练作业--TensorBoard --停止 </b>
 <img src="images/停止TensorBoard.PNG" width="1000px" />
+
 
 # ModelArts使用FAQs
 * [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
