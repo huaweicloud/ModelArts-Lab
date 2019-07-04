@@ -349,8 +349,9 @@
      * 扩展案例：
      * 实际应用案例：    
 
-* Franklin-Fan：1个积分，贡献点：
+* Franklin-Fan：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507969265)
+                [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508406759)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：      
@@ -362,7 +363,7 @@
      * 实际应用案例：   
 
 * zhujie_2006：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508344875)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508344875)              
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
