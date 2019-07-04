@@ -8,6 +8,7 @@
 5. 在 “总览” 页中，请确保各个服务皆为 “<b>0 计费中</b>”，如下图所示：
 <img src="images/Overview-billing.png" width="1000px" />
 **此外注意TensorBoard 的服务关闭，关闭方法： 进入ModelArts控制台--训练作业--TensorBoard --停止**
+<img src="images/停止TensorBoard.PNG" width="1000px" />
 
 # ModelArts使用FAQs
 * [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
