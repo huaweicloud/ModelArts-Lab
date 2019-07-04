@@ -193,10 +193,10 @@
      * 微认证：[零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507912798)
      * 实际应用案例：
      
-* ifantech：2个积分，贡献点：
+* ifantech：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507898579),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508313975)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[二期的训练精度在84%以上(为84.28%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508374447)
      * 实际应用案例：      
      
 * ciyiming：2个积分，贡献点：
@@ -349,8 +349,9 @@
      * 扩展案例：
      * 实际应用案例：    
 
-* Franklin-Fan：1个积分，贡献点：
+* Franklin-Fan：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507969265)
+                [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508406759)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：      
@@ -361,8 +362,15 @@
      * 扩展案例：
      * 实际应用案例：   
 
-* zhujie_2006：1个积分，贡献点：
+* zhujie_2006：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508344875)
+                [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508432426)  
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+   
+* dongfengwang：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508371641)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
