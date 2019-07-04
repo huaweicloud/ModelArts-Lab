@@ -80,12 +80,13 @@
      * 认证：[零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507030821)
      * 实际应用案例：
      
-* wjsandy: 3个积分，贡献点：
+* wjsandy: 6个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506201596),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
-     * 体验文章：
-     * 扩展案例：
-     * 认证：[微认证](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507123254)
+     * 体验文章：[文章1](https://github.com/wjsandy/ModelArts-Lab/wiki/%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E5%BE%AE%E8%AE%A4%E8%AF%81%EF%BC%88%E9%9B%B6%E5%94%AE%E5%95%86%E5%AE%A2%E6%88%B7%E5%88%86%E7%BE%A4%E5%AE%9E%E9%AA%8C%EF%BC%89),[文章2](https://github.com/wjsandy/ModelArts-Lab/wiki/%E6%89%8B%E6%89%93%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4%EF%BC%88%E5%9B%BE%E5%83%8F%E7%B1%BB%E8%AF%86%E5%88%AB%EF%BC%89)
+     * 扩展案例：[二期的训练精度在84%以上(为84.06%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
+	 * [微认证]：(https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507123254)
      * 实际应用案例：
+
      
 * LgyLab: 3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506790721),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507911775)
