@@ -82,7 +82,7 @@
      
 * ilovescrapy: 3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507528406)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507931217)
-     * 体验文章：
+     * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/issues/221#issue-464001378)
      * 扩展案例：
      * 认证：[零售](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507639946)
      * 实际应用案例：
