@@ -267,7 +267,7 @@ ModelArts平台约定：推理脚本的名称必须为customize_service.py，模
 
 以上两个思路只供参考，不限于以上两个思路。只要能增加模型的精度，其他的模型调优技巧也可以。
 
-**只要模型的精度提升至84%以上，就可获得额外多获得一个积分。如果精度提升到很高，并在本社区分享出代码和调优技巧，就可以获得更多的积分。**
+**完成模型精度更高的代码和调优技巧，可以提交PR到社区contrib下，社区committers将根据扩展案例的价值评估积分奖励**
 
 进行模型调优，建议基于我们之前的 [猫狗识别notebook案例](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb)  在notebook中调试。notebook就是用于代码调试。
 
