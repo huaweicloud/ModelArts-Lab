@@ -84,7 +84,7 @@
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506201596),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
      * 体验文章：
      * 扩展案例：[二期的训练精度在84%以上(为84.06%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506226336)
-     * [微认证]：(https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507123254)
+     * 认证：[微认证](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507123254)
      * 实际应用案例：
 
      
