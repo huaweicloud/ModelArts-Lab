@@ -16,6 +16,12 @@ VGG16, VGG19, ResNet
 
 
 
+### 实验环境
+
+本期实践主要使用基于TensorFlow的Keras框架，与第二期环境一致，具体创建过程可以参考[第二期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_face_recognition/face_recognition.ipynb)中的相关步骤。
+
+
+
 ### 实践案例
 
 [0. epochs和callbacks](./00_epoch_callbacks.ipynb)：介绍训练轮数，拟合问题以及Keras模型训练时的Callback回调函数
