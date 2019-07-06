@@ -434,15 +434,37 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+
+* chensw37：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508890706)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：     
      
+* merria28：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508736022)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+
 * HaolinLiu：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508892631)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+
 * Michael_Teng：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508893324)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+     
+* GitLD：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508893236)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
