@@ -567,3 +567,12 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+
+* flatefish：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508937623)[第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508992452)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+
+
