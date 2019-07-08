@@ -27,6 +27,8 @@
 * [如何在notebook中安装Python依赖](#如何在notebook中安装Python依赖)
 * [Notebook中调测好的代码如何用于训练作业](#Notebook中调测好的代码如何用于训练作业)
 * [是否支持在本地安装MoXing](#是否支持在本地安装MoXing)
+* [在github网站上打开ipynb文件很缓慢或打开失败](#在github网站上打开ipynb文件很缓慢或打开失败)
+* [notebook卡死，无法执行代码](#notebook卡死，无法执行代码)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -107,7 +109,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 ## 在github网站上打开ipynb文件很缓慢或打开失败
 这是由于网络问题和github网站本身的问题导致的，有如下两种解决办法：
 1. 刷新网页；
-2. 打开 https://nbviewer.jupyter.org/ ，在如下搜索框中粘贴ipynb文件的地址，如：https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb ，回车，即可查看ipynb文件。
+2. 如果刷新网页仍然无效，则可以打开 https://nbviewer.jupyter.org/ ，在如下搜索框中粘贴ipynb文件的地址，如：https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb ，回车，即可查看ipynb文件。
 <img src="images/nbviewer打开ipynb文件.png" width="1000px" />
 
 ## notebook卡死，无法执行代码
