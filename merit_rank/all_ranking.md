@@ -301,10 +301,10 @@
      * 实际应用案例：
      * 微认证：
      
-* fjqsun：2个积分，贡献点：
+* fjqsun：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[二期的训练精度在84%以上(为90.08%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)
      * 实际应用案例：
      * 微认证：
      
