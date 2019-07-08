@@ -117,12 +117,12 @@
      * 实际应用案例：
      * 微认证：
      
-* hellfire0820-ty：3个积分，贡献点：
+* hellfire0820-ty：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502413880) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504882227)
      * 体验文章：
      * 扩展案例：[二期的训练精度在84%以上(为84.48%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505309270)
      * 实际应用案例：
-     * 微认证：
+     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-509217990)
      
 * linus086：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452)
