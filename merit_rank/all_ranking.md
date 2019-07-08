@@ -148,10 +148,10 @@
      * 实际应用案例
      * 微认证：
      
-* s1119858711：3个积分，贡献点：
+* s1119858711：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508308929), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508499648),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508968840)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[第二期修改参数使得正确率在85.5%以上](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509013465)
      * 实际应用案例：   
      * 微认证：
      
