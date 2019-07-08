@@ -80,7 +80,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 ## 如何下载github代码库里面的单个文件
 在github中，打开要下载的文件（源代码或者图片等），右击`Download`或者`Raw`按钮（这两个按钮的功能是一样的，并且不会同时存在），然后点击"链接另存为"，保存文件到本地，如下图所示：
-<img src="images/下载单个文件.PNG" width="1000px" />
+<img src="images/github下载单个文件.PNG" width="1000px" />
 
 ## notebook运行生成的文件如何保存到OBS
 使用ModelArts SDK可以上传notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
