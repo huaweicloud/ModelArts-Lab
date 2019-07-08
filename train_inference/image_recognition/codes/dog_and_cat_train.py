@@ -1,10 +1,13 @@
 import os, cv2, random
 import numpy as np
 
-from keras.models import Sequential
-from keras.layers import Input, Dropout, Flatten, Conv2D, MaxPooling2D, Dense, Activation
+from keras.layers import Input, Dense
 from keras.optimizers import RMSprop
-from keras.callbacks import TensorBoard, Callback, EarlyStopping
+from keras.callbacks import Callback, EarlyStopping, TensorBoard
+from keras.applications.vgg16 import VGG16
+from keras.models import Model
+from keras.utils import np_utils
+
 import tensorflow as tf
 from moxing.framework import file
 import logging
@@ -15,10 +18,10 @@ from keras import backend as K
 logging.basicConfig(level=logging.INFO)
 K.set_image_data_format('channels_last')
 
-tf.flags.DEFINE_integer('max_epochs', 20, 'number of training iterations.')
+tf.flags.DEFINE_integer('max_epochs', 10, 'number of training iterations.')
 tf.flags.DEFINE_string('data_url', '/cache/data', 'dataset directory.')
 tf.flags.DEFINE_string('train_url', '/cache/output', 'saved model directory.')
-tf.flags.DEFINE_integer('batch_size', 16, 'number of training iterations.')
+tf.flags.DEFINE_integer('batch_size', 32, 'number of training iterations.')
 tf.flags.DEFINE_integer('num_gpus', 1, 'gpu nums.')
 tf.flags.DEFINE_float('learning_rate', 1e-4, 'learning rate.')
 
@@ -50,12 +53,13 @@ os.system('tar xf %s -C %s' % (train_file, local_data_path))
 
 dogcat_data_path = os.path.join(local_data_path, 'data')
 
-ROWS = 64
-COLS = 64
+ROWS = 128
+COLS = 128
 CHANNELS = 3
 
-images = [os.path.join(dogcat_data_path, i) for i in os.listdir(dogcat_data_path)]
-random.shuffle(images)
+image_file_names = [os.path.join(dogcat_data_path, i) for i in os.listdir(dogcat_data_path)]
+
+random.shuffle(image_file_names)
 
 def read_image(file_path):
     # cv2.IMREAD_GRAYSCALE
@@ -72,74 +76,40 @@ def prep_data(images):
 
 
 # read data
-images_data = prep_data(images)
+images_data = prep_data(image_file_names)
 
 # get labels
+
+num_train_samples = len(image_file_names)
+num_classes = 2
 labels = []
-for i in images:
-    if 'dog' in i:
+
+index = 0
+for filename in image_file_names:
+    if 'dog' in filename:
         labels.append(1)
-    else:
+    elif 'cat' in filename:
         labels.append(0)
 
+labels = np_utils.to_categorical(labels, num_classes)
 train_data, test_data, train_label, test_label = train_test_split(images_data, labels, test_size=0.25, random_state=10)
 
 optimizer = RMSprop(lr=learning_rate)
 objective = 'binary_crossentropy'
 
-# define model architecture
-def model_fn():
-    model = Sequential()
-
-    model.add(Conv2D(32, (3, 3), padding='same', input_shape=(ROWS, COLS, 3), activation='relu'))
-    model.add(Conv2D(32, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_last"))
-
-    model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-    model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_last"))
-
-    model.add(Conv2D(128, (3, 3), padding='same', activation='relu'))
-    model.add(Conv2D(128, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_last"))
-
-    model.add(Conv2D(256, (3, 3), padding='same', activation='relu'))
-    model.add(Conv2D(256, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_last"))
-
-    model.add(Flatten())
-    model.add(Dense(256, activation='relu'))
-    model.add(Dropout(0.5))
-
-    model.add(Dense(256, activation='relu'))
-    model.add(Dropout(0.5))
-
-    model.add(Dense(1))
-    model.add(Activation('sigmoid'))
-
+def load_model():
+    base_model = VGG16(include_top=False, weights=None, input_shape=(ROWS, COLS, CHANNELS), pooling='avg')
+    prediction_layer = Dense(2, activation='softmax')(base_model.output)
+    model = Model(inputs=base_model.input, outputs=prediction_layer)
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
 
-
-model = model_fn()
-
-
-# Callback for loss logging per epoch
-class LossHistory(Callback):
-    def on_train_begin(self, logs={}):
-        self.losses = []
-        self.val_losses = []
-
-    def on_epoch_end(self, batch, logs={}):
-        self.losses.append(logs.get('loss'))
-        self.val_losses.append(logs.get('val_loss'))
-
+model = load_model()
 
 early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=1, mode='auto')
 tensorBoard = TensorBoard(log_dir=local_output_path)
 
-def run_catdog():
-    history = LossHistory()
+def run_train():
     model.fit(
         train_data,
         train_label,
@@ -148,20 +118,35 @@ def run_catdog():
         validation_split=0.25,
         verbose=2,
         shuffle=True,
-        callbacks=[history, early_stopping, tensorBoard])
-    return history
-
+        callbacks=[early_stopping, tensorBoard])
 
 # run training
-history = run_catdog()
+run_train()
 
 # calculate model accuracy
-predictions = model.predict(test_data, verbose=0)
-predictions_test = []
-for p in predictions:
-    predictions_test.append(int(round(p[0])))
 
-acc = accuracy_score(test_label, predictions_test)
+def calculate_acc(predictions, test_label):
+    predictions_test_array = []
+    test_label_array = []
+
+    for p in predictions:
+        if round(p[1]) == 1:
+            predictions_test_array.append(1)
+        else:
+            predictions_test_array.append(0)
+
+    for t in test_label:
+        if int(t[1]) == 1:
+            test_label_array.append(1)
+        else:
+            test_label_array.append(0)
+
+    return accuracy_score(test_label_array, predictions_test_array)
+
+
+predictions = model.predict(test_data, verbose=0)
+
+acc = calculate_acc(predictions, test_label)
 
 # write acc to file
 metric_file_name = os.path.join(local_output_path, 'metric.json')
@@ -192,6 +177,5 @@ save_model_to_serving(model, model_output_path)
 file.copy_parallel(local_output_path, train_url)
 
 logging.info('training done!')
-
 
 
