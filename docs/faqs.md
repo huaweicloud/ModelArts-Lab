@@ -1,6 +1,6 @@
 # 费用相关FAQ
 1. “[ModelArts新手资源包](https://console.huaweicloud.com/modelarts/?region=cn-north-1#/userPackageWindow)” 包含以下三种资源：(1) 20小时CPU、(2) 10小时GPU（注：<b>只包含P100+P4，不包含V100</b>）以及 (3) 10小时自动学习；只要其中一个资源包用完，即使仍有其他种类资源包，若持续使用已用完的资源类型，仍会按照使用量扣费。当前《[ModelArts-Lab AI实战营](https://github.com/huaweicloud/ModelArts-Lab/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91+ModelArts-Lab+AI%E5%AE%9E%E6%88%98%E8%90%A5%22)》活动为开发者设计的 “ModelArts满减资源包” 中的 GPU 资源<b>只包含 P100+P4，不包含 V100</b>，请参加《ModelArts-Lab AI实战营》的开发者<b>不要选择 V100 规格</b>，避免产生套餐包之外的费用。
-   * 目前 “ModelArts新手资源包” 以及 “ModelArts满减资源包” 只可于 “北京一” 区域使用，请务必选择 “北京一” 以免产生扣费！
+   * 目前 “ModelArts新手资源包” 以及 “ModelArts满减资源包” 只可于 “北京一” 区域使用，请<b>务必选择 “北京一” </b>以免产生扣费！
 2. 案例实践中所使用的存储资源（OBS 或 EVS）不包含在上述 “ModelArts新手资源包” 中，可能涉及到费用。每个案例涉及的存储资源所需费用小于1元。
    * 对象存储服务 OBS 标准存储价格：0.0990元/GB/月
    * 云硬盘 EVS 超高 IO 收费：0.0014元/GB/小时
@@ -81,7 +81,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 如果当前Notebook还可以运行代码，但是无法保存，保存时会提示“save error”错误。
 大多数原因是华为云WAF安全拦截导致的，当前页面，即用户的输入或者代码运行的输出有一些字符被华为云拦截，认为有安全风险。出现此问题时，请提交工单，联系专业的工程师帮您核对并处理问题。
 
-## 如何下载github代码库里面的单个文件
+## 如何下载GitHub代码库里面的单个文件
 在GitHub中，打开要下载的文件（源代码或者图片等），右击`Download`或者`Raw`按钮（这两个按钮的功能是一样的，并且不会同时存在），然后点击"链接另存为"，保存文件到本地，如下图所示：
 <img src="images/github下载单个文件.PNG" width="1000px" />
 
