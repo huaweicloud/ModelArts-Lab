@@ -1,6 +1,6 @@
 # 图像分类模型参数&网络调优
 
-基于第二期[图像分类任务](../DL_image_recognition/image_recongition.ipynb)，本页面包含了图像分类任务的参数调优和网络优化的相关技巧。
+基于第一期[图像分类Notebook任务](../DL_image_recognition/image_recongition.ipynb)，本页面包含了图像分类任务的参数调优和网络优化的相关技巧。
 
 
 
@@ -18,7 +18,7 @@ VGG16, VGG19, ResNet
 
 ### 实验环境
 
-本期实践主要使用基于TensorFlow的Keras框架，与第二期环境一致，具体创建过程可以参考[第二期：图像分类](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_face_recognition/face_recognition.ipynb)中的相关步骤。
+本期实践主要使用基于TensorFlow的Keras框架，与第二期环境一致，具体创建过程可以参考[第一期：图像分类Notebook任务](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb)中的相关步骤。
 
 
 
