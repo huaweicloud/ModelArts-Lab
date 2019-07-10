@@ -1,6 +1,7 @@
 ﻿**在ModelArts上采用4种深度学习框架实现经典手写体识别案例**  
-Author:zss33266
-Date:2019-07-08
+Author:zss33266  
+Date:2019-07-08  
+Update:2019-07-11
 
 华为云ModelArts支持多种主流开源的深度学习框架，作为图像识别入门的经典的手写体识别案例，华为云官网帮助文档已经做了不同版本的实现，在本次ModelArts-Lab库official_examples中也有详细的操作文档，具体实现步骤就不在详细描述，以下主要是我对主流的几个深度学习框架和手写体识别案例关键步骤做一个归纳汇总：
 
@@ -126,7 +127,7 @@ Note：:#初始化全局变量sess.run(tf.global_variables_initializer()) 这段
 ![image](https://user-images.githubusercontent.com/52277737/60988422-2a244800-a376-11e9-9f76-08e5c0a92eae.png)  
 训练的准确率为92%左右，比上一次有提升  
 ![image](https://user-images.githubusercontent.com/52277737/60993284-b50a4000-a380-11e9-81de-1f38b5d7ea00.png)  
-5. 经验小结
+5. 经验小结  
 我们通过尝试调整不同的代价函数算法、训练次数和学习率，最终将模型的精度提升了1%~2%左右，小结如下：
 - 可以尝试不同的Optimizer算法来改善模型的精度或者训练时间。
 - 通过增加训练迭代次数max_steps，大部分情况下是可以提升模型精度的。
