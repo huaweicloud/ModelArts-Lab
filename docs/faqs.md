@@ -122,14 +122,28 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开modelArts的notebook列表页面，将对应的notebook虚拟机停止，再启动。
 <img src="images/停止notebook.png" width="1000px" />
 
+## 如何上传文件至Notebook
+1. 如果是小尺寸（小于10MB）的文件，可以直接点击Notebook的Upload按钮，上传本地文件，会将文件直接上传到Notebook本地的`~/work`目录下。
+Upload按钮如下：
+<img src="images/Upload按钮.png" width="1000px" />
+
+2. 如果是大尺寸的文件，可以使用OBS客户端将文件先上传至OBS，然后使用ModelArts SDK从OBS下载文件至Notebook本地。
+OBS是华为云的数据存储服务。
+使用OBS客户端上传文件至OBS的方法可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html)。
+使用ModelArts SDK从OBS下载文件至Notebook本地可以参考[此文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0127.html)。
+
+3. 如果是文件夹，建议将文件夹压缩成一个压缩包，然后使用方法2上传，最后在terminal中解压压缩包。
+
 ## 代码中自动下载Keras预训练模型速度缓慢或者失败怎么办
 当执行代码`base_model = VGG16(weights='imagenet', include_top=False)`时，如果本地没有下载过相应的预训练模型，Keras就会自动去网络上下载。如果自动下载的速度慢或者失败，可以将预训练模型放到Notebook本地路径`~/.keras/models/`下来解决。原理是Keras会先从本地路径`~/.keras/models/`下寻找预训练模型，如果找到，就会直接加载本地的预训练模型，而不会从网络下载。有以下两种方式将模型文件放到Notebook本地：
-1. 进入Notebook terminal，然后切换到`~/.keras/models/`路径下，使用`wget <URL>`命令从网上下载预训练模型至Notebook本地。
+1. 进入Notebook terminal，然后切换到`~/.keras/models/`路径下，使用`wget <URL>`命令从网上下载预训练模型至Notebook本地（推荐）。
+
 部分预训练模型的URL如下：
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
 其他预训练模型的URL可以从该网址查找https://github.com/fchollet/deep-learning-models/releases 。
 
-2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS拷贝至Notebook本地。
+2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS下载至Notebook本地。
 可以从https://github.com/fchollet/deep-learning-models/releases 网址找到所有Keras官方预训练模型的下载链接。部分预训练模型的下载链接见方法1。
+上传文件至OBS，然后从OBS下载至Notebook本地的方法参考[此FAQ]()
