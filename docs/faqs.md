@@ -30,6 +30,7 @@
 * [是否支持在本地安装MoXing](#是否支持在本地安装moxing)
 * [在GitHub网站上打开ipynb文件很缓慢或打开失败](#在github网站上打开ipynb文件很缓慢或打开失败)
 * [Notebook卡死_无法执行代码](#notebook卡死_无法执行代码)
+* [代码中自动下载Keras预训练模型速度缓慢或者失败怎么办](#代码中自动下载Keras预训练模型速度缓慢或者失败怎么办)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -121,4 +122,14 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开modelArts的notebook列表页面，将对应的notebook虚拟机停止，再启动。
 <img src="images/停止notebook.png" width="1000px" />
 
+## 代码中自动下载Keras预训练模型速度缓慢或者失败怎么办
+当执行代码`base_model = VGG16(weights='imagenet', include_top=False)`时，如果本地没有下载过相应的预训练模型，Keras就会自动去网络上下载。如果自动下载的速度慢或者失败，可以将预训练模型放到Notebook本地路径`~/.keras/models/`下来解决。原理是Keras会先从本地路径`~/.keras/models/`下寻找预训练模型，如果找到，就会直接加载本地的预训练模型，而不会从网络下载。有以下两种方式将模型文件放到Notebook本地：
+1. 进入Notebook terminal，然后切换到`~/.keras/models/`路径下，使用`wget <URL>`命令从网上下载预训练模型至Notebook本地。
+部分预训练模型的URL如下：
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
+其他预训练模型的URL可以从该网址查找https://github.com/fchollet/deep-learning-models/releases 。
 
+2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS拷贝至Notebook本地。
+可以从https://github.com/fchollet/deep-learning-models/releases 网址找到所有Keras官方预训练模型的下载链接。部分预训练模型的下载链接见方法1。
