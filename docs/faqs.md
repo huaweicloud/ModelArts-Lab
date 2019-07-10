@@ -82,7 +82,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 大多数原因是华为云WAF安全拦截导致的，当前页面，即用户的输入或者代码运行的输出有一些字符被华为云拦截，认为有安全风险。出现此问题时，请提交工单，联系专业的工程师帮您核对并处理问题。
 
 ## 如何下载GitHub代码库中的单个目录或文件
-将单个目录或文件的上层目录地址进行复制，打开网页http://kinolien.github.io/gitzip/ ，粘贴到搜索框中，点击search，即可选择对应的目录或文件进行下载。比如要将ModelArts-Lab代码库notebook案例中的DL_image_recognition目录下载下来，则复制该目录的上层目录地址：https://github.com/langziwuqing/ModelArts-Lab/tree/master/notebook ，按以上方法操作，可以得到如下图所示的下载页面。
+将单个目录或文件的上层目录地址进行复制，打开网页http://kinolien.github.io/gitzip/ ，粘贴到搜索框中，点击search，即可选择对应的目录或文件进行下载。比如，要将ModelArts-Lab代码库notebook案例中的DL_image_recognition目录下载下来，则复制该目录的上层目录地址：https://github.com/langziwuqing/ModelArts-Lab/tree/master/notebook ，按以上方法操作，可以得到如下图所示的下载页面。
 <img src="images/github下载单个目录或文件.png" width="1000px" />
 
 如果只是下载单个纯文本或图片文件，还有另外一种方法。打开要下载的文件，如下图所示，点击图中红框处的Raw或者Download按钮（这两个按钮的功能是一样的，并且不会同时存在），然后右键"另存为"，即可保存文件到本地。注意，这种方法不适用于下载含有图片或特殊格式的*.md文件或*.ipynb文件，因为使用这种方式下载将只得到纯文本，会丢失原文件中的图片或特殊格式，推荐使用上面介绍的第一种方法将*.md文件或*.ipynb文件所在的目录整个下载下来。之所以要下载整个目录，是因为*.md文件或*.ipynb文件中的图片是单独存储在其他目录中的。
@@ -117,7 +117,7 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 ## Notebook卡死_无法执行代码
 按如下步骤依次进行排查处理：
-1. 如果只是cell的执行过程卡死或执行时间过长，如下图中的第2个和第3个cell，导致第4个cell无法执行，但整个notebook页面还有反应，其他cell也还可以点击，则直接点击下图中红色方框处的”interrupt the kernel”按钮，即可停止所有cell的执行，同时会保留当前所有变量空间；
+1. 如果只是cell的执行过程卡死或执行时间过长，如下图中的第2个和第3个cell，导致第4个cell无法执行，但整个notebook页面还有反应，其他cell也还可以点击，则直接点击下图中红色方框处的”interrupt the kernel”按钮，即可停止所有cell的执行，同时会保留当前notebook中的所有变量空间；
 <img src="images/notebook中的cell卡死.png" width="1000px" />
 
 2. 如果整个notebook页面也已经卡死，点击任何地方都无反应，则关闭notebook页面，关闭modelArts管理控制台页面，如下图所示，再重新打开管理控制台页面，再打开原来的notebook，此时的notebook仍会保留卡死之前的所有变量空间；
