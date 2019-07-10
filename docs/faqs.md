@@ -23,7 +23,7 @@
 * [Terminal中如何进入跟当前实例Notebook kernel一样的python环境](#terminal中如何进入跟当前实例notebook-kernel一样的python环境)
 * [运行训练代码出现内存不够问题并导致实例崩溃](#运行训练代码出现内存不够问题并导致实例崩溃)
 * [Notebook出现保存文件失败](#notebook出现保存文件失败)
-* [如何下载GitHub代码库里面的单个文件](#如何下载github代码库里面的单个文件)
+* [如何下载GitHub代码库中的单个目录或文件](#如何下载github代码库中的单个目录或文件)
 * [Notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到obs)
 * [如何在Notebook中安装Python依赖](#如何在notebook中安装python依赖)
 * [Notebook中调测好的代码如何用于训练作业](#notebook中调测好的代码如何用于训练作业)
@@ -82,11 +82,11 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 大多数原因是华为云WAF安全拦截导致的，当前页面，即用户的输入或者代码运行的输出有一些字符被华为云拦截，认为有安全风险。出现此问题时，请提交工单，联系专业的工程师帮您核对并处理问题。
 
 ## 如何下载GitHub代码库中的单个目录或文件
-将单个目录或文件的上层目录地址进行复制，打开网页http://kinolien.github.io/gitzip/，粘贴到搜索框中，点击search，即可选择对应的目录或文件进行下载。比如要将ModelArts-Lab代码库notebook案例中的DL_image_recognition目录下载下来，则复制该目录的上层目录地址：https://github.com/langziwuqing/ModelArts-Lab/tree/master/notebook，按以上方法操作，可以得到如下图所示的下载页面。
+将单个目录或文件的上层目录地址进行复制，打开网页http://kinolien.github.io/gitzip/ ，粘贴到搜索框中，点击search，即可选择对应的目录或文件进行下载。比如要将ModelArts-Lab代码库notebook案例中的DL_image_recognition目录下载下来，则复制该目录的上层目录地址：https://github.com/langziwuqing/ModelArts-Lab/tree/master/notebook ，按以上方法操作，可以得到如下图所示的下载页面。
 <img src="images/github下载单个目录或文件.png" width="1000px" />
 
 如果只是下载单个纯文本或图片文件，还有另外一种方法。打开要下载的文件，如下图所示，点击图中红框处的Raw或者Download按钮（这两个按钮的功能是一样的，并且不会同时存在），然后点击"另存为"，即可保存文件到本地。注意，这种方法不适用于下载含有图片或特殊格式的*.md文件或*.ipynb文件，因为使用这种方式下载将只得到纯文本，会丢失原文件中的图片或特殊格式，推荐使用上面介绍的第一种方法将*.md文件或*.ipynb文件所在的目录整个下载下来。之所以要下载整个目录，是因为*.md文件或*.ipynb文件中的图片是单独存储在其他目录中的。
-<img src="images/github下载单个文件.png" width="1000px" />
+<img src="images/github下载单个文件.PNG" width="1000px" />
 
 ## Notebook运行生成的文件如何保存到OBS
 使用ModelArts SDK可以上传Notebook本地的文件和文件夹（如果文件夹中的文件较多，建议将文件夹打成压缩包后再上传）至OBS，使用方法见[ModelArts官方帮助文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0126.html)
@@ -117,12 +117,11 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 ## Notebook卡死_无法执行代码
 按如下步骤依次进行排查处理：
-1. 如果只是cell的执行过程卡死或执行时间过长，如下图中的第2和第3个cell，导致第4个cell无法执行，但整个notebook页面还有反应，其他cell也还可以点击，则直接点击下图中红色方框处的”interrupt the kernel”按钮，即可停止所有cell的执行，同时会保留所有变量空间；
+1. 如果只是cell的执行过程卡死或执行时间过长，如下图中的第2和第3个cell，导致第4个cell无法执行，但整个notebook页面还有反应，其他cell也还可以点击，则直接点击下图中红色方框处的”interrupt the kernel”按钮，即可停止所有cell的执行，同时会保留当前所有变量空间；
 <img src="images/notebook中的cell卡死.png" width="1000px" />
 
-2. 如果整个notebook页面也已经卡死，任何地方点击都无反应，则关闭当前页面，关闭modelArts产品页主页面，重新打开modelArts主页面，再重新打开原来的notebook，此时的notebook仍会保留卡死之前的变量空间；
-
-3. 如果按第2步执行后重新打开的notebook仍然卡死，则打开modelArts的notebook列表页面，将对应的notebook虚拟机停止，再启动。
+2. 如果整个notebook页面也已经卡死，任何地方点击都无反应，则关闭notebook页面，关闭modelArts产品页主页面，重新打开modelArts主页面，再重新打开原来的notebook，此时的notebook仍会保留卡死之前的所有变量空间；
+3. 如果按第2步执行后重新打开的notebook仍然卡死，则打开modelArts主页面的notebook列表页面，将对应的notebook虚拟机停止、启动，再打开原来的notebook。
 <img src="images/停止notebook.png" width="1000px" />
 
 
