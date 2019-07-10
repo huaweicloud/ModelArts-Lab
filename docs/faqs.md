@@ -115,10 +115,10 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 ## Notebook卡死_无法执行代码
 按如下步骤依次进行排查处理：
 1. 如果只是单个cell的执行过程卡死，但整个Notebook页面还可以点击，则先点击保存按钮，再点“Kernel->Restart”；
-2. 如果整个Notebook页面也已经卡死，则打开ModelArts的notebook管理页面，点击Runing，再点击Shutdown将对应的Notebook关掉，稍后再重新打开；
+2. 如果整个Notebook页面也已经卡死，则打开ModelArts的Notebook管理页面，点击Runing，再点击Shutdown将对应的Notebook关掉，稍后再重新打开；
 <img src="images/shutdown_notebook.png" width="1000px" />
 
-3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开modelArts的notebook列表页面，将对应的notebook虚拟机停止，再启动。
+3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开ModelArts的Notebook列表页面，将对应的Notebook虚拟机停止，再启动。
 <img src="images/停止notebook.png" width="1000px" />
 
 
