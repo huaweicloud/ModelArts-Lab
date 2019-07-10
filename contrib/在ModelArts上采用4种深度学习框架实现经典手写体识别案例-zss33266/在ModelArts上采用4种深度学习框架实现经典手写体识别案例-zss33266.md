@@ -25,10 +25,8 @@ MXNet是DMLC（Distributed Machine Learning Community）开发的一款开
 ![image7](https://user-images.githubusercontent.com/52277737/60807462-5db97380-a1b8-11e9-9d08-8117952e86c6.png)
 
 以上是我个人实验的一些关键步骤，具体详细的操作点击：
-官方Git操作指南：
-https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MXNet_to_Create_a_MNIST_Dataset_Recognition_Application
-官方帮助文档：
-https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0009.html
+[官方Git操作指南](https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MXNet_to_Create_a_MNIST_Dataset_Recognition_Application)|
+[官方帮助文档](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0009.html)
 
 二、	Tensorflow
 
@@ -45,10 +43,8 @@ TensorFlow最初是由Google Brain Team的研究人员和工程师开发的。�
 
 
 具体详细的操作点击：
-官方Git操作指南：
-https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_TensorFlow_to_Create_a_MNIST_Dataset_Recognition_Application
-官方帮助文档：
-https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0010.html
+[官方Git操作指南](https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_TensorFlow_to_Create_a_MNIST_Dataset_Recognition_Application)|
+[官方帮助文档](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0010.html)
 
 
 三、	Caffe
@@ -70,10 +66,11 @@ Caffe 全称为 Convolutional Architecture for Fast Feature Embedding，是一�
  ![image13](https://user-images.githubusercontent.com/52277737/60807771-24cdce80-a1b9-11e9-9d42-ffbfe7b3fddf.png)
 
 具体详细的操作点击：
-官方Git操作指南：
-https://github.com/huaweicloud/ModelArts-Lab/blob/master/official_examples/Using_Caffe_to_Create_a_MNIST_Dataset_Recognition_Application/
-官方帮助文档：
-https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0011.html
+[官方Git操作指南](https://github.com/huaweicloud/ModelArts-Lab/blob/master/official_examples/Using_Caffe_to_Create_a_MNIST_Dataset_Recognition_Application/)|
+[官方帮助文档](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0011.html)
+
+
+
 四、	Moxing
 
 > 框架介绍：
@@ -87,51 +84,48 @@ MoXing是华为云ModelArts团队自研的分布式训练加速框架，它构�
 3.	查看训练作业结果，同样采用4个GPU,P100的高性能计算实例，用时1分14秒，比之前的原生TensorFlow引擎要快一点，通过日志可以看到，最后训练的精度达到了88%左右，可以通过调整代码算法继续训练提升精度 。
 ![image16](https://user-images.githubusercontent.com/52277737/60808155-2e0b6b00-a1ba-11e9-8928-fe4b849925b0.png)
  
-
-MoXing详细介绍地址：
-https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/moxing_api_doc/MoXing_API_Introduction.md
-官方Git操作指南：
-https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/Using_MoXing_to_Create_a_MNIST_Dataset_Recognition_Application 
-官方帮助文档：
-https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0007.html
+具体详细的操作点击：
+[官方Git操作指南](https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/Using_MoXing_to_Create_a_MNIST_Dataset_Recognition_Application)|
+[官方帮助文档](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0007.html)|[MoXing详细介绍地址](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/moxing_api_doc/MoXing_API_Introduction.md)
 
 以上四个采用不同框架的手写体训练案例全部训练完成：
  
 ![image17](https://user-images.githubusercontent.com/52277737/60808269-70cd4300-a1ba-11e9-852d-effd24e7011c.png)
 还有一些其它的深度学习框架，像Pytorch\ Keras\CNTK等大家有兴趣也可以关注一下。
 
-**模型优化**
+**模型优化**  
 上面的例子中，我们看看能否优化一下训练代码，提升模型的准确度，在这里我们以TensorFlow的训练模型为例，我在原有的训练代码上做了一些简单的调整，并加了注释，方便大家更深入理解这个例子：
 ![image](https://user-images.githubusercontent.com/52277737/60971973-e6224a80-a357-11e9-9eae-09495b272467.png)
-[调整过的训练代码我已经上传到Github,点击查看](url)
+[调整过的训练代码我已经上传到Github,点击查看](https://github.com/zss33266/ModelArts-Lab/blob/master/contrib/%E5%9C%A8ModelArts%E4%B8%8A%E9%87%87%E7%94%A84%E7%A7%8D%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E7%BB%8F%E5%85%B8%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB%E6%A1%88%E4%BE%8B-zss33266/train_mnist_tf_optimized.py)  
 模型调优的过程如下：
 1. 将原有的代价函数改为交叉熵代价函数，学习率learning_rate=0.5
-![image](https://user-images.githubusercontent.com/52277737/60990216-80938580-a37a-11e9-8aa3-e55346302bb2.png)
+![image](https://user-images.githubusercontent.com/52277737/60990216-80938580-a37a-11e9-8aa3-e55346302bb2.png)  
 最后训练的准确率为90.4%左右
-![image](https://user-images.githubusercontent.com/52277737/60988713-c3ebf500-a376-11e9-8a6d-76d0b4cf1d30.png)
+![image](https://user-images.githubusercontent.com/52277737/60988713-c3ebf500-a376-11e9-8a6d-76d0b4cf1d30.png)  
 2. 通过增加训练次数，将训练次数'max_steps', 1000，增加到1500
-![image](https://user-images.githubusercontent.com/52277737/60988372-0d881000-a376-11e9-8c26-c14246239b16.png)
+![image](https://user-images.githubusercontent.com/52277737/60988372-0d881000-a376-11e9-8c26-c14246239b16.png)  
 最后训练的准确率为91%左右，有一点点提升 
 ![image](https://user-images.githubusercontent.com/52277737/60990278-a4ef6200-a37a-11e9-9aca-41b7f6ee3c5d.png)
 3. 将梯度下降优化器GradientDescentOptimizer改为AdamOptimizer
-![image](https://user-images.githubusercontent.com/52277737/60988466-41633580-a376-11e9-9de9-681f326b9c9b.png)
+![image](https://user-images.githubusercontent.com/52277737/60988466-41633580-a376-11e9-9de9-681f326b9c9b.png)  
 通过日志发现，准确率上升到50%左右之后，结果不升反而开始下降了，有可能是原有的学习率0.5过高，错过了梯度最低点，最后准确率只有43%
-![image](https://user-images.githubusercontent.com/52277737/60990386-e5e77680-a37a-11e9-9a9f-3dd86eed5351.png)
+![image](https://user-images.githubusercontent.com/52277737/60990386-e5e77680-a37a-11e9-9a9f-3dd86eed5351.png)  
 Note：:#初始化全局变量sess.run(tf.global_variables_initializer()) 这段代码要从前面移到AdamOptimizer之后；日志如果无法看到最后的训练结果，直接下载到本地记事本中查看。
-这里要说明一下的是，不管用哪一种优化器算法 ，我们的优化器目的是为了找到模型的最佳参数w,b，不断的缩小预测值与实际标签值的误差，怎么样让loss值最小，看下面这张图：
-![image](https://user-images.githubusercontent.com/52277737/60990817-d61c6200-a37b-11e9-921a-2b1bbc64a335.png)
-打个比方：小明现在要从一个山顶去往山下，小明需要找到最低点，但是现在他迷路了，他的每一次行动目的都是找到下山最近的路，而每一次寻找都是一个不断试错的过程，为了让这个试错的成本最小化，他需要一个指南针（可以理解为优化器Optimizer)，这个指南针会指引小明到达最低点，他不停的沿着指明的方向前进，大步向前走，或者小步向前走，按照一定的步频往山下走，这个过程可以理解为学习率（learning_rate），每次往前面走一点，小明离最低的位置就越近，直到找到最低点就成功了（如果迈出去的步子大了，有可能错过最低点）
-4. 调整AdamOptimizer的学习率
-我们先看一下Adam优化器算法的参数说明
-![image](https://user-images.githubusercontent.com/52277737/60990526-35c63d80-a37b-11e9-90fb-4e121fca3323.png)
-其中learning_rate的初始值为0.001，我们按照这个学习率再训练一次：
-![image](https://user-images.githubusercontent.com/52277737/60992920-0239e200-a380-11e9-81c7-a755156bce4d.png)
-训练的准确率又回到了90%左右
-![image](https://user-images.githubusercontent.com/52277737/60993849-d61f6080-a381-11e9-849e-7d2df46ee329.png)
-再把学习率调高一个量级试下，learning_rate = 0.01
-![image](https://user-images.githubusercontent.com/52277737/60988422-2a244800-a376-11e9-9f76-08e5c0a92eae.png)
-训练的准确率为92%左右，比上一次有提升
-![image](https://user-images.githubusercontent.com/52277737/60993284-b50a4000-a380-11e9-81de-1f38b5d7ea00.png)
+这里要说明一下的是，不管用哪一种优化器算法 ，我们的优化器目的是为了找到模型的最佳参数w,b，不断的缩小预测值与实际标签值的误差，怎么样让loss值最小，看下面这张图：  
+![image](https://user-images.githubusercontent.com/52277737/60990817-d61c6200-a37b-11e9-921a-2b1bbc64a335.png)  
+
+打个比方：小明现在要从一个山顶去往山下，小明需要找到最低点，但是现在他迷路了，他的每一次行动目的都是找到下山最近的路，而每一次寻找都是一个不断试错的过程，为了让这个试错的成本最小化，他需要一个指南针（可以理解为优化器Optimizer)，这个指南针会指引小明到达最低点，他不停的沿着指明的方向前进，大步向前走，或者小步向前走，按照一定的步频往山下走，这个过程可以理解为学习率（learning_rate），每次往前面走一点，小明离最低的位置就越近，直到找到最低点就成功了（如果迈出去的步子大了，有可能错过最低点）  
+4. 调整AdamOptimizer的学习率  
+我们先看一下Adam优化器算法的参数说明    
+![image](https://user-images.githubusercontent.com/52277737/60990526-35c63d80-a37b-11e9-90fb-4e121fca3323.png)  
+其中learning_rate的初始值为0.001，我们按照这个学习率再训练一次：    
+![image](https://user-images.githubusercontent.com/52277737/60992920-0239e200-a380-11e9-81c7-a755156bce4d.png)  
+训练的准确率又回到了90%左右     
+![image](https://user-images.githubusercontent.com/52277737/60993849-d61f6080-a381-11e9-849e-7d2df46ee329.png)  
+再把学习率调高一个量级试下，learning_rate = 0.01  
+![image](https://user-images.githubusercontent.com/52277737/60988422-2a244800-a376-11e9-9f76-08e5c0a92eae.png)  
+训练的准确率为92%左右，比上一次有提升  
+![image](https://user-images.githubusercontent.com/52277737/60993284-b50a4000-a380-11e9-81de-1f38b5d7ea00.png)  
 5. 经验小结
 我们通过尝试调整不同的代价函数算法、训练次数和学习率，最终将模型的精度提升了1%~2%左右，小结如下：
 - 可以尝试不同的Optimizer算法来改善模型的精度或者训练时间。
