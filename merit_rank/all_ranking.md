@@ -53,6 +53,20 @@
      * 扩展案例：[二期的训练精度在84%以上(为85.5%)](https://github.com/huaweicloud/ModelArts-Lab/issues/221#issue-464001378)
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507639946)
+
+* s1119858711：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508308929), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508499648),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508968840)
+     * 体验文章：
+     * 扩展案例：[第二期修改参数使得正确率在85.5%以上](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509013465)
+     * 实际应用案例： 
+     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-509863004)
+     
+* work2020：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502380659) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504941721) [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-509190778)
+     * 体验文章：
+     * 扩展案例：[二期的训练精度在84%以上(为84.06%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504941721)
+     * 实际应用案例：
+     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-509546922)
      
 * wonleing：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504950739)
@@ -88,20 +102,6 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-508894900)
-     
-* s1119858711：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508308929), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508499648),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508968840)
-     * 体验文章：
-     * 扩展案例：[第二期修改参数使得正确率在85.5%以上](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509013465)
-     * 实际应用案例： 
-     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-509863004)
-     
-* work2020：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502380659) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504941721) [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-509190778)
-     * 体验文章：
-     * 扩展案例：[二期的训练精度在84%以上(为84.06%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504941721)
-     * 实际应用案例：
-     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-509546922)
      
 * hellfire0820-ty：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502413880) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504882227)
@@ -301,6 +301,13 @@
      * 扩展案例：
      * 实际应用案例： 
      * 微认证：
+
+* JUSxuaxuan：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508597126),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509645743)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
      
 * zhd：1个积分，贡献点：
      * 完成案例：
@@ -458,13 +465,6 @@
      
 * dongfengwang：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508371641)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     * 微认证：
-     
-* JUSxuaxuan：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508597126),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509645743)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
