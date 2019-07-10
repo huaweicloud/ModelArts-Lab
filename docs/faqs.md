@@ -129,7 +129,9 @@ Upload按钮如下：
 
 2. 如果是大尺寸的文件，可以使用OBS客户端将文件先上传至OBS，然后使用ModelArts SDK从OBS下载文件至Notebook本地。
 OBS是华为云的数据存储服务。
+
 使用OBS客户端上传文件至OBS的方法可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html)。
+
 使用ModelArts SDK从OBS下载文件至Notebook本地可以参考[此文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0127.html)。
 
 3. 如果是文件夹，建议将文件夹压缩成一个压缩包，然后使用方法2上传，最后在terminal中解压压缩包。
@@ -145,5 +147,7 @@ OBS是华为云的数据存储服务。
 其他预训练模型的URL可以从该网址查找https://github.com/fchollet/deep-learning-models/releases 。
 
 2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS下载至Notebook本地。
+
 可以从https://github.com/fchollet/deep-learning-models/releases 网址找到所有Keras官方预训练模型的下载链接。部分预训练模型的下载链接见方法1。
-上传文件至OBS，然后从OBS下载至Notebook本地的方法参考[此FAQ]()
+
+上传文件至OBS，然后从OBS下载至Notebook本地的方法参考[此FAQ](https://github.com/chaoxu1203/ModelArts-Lab/blob/master/docs/faqs.md#%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E8%87%B3notebook)
