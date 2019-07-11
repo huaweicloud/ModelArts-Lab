@@ -14,3 +14,12 @@
 
 ## 3. 迁移学习代码
 code文件夹中的dog_and_cat_efficientnetb0.ipynb此项目本人所写的迁移训练代码，作者本地环境为win10系统，tensorflow-gpu 1.14.0版本。
+目录结构
+data					lost+found
+dog_and_cat_efficientnetb0.ipynb	main.py
+efficientnet-b0				preprocessing.py
+efficientnet_builder.py			__pycache__
+efficientnet_model.py			README.md
+eval_ckpt_example.ipynb			upgrade tensorflow 1.14.0.ipynb
+eval_ckpt_main.py			utils.py
+imagenet_input.py
