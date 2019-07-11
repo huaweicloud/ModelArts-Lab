@@ -23,7 +23,7 @@
 * [Terminal中如何进入跟当前实例Notebook kernel一样的python环境](#terminal中如何进入跟当前实例notebook-kernel一样的python环境)
 * [运行训练代码出现内存不够问题并导致实例崩溃](#运行训练代码出现内存不够问题并导致实例崩溃)
 * [Notebook出现保存文件失败](#notebook出现保存文件失败)
-* [如何下载GitHub代码库里面的单个文件](#如何下载github代码库里面的单个文件)
+* [如何下载GitHub代码库中的单个目录或文件](#如何下载github代码库中的单个目录或文件)
 * [Notebook运行生成的文件如何保存到OBS](#notebook运行生成的文件如何保存到obs)
 * [如何在Notebook中安装Python依赖](#如何在notebook中安装python依赖)
 * [Notebook中调测好的代码如何用于训练作业](#notebook中调测好的代码如何用于训练作业)
@@ -84,8 +84,11 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 如果当前Notebook还可以运行代码，但是无法保存，保存时会提示“save error”错误。
 大多数原因是华为云WAF安全拦截导致的，当前页面，即用户的输入或者代码运行的输出有一些字符被华为云拦截，认为有安全风险。出现此问题时，请提交工单，联系专业的工程师帮您核对并处理问题。
 
-## 如何下载GitHub代码库里面的单个文件
-在GitHub中，打开要下载的文件（源代码或者图片等），右击`Download`或者`Raw`按钮（这两个按钮的功能是一样的，并且不会同时存在），然后点击"链接另存为"，保存文件到本地，如下图所示：
+## 如何下载GitHub代码库中的单个目录或文件
+将单个目录或文件的上层目录地址进行复制，打开网页http://kinolien.github.io/gitzip/ ，粘贴到搜索框中，点击search，即可选择对应的目录或文件进行下载。比如，要将ModelArts-Lab代码库notebook案例中的DL_image_recognition目录下载下来，则复制该目录的上层目录地址：https://github.com/langziwuqing/ModelArts-Lab/tree/master/notebook ，按以上方法操作，可以得到如下图所示的下载页面。
+<img src="images/github下载单个目录或文件.png" width="1000px" />
+
+如果只是下载单个纯文本或图片文件，还有另外一种方法。打开要下载的文件，如下图所示，点击图中红框处的Raw或者Download按钮（这两个按钮的功能是一样的，并且不会同时存在），然后右键"另存为"，即可保存文件到本地。注意，这种方法不适用于下载含有图片或特殊格式的*.md文件或*.ipynb文件，因为使用这种方式下载将只得到纯文本，会丢失原文件中的图片或特殊格式，推荐使用上面介绍的第一种方法将*.md文件或*.ipynb文件所在的目录整个下载下来。之所以要下载整个目录，是因为*.md文件或*.ipynb文件中的图片是单独存储在其他目录中的。
 <img src="images/github下载单个文件.PNG" width="1000px" />
 
 ## Notebook运行生成的文件如何保存到OBS
@@ -117,11 +120,13 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 ## Notebook卡死_无法执行代码
 按如下步骤依次进行排查处理：
-1. 如果只是单个cell的执行过程卡死，但整个Notebook页面还可以点击，则先点击保存按钮，再点“Kernel->Restart”；
-2. 如果整个Notebook页面也已经卡死，则打开ModelArts的Notebook管理页面，点击Runing，再点击Shutdown将对应的Notebook关掉，稍后再重新打开；
-<img src="images/shutdown_notebook.png" width="1000px" />
+1. 如果只是cell的执行过程卡死或执行时间过长，如下图中的第2个和第3个cell，导致第4个cell无法执行，但整个notebook页面还有反应，其他cell也还可以点击，则直接点击下图中红色方框处的”interrupt the kernel”按钮，即可停止所有cell的执行，同时会保留当前notebook中的所有变量空间；
+<img src="images/notebook中的cell卡死.png" width="1000px" />
 
-3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开ModelArts的Notebook列表页面，将对应的Notebook虚拟机停止，再启动。
+2. 如果整个notebook页面也已经卡死，点击任何地方都无反应，则关闭notebook页面，关闭modelArts管理控制台页面，如下图所示，再重新打开管理控制台页面，再打开原来的notebook，此时的notebook仍会保留卡死之前的所有变量空间；
+<img src="images/ModelArts管理控制台页面.png" width="1000px" />
+
+3. 如果按第2步执行后重新打开的notebook仍然卡死，则打开modelArts管理控制台页面的notebook列表页面，将对应的notebook虚拟机停止、启动，再打开原来的notebook。
 <img src="images/停止notebook.png" width="1000px" />
 
 ## 如何上传本地文件至Notebook
