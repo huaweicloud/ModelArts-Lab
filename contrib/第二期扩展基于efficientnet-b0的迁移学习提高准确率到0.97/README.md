@@ -1,4 +1,4 @@
-#基于efficientnet-b0的迁移学习提高猫狗识别准确率到0.97
+# 基于efficientnet-b0的迁移学习提高猫狗识别准确率到0.97
 ## 1. 关于环境的说明
 
 ### 在华为云modelarts开发环境中需要基于TF-1.8.0-PYTHON3.6引擎升级，将tensorflow升级为1.14.0版本
