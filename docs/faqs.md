@@ -30,6 +30,9 @@
 * [是否支持在本地安装MoXing](#是否支持在本地安装moxing)
 * [在GitHub网站上打开ipynb文件很缓慢或打开失败](#在github网站上打开ipynb文件很缓慢或打开失败)
 * [Notebook卡死_无法执行代码](#notebook卡死_无法执行代码)
+* [如何上传本地文件至Notebook](#如何上传本地文件至Notebook)
+* [代码中自动下载Keras预训练模型速度缓慢或者失败怎么办](#代码中自动下载Keras预训练模型速度缓慢或者失败怎么办)
+* [如何选择ModelArts训练作业的各个路径参数](#如何选择ModelArts训练作业的各个路径参数)
 
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
@@ -121,4 +124,48 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 3. 如果按第2步执行后重新打开的Notebook仍然卡死，则打开ModelArts的Notebook列表页面，将对应的Notebook虚拟机停止，再启动。
 <img src="images/停止notebook.png" width="1000px" />
 
+## 如何上传本地文件至Notebook
+1. 如果是小尺寸（小于10MB）的文件，可以直接点击Notebook的Upload按钮，上传本地文件，会将文件直接上传到Notebook本地的`~/work`目录下。
+Upload按钮如下：
+<img src="images/Upload按钮.PNG" width="1000px" />
+
+2. 如果是大尺寸的文件，可以使用OBS客户端将文件先上传至OBS，然后使用ModelArts SDK从OBS下载文件至Notebook本地。
+
+OBS是华为云的数据存储服务。
+
+使用OBS客户端上传文件至OBS的方法可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html)。
+
+使用ModelArts SDK从OBS下载文件至Notebook本地可以参考[此文档](https://support.huaweicloud.com/sdkreference-modelarts/modelarts_04_0127.html)。
+
+3. 如果是文件夹，建议将文件夹压缩成一个压缩包，然后使用方法2上传，最后在terminal中解压压缩包。
+
+## 代码中自动下载Keras预训练模型速度缓慢或者失败怎么办
+当执行代码`base_model = VGG16(weights='imagenet', include_top=False)`时，如果本地没有下载过相应的预训练模型，Keras就会自动去网络上下载。如果自动下载的速度慢或者失败，可以将预训练模型放到Notebook本地路径`~/.keras/models/`下来解决。原理是Keras会先从本地路径`~/.keras/models/`下寻找预训练模型，如果找到，就会直接加载本地的预训练模型，而不会从网络下载。有以下两种方式将模型文件放到Notebook本地：
+1. 进入Notebook terminal，然后切换到`~/.keras/models/`路径下，使用`wget <URL>`命令从网上下载预训练模型至Notebook本地（推荐）。
+
+部分预训练模型的URL如下：
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
+* https://github.com/fchollet/deep-learning-models/releases/download/v0.1/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
+
+其他预训练模型的URL可以从该网址查找https://github.com/fchollet/deep-learning-models/releases 。
+
+2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS下载至Notebook本地。
+
+可以从https://github.com/fchollet/deep-learning-models/releases 网址找到所有Keras官方预训练模型的下载链接。部分预训练模型的下载链接见方法1。
+
+上传文件至OBS，然后从OBS下载至Notebook本地的方法参考[此FAQ](#如何上传本地文件至notebook)
+
+## 如何选择ModelArts训练作业的各个路径参数
+提交训练作业需要先将代码和数据上传到OBS上，然后训练作业会运行OBS上的代码，并读取OBS上数据进行训练，最后将生成的模型保存到OBS上。其中，读取OBS数据和保存模型文件至OBS这两个操作都需要在训练代码中编程实现。
+
+创建训练作业的部分参数如下图：
+<img src="images/训练作业参数.PNG" width="1000px" />
+
+* 数据存储位置：存放训练数据的OBS路径，将数据集都放到这个路径下
+* 代码目录：存放训练代码的OBS路径，将训练代码全都放到这个路径下
+* 启动文件：代码目录下的一个代码文件OBS路径，作为主启动文件
+* 训练输出位置：OBS路径，保证这个路径是一个空路径，用于保存程序运行中生成的模型文件和其他有用的文件
+
+其中，数据存储位置和代码目录两个路径是输入数据路径，训练输出位置是输出数据的路径。我们在规划路径的时候，**最好保证这个三个OBS路径相互独立，互相之间没有包含和重合关系，否则可能会导致训练作业运行失败**。
 
