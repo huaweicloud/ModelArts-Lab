@@ -203,10 +203,10 @@
      * 实际应用案例：
      * 微认证：
      
-* Owen1u：3个积分，贡献点：
+* Owen1u：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-510385548)  [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-510388026)
      * 体验文章： 
-     * 扩展案例：
+     * 扩展案例：[二期的训练精度在84%以上](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-510425460)
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510389216)
 
