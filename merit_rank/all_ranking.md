@@ -161,8 +161,8 @@
      * 实际应用案例：      
      * 微认证：
      
-* flatefish：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508937623) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508992452)
+* flatefish：4个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508937623) [第二期](  https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508992452) [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-510272902)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
@@ -208,7 +208,7 @@
      * 体验文章： 
      * 扩展案例：
      * 实际应用案例：
-     * 微认证：[ModelArts实现零售商客户分群](hhttps://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510389216)
+     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510389216)
 
 * from1996iter：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505851131)
