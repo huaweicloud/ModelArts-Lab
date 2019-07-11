@@ -147,6 +147,7 @@ OBS是华为云的数据存储服务。
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
 * https://github.com/fchollet/deep-learning-models/releases/download/v0.1/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
+
 其他预训练模型的URL可以从该网址查找https://github.com/fchollet/deep-learning-models/releases 。
 
 2. 从网上下载预训练模型至本地，然后上传至OBS，最后从OBS下载至Notebook本地。
