@@ -10,7 +10,7 @@
 ### 华为云和作者环境中都可执行成功
 
 ## 2. 关于代码的说明
-代码中引用谷歌EfficientNets开源模型EfficientNets-b0以及代码。
+代码中引用谷歌EfficientNets开源模型EfficientNets-b0以及代码。https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet
 
 ## 3. 迁移学习代码
 code文件夹中的dog_and_cat_efficientnetb0.ipynb此项目本人所写的迁移训练代码，作者本地环境为win10系统，tensorflow-gpu 1.14.0版本。
