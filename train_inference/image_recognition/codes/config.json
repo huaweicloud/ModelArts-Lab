@@ -18,6 +18,10 @@
 			"package_name": "Pillow"
 		},{
 			"restraint": "ATLEAST",
+			"package_version": "2.2.0",
+			"package_name": "keras"
+		},{
+			"restraint": "ATLEAST",
 			"package_version": "1.15.0",
 			"package_name": "numpy"
 		}]

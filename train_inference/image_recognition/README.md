@@ -143,7 +143,7 @@ AI引擎：TensorFlow，TF-1.13.1-python3.6
 
 计算节点个数：选择1，表示我们运行一个单机训练任务。（注：本训练脚本不支持分布式训练）
 
-所有字段填写好之后，确认参数无误，点击下一步，然后点击立即创建，开始训练。训练时长预计5到8分钟左右，ModelArts使用高峰期可能会有时间延迟。
+所有字段填写好之后，确认参数无误，点击下一步，然后点击立即创建，开始训练。训练时长预计8到15分钟左右，ModelArts使用高峰期可能会有时间延迟。
 
 **步骤 4**  &#160; &#160; 查看作业运行结果。在训练作业页面，点击作业名称，进入作业详情界面。可以查看到训练作业的详情，如下图所示：
 
@@ -180,6 +180,8 @@ AI引擎：TensorFlow，TF-1.13.1-python3.6
 <img src="images/tensorboard界面显示.PNG" width="1000px" />
 
 TensorBoard可以直观地显示训练过程中loss、accuracy等评估指标的变化曲线，为开发者优化模型精度提供依据。
+
+**注意：TensorBoard使用完后需要及时关闭，否则会继续扣费。**
 
 ### 4. 部署模型
 
@@ -265,7 +267,7 @@ ModelArts平台约定：推理脚本的名称必须为customize_service.py，模
 
 以上两个思路只供参考，不限于以上两个思路。只要能增加模型的精度，其他的模型调优技巧也可以。
 
-**只要模型的精度提升至84%以上，就可获得额外多获得一个积分。如果精度提升到很高，并在本社区分享出代码和调优技巧，就可以获得更多的积分。**
+**完成模型精度更高的代码和调优技巧，可以提交PR到社区contrib下，社区committers将根据扩展案例的价值评估积分奖励**
 
 进行模型调优，建议基于我们之前的 [猫狗识别notebook案例](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb)  在notebook中调试。notebook就是用于代码调试。
 
