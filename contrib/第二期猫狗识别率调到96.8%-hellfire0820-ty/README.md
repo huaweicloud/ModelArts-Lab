@@ -7,17 +7,19 @@
 
 在本扩展案例中，使用了ResNet50预训练模型，当初始化一个预训练模型时，会自动下载权重到 ~/.keras/models/ 目录下
 因为是训练好的，所以我们冻结全部卷积层，这样就可以正确获得bottleneck特征，然后添加自己定制的全连接层
+
 #猫狗分类部分，需要我们根据现有需求来新定义，
 x = base_model.output
-#添加自己的全链接分类层
-# Dense就是常用的全连接层，所实现的运算是output = activation(dot(input, kernel)+bias)。其中activation是逐元素计算的激活函数，
-#kernel是本层的权值矩阵，bias为偏置向量，只有当use_bias=True才会添加。
-#如果本层的输入数据的维度大于2，则会先被压为与kernel相匹配的大小。
+
+下面添加自己的全链接分类层
+Dense就是常用的全连接层，所实现的运算是output = activation(dot(input, kernel)+bias)。其中activation是逐元素计算的激活函数，
+kernel是本层的权值矩阵，bias为偏置向量，只有当use_bias=True才会添加。
+如果本层的输入数据的维度大于2，则会先被压为与kernel相匹配的大小。
 
 x = Flatten()(x)     #Flatten层用来将输入“压平”，即把多维的输入一维化，常用在从卷积层到全连接层的过渡。Flatten不影响batch的大小。
-x = Dense(1024, activation='relu')(x)  
-#units：大于0的整数，代表该层的输出维度。这里为1024；
+x = Dense(1024, activation='relu')(x)    #units：大于0的整数，代表该层的输出维度。这里为1024；
 #activation：激活函数，为预定义的激活函数名，如果不指定该参数，将不会使用任何激活函数（即使用线性激活函数：a(x)=x），这里使用relu激活函数
+
 x = Dropout(0.5)(x)
 #为输入数据施加Dropout。Dropout将在训练过程中每次更新参数时按一定概率（rate）随机断开输入神经元，Dropout层用于防止过拟合。
 predictions = Dense(2, activation='softmax')(x)
