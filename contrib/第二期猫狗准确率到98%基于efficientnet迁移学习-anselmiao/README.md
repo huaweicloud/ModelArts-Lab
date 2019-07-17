@@ -7,19 +7,19 @@
 
 (此代码安装efficientnet库，基于谷歌efficientnet重新实现的Keras版本)
 
-!pip install https://github.com/qubvel/efficientnet/archive/master.zip 
+* !pip install https://github.com/qubvel/efficientnet/archive/master.zip 
 
 (下面是环境需要改动的库，keras2.24)
 
-!pip install scikit-image
-!pip install --upgrade keras
-!pip install numpy==1.15.0
+* !pip install scikit-image
+* !pip install --upgrade keras
+* !pip install numpy==1.15.0
 
 ## 2. 关于代码的说明
 
 #### 引用代码说明
-谷歌EfficientNets开源项目位置(https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet)
-此项目所引用的基于开源项目实现的EfficientNet-Keras位置(https://github.com/qubvel/efficientnet)
+谷歌EfficientNets开源项目[位置](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet)
+此项目所引用的基于开源项目实现的EfficientNet-Keras[位置](https://github.com/qubvel/efficientnet)
 
 本人之前有直接引用谷歌代码，tensorflow版本需要1.14.0需要cuda10，由于华为云上最高版本现为1.13.1版本使用cuda9
 导致本人在华为云上升级tensorflow1.14.0后执行效率很低，故这里改为引用他人所改动的keras版本代码(函数式api所写，
