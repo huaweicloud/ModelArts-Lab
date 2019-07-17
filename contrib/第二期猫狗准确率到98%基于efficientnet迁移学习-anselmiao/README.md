@@ -27,7 +27,7 @@
 可以通过模型中实现的endpoints访问层结构。
 
 #### 迁移学习代码
-code文件夹中的了b0_hwy.ipynb(基于efficientnet-b0)为此项目本人所写的迁移训练代码，b5_hwy.ipynb(基于efficientnet-b5)。
+code文件夹中的了[b0_hwy.ipynb](https://github.com/anselmiao/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E5%87%86%E7%A1%AE%E7%8E%87%E5%88%B098%25%E5%9F%BA%E4%BA%8Eefficientnet%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0-anselmiao/code/b0_hwy.ipynb)(基于efficientnet-b0)为此项目本人所写的迁移训练代码，[b5_hwy.ipynb](https://github.com/anselmiao/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E5%87%86%E7%A1%AE%E7%8E%87%E5%88%B098%25%E5%9F%BA%E4%BA%8Eefficientnet%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0-anselmiao/code/b5_hwy.ipynb)(基于efficientnet-b5)。
 本人测试b0的收敛速度很快，b5相比前者很慢，20轮在最后的测试集上准确率还小于b0,b5的finetune参数较多是其收敛速度慢的主因，
 不过b5loss值一直在减小，相信最终准确率会更高。
 
