@@ -5,11 +5,11 @@
 ### 在华为云modelarts开发环境中需要基于Multi-Engine-python3.6引擎，tensorflow版本为1.13.1版本
 #### 在notebook中执行以下语句
 
-(此代码安装efficientnet库，基于谷歌efficientnet重新实现的Keras版本)
+#### (此代码安装efficientnet库，基于谷歌efficientnet重新实现的Keras版本)
 
 * !pip install https://github.com/qubvel/efficientnet/archive/master.zip 
 
-(下面是环境需要改动的库，keras2.24)
+#### (下面是环境需要改动的库，keras2.24)
 
 * !pip install scikit-image
 * !pip install --upgrade keras
@@ -23,7 +23,7 @@
 
 本人之前有直接引用谷歌代码，tensorflow版本需要1.14.0需要cuda10，由于华为云上最高版本现为1.13.1版本使用cuda9
 导致本人在华为云上升级tensorflow1.14.0后执行效率很低，故这里改为引用他人所改动的keras版本代码(函数式api所写，
-便于打印结构),谷歌原版核心模型代码基于keras的Subclassed Models,模型结构定义于call内不能直接打印模型结构(https://colab.research.google.com/drive/172D4jishSgE3N7AO6U2OKAA_0wNnrMOq#scrollTo=mJqOn0snzCRy)
+便于打印结构),谷歌原版核心模型代码基于keras的Subclassed Models,[模型结构定义于call内不能直接打印模型结构](https://colab.research.google.com/drive/172D4jishSgE3N7AO6U2OKAA_0wNnrMOq#scrollTo=mJqOn0snzCRy)
 可以通过模型中实现的endpoints访问层结构。
 
 #### 迁移学习代码
