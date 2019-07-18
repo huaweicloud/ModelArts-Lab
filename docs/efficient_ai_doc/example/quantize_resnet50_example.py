@@ -5,7 +5,6 @@ Modify By h00423091 2019/6/19 11:23
 Created By h00423091 2019/6/19 11:23
 """
 
-
 import os
 import tensorflow as tf
 import moxing.tensorflow as mox
@@ -19,6 +18,7 @@ flags = tf.flags.FLAGS
 mnist = input_data.read_data_sets(flags.data_url, one_hot=True)
 
 batch_size = 1
+
 
 def input_fn():
     num_epochs = 5
@@ -61,11 +61,8 @@ def model_fn(inputs):
     x_image = tf.reshape(x, [-1, 28, 28, 1])  # 转换输入数据shape,以便于用于网络中
     W_conv1 = weight_variable('w1', [5, 5, 1, 32])
     b_conv1 = bias_variable('b1', [32])
-    # dcp export only support BiasAdd
-    # h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_conv1 = tf.nn.relu(tf.nn.bias_add(conv2d(x_image, W_conv1), b_conv1))  # 第一个卷积层
     h_pool1 = max_pool(h_conv1)  # 第一个池化层
-
     W_conv2 = weight_variable('w2', [5, 5, 32, 64])
     b_conv2 = bias_variable('b2', [64])
     h_conv2 = tf.nn.relu(tf.nn.bias_add(conv2d(h_pool1, W_conv2), b_conv2))  # 第二个卷积层
@@ -77,13 +74,13 @@ def model_fn(inputs):
     W_fc2 = weight_variable('w4', [1024, 10])
     b_fc2 = bias_variable('b4', [10])
     y = tf.nn.softmax(tf.matmul(h_fc1, W_fc2) + b_fc2)  # softmax层
-
     cross_entropy = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
     from efficient_ai.config import CompressorSpec
 
     compressor_spec = CompressorSpec(logits=y)
     return mox.ModelSpec(loss=cross_entropy, compressor_spec=compressor_spec, log_info={'loss': cross_entropy})
+
 
 def get_config():
     config = {
@@ -96,17 +93,17 @@ def get_config():
     }
     return config
 
+
 def quantize():
     from efficient_ai.compressor import Compressor
     from efficient_ai.models.moxing_model import MoxingModel
     log_dir = flags.train_url
-    # inputs = input_fn()
     model = MoxingModel(model_fn, log_dir)
-    # model = tf_moxing_model.TFMoxingModel(model_fn, inputs, log_dir)
     c = Compressor(model, input_fn)
 
     export_dir = os.path.join(log_dir, 'tf_quantize_models')
     c = c.quantizing(config=get_config()).export(export_dir)
+
 
 if __name__ == '__main__':
     quantize()

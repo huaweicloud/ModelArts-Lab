@@ -104,16 +104,11 @@ def dcp():
     config = DCPCompressorConfig(
         num_classes=num_classes,
         batch_size=batch_size,
-
-        # num_train_samples=num_train_samples
-        # num_eval_samples=num_eval_samples
         nb_iters_layer=5,
         nb_iters_block=5,
         prune_ratio=.5,
         nb_stages=1,
-        # prune_lrn_rate_adam=flags.dcp_prune_lrn_rate_adam,
         log_every_n_steps=10,
-
         log_dir=new_log_dir,
         max_number_of_steps=max_number_of_steps,
         optimizer_fn=optimizer_fn,
@@ -125,6 +120,7 @@ def dcp():
     c = Compressor(model, input_fn)
     export_dir = os.path.join(log_dir, 'tf_models')
     c = c.pruning(config).export(export_dir)
+
 
 if __name__ == '__main__':
     dcp()

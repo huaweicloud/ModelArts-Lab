@@ -212,7 +212,18 @@ Compressor 中的export方法用来导出压缩后的模型
 剪枝的使用[样例](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/efficient_ai_doc/example/dcp_mnist_example.py)
 
 ## 5.蒸馏配置参数介绍和样例
-
+- softmax_temperature: 整形.The softmax temperature.
+- soft_target_weight: 浮点.软目标的权重占比
+- start_lr:浮点.开始的学习率
+- num_epochs_per_decay: 整形.经过几次epoch后开始权重衰减
+- num_samples_per_epoch: 整形.每个epoch中batch的数量
+- rmsprop_decay: 浮点.RMSprop优化器参数
+- rmsprop_momentum: 浮点.RMSprop优化器参数
+- opt_epsilon: 浮点.优化器参数 
+- weight_decay: 浮点. 平方损失函数的权重衰减.
+- gradient_clipping: 布尔. 是否将梯度裁剪到[-1,1]范围
+- use_labels_for_distillation: 布尔. 是否在蒸馏中使用标签
+- quantized_student_model: 布尔. 是否在蒸馏中量化学生模型
 
 蒸馏的使用[样例](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/efficient_ai_doc/example/distill_mnist_example.py.py)
 
