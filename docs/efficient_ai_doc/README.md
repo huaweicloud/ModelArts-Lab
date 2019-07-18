@@ -18,6 +18,7 @@
 
 
 **版本：** tensorflow >= 1.8</br>
+
 **使用剪枝和蒸馏：**moxing
 
 ## 2.efficient_ai通用功能使用介绍
@@ -52,7 +53,7 @@ model= TFFrozenGraphModel( (file_name=”/opt/model/model.pb”, outputs =[“lo
 
 MoxingModel用于导入Moxing框架定义的模型
 
-- model_fn：Moxing里面定义结构用的函数，网络结构的定义详细参见[model_fn](#-23-用于描述MoxingModel结构的model_fn)
+- model_fn：Moxing里面定义结构用的函数，网络结构的定义详细参见[model_fn](#23_用于描述MoxingModel结构的model_fn)
 - ckpt_dir：用来定义ckpt文件所在的文件夹
 
 示例如下:</br>
@@ -192,7 +193,7 @@ Compressor 中的export方法用来导出压缩后的模型
 - batch_size：整形，产生的模型的输入的batch_size,tensorrt是max_batch_size
 - max_workspace_size_bytes：整形数字，(tensorrt专有)定义tensorrt在gpu上的最大工作空间
 
-量化的使用[样例](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/efficient_ai_doc/example/quantize_resnet50_example.py)
+量化的使用[样例](./example/quantize_resnet50_example.py)
 
 
 ## 4.剪枝配置参数介绍和样例
@@ -209,7 +210,7 @@ Compressor 中的export方法用来导出压缩后的模型
 建议：如果模型运行在GPU上，建议在model_fn中指定模型格式为NCHW，这样会获得更高的性能。
 
 
-剪枝的使用[样例](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/efficient_ai_doc/example/dcp_mnist_example.py)
+剪枝的使用[样例](./example/dcp_mnist_example.py)
 
 ## 5.蒸馏配置参数介绍和样例
 - softmax_temperature: 整形.The softmax temperature.
@@ -225,6 +226,6 @@ Compressor 中的export方法用来导出压缩后的模型
 - use_labels_for_distillation: 布尔. 是否在蒸馏中使用标签
 - quantized_student_model: 布尔. 是否在蒸馏中量化学生模型
 
-蒸馏的使用[样例](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/efficient_ai_doc/example/distill_mnist_example.py.py)
+蒸馏的使用[样例](./example/distill_mnist_example.py.py)
 
 
