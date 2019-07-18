@@ -1,25 +1,23 @@
-# 目标检测YOLO算法-使用ModelArts预置算法
+# 物体检测YOLO V3算法实践-使用ModelArts预置算法
 
 YOLO场景运用：
 YOLO作为一个one-stage目标检测算法，在速度和准确度上都有杰出的表现。
 
-除了在运行环境中进行算法的定义和运行，通过训练作业中的预置算法同样可以进行YOLO的训练。接下来的例子就是一个利用ModelArts中的预置算法进行的训练过程。
+除了在Notebook开发环境中进行算法的定义和运行，通过ModelArts预置算法同样可以进行YOLO算法的训练和推理。接下来的例子就是一个利用ModelArts中的YOLO V3预置算法进行的训练和推理过程。
 
 ## 第一步：准备数据
 
 有很多开源的数据集可以用来进行目标检测任务的训练，如COCO数据集，PASCAL VOC数据集，BDD100K等，可以根据不同的需求和偏好进行选择。在获得数据集之后，需要对数据进行格式统一，然后便可以进行训练了。
 
-例子中使用的是PASCAL VOC2007，数据下载地址，点击即开始下载：
+本案例中使用的是PASCAL VOC2007，数据下载地址如下，点击即开始下载：
 
 http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
 
-OBS基础操作，详细步骤参考下面文档，如果已经有OBS使用基础请跳过这个步骤：
-https://support.huaweicloud.com/qs-obs/obs_qs_0002.html
+本地解压数据集，本案例只需要将VOC2007下的两个文件夹`Annotations`（标注数据） 和 `JPEGImages`（图像数据）下的所有文件放入一个文件夹中（如：VOC2007），准备好的文件夹的如下图所示：
 
-本地解压数据集，本案例只需要将VOC2007下的两个文件夹`Annotations` 和 `JPEGImages`下的所有文件放入一个文件夹中（如：dataset-import-example），然后将这个文件夹上传到OBS中。
+![dataset](./img/dataset.png)
 
-完成后的OBS文件目录如下所示：
-![create trainjob](./img/file_list.png)
+然后将这个文件夹上传到OBS中（使用OBS客户端上传文件夹至OBS的指导见[本文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html)）。
 
 数据准备以下面的文档为参考，有兴趣的同学可以尝试不同的数据集：
 
