@@ -24,4 +24,4 @@
   ## 实践案例
   
  - Notebook案例: [object_detection_yolo.ipynb](./object_detection_yolo.ipynb)
- - 预置模型训练与部署: [ModelArts物体检测YoloV3预置算法案例.md](./ModelArts物体检测YoloV3预置算法案例.md)
+ - 预置模型训练与部署: [ModelArts物体检测YoloV3预置算法案例.md](./ModelArts物体检测Yolo_V3预置算法案例.md)
