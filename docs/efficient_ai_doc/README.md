@@ -119,8 +119,8 @@ Compressor 是用来执行具体的量化、剪枝、蒸馏的算法
 - input_fn：输入的方法
 
 ```
-from efficient_ai.compresss_tool import Conmpressor
-ct = Conmpressor (model,input_fn)
+    from efficient_ai.compresss_tool import Conmpressor
+    ct = Conmpressor (model,input_fn)
 ```
 产生的Conmpressor包含量化、剪枝、蒸馏等方法
 
@@ -132,12 +132,12 @@ Compressor 中的distilling方法用来对模型进行蒸馏，因为蒸馏方�
 
 示例如下:</br>
 ```
-	from efficient_ai.compressor import Compressor
-	from efficient_ai.models.moxing_model import MoxingModel
-	teacher_model = MoxingModel(model_fn, log_dir)
-	student_model = MoxingModel(student_model_fn)
-	c = Conmpressor (student_model,input_fn)
-	c.distilling(teacher_model, config)
+    from efficient_ai.compressor import Compressor
+    from efficient_ai.models.moxing_model import MoxingModel
+    teacher_model = MoxingModel(model_fn, log_dir)
+    student_model = MoxingModel(student_model_fn)
+    c = Conmpressor (student_model,input_fn)
+    c.distilling(teacher_model, config)
 ```
 
 Compressor 中的pruning方法用来对模型进行剪枝，因为剪枝方法只对可训练模型有效，因此这里只支持对MoxingModel进行剪枝
@@ -147,7 +147,7 @@ Compressor 中的pruning方法用来对模型进行剪枝，因为剪枝方法�
 
 示例如下:</br>
 ```
-	from efficient_ai.compressor import Compressor
+    from efficient_ai.compressor import Compressor
     from efficient_ai.models.moxing_model import MoxingModel
     model = MoxingModel(model_fn, ckpt_dir)
     c = Compressor(model, input_fn)
@@ -162,7 +162,7 @@ Compressor 中的quantizing方法用来对模型进行量化，量化对上面�
 
 示例如下:</br>
 ```
-	from efficient_ai.compressor import Compressor
+    from efficient_ai.compressor import Compressor
     from efficient_ai.models.moxing_model import MoxingModel
     model = MoxingModel(model_fn, ckpt_dir)
     c = Compressor(model, input_fn)
@@ -177,7 +177,7 @@ Compressor 中的export方法用来导出压缩后的模型
 
 示例如下:</br>
 ```
-	from efficient_ai.compressor import Compressor
+    from efficient_ai.compressor import Compressor
     from efficient_ai.models.moxing_model import MoxingModel
     model = MoxingModel(model_fn, ckpt_dir)
     c = Compressor(model, input_fn)
@@ -185,10 +185,10 @@ Compressor 中的export方法用来导出压缩后的模型
 ```
 ## 3.量化配置参数介绍和样例
 
-- algorithm:字符串,可以是"default"或者"grid"
-- inferece_engine：字符串,压缩后部署的推理引擎,现在支持tflite或者是tensorrt可以是"tflite"或"tensorrt"
-- engine_version：字符串,推理引擎的版本，现在tflite是"tflite13" tensorrt是"tensorrt5"
-- precision：字符串,压缩后的精度，tensorrt可以是"fp32"，"fp16"，"int8"，tflite只能是"fp32"，"int8"
+- algorithm:字符串,可以是"DEFAULT"或者"GRID"
+- inferece_engine：字符串,压缩后部署的推理引擎,现在支持tflite或者是tensorrt可以是"TFLITE"或"TENSORRT"
+- engine_version：字符串,推理引擎的版本，现在tflite是"TFLITE13" tensorrt是"TENSORRT%"
+- precision：字符串,压缩后的精度，tensorrt可以是"FP32"，"FP16"，"INT8"，tflite只能是"FP32"，"INT8"
 - batch_size：整形，产生的模型的输入的batch_size,tensorrt是max_batch_size
 - max_workspace_size_bytes：整形数字，(tensorrt专有)定义tensorrt在gpu上的最大工作空间
 
