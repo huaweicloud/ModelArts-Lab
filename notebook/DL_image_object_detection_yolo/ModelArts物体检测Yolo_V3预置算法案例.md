@@ -42,7 +42,7 @@ https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0005.html
 
 https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0045.html
 
-本案例使用如下的参数设置，其他案例请根据具体情况设置参数。本案例中建议设置`batch_size`为16。
+本案例使用如下的参数设置，其他案例请根据具体情况设置参数。**本案例中建议设置`batch_size`为16，可以充分利用GPU，缩短训练时间**。
 ![create trainjob](./img/create_trainjob_6.png)
 
 选择一个空文件夹作为训练结果的输出路径，完成训练作业的定义。
