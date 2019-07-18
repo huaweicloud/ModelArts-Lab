@@ -40,7 +40,7 @@ https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0005.html
 https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0045.html
 
 图片中的参数仅供参考，请根据具体情况进行定义。
-![create trainjob](./img/create_trainjob_4.png)
+![create trainjob](./img/create_trainjob_6.png)
 选择一个空文件夹作为训练结果的输出路径，完成训练作业的定义。
 ![create trainjob](./img/create_trainjob_5.png)
 
