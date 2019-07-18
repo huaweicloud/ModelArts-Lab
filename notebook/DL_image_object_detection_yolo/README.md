@@ -13,13 +13,12 @@
   YOLO模型
   
   ## 实验环境
-  - **notebook**
-  多引擎，Python3.6，TensorFlow 1.13， GPU
+  - **环境创建**
+  多引擎，Python3.6， GPU
+  - **notebook创建**
+  创建notebook时请选择：**TensorFlow 1.13**
   
   ## 实践案例
   
- - Notebook案例
- - 预置模型训练与部署
- 
- 
-  
+ - Notebook案例: object_detection_yolo.ipynb
+ - 预置模型训练与部署: Built-in_Algorithms.md
