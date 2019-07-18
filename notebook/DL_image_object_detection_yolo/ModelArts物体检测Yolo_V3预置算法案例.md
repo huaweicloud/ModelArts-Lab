@@ -31,16 +31,20 @@ https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0005.html
 然后根据需求进行作业参数定义：
 训练作业名称需自定义
 ![create trainjob](./img/create_trainjob_1.png)
+
 在预置算法列表中选择`yolo_v3`
 ![create trainjob](./img/create_trainjob_2.png)
+
 数据来源选择在第一步中存储的数据位置
 ![create trainjob](./img/create_trainjob_3.png)
+
 模型参数设置参考文档及个人需求进行定义：
 
 https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0045.html
 
 本案例使用如下的参数设置，其他案例请根据具体情况设置参数。本案例中建议设置`batch_size`为16。
 ![create trainjob](./img/create_trainjob_6.png)
+
 选择一个空文件夹作为训练结果的输出路径，完成训练作业的定义。
 ![create trainjob](./img/create_trainjob_5.png)
 
