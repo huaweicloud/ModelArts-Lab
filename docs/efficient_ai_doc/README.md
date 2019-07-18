@@ -17,9 +17,9 @@
 ## 1.efficient_ai使用压缩工具库的前提
 
 
-**版本：** tensorflow >= 1.8
+**版本要求**： tensorflow >= 1.8
 
-**使用剪枝和蒸馏：**moxing
+**使用剪枝和蒸馏**：moxing
 
 ## 2.efficient_ai通用功能使用介绍
 
