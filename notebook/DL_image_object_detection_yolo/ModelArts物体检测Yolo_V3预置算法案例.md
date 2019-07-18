@@ -39,10 +39,12 @@ https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0005.html
 
 https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0045.html
 
-图片中的参数仅供参考，请根据具体情况进行定义。本案例中建议设置`batch_size`为16。
+本案例使用如下的参数设置，其他案例请根据具体情况设置参数。本案例中建议设置`batch_size`为16。
 ![create trainjob](./img/create_trainjob_6.png)
 选择一个空文件夹作为训练结果的输出路径，完成训练作业的定义。
 ![create trainjob](./img/create_trainjob_5.png)
+
+训练时长大概40到50分钟左右，如果遇到使用高峰期，时间可能更长。
 
 ## 第三步：查看训练情况
 
