@@ -17,7 +17,7 @@
 ## 1.efficient_ai使用压缩工具库的前提
 
 
-**版本：** tensorflow >= 1.8</br>
+**版本：** tensorflow >= 1.8
 
 **使用剪枝和蒸馏：**moxing
 
@@ -53,7 +53,7 @@ model= TFFrozenGraphModel( (file_name=”/opt/model/model.pb”, outputs =[“lo
 
 MoxingModel用于导入Moxing框架定义的模型
 
-- model_fn：Moxing里面定义结构用的函数，网络结构的定义详细参见[model_fn](#23_用于描述MoxingModel结构的model_fn)
+- model_fn：Moxing里面定义结构用的函数，网络结构的定义详细参见[model_fn](#23-用于描述moxingmodel结构的model_fn)
 - ckpt_dir：用来定义ckpt文件所在的文件夹
 
 示例如下:</br>
@@ -226,6 +226,6 @@ Compressor 中的export方法用来导出压缩后的模型
 - use_labels_for_distillation: 布尔. 是否在蒸馏中使用标签
 - quantized_student_model: 布尔. 是否在蒸馏中量化学生模型
 
-蒸馏的使用[样例](./example/distill_mnist_example.py.py)
+蒸馏的使用[样例](./example/distill_mnist_example.py)
 
 
