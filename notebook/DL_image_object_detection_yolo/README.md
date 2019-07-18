@@ -1,8 +1,8 @@
 
-  # 【WIP】 目标检测——YOLO
+  # 【WIP】 物体检测Yolo V3实践
 
   
-  本次实践了解目标检测模型——YOLO模型
+  本次实践了解物体检测模型——YOLO模型
   
   ## 数据集
   - **notebook**
@@ -23,6 +23,5 @@
   
   ## 实践案例
   
- - Notebook案例: object_detection_yolo.ipynb
- - 预置模型训练与部署: Built-in_Algorithms.md
-
+ - Notebook案例: [object_detection_yolo.ipynb](./object_detection_yolo.ipynb)
+ - 预置模型训练与部署: [ModelArts物体检测Yolo_V3预置算法案例.md](./ModelArts物体检测Yolo_V3预置算法案例.md)
