@@ -16,7 +16,7 @@ http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
 OBS基础操作，详细步骤参考下面文档，如果已经有OBS使用基础请跳过这个步骤：
 https://support.huaweicloud.com/qs-obs/obs_qs_0002.html
 
-本地解压数据集，将VOC2007下的文件夹：`Annotations` 以及 `JPEGImages`下的所有文件放入一个文件夹中，然后将这个文件夹上传到OBS中。
+本地解压数据集，本案例只需要将VOC2007下的两个文件夹`Annotations` 和 `JPEGImages`下的所有文件放入一个文件夹中（如：dataset-import-example），然后将这个文件夹上传到OBS中。
 
 完成后的OBS文件目录如下所示：
 ![create trainjob](./img/file_list.png)
