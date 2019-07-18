@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-  # 目标检测——YOLO
-=======
+
   # 【WIP】 目标检测——YOLO
->>>>>>> upstream/master
+
   
   本次实践了解目标检测模型——YOLO模型
   
