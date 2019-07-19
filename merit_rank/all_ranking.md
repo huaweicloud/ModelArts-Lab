@@ -628,6 +628,8 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+  
+
      
  * Burglar_Cat：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-511081224)
@@ -662,5 +664,13 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：     
-     
+    
+    
+  * Alex2025：1个积分，贡献点：
+     * 完成案例：[第三期]( https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513059364)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+    
 <B>共计93位参与者</B>
