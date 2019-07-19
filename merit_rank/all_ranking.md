@@ -217,9 +217,7 @@
      * 微认证：
      
  * Alex2025：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508900254)
-                [第二期] (https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513059364)
-                [第三期]( https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-513063640)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508900254)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513059364)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-513063640)
 
      * 体验文章：
      * 扩展案例：
