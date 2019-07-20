@@ -223,10 +223,10 @@
      * 实际应用案例：      
      * 微认证：
      
-* jimmybhb：4个积分，贡献点：
+* jimmybhb：5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503884848)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504948424)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-509119880)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513426857)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[第四期：物体检测 (I) yolo模型参数调优心得](https://github.com/huaweicloud/ModelArts-Lab/issues/424#issue-470625875)
      * 实际应用案例：
      * 微认证：
    
