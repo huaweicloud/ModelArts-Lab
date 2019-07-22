@@ -641,7 +641,7 @@
      * 实际应用案例：
      * 微认证：
      
-  * linteng0718：1个积分，贡献点：
+ * linteng0718：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49?tdsourcetag=s_pcqq_aiomsg#issuecomment-510878192)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513729946)
      * 体验文章：
      * 扩展案例：
