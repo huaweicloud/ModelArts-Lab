@@ -706,5 +706,12 @@
      * 实际应用案例：
      * 微认证：
      
-<B>共计99位参与者</B>
+  * NightEzp：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-514450873)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+     
+<B>共计100位参与者</B>
 
