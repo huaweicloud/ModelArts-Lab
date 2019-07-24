@@ -145,8 +145,8 @@
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507123254)
      
-* anselmiao: 4个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506668522)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506929637)
+* anselmiao: 5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506668522)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-506929637)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-514450768)
      * 体验文章：
      * 扩展案例：[二期猫狗精度到98%](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E5%87%86%E7%A1%AE%E7%8E%87%E5%88%B098%25%E5%9F%BA%E4%BA%8Eefficientnet%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0-anselmiao)
      * 实际应用案例：  
