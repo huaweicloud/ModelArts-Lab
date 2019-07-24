@@ -6,8 +6,9 @@ This library is an AI developer communication and learning platform for ModelArt
 Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
 
 ## Online Documents
-* [MoXing-API](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/moxing_api_doc)
-* [FAQs](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/faqs.md) 
+* [MoXing-API](docs/moxing_api_doc)
+* [FAQs](docs/faqs.md) 
+* [贡献者积分](merit_rank/all_ranking.md) 
 
 ## 案例内容介绍 Introduction of Cases
 

@@ -1,6 +1,6 @@
 ### 1.2. moxing文件操作
 
-MoXing中提供了一套文件对象API：[mox.file API document](MoXing-API-File-apidoc.md)，可以用来读写本地文件，同时也支持OBS文件系统。
+MoXing中提供了一套文件对象API：[mox.file API document](MoXing_API_File_apidoc.md)，可以用来读写本地文件，同时也支持OBS文件系统。
 
 #### 1.2.1. 一键切换
 
