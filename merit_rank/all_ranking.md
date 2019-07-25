@@ -266,7 +266,7 @@
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510389216)
 
 * huxian123：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-512622000)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-512665899)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-514008881)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-512622000)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-512665899)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-514008881),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514465177),[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/4#issuecomment-514874971),
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
