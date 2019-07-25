@@ -272,6 +272,13 @@
      * 实际应用案例：
      * 微认证：
      
+* cnsers：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-513646913)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513139061)
+     * 体验文章：[初涉AI开发，用华为云开发第一款智能识别程序](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%88%86%E9%A1%B9_cnsers/%E5%88%9D%E6%B6%89AI%E5%BC%80%E5%8F%91%EF%BC%8C%E7%94%A8%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%BC%80%E5%8F%91%E7%AC%AC%E4%B8%80%E6%AC%BE%E6%99%BA%E8%83%BD%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F.md)
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：      
+     
 * lishuimo：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505851131)
      * 体验文章：
@@ -411,13 +418,6 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
-* cnsers：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-513646913)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513139061)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     * 微认证：      
 
 * gondoa：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-514092111)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-514094012)
