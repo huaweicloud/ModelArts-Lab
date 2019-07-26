@@ -60,15 +60,15 @@
 
 ### 1. 创建图像分类项目
 
-**步骤 1**&#160; &#160;创建一个OBS桶，桶名命名为“ai-course-xxx”，同时在创建的OBS桶下创建文件夹“/automl/flowers”。创建OBS桶和文件夹参考文档：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html 。
+**步骤 1**&#160; &#160;创建一个OBS桶，桶名命名为`ai-course-xxx`，同时在创建的OBS桶下创建文件夹`/automl/flowers`。创建OBS桶和文件夹参考文档：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html 。
 
-**步骤 2**&#160; &#160;进入“ModelArts”管理控制台界面。单击左侧导航栏的“自动学习”，进入“自动学习”界面。请参考图7。
+**步骤 2**&#160; &#160;进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-1&locale=zh-cn#/manage/dashboard)界面。单击左侧导航栏的“自动学习”，进入“自动学习”界面。请参考图7。
 
 图7 自动学习界面
 
 <img src="images/自动学习.png" width="1000px" />
 
-**步骤 3** &#160; &#160; 点击“图像分类”创建项目按钮，创建自动学习>图像分类项目，自定义项目名称（本例输入exeML-flowers），训练数据选择OBS路径/ai-course-001/automl/flowers/（flowers目录是一个空目录即可），点击“创建项目”完成图像分类项目创建。请参考图8。
+**步骤 3** &#160; &#160; 点击“图像分类”创建项目按钮，创建自动学习>图像分类项目，自定义项目名称（本例输入exeML-flowers），训练数据选择OBS路径`/ai-course-001/automl/flowers/`（flowers目录是一个空目录即可），点击“创建项目”完成图像分类项目创建。请参考图8。
 
 图8 创建项目
 
