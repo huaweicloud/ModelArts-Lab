@@ -215,12 +215,12 @@
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-515298281)
      
-* 15940983626：4个积分，贡献点：
+* 15940983626：5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502551428)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505038712)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-509121419)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514007737)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-     * 微认证：
+     * 微认证：[基于卷积神经网络实现景区精准识别场景](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-515357981)
      
 * huxian123：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-512622000)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-512665899)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-514008881)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514465177)
