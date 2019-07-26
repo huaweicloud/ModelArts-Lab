@@ -24,18 +24,18 @@ def main(*args):
   mnist = input_data.read_data_sets(FLAGS.data_url, one_hot=True)
   sess = tf.InteractiveSession()
   serialized_tf_example = tf.placeholder(tf.string, name='tf_example')
-  feature_configs = {'x': tf.FixedLenFeature(shape=[784], dtype=tf.float32),}#手写体的图片大小28*28，总共784个像素，每一个像素都是特征值，采用浮点型
+  feature_configs = {'x': tf.FixedLenFeature(shape=[784], dtype=tf.float32),}#手写体的图片大小28*28，总共784个像素，每一个像素都是特征值，采用浮点型表示
   tf_example = tf.parse_example(serialized_tf_example, feature_configs)
 
   #构建训练模型
-  x = tf.identity(tf_example['x'], name='x')#定义输入特征值
+  x = tf.identity(tf_example['x'], name='x')#定义输入特征值，也就是列长度为784的张量x
   y_ = tf.placeholder('float', shape=[None, 10])#定义标签值为浮点型,长度为10的one-hot向量，n行10列，n取决于训练的样本数量
 
 
-  w = tf.Variable(tf.zeros([784, 10])) #定义权重参数，因为要用到矩阵运算，所以x的列数，就是w的行数，所以w就是784行乘以10列的张量
+  w = tf.Variable(tf.zeros([784, 10])) #定义权重参数，因为后面要用到矩阵运算，用x张量乘以w张量，x的列数784要与w的行数相同，所以w是784行、10列的张量，10代表有10个分类
   b = tf.Variable(tf.zeros([10]))#定义值参数  
   
-  #计算预测值：输入值X与权重值w相乖再加上偏置值b,得到预测值
+  #计算预测值：输入值X与权重w相乘，再加上偏置值b,得到预测值
   prediction=tf.matmul(x,w)+b
   #采用softmax函数激活输出预测值y
   y = tf.nn.softmax(prediction)
@@ -46,7 +46,7 @@ def main(*args):
 
   tf.summary.scalar('cross_entropy', cross_entropy)
   #定义学习率
-  learning_rate = 0.01 
+  learning_rate = 0.01
   #使用梯度下降法找到最小代价损失
   #train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)
   train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
@@ -55,7 +55,7 @@ def main(*args):
   sess.run(tf.global_variables_initializer()) 
 
   #将计算结果存放在一个bool列表中
-  correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1)) #argmax返回一维张量中最大的值所在的位置
+  correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1)) #argmax：返回一维张量中最大的值所在的位置，如果位置相等代表预测正确
   #计算精确率
   #tf.cast是把bool型数组转化为float型,True转化为1.0, False转化为0.0.reduce_mean时求float型数组的平均值,即正确的个数与所有个数之比.这个数越大越精准
   accuracy = tf.reduce_mean(tf.cast(correct_prediction, 'float')) #例如correct_prediction:[true,true,true,true，flase]=>[1,1,1,1,0]=>4/5=>80%
