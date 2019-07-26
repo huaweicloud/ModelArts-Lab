@@ -89,19 +89,19 @@
      * 实际应用案例：  
      * 微认证：
      
+* zss33266: 6个积分，贡献点：
+     * 完成案例：[第一期](  https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506277540) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507210562)
+     * 体验文章：[《在ModelArts上采用4种深度学习框架实现经典手写体识别模型》](https://github.com/huaweicloud/ModelArts-Lab/issues/306)
+     * 扩展案例：[第二期猫狗识别率调到96.6%](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E8%AF%86%E5%88%AB%E7%8E%87%E8%B0%83%E5%88%B096.6%25-zss33266/dog_and_cat_train_ResNet50_zss33266_20190702.ipynb)
+     * 实际应用案例：    
+     * 微认证：
+     
 * fjqsun：6个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-510098458),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514896124)
      * 体验文章：
      * 扩展案例：[二期的训练精度在84%以上(为90.08%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510705827)
-
-* zss33266: 5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-506277540)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507210562)
-     * 体验文章：
-     * 扩展案例：[第二期猫狗识别率调到96.6%](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%BA%8C%E6%9C%9F%E7%8C%AB%E7%8B%97%E8%AF%86%E5%88%AB%E7%8E%87%E8%B0%83%E5%88%B096.6%25-zss33266/dog_and_cat_train_ResNet50_zss33266_20190702.ipynb)
-     * 实际应用案例：    
-     * 微认证：
      
 * s1119858711：5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508308929)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508499648)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508968840)
