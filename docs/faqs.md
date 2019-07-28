@@ -129,6 +129,8 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 3. 如果按第2步执行后重新打开的notebook仍然卡死，则打开modelArts管理控制台页面的notebook列表页面，将对应的notebook虚拟机停止、启动，再打开原来的notebook。
 <img src="images/停止notebook.png" width="1000px" />
 
+4. 如果打开Notebook后无法执行代码，在一些情况下是本地网络不稳定导致和服务端无法快速建立websocket连接，建议重新刷新notebook网页以触发主动重连,重连后可以正常使用。
+
 ## 如何上传本地文件至Notebook
 1. 如果是小尺寸（小于10MB）的文件，可以直接点击Notebook的Upload按钮，上传本地文件，会将文件直接上传到Notebook本地的`~/work`目录下。
 Upload按钮如下：
