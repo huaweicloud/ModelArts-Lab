@@ -1,7 +1,3 @@
----
-typora-copy-images-to: img
----
-
 # 古画物体识别-使用ModelArts的预置算法yolov3
 
 YOLO场景运用：
