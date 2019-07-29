@@ -20,5 +20,5 @@
   
   ## 实践案例
   
- - Notebook案例: [old-Drawing-Yolo3.ipynb](./old-Drawing-Yolo3.ipynb)
+ - Notebook案例: [old-Drawing-Yolo3.ipynb](./old-Drawing-Yolo3.ipynb) 如果打不开ipynb文件的有[md版本的](./oldDrawingYolo3.md)
  - ModelArts预置算法案例: [oldDrawing-Built-in_Algorithms.md](./oldDrawing-Built-in_Algorithms.md)
