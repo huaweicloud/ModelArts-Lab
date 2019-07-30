@@ -74,11 +74,13 @@
 
 <img src="images/创建项目.png" width="1000px" />
 
+### 2. 下载数据集
 
+点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Flowers_Recognition/flowers_recognition.tar.gz)下载数据集压缩包至本地。
 
-### 2. 图片标注
+### 3. 图片标注
 
-**步骤 1** &#160; &#160;**准备数据集**。点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Flowers_Recognition/flowers_recognition.tar.gz)下载数据集，然后解压。数据集文件夹名称是flowers_recognition，训练集位于`flowers_recognition\train`目录下，共4个花卉类别，每个类别10张图片。测试集位于`flowers_recognition\test`目录下。
+**步骤 1** &#160; &#160;**准备数据集**。找到本地下载好的数据集压缩包，然后解压。数据集文件夹名称是`flowers_recognition`，训练集位于`flowers_recognition\train`目录下，共4个花卉类别，每个类别10张图片。测试集位于`flowers_recognition\test`目录下。
 
 该数据集包含的花朵及其类别如下图所示：
 
@@ -110,7 +112,7 @@
 
 
 
-### 3. 模型训练
+### 4. 模型训练
 
 在“数据标注”界面中，首先设置训练时长为0.1（减小训练时长的同时，可能会降低模型精度），然后点击“开始训练”按钮，即可开始训练。如下图所示：
 
@@ -118,7 +120,7 @@
 
 
 
-### 4. 模型部署
+### 5. 模型部署
 
 在“模型训练”页面等待训练完成（不超过6分钟），训练完成后，可以查看模型的精度：
 
@@ -130,7 +132,7 @@
 
 
 
-### 5. 服务测试
+### 6. 服务测试
 
 在“部署上线”页面，等待服务部署成功。部署成功后，点击“上传本地图片”按钮，上传一张本地的测试图片（从测试集中选取）。如下图所示：
 
@@ -144,7 +146,7 @@
 
 <img src="images/预测结果.png" width="1000px" />
 
-### 6. 关闭服务
+### 7. 关闭服务
 
 在“部署上线”页面，点击“停止”按钮，停止在线服务：
 
