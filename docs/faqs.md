@@ -18,6 +18,7 @@
 * [领取的资源包在哪里可以查看](#领取的资源包在哪里可以查看)
 * [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
 * [ModelArts是否支持Keras?](#modelarts是否支持keras)
+* [如何将Keras格式的模型转换为TensorFlow格式的模型](#如何将Keras格式的模型转换为TensorFlow格式的模型)
 * [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建notebook时存储配置选择evs和obs有什么区别)
 * [使用pip install时出现没有空间的错误](#使用pip-install时出现没有空间的错误)
 * [Notebook中Upload之后文件上传到哪里了?](#notebook中upload之后文件上传到哪里了)
@@ -47,6 +48,9 @@
 
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
 TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-cn
+
+## 如何将Keras格式的模型转换为TensorFlow格式的模型
+Keras保存的模型格式是`.h5`，ModelArts推理支持的TensorFlow模型的格式是`.pb`，可以通过Python脚本将Keras模型转换为TensorFlow模型，用于ModelArts推理。Python脚本见[dog_and_cat_train.py](../train_inference/image_recognition/codes/dog_and_cat_train.py)中的`save_model_to_serving`函数。其中，`model`是Keres模型的路径, `export_path`是TensorFlow模型的输出位置。
 
 ## 创建Notebook时“存储配置”选择EVS和OBS有什么区别？
 
