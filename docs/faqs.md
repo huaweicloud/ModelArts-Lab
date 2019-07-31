@@ -15,8 +15,10 @@
 
 
 # ModelArts使用FAQs
+* [领取的资源包在哪里可以查看](#领取的资源包在哪里可以查看)
 * [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
 * [ModelArts是否支持Keras?](#modelarts是否支持keras)
+* [如何将Keras格式的模型转换为TensorFlow格式的模型](#如何将Keras格式的模型转换为TensorFlow格式的模型)
 * [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建notebook时存储配置选择evs和obs有什么区别)
 * [使用pip install时出现没有空间的错误](#使用pip-install时出现没有空间的错误)
 * [Notebook中Upload之后文件上传到哪里了?](#notebook中upload之后文件上传到哪里了)
@@ -34,6 +36,11 @@
 * [代码中自动下载Keras预训练模型速度缓慢或者失败怎么办](#代码中自动下载Keras预训练模型速度缓慢或者失败怎么办)
 * [如何选择ModelArts训练作业的各个路径参数](#如何选择ModelArts训练作业的各个路径参数)
 
+## 领取的资源包在哪里可以查看
+在华为云领取的资源包，可以在资源->我的套餐里面查看，如下图所示：
+
+<img src="images/查看资源.PNG" width="1000px" />
+
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
 
@@ -41,6 +48,9 @@
 
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
 TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-cn
+
+## 如何将Keras格式的模型转换为TensorFlow格式的模型
+Keras保存的模型格式是`.h5`，ModelArts推理支持的TensorFlow模型的格式是`.pb`，可以通过Python脚本将Keras模型转换为TensorFlow模型，用于ModelArts推理。Python脚本见[dog_and_cat_train.py](../train_inference/image_recognition/codes/dog_and_cat_train.py)中的`save_model_to_serving`函数。其中，`model`是Keres模型的路径, `export_path`是TensorFlow模型的输出位置。
 
 ## 创建Notebook时“存储配置”选择EVS和OBS有什么区别？
 
