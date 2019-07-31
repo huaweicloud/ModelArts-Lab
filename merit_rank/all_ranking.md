@@ -762,7 +762,7 @@
      * 实际应用案例：
      * 微认证： 
      
-* <B>hui1404</B>：<B>2</B>个积分，贡献点：
+* hui1404：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-516300882),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-516319287)
      * 体验文章：
      * 扩展案例：
