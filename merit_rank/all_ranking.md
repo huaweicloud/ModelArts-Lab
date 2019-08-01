@@ -271,12 +271,12 @@
      * 实际应用案例：
      * 微认证：
      
-* kayano: 4个积分，贡献点：
+* kayano: 5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505030497)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505329643)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-516361932)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-516761166)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-     * 微认证：
+     * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-517155205)
      
 * liweigu：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502262658)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504730809)
