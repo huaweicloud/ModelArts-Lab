@@ -790,6 +790,13 @@
      * 实际应用案例：
      * 微认证：
      
+ * yema33：2个积分，贡献点：
+     * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-516724744)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-516636906)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
      
-<B>共计111位参与者</B>
+     
+<B>共计112位参与者</B>
 
