@@ -334,7 +334,14 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-     * 微认证：  
+     * 微认证： 
+          
+* The-Creator：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507969265)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508406759),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-518162446)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：      
+     * 微认证：
      
 * gondoa：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-514092111)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-514094012)
@@ -370,13 +377,7 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
-* The-Creator：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-507969265)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508406759),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-518162446)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：      
-     * 微认证：
+
      
 * zhujie_2006：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508344875)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508432426)  
@@ -558,6 +559,12 @@
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518066252) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518068583) 
      * 体验文章：
      * 扩展案例： 
+     * 实际应用案例：
+     
+* lvyuxin: 2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518087730)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518142794)
+     * 体验文章：
+     * 扩展案例：
      * 实际应用案例：
 
 * L0star：1个积分，贡献点：
@@ -934,11 +941,7 @@
      * 扩展案例：
      * 实际应用案例：   
 
- * lvyuxin: 2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518087730)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518142794)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
+
      
 
 <B>共计134位参与者</B>
