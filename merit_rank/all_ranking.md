@@ -817,7 +817,7 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
+
 * ScottLee1：1个积分，贡献点：
     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517890773)
      * 体验文章：
@@ -851,6 +851,6 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     
 <B>共计120位参与者</B>
-
 
