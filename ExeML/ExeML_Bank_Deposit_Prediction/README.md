@@ -58,7 +58,7 @@
 
 ### 1. 上传数据集文件
 
-上传银行数据集文件至OBS（OBS操作指导参考：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html），本案例上传至OBS路径“/ai-course-001/automl/bank/train.csv”，数据集文件位于./data/目录下。
+上传银行数据集文件至OBS（OBS操作指导参考：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html ），本案例上传至OBS路径“/ai-course-001/automl/bank/train.csv”，数据集文件位于./data/目录下。
 
 银行客户数据集的字段解释如下：
 
