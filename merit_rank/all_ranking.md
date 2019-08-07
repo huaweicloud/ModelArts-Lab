@@ -828,7 +828,7 @@
      * 微认证： 
 
 * Kisaraz：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-516232102)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-516232102)，
      [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518598960)
      * 体验文章：
      * 扩展案例：
