@@ -584,7 +584,14 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-
+     
+* wendell0111:2个积分，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518283681)
+    [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518963845)
+    * 体验文章：
+    * 拓展案例：
+    * 实际应用案例：
+    
 * L0star：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518067336)，
      * 体验文章：
@@ -946,13 +953,7 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：   
-     
-* wendell0111:2个积分，贡献点：
-    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518283681)
-    [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-518963845)
-    *体验文章：
-    * 拓展案例：
-    * 实际应用案例：
+
 
 * yangaloha: 1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518289416)
