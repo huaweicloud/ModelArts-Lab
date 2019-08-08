@@ -20,3 +20,4 @@
   ## 实践案例
   
  - notebook案例: [Faster-R-CNN.ipynb](./Faster-R-CNN.ipynb)
+ - 预置算法案例：[ModelArts预置算法FasterRCNN.md](./ModelArts预置算法FasterRCNN.md)
