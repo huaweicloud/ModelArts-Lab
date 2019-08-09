@@ -10,6 +10,8 @@
   ## 模型
   Faster R-CNN模型
   
+  模型详细介绍见[《Faster RCNN模型简介》](https://github.com/huaweicloud/ModelArts-Lab/wiki/Faster-RCNN%E6%A8%A1%E5%9E%8B%E7%AE%80%E4%BB%8B)
+  
   ## 实验环境
 
   - **环境创建**
