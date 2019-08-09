@@ -14,12 +14,12 @@
   
   ## 实验环境
 
-  - **环境创建**
+  - **环境创建：**
   默认Notebook多引擎，Python3， GPU
-  - **notebook创建**
-  创建notebook时请选择：**Pytorch**
+  - **Notebook创建：**
+  创建Notebook时请选择：**Pytorch**
   
   ## 实践案例
   
- - notebook案例: [Faster-R-CNN.ipynb](./Faster-R-CNN.ipynb)
+ - Notebook案例：[Faster-R-CNN.ipynb](./Faster-R-CNN.ipynb)
  - 预置算法案例：[ModelArts_builtin_algorithm_FasterRCNN.md](./ModelArts_builtin_algorithm_FasterRCNN.md)
