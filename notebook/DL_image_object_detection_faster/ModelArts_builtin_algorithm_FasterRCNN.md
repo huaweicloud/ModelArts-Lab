@@ -2,6 +2,8 @@
 
 我们不仅可以在notebook里面自己开发实现FasterRCNN算法，同时，ModelArts也有预置的FasterRCNN目标检测算法。在本次任务里，我们可以体验一下。
 
+模型详细介绍见[《Faster RCNN模型简介》](https://github.com/huaweicloud/ModelArts-Lab/wiki/Faster-RCNN%E6%A8%A1%E5%9E%8B%E7%AE%80%E4%BB%8B)
+
 在第四期的任务中，我们已经体验了ModelArts的预置Yolo V3算法，学会了如何使用ModelArts预置算法，而且本次任务也是目标检测，所以在本次任务中，我们不给出详细的步骤，大家模仿第四期的[Yolo V3预置算法案例](../DL_image_object_detection_yolo/ModelArts物体检测Yolo_V3预置算法案例.md)的操作步骤，完成FasterRCNN预置算法的体验过程。下面给一下简单的提示。
 
 ## 准备数据
