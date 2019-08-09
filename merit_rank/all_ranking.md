@@ -251,8 +251,8 @@
      * 实际应用案例：
      * 微认证：
      
-* Alex2025：4个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508900254)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513059364)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-513063640)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513118466)
+* Alex2025：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508900254)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-513059364)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-513063640)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513118466)[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-519808779)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
