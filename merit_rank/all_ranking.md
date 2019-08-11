@@ -887,7 +887,8 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
-      
+     * 微认证：
+     
 * dywan01：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518068939)
      * 体验文章：
@@ -899,36 +900,42 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
 
 * Rosalyn：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518068456)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
 
 * Kannel：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518068122)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
  
 * shajunguang：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518062905)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
 
 * WeiRdoo：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518062382)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
 
 * MingjiaLi：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517521041)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
      
 * dominik96：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518068147)
@@ -942,6 +949,7 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
+     * 微认证：
      
 * kinredon：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518067711)
@@ -954,50 +962,56 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：   
-
+     * 微认证：
 
 * yangaloha：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518289416)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例： 
+     * 微认证：
      
 * cnpath：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518718246)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例： 
+     * 微认证：
 
 * MJ-CJM：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518682890)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
+     * 微认证：
 
 * nht505：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-519019520)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
+     * 微认证：
         
 * nailiking：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-519453942)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：   
+     * 微认证：
 
 * yln209：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-519449091)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
+     * 微认证：
      
 * blackwave0813：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-519758902)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：     
-     
+     * 微认证：
 
  * pppppsssss：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-518069540)
@@ -1027,4 +1041,4 @@
      * 实际应用案例：
      * 微认证：
 
-<B>共计146位参与者</B>
+<B>共计147位参与者</B>
