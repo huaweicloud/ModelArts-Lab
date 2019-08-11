@@ -97,9 +97,9 @@
      * 实际应用案例：    
      * 微认证：
      
-* fjqsun：6个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-510098458)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514896124)
-     * 体验文章：
+* fjqsun：8个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502333865)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-510098458)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514896124)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-520119386)
+     * 体验文章：[华为公有云 ModelArts体验测评报告](https://bbs.huaweicloud.com/forum/thread-22385-1-1.html)
      * 扩展案例：[二期的训练精度在84%以上(为90.08%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508995244)
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-510705827)
