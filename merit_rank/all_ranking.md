@@ -1004,4 +1004,18 @@
      * 实际应用案例：
      * 微认证：
 
-<B>共计144位参与者</B>
+* conquerok：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-520202482)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例： 
+     * 微认证：
+
+* Seanlocked：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-520210072)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+
+<B>共计146位参与者</B>
