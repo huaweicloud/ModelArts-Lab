@@ -881,8 +881,8 @@
      * 实际应用案例：
      * 微认证：
      
-* vvbushiwo：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517521041)
+* vvbushiwo：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517521041) [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-520214258)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
@@ -1010,12 +1010,12 @@
      * 扩展案例：
      * 实际应用案例： 
      * 微认证：
-     
+
 * Seanlocked：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-520210072)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
+
 <B>共计146位参与者</B>
