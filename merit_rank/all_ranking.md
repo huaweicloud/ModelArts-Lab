@@ -19,8 +19,8 @@
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507012984)
      
-* maomaode：10个积分，贡献点：
-     * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/6)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505020322)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504632254)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508747668)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513433581)，[第五期]（https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-520117673）
+* maomaode：11个积分，贡献点：
+     * 完成案例：[手写数字案例](https://github.com/huaweicloud/ModelArts-Lab/issues/6)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-505020322)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504632254)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-508747668)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513433581)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-520117673)
      * 体验文章：[文章1](https://github.com/benmcq2019/ModelArts-Lab/wiki/%E5%AE%9E%E6%88%98%E5%8D%8E%E4%B8%BA%E4%BA%91ModelArts%EF%BC%8C%E4%B8%89%E6%AD%A5%E5%AE%9E%E7%8E%B0%E4%BD%A0%E7%9A%84AI%E6%A2%A6)，[文章2](https://github.com/benmcq2019/ModelArts-Lab/wiki/%E3%80%90%E5%8D%8E%E4%B8%BA%E4%BA%91-ModelArts-Lab-AI%E5%AE%9E%E6%88%98%E8%90%A5%E3%80%91%E7%AC%AC%E4%BA%8C%E6%9C%9F%E4%B8%AD%E7%9A%84%E6%80%9D%E8%B7%AF1%E4%BD%93%E9%AA%8C)，[文章3](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E4%B8%89%E6%9C%9F00%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%83%A8%E5%88%86%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85.md)
      * 扩展案例：[图像分类扩展案例](https://github.com/huaweicloud/ModelArts-Lab/issues/21)
      * 实际应用案例：
