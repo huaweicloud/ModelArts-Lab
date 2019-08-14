@@ -50,7 +50,7 @@ Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow�
 TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-cn
 
 ## 如何将Keras格式的模型转换为TensorFlow格式的模型
-Keras保存的模型格式是`.h5`，ModelArts推理支持的TensorFlow模型的格式是`.pb`，可以通过Python脚本将Keras模型转换为TensorFlow模型，用于ModelArts推理。Python脚本见[dog_and_cat_train.py](../train_inference/image_recognition/codes/dog_and_cat_train.py)中的`save_model_to_serving`函数。其中，`model`是Keres模型的路径, `export_path`是TensorFlow模型的输出位置。
+Keras保存的模型格式是`.h5`，ModelArts推理支持的TensorFlow模型的格式是`.pb`，可以通过Python脚本将Keras模型转换为TensorFlow模型，用于ModelArts推理。Python脚本见[dog_and_cat_train.py](../train_inference/image_recognition/codes/dog_and_cat_train.py)中的`save_model_to_serving`函数。其中，`model`是Keres模型对象, `export_path`是TensorFlow模型的输出位置。
 
 ## 创建Notebook时“存储配置”选择EVS和OBS有什么区别？
 
