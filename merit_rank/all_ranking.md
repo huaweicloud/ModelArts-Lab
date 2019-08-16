@@ -1116,8 +1116,8 @@
      * 实际应用案例：
      * 微认证：
      
-* EasyArch-kk：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521509687)
+* EasyArch-kk：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521509687)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521667334)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
