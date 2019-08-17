@@ -710,9 +710,9 @@
      * 微认证：
      
 * EasyArch-W：4个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521709116)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521789457),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522122570),
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521709116)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521789457),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522122570)
      * 体验文章：
-     * 扩展案例：[二期的训练精度在84%以上(为87%)](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522063264)
+     * 扩展案例：
      * 实际应用案例：
      * 微认证：
      
