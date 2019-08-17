@@ -723,8 +723,8 @@
      * 实际应用案例：     
      * 微认证：     
          
-* xgkh0015：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521574073)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521945909) 
+* xgkh0015：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521574073)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521945909)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522227596)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
