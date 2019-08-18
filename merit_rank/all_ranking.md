@@ -1136,12 +1136,20 @@
      * 实际应用案例：
      * 微认证：
      
+ * cx632746071：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522228182)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522241686)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+     
  * fenghua_ok：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521898919),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522247392)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+     
 * huangxunan029：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521875743)
      * 体验文章：
