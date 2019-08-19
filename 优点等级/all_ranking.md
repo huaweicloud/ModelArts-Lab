@@ -1160,3 +1160,10 @@
 
 <B>共计163位参与者</B>
 
+ 
+xgkh005：4个积分，贡献点： 
+ * 完成案例：[第一期]（https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522409994）)，[第二期]（https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522411102），[第四期]（https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-521545707），[第五期]（https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-521568771）
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
