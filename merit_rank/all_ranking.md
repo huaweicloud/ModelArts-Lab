@@ -443,6 +443,13 @@
      * 实际应用案例：
      * 微认证： 
      
+* huangxunan029：3个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521875743),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522297860),[第四期] (https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522390769)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证：
+        
 * gondoa：2个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-514092111)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-514094012)
      * 体验文章：
@@ -750,14 +757,14 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
-* huangxunan029：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521875743),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522297860),[第四期] (https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522390769)
+
+ * Xianghua_Liu：2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522403645),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522404093)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
+  
 * zhd22：1个积分，贡献点：
      * 完成案例：
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/Postman%E6%B5%8B%E8%AF%95%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/%E4%BD%BF%E7%94%A8Postman%E6%B5%8B%E8%AF%95Modelarts%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1.md)
@@ -1156,14 +1163,6 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-
- *Xianghua_Liu：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522403645),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522404093)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     * 微认证：
-
      
 * flysail1983：用户，更新1个积分，贡献点:
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522454178)
@@ -1178,5 +1177,6 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
+     
 <B>共计163位参与者</B>
 
