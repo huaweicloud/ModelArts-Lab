@@ -1164,7 +1164,7 @@
      * 实际应用案例：
      * 微认证：
    
- *xgkh004：2个积分，贡献点：
+* xgkh004：1个积分，贡献点：
      * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113?tdsourcetag=s_pcqq_aiomsg#issuecomment-522445959)
      * 体验文章：
      * 扩展案例：
