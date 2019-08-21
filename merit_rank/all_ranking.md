@@ -1206,6 +1206,11 @@
      * 扩展案例：
      * 实际应用案例：    
      * 微认证：
-
+EasyArch-ls：4个积分，贡献点：
+* 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523375343)[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-523547546)[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523453287)[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-523545311)
+* 体验文章：
+* 扩展案例：
+* 实际应用案例：
+* 微认证
 <B>共计170位参与者</B>
 
