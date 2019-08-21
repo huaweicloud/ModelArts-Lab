@@ -400,7 +400,7 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
+         
 * liweigu：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502262658)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504730809)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-liweigu/%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BBliweigu%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB.md)
@@ -732,12 +732,12 @@
      * 微认证：     
          
 * xgkh0015：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521574073)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521945909) ，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522883655)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522897292),[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523306317)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521574073)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521945909) ，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522883655)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522897292)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523306317)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-     
+
 * EasyArch-Cming：5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521524033)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521947635)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523047368)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-523362302)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523405935)
      * 体验文章：
