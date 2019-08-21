@@ -766,8 +766,8 @@
      * 实际应用案例：
      * 微认证：
    
-* xgkh004：3个积分，贡献点：
-     * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113?tdsourcetag=s_pcqq_aiomsg#issuecomment-522445959)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522559632)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522976230)
+* xgkh004：4个积分，贡献点：
+     * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113?tdsourcetag=s_pcqq_aiomsg#issuecomment-522445959)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522559632)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522976230)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523259828)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
