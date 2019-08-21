@@ -1186,6 +1186,12 @@
      * 实际应用案例：    
      * 微认证：
 
+ * wangyali_zhonghuan：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523372840)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：    
+     * 微认证：  
 
 * walker2020：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523313243)
@@ -1200,6 +1206,6 @@
      * 扩展案例：
      * 实际应用案例：    
      * 微认证：
-     
+
 <B>共计167位参与者</B>
 
