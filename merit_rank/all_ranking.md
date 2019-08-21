@@ -1200,8 +1200,8 @@
      * 实际应用案例：    
      * 微认证：
    
-* EasyArch-ls：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523375343)
+* EasyArch-ls：2个积分，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523375343)[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523453287)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
