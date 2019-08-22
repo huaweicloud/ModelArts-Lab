@@ -358,7 +358,15 @@
      * 扩展案例：
      * 实际应用案例：
      * 微认证：
-      
+     
+ * xgkh005：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522409994)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522411102)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523295375)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-521545707)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-521568771)
+     * 体验文章：
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：    
+     * 微认证：
+     
 * wonleing：4个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502345060)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504950739)
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/number_recognize%E6%89%A9%E5%B1%95%E6%A1%88%E4%BE%8B-wonleing)
@@ -416,7 +424,7 @@
      * 微认证：
    
 * xgkh004：4个积分，贡献点：
-     * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113?tdsourcetag=s_pcqq_aiomsg#issuecomment-522445959)，[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522559632)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522976230)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523259828)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-522559632)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113?tdsourcetag=s_pcqq_aiomsg#issuecomment-522445959)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522976230)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-523259828)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
