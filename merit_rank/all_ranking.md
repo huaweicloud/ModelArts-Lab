@@ -257,10 +257,11 @@
      * 实际应用案例：
      * 微认证：
           
-* jimmybhb：5个积分，贡献点：
+* jimmybhb：6个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-503884848)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-504948424)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-509119880)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-513426857)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-520704278)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[第五期:modelArts实战营物体检测算法2之Faster R-CNN理论心得总结-jimmybhb](https://github.com/huaweicloud/ModelArts-Lab/tree/master/contrib/%E7%AC%AC%E4%BA%94%E6%9C%9F%EF%BC%9A%E7%89%A9%E4%BD%93%E6%A3%80%E6%B5%8B%E4%BA%8C%20%E4%B9%8BFaster%20R-CNN%E7%AE%97%E6%B3%95%E5%BF%83%E5%BE%97%E6%80%BB%E7%BB%93-jimmybhb)
+     
      * 实际应用案例：
      * 微认证：
      
