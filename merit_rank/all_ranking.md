@@ -802,6 +802,13 @@
      * 实际应用案例：    
      * 微认证:
      
+* hw55862329：2个积分，贡献点：
+     * 完成案例：[第一期]（https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-524689187）[第二期]     (https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-524728813)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：
+     * 微认证:
+     
 * zhd22：1个积分，贡献点：
      * 完成案例：
      * 体验文章：[文章1](https://github.com/huaweicloud/ModelArts-Lab/blob/master/contrib/Postman%E6%B5%8B%E8%AF%95%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/%E4%BD%BF%E7%94%A8Postman%E6%B5%8B%E8%AF%95Modelarts%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1.md)
@@ -1255,13 +1262,8 @@
      * 扩展案例：
      * 实际应用案例：    
      * 微认证:
-* hw55862329：2个积分，贡献点：
-     * 完成案例：[第一期]（https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-524689187）[第二期]     (https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-524728813)
-     * 体验文章：
-     * 扩展案例：
-     * 实际应用案例：
-     * 微认证:
 
-<B>共计177位参与者</B>
+
+<B>共计178位参与者</B>
 
 
