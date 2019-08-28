@@ -332,12 +332,13 @@
      * 实际应用案例：
      * 微认证：
      
-* huangxunan029：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521875743)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522297860)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522943558)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522390769)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-522827256)
+* huangxunan029：7个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521875743)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522297860)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-522943558)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-522390769)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-522827256)，[第六期]（https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-525572506）
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：二期的训练精度在84%以上(为93.15%)https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-525626934）
      * 实际应用案例：
      * 微认证：
+
  
 * EasyArch_Yao：5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-521568469)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-522559026)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-520775248)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-521549517)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-521561602)
