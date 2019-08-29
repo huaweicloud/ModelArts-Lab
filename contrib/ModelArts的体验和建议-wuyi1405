@@ -1,0 +1,17 @@
+ModelArts的体验和建议
+
+体验：
+
+这段时间参加ModelArts实战营第一到第六期的学习，经过实践操作，能更好了解ModelArts平台，在ModelArts平台的训练作业里可以使用预置算法的MXNet和TensorFlow这两种不同的框架做图像识别和物体检测。同时也能在开发环境Notebook里MXNet，TensorFlow，Pytorch和pyspark这四种不同的框架做图像识别和物体检测等。
+
+在二期，因为下载的python脚本出现名字对，但是里面的内容不对，导致运行程序出错，删除内容后，重新复制脚本内容，就可以正常运行。在部署模型，缺失**步骤 1**     在本地的ModelArts-Lab代码库`train_inference/image_recognition/codes/`路径下中找到推理脚本[customize_service.py](https://github.com/huaweicloud/ModelArts-Lab/blob/master/train_inference/image_recognition/codes/customize_service.py) 和模型部署配置文件[config.json](https://github.com/huaweicloud/ModelArts-Lab/blob/master/train_inference/image_recognition/codes/config.json) ，然后将这两个文件上传到训练输出位置`/ai-course-001/dog_and_cat_recognition/output/`下的model目录下保存模型的目录，出现![1567068321460](C:\Users\wy1\AppData\Roaming\Typora\typora-user-images\1567068321460.png)
+
+无法提交图片，把步骤1做完后，就能在预测里提交图片预测。
+
+在第三期时，GPU资源不够，在02任务中只能选择CPU来做，把epochs = 100改为epochs = 8，以便节省运行时间，但是还是跑了4个多小时，第二天，申请到资源礼包，继续完成其他期的任务。
+
+建议：
+
+跑第四期物体检测YOLO V3算法实践-使用ModelArts预置算法时，教程说明是40到50多分钟就能跑完，可能在当时资源紧张，跑了2个多小时，在期间，我无法判断是否还在运行，还是卡死。![](C:\Users\wy1\Desktop\image_recognition\训练作业1.PNG)
+
+建议添加完成百分比和还剩多少时间，这样能很好判断程序是否正常运行。之前在PaaS上取数据时，有遇到过项目负责人问过，现在需要的业务数据跑完没有，如果没有，还需要多久时间。在PaaS平台上没有百分比和时间的提示，无法回答，被批专业技术不过关的尴尬局面。而且有百分比和时间的提示，就不需要时不时看一下程序是否运行完，可以充分利用时间，提高工作效率。而短信的设置是为加班准备，通过能短信知道下班后跑程序是否运行成功，筛选不成功的程序做判断是否必须今天要完成，如果不是，可以不加班。总体来说还是能充分利用时间，提高工作效率，避免加班。
