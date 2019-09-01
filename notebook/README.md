@@ -1,37 +1,42 @@
-# ModelArts-Lab
-
-此库是AI开发者交流和学习平台，所有案例、样例代码是基于业界领先的AI开发平台ModelArts设计，帮助AI开发者快速掌握人工智能实战技能。
-This library is an AI developer communication and learning platform for ModelArts. All cases and sample code are designed based on the industry-leading AI development platform ModelArts (huawei cloud), helping AI developers to quickly master the artificial intelligence skills.
-
-Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
-
-## Online Documents
-* [MoXing-API](docs/moxing_api_doc)
-* [FAQs](docs/faqs.md) 
-* [贡献者积分](merit_rank/all_ranking.md) 
-
-## 案例内容介绍 Introduction of Cases
-
-### 自动学习案例 ExeML Cases
-AI要规模化走进各行各业，必须要降低AI模型开发难度和门槛。当前仅少数算法工程师和研究员掌握AI的开发和调优能力，并且大多数算法工程师仅掌握算法原型开发能力，缺少相关的原型到真正产品化、工程化的能力。而对于大多数业务开发者来说，更是不具备AI算法的开发和参数调优能力。这导致大多数企业都不具备AI开发能力。
-
-ModelArts自动学习让零AI基础的业务开发者可快速完成模型的训练和部署。依据开发者提供的标注数据及选择的场景，无需任何代码开发，自动生成满足用户精度要求的模型。可支持图片分类、物体检测、预测分析、声音分类场景。可根据最终部署环境和开发者需求的推理速度，自动调优并生成满足要求的模型。
-
-In order to improve the Industry AI process   , AI must reduce the difficulty and threshold of AI model development. At present, only a few algorithm engineers and researchers master the development and tuning capabilities of AI, and most algorithm engineers only master the algorithm prototyping capabilities, lacking the relevant prototype to real product and engineering capabilities. For most developers, the development and parameter tuning capabilities of the AI algorithm are not available. This has resulted in most companies not having AI development capabilities.
-
-ModelArts ExeML to enable zero AI-based  developers to quickly complete training and deployment of models. According to the annotation data provided by the developer and the selected scenario, the model that meets the user's accuracy requirements is automatically generated without any code development. Supports image classification, object detection, predictive analysis, and sound classification scenes. The model can be automatically tuned and generated to meet the requirements based on the speed of the final deployment environment and the speed of the developer's needs.
+案例说明
+=======
 
 
-### Notebook案例 Notebook Cases
-ModelArts集成了Jupyter Notebook，可为AI开发者提供在线的交互式开发调试工具。开发者通过创建开发环境，可以自行编写和调测模型训练代码，然后基于该代码进行模型的训练。
+## DL_face_age_prediction	年龄预测
+> 在本案例中，我们将学习构建一个基于SSR技术的年龄预测模型，MTCNN对图片中的人脸进行检测，SSR模型进行年龄预测。
 
-ModelArts Notebook开发环境非常适合作为人工智能教学和学习的工具，当前已有多个知名教育机构基于ModelArts开设人工智能专业课程。
+## DL_face_recognition	人脸识别	
+> 在本案例中，我们将学习构建一个基于ResNet技术的人脸识别模型，来对图像中人脸进行身份识别。
 
-ModelArts integrates Jupyter Notebook(an open source tools) which provide an interactive development tools for AI developers on browser. After creating a development environment, developers can write and run model training code by themselves, and then train the model based on the code.
+## DL_face_recognition_advanced	人脸识别进阶	
+> 在本案例中，我们将学习构建一个基于MTCNN+FaceNet的人脸识别模型，来对图像中人脸进行身份识别。
 
-The ModelArts Notebook development environment is ideally suited as a tool for teaching and learning artificial intelligence. There are many well-known educational institutions that offer artificial intelligence courses based on ModelArts.
+## DL_image_object_detection	物体检测	
+> 在本案例中，我们将学习使用YOLO v3来构建一个目标检测模型，并将其应用在华为云吉祥物“云宝”检测的任务中。
 
+## DL_nlp_bert_ner 命名实体识别
+> 在本案例中，我们将学习使用BERT联合BiLSTM+CRF层建立模型，来进行自然语言处理任务命名实体识别，并进行在线测试。
 
-### 综合AI开发案例 Train_inference Cases
-在ModelArts平台完成端到端从数据准备、模型开发、模型训练、模型部署发布、模型共享(AI市场)等全流程的人工智能模型开发，及应用实践。
-End-to-end data development, model development, model training, model deployment and release, model sharing (AI market) and other full-process artificial intelligence model development, and application practices In ModelArts.
+## DL_nlp_bert_squad SQuAD阅读理解
+> 在本案例中，我们将了解学习BERT模型，并使用BERT模型完成SQuAD阅读理解任务。
+
+## DL_ocr_crnn_sequence_recognition 字符识别
+> 在本案例中，我们将学习构建一个基于CRNN技术的字符识别模型，来对图像中字符进行识别。
+
+## ML_loan_prediction 银行贷款预测
+> 在本案例中，我们将学习如果通过使用朴素贝叶斯分类器对银行数据进行分析，实现对新客户银行贷款进行预测分类。我们会展示构建银行贷款预测分类器的全流程，包括数据预处理、特征选择、模型训练和模型评估。
+
+## ML_movie_recommendation 电影推荐	
+> 在本案例中，我们将会学习使用Item-based Collaborative Filtering算法分析用户对电影的评分数据，并基于这个数据建立一个推荐系统，根据用户输入的一部感兴趣的电影，为其推荐其他可能感兴趣的电影。
+
+## ML_wine_quality_regression 葡萄酒质量预测	
+
+> 在本案例中，我们将会学习使用多种回归算法对葡萄酒数据集进行训练，预测葡萄酒数据集质量。我们会展示回归算法进行实际项目训练的全流程，包括数据分析、数据处理、模型选择、模型调优、模型评估等。
+
+## ML_breast_cancer_prediction 乳腺癌预测	
+
+> 在本案例中，我们将会学习使用KNN自研算法对乳腺癌进行预测。
+
+## ML_ARIMA_timeserise_prediction 顾客量预测	
+
+> 在本案例中，我们将会学习使用ARIMA时序分析算法进行顾客量预测。
