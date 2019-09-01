@@ -180,12 +180,13 @@
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507895305)
      
-* linus_cn：6个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-517989377)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-517910592)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-519931011)
+* linus_cn：7个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502125892)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-507029452)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-517989377)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-517910592)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-519931011)，[第六期] https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-526896612
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-507030821)
+
    
 * Wangyuanp：6个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508996825)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-511119387)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-513437732)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-514555434)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-521866285)
