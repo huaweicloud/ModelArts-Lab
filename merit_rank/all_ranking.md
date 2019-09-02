@@ -1284,7 +1284,14 @@
      * 扩展案例：
      * 实际应用案例：    
      * 微认证:
+     
+ * Hellwz：1个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-527114806)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：    
+     * 微认证:
 
-<B>共计181位参与者</B>
+<B>共计182位参与者</B>
 
 
