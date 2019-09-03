@@ -29,7 +29,14 @@
 ## ML_movie_recommendation 电影推荐	
 > 在本案例中，我们将会学习使用Item-based Collaborative Filtering算法分析用户对电影的评分数据，并基于这个数据建立一个推荐系统，根据用户输入的一部感兴趣的电影，为其推荐其他可能感兴趣的电影。
 
+## ML_wine_quality_regression 葡萄酒质量预测	
 
+> 在本案例中，我们将会学习使用多种回归算法对葡萄酒数据集进行训练，预测葡萄酒数据集质量。我们会展示回归算法进行实际项目训练的全流程，包括数据分析、数据处理、模型选择、模型调优、模型评估等。
 
+## ML_breast_cancer_prediction 乳腺癌预测	
 
+> 在本案例中，我们将会学习使用KNN自研算法对乳腺癌进行预测。
 
+## ML_ARIMA_timeserise_prediction 顾客量预测	
+
+> 在本案例中，我们将会学习使用ARIMA时序分析算法进行顾客量预测。
