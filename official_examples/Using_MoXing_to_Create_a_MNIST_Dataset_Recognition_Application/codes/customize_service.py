@@ -19,7 +19,7 @@ class mnist_service(TfServingBaseService):
   def _postprocess(self, data):
 
     outputs = {}
-    logits = data['scores'][0]
+    logits = data['logits'][0]
     label = logits.index(max(logits))
     logits = ['%.3f' % logit for logit in logits]
     outputs['predicted_label'] = str(label)
