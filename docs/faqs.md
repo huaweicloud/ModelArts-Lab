@@ -1,10 +1,10 @@
 # 费用相关FAQ
-1. “[ModelArts新手资源包](https://console.huaweicloud.com/modelarts/?region=cn-north-1#/userPackageWindow)” 包含以下三种资源：(1) 20小时CPU、(2) 10小时GPU（注：<b>只包含P100+P4，不包含V100</b>）以及 (3) 10小时自动学习；只要其中一个资源包用完，即使仍有其他种类资源包，若持续使用已用完的资源类型，仍会按照使用量扣费。当前《[ModelArts-Lab AI实战营](https://github.com/huaweicloud/ModelArts-Lab/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91+ModelArts-Lab+AI%E5%AE%9E%E6%88%98%E8%90%A5%22)》活动为开发者设计的 “ModelArts满减资源包” 中的 GPU 资源<b>只包含 P100+P4，不包含 V100</b>，请参加《ModelArts-Lab AI实战营》的开发者<b>不要选择 V100 规格</b>，避免产生套餐包之外的费用。
-   * 目前 “ModelArts新手资源包” 以及 “ModelArts满减资源包” 只可于 “北京一” 区域使用，请<b>务必选择 “北京一” </b>以免产生扣费！
+1. [ModelArts新手资源包](https://activity.huaweicloud.com/ModelArts_Newcomer-benefits.html) 包含以下三种资源：(1) 20小时CPU、(2) 10小时GPU (3) 10小时自动学习；只要其中一个资源包用完，即使仍有其他种类资源包，若持续使用已用完的资源类型，仍会按照使用量扣费。
+
 2. 案例实践中所使用的存储资源（OBS 或 EVS）不包含在上述 “ModelArts新手资源包” 中，可能涉及到费用。每个案例涉及的存储资源所需费用小于1元。
    * 对象存储服务 OBS 标准存储价格：0.0990元/GB/月
    * 云硬盘 EVS 超高 IO 收费：0.0014元/GB/小时
-      * Notebook 案例使用之 EVS 资源，磁盘规格默认为 5GB，当磁盘规格为 5GB 时不收费，超出 5GB 时，从 Notebook 实例创建成功起，直至删除成功，超出部分每 GB 按照规定费用收费
+      * Notebook 案例使用的EVS 资源，磁盘规格默认为 5GB，当磁盘规格为 5GB 时不收费，超出 5GB 时，从 Notebook 实例创建成功起，直至删除成功，超出部分每 GB 按照规定费用收费
 3. 实验完成后，请<b>手动停止</b>占用云资源的服务，如：停止 “开发环境” 中所创建的 Notebook 以及 “部署上线”-“在线服务” 中所部署的模型，以避免因持续占用云资源导致资源包无谓消耗和欠费发生。需使用时，再启动即可。
 4. 公有云的按需使用，都是后付费模式，也就是说，先使用再付费，一个小时会出一次话单，比如：2019.6.24 04:00~05:00 这段时间使用的费用，在 05:00 时刻采集完成后，才会出话单，进行扣费。
 5. 在 “总览” 页中，请确保各个服务皆为 “<b>0 计费中</b>”，如下图所示：
