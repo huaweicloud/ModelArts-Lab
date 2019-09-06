@@ -19,11 +19,8 @@
   - **notebook创建**
   创建notebook时请选择：**TensorFlow-1.13**
   
-  ## 模型详解
-  
-  
-  
   ## 实战内容
   
+  [自然语言处理实战——命名实体识别](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_nlp_bert_ner/ner.ipynb)
   
   
