@@ -2,7 +2,7 @@
   
   从本期实战营开始，我们进入到人工智能的另一大重要领域——自然语言处理（NLP，Natural Language Processing）。
 
-  第一期自然语言处理的任务为命名实体识别。
+  第一期自然语言处理的任务为命名实体识别（NER，Named Entity Recognition）。
 
   ## 数据集
   
