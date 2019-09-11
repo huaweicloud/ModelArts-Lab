@@ -553,8 +553,8 @@
      * 实际应用案例：
      * 微认证：
      
-* leizhenya：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517523687)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-517903239), [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523740205)
+* leizhenya：4个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517523687)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-517903239), [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-523740205), [第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-529925741)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
