@@ -800,7 +800,7 @@
      * 实际应用案例：
      * 微认证：
      
-* hongchenyixiao：2个积分，贡献点：
+* hongchenyixiao：3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-516232102)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-521211627), [第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-530739876)
      * 体验文章：
      * 扩展案例：
