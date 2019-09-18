@@ -1,0 +1,2 @@
+keras-applications==1.0.8
+keras==2.2.5
