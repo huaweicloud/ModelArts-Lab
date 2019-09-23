@@ -863,12 +863,12 @@
      * 实际应用案例：
      * 微认证：
  
- * wangxw8746: 4个积分，贡献点：
+ * wangxw8746: 5个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-530657480), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-531449490), [第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-533845637), [第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-533850893)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
-     * 微认证:
+     * 微认证: [ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-533963523) 
      
 * wamgyu0926：1个积分，贡献点：
      * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-525127617)
