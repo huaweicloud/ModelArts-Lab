@@ -1,0 +1,50 @@
+{
+    "model_algorithm": "image_classification",
+    "model_type": "TensorFlow",
+    "runtime": "python3.6",
+    "metrics": {
+        "f1": 0,
+        "accuracy": 0.6253,
+        "precision": 0,
+        "recall": 0
+    },
+    "apis": [
+        {
+            "procotol": "http",
+            "url": "/",
+            "method": "post",
+            "request": {
+                "Content-type": "multipart/form-data",
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "input_img": {"type": "file"}
+                    },
+                    "required": ["input_img"]
+                }
+            },
+            "response": {
+                "Content-type": "multipart/form-data",
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "result": {"type": "string"}
+                    },
+                    "required": ["result"]
+                }
+            }
+        }
+    ],
+    "dependencies": [
+        {
+            "installer": "pip",
+            "packages": [
+                {
+                    "package_name": "Pillow",
+                    "package_version": "5.0.0",
+                    "restraint": "ATLEAST"
+                }
+            ]
+        }
+    ]
+}
