@@ -478,8 +478,8 @@
      * 实际应用案例：      
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-529739330)
 
-* Hellwz：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-527114806)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-527455371)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-529538671))，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-531834941)，[第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-529970959)
+* Hellwz：6个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-527114806)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-527455371)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-529538671)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-531834941)，[第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-529970959)，[第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-535082918)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
