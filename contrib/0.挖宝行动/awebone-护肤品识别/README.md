@@ -16,6 +16,8 @@ Model： [百度云](https://pan.baidu.com/s/1z1B-KCaQqsKoHVUFV2-vgQ)
 
 ## Training
 ```
+mv llib lib
+
 python train-resnet.py
 ```
 
