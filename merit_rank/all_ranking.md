@@ -1302,14 +1302,14 @@
      * 实际应用案例：
 
 * wk0510：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523472216)
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523472216),
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
      * 微认证:
        
-* mars918：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523492912)
+* mars918：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-523492912), [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-523907041), [第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-531482699),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-531483225), [第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-531485094)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
