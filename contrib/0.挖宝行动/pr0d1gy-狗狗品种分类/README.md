@@ -11,7 +11,7 @@ This repo is designed to be as easy as possible for machine learning hobbyists o
 ### Data
 [Kaggle's Dog Breed Datase](https://www.kaggle.com/c/dog-breed-identification/data)
 
-#### Data Description:
+* Data Description:
 - train.zip - the training set, you are provided the breed for these dogs
 - test.zip - the test set, you must predict the probability of each breed for each image
 - sample_submission.csv - a sample submission file in the correct format
