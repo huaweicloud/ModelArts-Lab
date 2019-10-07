@@ -1420,8 +1420,8 @@
      * 微认证:      
     
     
-* linzhuofeng:1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-538854795)
+* linzhuofeng:5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-538854795)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-538969852), [第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-538972571)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-538974578)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-538975446)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
