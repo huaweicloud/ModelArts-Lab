@@ -515,8 +515,8 @@
      * 实际应用案例：    
      * 微认证:
    
-* vvbushiwo：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517521041)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-520214258)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-535373208)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-535803256)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-538841028)
+* vvbushiwo：6个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-517521041)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-520214258)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-535373208)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-535803256)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-538841028) ，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-540595598)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
