@@ -287,9 +287,9 @@
      * 实际应用案例：  
      * 微认证：
 
-* wuyicom：7个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-524213702)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-525310998)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-525324796)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-525719870)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-525723860)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-525726237)
-     * 体验文章：
+* wuyicom：12个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-524213702)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-525310998)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-525324796)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-525719870)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-525723860)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-525726237)，[第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-538937531)，[第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-538955097)，[第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-538957581)，[第十期](https://github.com/huaweicloud/ModelArts-Lab/issues/1111#issuecomment-540969216)
+     * 体验文章：[二期图像分类 (II)出现预测里无法提交图片预测的解决方法](https://bbs.huaweicloud.com/forum/thread-26371-1-1.html)
      * 扩展案例：
      * 实际应用案例：    
      * 微认证: [ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-524217319)
