@@ -127,7 +127,7 @@
      * 实际应用案例：
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-515298281)   
      
- * lishuimo：11个积分，贡献点：
+ * lishuimo：12个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-502349269)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-505851131)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-517900537)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-517184686)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-519840152)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-526916889)，[第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-531262509)，[第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-538814484)，[第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-538818171)，[第十期](https://github.com/huaweicloud/ModelArts-Lab/issues/1111#issuecomment-538919287)，[第十一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1177#issuecomment-541387068)
      * 体验文章：
      * 扩展案例：
