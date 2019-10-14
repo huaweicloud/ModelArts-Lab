@@ -1436,7 +1436,14 @@
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
-     * 微认证:      
+     * 微认证: 
+    
+* zhaocheng2006:2个积分，贡献点：
+     * 完成案例：[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-541075529)
+     * 体验文章：
+     * 扩展案例：
+     * 实际应用案例：    
+     * 微认证: 
 
 * wangjie868686:1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1205#issue-505612096)
