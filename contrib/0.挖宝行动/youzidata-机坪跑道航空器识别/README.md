@@ -28,21 +28,21 @@
 
 本文档所述目录结构如下，其中仅在百度云数据程序整合包中存在的部分用斜体表示：
 
-├── *data    数据目录
+├── *data*    数据目录*
 
-│   ├──raw 原始数据与标注内容目录
+│   ├──*raw 原始数据与标注内容目录*
 
-│   ├──flight_test1.jpg 用于推理测试的图片
+│   ├──*flight_test1.jpg 用于推理测试的图片*
 
-│   ├──flight_test2.jpg 用于推理测试的图片*
+│   ├──*flight_test2.jpg 用于推理测试的图片*
 
 ├── md_img    md图片文件目录
 
-├── model       模型目录 
+├── *model*       模型目录 
 
-│   ├── *fine_tune-0000.params    迁移学习后模型参数，可以直接使用
+│   ├── *fine_tune-0000.params*    迁移学习后模型参数，可以直接使用
 
-│   ├── fine_tune-symbol.json   迁移学习后模型symbol，可直接使用*
+│   ├── *fine_tune-symbol.json*   迁移学习后模型symbol，可直接使用*
 
 │   ├── darknet_53-0000.params  预制模型参数
 
@@ -58,7 +58,7 @@
    
    ├── utils   工具package目录
    
-   ├──**[mxnet_yolov3.ipynb](./src/mxnet_yolov3.ipynb)   主程序文件，用于训练程序和进行推理测试**
+   ├── [mxnet_yolov3.ipynb](./src/mxnet_yolov3.ipynb)   **主程序文件，用于训练程序和进行推理测试**
    
    ├── train_yolov3_moxing.py   用于MA训练任务的独立程序
    
