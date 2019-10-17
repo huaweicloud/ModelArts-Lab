@@ -14,13 +14,13 @@
 
 本程序采用yoloV3进行航空器目标识别，
 
-参考华为“ModelArts/开发环境/notebook”，Examples中的mxnet_objection_detective项目构建。
+参考华为“ModelArts/开发环境/notebook”，Examples中的mxnet_objection_detection项目构建。
 
 由于本程序使用了华为提供的moxing和Modelarts包,因此所有程序和数据应部署于华为obs上以供ModelArts使用。本程序的训练和推断都通过ModelArts提供的训练和推断功能加以展示。
 
 本程序所涉及2k图像数据为自行采集数据，标注是通过华为ModelArts标注系统完成并导出的。本数据集使用遵循Apache 2.0 开源协议。
 
-本程序修改自 Huawei ModelArts 提供的mxnet_objection_detective图像检测项目。所有程序遵循Apache 2.0 开源协议。
+本程序修改自 Huawei ModelArts 提供的mxnet_objection_detection图像检测项目。所有程序遵循Apache 2.0 开源协议。
 
 ### a. 目录结构介绍
 
@@ -53,19 +53,19 @@
 └── src    源代码目录
 
    ├── data       数据处理package目录
-   
+
    ├── symbol   symbol生成package目录
-   
+
    ├── utils   工具package目录
-   
+
    ├── [mxnet_yolov3.ipynb](./src/mxnet_yolov3.ipynb)   **主程序文件，用于训练程序和进行推理测试**
-   
+
    ├── train_yolov3_moxing.py   用于MA训练任务的独立程序
-   
+
    ├── train_yolov3.py   用于MA训练任务的独立程序
-   
+
    └── yolov3_service.py  用于MA推理部署的独立程序
-   
+
 
 
 ## 3. 程序与数据部署
