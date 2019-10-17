@@ -26,8 +26,8 @@
 
 鉴于本程序所用数据包较大，为方便实践，本程序的数据和代码打包在一起，存储于百度云上：
 
-链接：https://pan.baidu.com/s/1BmF990Zj7Dyzlh6j3WdFaw 
-提取码：is9r 
+链接：https://pan.baidu.com/s/1VglM_ABxpHAwQjcdi3X8vw 
+提取码：zne1 
 
 其中程序结构与挖宝行动中提交代码相同。本代码包中多出数据资源以及fine_tune训练后的模型，这两部分文件较大因此没有上传到git上。本代码包所包含所有内容皆遵循Apache 2.0 开源协议。
 
