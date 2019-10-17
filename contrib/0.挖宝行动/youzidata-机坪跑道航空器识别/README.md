@@ -28,7 +28,7 @@
 
 本文档所述目录结构如下，其中仅在百度云数据程序整合包中存在的部分用斜体表示：
 
-├── *data*    数据目录*
+├── *data    数据目录*
 
 │   ├──*raw 原始数据与标注内容目录*
 
@@ -40,9 +40,9 @@
 
 ├── *model*       模型目录 
 
-│   ├── *fine_tune-0000.params*    迁移学习后模型参数，可以直接使用
+│   ├── *fine_tune-0000.params    迁移学习后模型参数，可以直接使用*
 
-│   ├── *fine_tune-symbol.json*   迁移学习后模型symbol，可直接使用*
+│   ├── *fine_tune-symbol.json   迁移学习后模型symbol，可直接使用*
 
 │   ├── darknet_53-0000.params  预制模型参数
 
