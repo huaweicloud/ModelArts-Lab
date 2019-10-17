@@ -180,8 +180,7 @@ def get_optimizer_params():
 
 def get_symbol(is_train=True):
     if is_train:
-        if args.num_sync_bn_devices != -1 and \
-            args.num_sync_bn_devices != args.num_gpus:
+        if args.num_sync_bn_devices != -1 and args.num_sync_bn_devices != args.num_gpus:
             logging.info('num_sync_bn_devices must equal to num_gpus')
             args.num_sync_bn_devices = args.num_gpus
         net = yolov3.get_symbol(num_classes=args.num_classes,
