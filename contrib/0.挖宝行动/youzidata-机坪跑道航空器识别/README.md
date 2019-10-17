@@ -12,12 +12,41 @@
 
 ## 2. 程序介绍
 
-本程序采用yoloV3进行航空器目标识别，参考华为官方目标检测程序。所有程序和数据应部署于华为obs上以供ModelArts使用。本程序的训练和推断都通过ModelArts提供的训练和推断功能加以展示。
+本程序采用yoloV3进行航空器目标识别，
+
+参考华为“ModelArts/开发环境/notebook”，Examples中的mxnet_objection_detective项目构建。
+
+由于本程序使用了华为提供的moxing和Modelarts包,因此所有程序和数据应部署于华为obs上以供ModelArts使用。本程序的训练和推断都通过ModelArts提供的训练和推断功能加以展示。
 
 本程序所涉及2k图像数据为自行采集数据，标注是通过华为ModelArts标注系统完成并导出的。本数据集使用遵循Apache 2.0 开源协议。
 
-本程序修改自 Huawei ModelArts 提供的图像检测事例。所有程序遵循Apache 2.0 开源协议。
+本程序修改自 Huawei ModelArts 提供的mxnet_objection_detective图像检测项目。所有程序遵循Apache 2.0 开源协议。
 
+### a. 目录结构介绍
+
+**文档所述的主程序为mxnet_yolov3.ipynb, 位于src目录下.**
+
+本文档所述目录结构如下，其中仅在百度云数据程序整合包中存在的部分用斜体表示：
+
+├── *data    数据目录
+│   ├──raw 原始数据与标注内容目录
+│   ├──flight_test1.jpg 用于推理测试的图片
+│   ├──flight_test2.jpg 用于推理测试的图片*
+├── md_img    md图片文件目录
+├── model       模型目录 
+│   ├── *fine_tune-0000.params    迁移学习后模型参数，可以直接使用
+│   ├── fine_tune-symbol.json   迁移学习后模型symbol，可直接使用*
+│   ├── darknet_53-0000.params  预制模型参数
+│   └── darknet_53-symbol.json   预制模型symbol
+├── README.md
+└── src    源代码目录
+   ├── data       数据处理package目录
+   ├── symbol   symbol生成package目录
+   ├── utils   工具package目录
+   ├──**[mxnet_yolov3.ipynb](./src/mxnet_yolov3.ipynb)   主程序文件，用于训练程序和进行推理测试**
+   ├── train_yolov3_moxing.py   用于MA训练任务的独立程序
+   ├── train_yolov3.py   用于MA训练任务的独立程序
+   └── yolov3_service.py  用于MA推理部署的独立程序
 
 
 ## 3. 程序与数据部署
@@ -26,8 +55,8 @@
 
 鉴于本程序所用数据包较大，为方便实践，本程序的数据和代码打包在一起，存储于百度云上：
 
-链接：https://pan.baidu.com/s/1VglM_ABxpHAwQjcdi3X8vw 
-提取码：zne1 
+链接：https://pan.baidu.com/s/1pEf1VeME-Grh3lHFFxtxZw&shfl=sharepset 
+提取码：kkt7 
 
 其中程序结构与挖宝行动中提交代码相同。本代码包中多出数据资源以及fine_tune训练后的模型，这两部分文件较大因此没有上传到git上。本代码包所包含所有内容皆遵循Apache 2.0 开源协议。
 
