@@ -22,35 +22,19 @@
    3）、使用激活python2虚拟环境：执行命令：source activate python2进入python2虚拟环境，如图：
    <img  src="./imgs/py2-3.png"><br>
    安装python2的内核并应用，执行如下命令：
-   python2 -m pip install ipykernel
-   python2 -m ipykernel install --user
-4)、将该容器打包成新的镜像：并用该新的镜像重新生成容器，然后访问容器即可看到py2和py3同时有了，如图：
+   python2 -m pip install ipykernel<br>
+   python2 -m ipykernel install --user<br>
+   4)、将该容器打包成新的镜像：并用该新的镜像重新生成容器，然后访问容器即可看到py2和py3同时有了，如图：<br>
    <img  src="./imgs/py2-py3.png"><br>
+5、notebook代码自动提示功能：安装nbextensions和nbextensions_configurator<br>
+   进入容器，执行如下3条指令，成功后，采用上面容器打包镜像命令，生成新镜像，此时nbextensions功能可以显示，并在nbextensions中选中Hinterland功能即可有代码自动功能
+   pip install --user jupyter_contrib_nbextensions
+   jupyter_contrib_nbextension install --user
+   jupyter contrib nbextension install --user --skip-running-check
 
-
-    5、notebook代码自动提示功能：安装nbextensions和nbextensions_configurator
-
-        进入容器，执行如下3条指令，成功后，采用上面容器打包镜像命令，生成新镜像，此时nbextensions功能可以显示，并在nbextensions中选中Hinterland功能即可有代码自动功能
-
-pip install --user jupyter_contrib_nbextensions
-
-jupyter_contrib_nbextension install --user
-
-jupyter contrib nbextension install --user --skip-running-check
-
- 
-
-pip install --user jupyter_nbextensions_configurator
-
-  jupyter nbextensions_configurator enable --user
-
-  再次启动新的镜像容器后，打开notebook编辑环境，选择python2或python3的时候，输入import num + Tab键即可显示代码提示，如图：
-
-  code-tishi.png
-
-
-
-
-
+   pip install --user jupyter_nbextensions_configurator
+   jupyter nbextensions_configurator enable --user
+再次启动新的镜像容器后，打开notebook编辑环境，选择python2或python3的时候，输入import num + Tab键即可显示代码提示，如图：
+   <img  src="./imgs/code-tishi.png"><br>
 通过以上几步，可让notebook自动集成了：python2、python3环境，并同时支持代码提示功能和tensorboard日志分析功能.
 
