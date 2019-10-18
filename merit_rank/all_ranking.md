@@ -742,10 +742,10 @@
      * 实际应用案例： 
      * 微认证：
 
-* JUSxuaxuan：2个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508597126)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509645743)
+* Shenshe1：6个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-508597126)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-509645743),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-542303845),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-542778058),[第十一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1177#issuecomment-542059104)
      * 体验文章：
-     * 扩展案例：
+     * 扩展案例：[第三期00任务及01任务扩展(sky-one1)](https://github.com/huaweicloud/ModelArts-Lab/issues/1319#issue-509124238)
      * 实际应用案例：
      * 微认证：
 
