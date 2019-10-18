@@ -1,0 +1,6 @@
+cython
+opencv-python
+easydict
+Pillow
+matplotlib
+scipy
