@@ -11,30 +11,19 @@
    此时容器已经启动起来，在浏览器上直接访问即可，如图：
    <img  src="./imgs/nb.jpg"><br>
    此时可看到notebook环境已搭建好，点击New，可看到Python3环境已经安装好，并且系统已经集成了Tensorboard环境，接下来我们就继续集成python2环境。
-   4、python2环境集成：
-
-      1)、进入容器tb-nb，执行命令：conda info -e查看容器默认进入的环境，如图：
-
-        conda-base.png
-
-     2)、创建python2虚拟环境：执行命令：conda create -n python2 numpy matplotlib tensorflow pandas python=2.7 创建python2.7环境，虚拟环境名为python2,同时必须安装依赖包numpy matplotlib tensorflow pandas，如图：
-
-         py2.png
-
-    安装完成后，此时可以通过conda info -e再次查看安装的虚拟环境，此时多了python2     /opt/conda/envs/python2 虚拟环境，如图：
-
-         py2-2.png
-
-    3）、使用激活python2虚拟环境：执行命令：source activate python2进入python2虚拟环境，如图：
-
-         py2-3.png
-
-    安装python2的内核并应用，执行如下命令：
-
-          python2 -m pip install ipykernel
-
+### 4、python2环境集成:
+   1)、进入容器tb-nb，执行命令：conda info -e查看容器默认进入的环境，如图：
+   <img  src="./imgs/conda-base.png"><br>
+   2)、创建python2虚拟环境：
+   执行命令：conda create -n python2 numpy matplotlib tensorflow pandas python=2.7 创建python2.7环境，虚拟环境名为python2,同时必须安装依赖包numpy matplotlib tensorflow pandas，如图：
+   <img  src="./imgs/py2.png"><br>
+   安装完成后，此时可以通过conda info -e再次查看安装的虚拟环境，此时多了python2     /opt/conda/envs/python2 虚拟环境，如图：
+   <img  src="./imgs/py2-2.png"><br>
+   3）、使用激活python2虚拟环境：执行命令：source activate python2进入python2虚拟环境，如图：
+   <img  src="./imgs/py2-3.png"><br>
+   安装python2的内核并应用，执行如下命令：
+   python2 -m pip install ipykernel
    python2 -m ipykernel install --user
-
 4)、将该容器打包成新的镜像：并用该新的镜像重新生成容器，然后访问容器即可看到py2和py3同时有了，如图：
 
 py2-py3.png
