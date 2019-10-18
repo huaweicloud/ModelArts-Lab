@@ -5,21 +5,12 @@
    通过命令：docker pull lspvic/tensorboard-notebook 下载镜像，成功后通过docker images查看该镜像如图：
    <img  src="./imgs/images-nb.png"><br>
    该镜像以python3为基础内核开发环境，并已经集成好了tensorboard
-
-   3、启动lspvic/tensorboard-notebook容器：
-
-        镜像下载下来后，需要运行该容器，该容器在端口8888执行，因此按照如下命令执行：
-
-           docker run -it -name tb-nb -p 8888:8888 lspvic/tensorboard-notebook:latest  让容器在后台运行，并指定8888端口访问该容器，如下图：
-
-     run-container.jpg
-
-       此时容器已经启动起来，在浏览器上直接访问即可，如图：
-
-      nb.jpg
-
-      此时可看到notebook环境已搭建好，点击New，可看到Python3环境已经安装好，并且系统已经集成了Tensorboard环境，接下来我们就继续集成python2环境。
-
+### 3、启动lspvic/tensorboard-notebook容器:
+   镜像下载下来后，需要运行该容器，该容器在端口8888执行，因此按照如下命令执行：docker run -it -name tb-nb -p 8888:8888 lspvic/tensorboard-notebook:latest  让容器在后台运行，并指定8888端口访问该容器，如下图：
+   <img  src="./imgs/run-container.jpg"><br>
+   此时容器已经启动起来，在浏览器上直接访问即可，如图：
+   <img  src="./imgs/nb.jpg"><br>
+   此时可看到notebook环境已搭建好，点击New，可看到Python3环境已经安装好，并且系统已经集成了Tensorboard环境，接下来我们就继续集成python2环境。
    4、python2环境集成：
 
       1)、进入容器tb-nb，执行命令：conda info -e查看容器默认进入的环境，如图：
