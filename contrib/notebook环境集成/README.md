@@ -34,7 +34,7 @@
 
    pip install --user jupyter_nbextensions_configurator<br>
    jupyter nbextensions_configurator enable --user<br>
-再次启动新的镜像容器后，打开notebook编辑环境，选择python2或python3的时候，输入import num + Tab键即可显示代码提示，如图：
+再次启动新的镜像容器后，打开notebook编辑环境，选择python2或python3的时候，输入import num + Tab键即可显示代码提示，如图：<br>
    <img  src="./imgs/code-tishi.png"><br>
 通过以上几步，可让notebook自动集成了：python2、python3环境，并同时支持代码提示功能和tensorboard日志分析功能.
 
