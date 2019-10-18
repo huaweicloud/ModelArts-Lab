@@ -3,7 +3,8 @@
    首先确保环境下已经安装了docker，具体安装步骤在此不做说明，各位自己去网上查找。
 ### 2、下载lspvic/tensorboard-notebook镜像:
    通过命令：docker pull lspvic/tensorboard-notebook 下载镜像，成功后通过docker images查看该镜像如图：
-   <img  src="./imgs/vgg-1-1.jpg"><br>该镜像以python3为基础内核开发环境，并已经集成好了tensorboard
+   <img  src="./imgs/images-nb.png"><br>
+   该镜像以python3为基础内核开发环境，并已经集成好了tensorboard
 
    3、启动lspvic/tensorboard-notebook容器：
 
