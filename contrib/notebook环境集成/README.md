@@ -17,7 +17,7 @@
    2)、创建python2虚拟环境：
    执行命令：conda create -n python2 numpy matplotlib tensorflow pandas python=2.7 创建python2.7环境，虚拟环境名为python2,同时必须安装依赖包numpy matplotlib tensorflow pandas，如图：
    <img  src="./imgs/py2.png"><br>
-   安装完成后，此时可以通过conda info -e再次查看安装的虚拟环境，此时多了python2     /opt/conda/envs/python2 虚拟环境，如图：
+   安装完成后，此时通过conda info -e再次查看系统虚拟环境，此时多了python2  /opt/conda/envs/python2 虚拟环境，如图：<br>
    <img  src="./imgs/py2-2.png"><br>
    3）、使用激活python2虚拟环境：执行命令：source activate python2进入python2虚拟环境，如图：
    <img  src="./imgs/py2-3.png"><br>
@@ -25,8 +25,8 @@
    python2 -m pip install ipykernel
    python2 -m ipykernel install --user
 4)、将该容器打包成新的镜像：并用该新的镜像重新生成容器，然后访问容器即可看到py2和py3同时有了，如图：
+   <img  src="./imgs/py2-py3.png"><br>
 
-py2-py3.png
 
     5、notebook代码自动提示功能：安装nbextensions和nbextensions_configurator
 
