@@ -1,5 +1,5 @@
 ## 华为云博客链接地址:https://bbs.huaweicloud.com/blogs/125750
-为了安装和以后移植使用，本安装步骤以Linux下docker容器为基础环境，以下为安装步骤：
+为了方便notebook集成环境在以后更好的移植，本安装步骤以Linux下docker容器为基础环境，以下为安装步骤：
 ### 1、docker环境安装:
    首先确保环境下已经安装了docker，具体安装步骤在此不做说明，各位自己去网上查找。
 ### 2、下载lspvic/tensorboard-notebook镜像:
