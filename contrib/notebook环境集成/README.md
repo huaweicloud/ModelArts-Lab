@@ -26,7 +26,7 @@
    python2 -m ipykernel install --user<br>
    4)、将该容器打包成新的镜像：并用该新的镜像重新生成容器，然后访问容器即可看到py2和py3同时有了，如图：<br>
    <img  src="./imgs/py2-py3.png"><br>
-5、notebook代码自动提示功能：安装nbextensions和nbextensions_configurator<br>
+### 5、notebook代码自动提示功能：安装nbextensions和nbextensions_configurator:
    进入容器，执行如下3条指令，成功后，采用上面容器打包镜像命令，生成新镜像，此时nbextensions功能可以显示，并在nbextensions中选中Hinterland功能即可有代码自动功能
    pip install --user jupyter_contrib_nbextensions
    jupyter_contrib_nbextension install --user
