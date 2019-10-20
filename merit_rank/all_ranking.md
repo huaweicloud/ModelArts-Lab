@@ -622,8 +622,8 @@
      * 实际应用案例：    
      * 微认证: 
  
-* zhaocheng2006：5个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-537831280),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-541075529),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-541559372),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-541621165)，[第十二期](https://github.com/huaweicloud/ModelArts-Lab/issues/1248#issuecomment-542094042)
+* zhaocheng2006：6个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-537831280),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-541075529),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-541559372),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-541621165)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-543057732),[第十二期](https://github.com/huaweicloud/ModelArts-Lab/issues/1248#issuecomment-542094042)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
