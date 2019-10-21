@@ -1499,8 +1499,7 @@
      * 实际应用案例：    
      * 微认证: 
      
-     
-*suho123 ：1个积分，贡献点：
+ * suho123 ：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-544454743)
      * 体验文章：
      * 扩展案例：
