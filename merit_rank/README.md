@@ -1,4 +1,5 @@
 ##  [总积分表 all_ranking.md](https://github.com/huaweicloud/ModelArts-Lab/blob/master/merit_rank/all_ranking.md)
+<B>积分兑换礼品活动，预计11月中旬结束！</B>
 
 实践者/贡献者可以提交PR，更新自己的积分和贡献点，[具体操作流程在此](https://github.com/huaweicloud/ModelArts-Lab/wiki/Pull-Requests-%E6%9B%B4%E6%96%B0%E7%A7%AF%E5%88%86)；社区committers核实后，合并PR，积分正式生效。
 
