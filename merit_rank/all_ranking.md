@@ -1494,12 +1494,15 @@
      * 扩展案例：
      * 实际应用案例：    
      * 微认证: 
-* 新增Vincent91用户，更新1个积分，贡献点：
+
+* Vincent91:1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-544968679)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
      * 微认证: 
+     
+     
 <B>共计 211 位参与者</B>
 
 
