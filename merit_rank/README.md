@@ -1,5 +1,5 @@
 ##  [总积分表 all_ranking.md](https://github.com/huaweicloud/ModelArts-Lab/blob/master/merit_rank/all_ranking.md)
-<B>积分兑换礼品活动，预计11月中旬结束！</B>
+<B>积分兑换礼品活动，11月10日结束！</B>
 
 实践者/贡献者可以提交PR，更新自己的积分和贡献点，[具体操作流程在此](https://github.com/huaweicloud/ModelArts-Lab/wiki/Pull-Requests-%E6%9B%B4%E6%96%B0%E7%A7%AF%E5%88%86)；社区committers核实后，合并PR，积分正式生效。
 
@@ -22,7 +22,7 @@
 ### 礼包
 * Level1礼包 : ModelArts纪念T恤 + 自拍杆或蓝牙小音箱 + 2个华为云ModelArts满减资源包
 * Level2礼包 : 华为荣耀手环+ 4个满减资源包
-* Level3礼包 : 机械键盘+ 6个满减资源包
+* Level3礼包 : 机械键盘或无线耳机+ 6个满减资源包
 * Level4礼包 : 华为手表+ 8个满减资源包
 * Level5礼包 : 华为手机+ 10个满减资源包
 * Level6礼包 : 华为旗舰手机或华为Matebook电脑）+ 15个满减资源包
