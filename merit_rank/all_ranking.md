@@ -1476,8 +1476,8 @@
      * 实际应用案例：    
      * 微认证:  
       
-* chenzeshi：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-541307274)
+* chenzeshi：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-541307274)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-547311307)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-547312191)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-547313004)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-547313851)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
