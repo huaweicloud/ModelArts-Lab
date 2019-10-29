@@ -664,8 +664,8 @@
      * 实际应用案例：
      * 微认证：
   
-* Bourne-M：4个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-515840111)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-515839885)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-526911248)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-531256350)
+* Bourne-M：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-515840111)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-515839885)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-526911248)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-531256350)，[第十五期](https://github.com/huaweicloud/ModelArts-Lab/issues/1395#issuecomment-547328781)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：
