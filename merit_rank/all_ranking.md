@@ -1469,8 +1469,8 @@
      * 实际应用案例：    
      * 微认证: 
  
-* linjiachen：1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-541293948)
+* linjiachen：4个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-541293948)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-547321361)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-547321987)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-547322083)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
