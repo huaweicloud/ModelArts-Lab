@@ -1540,8 +1540,8 @@
      * 实际应用案例：    
      * 微认证: 
 
-* jerredh :4个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546876217)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-547236327)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-547330450)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-547444487)
+* jerredh :5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546876217)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-547236327)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-547330450)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-547444487)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-547762516)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
