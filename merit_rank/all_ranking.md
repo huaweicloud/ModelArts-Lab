@@ -122,9 +122,9 @@
      * 微认证：[ModelArts实现零售商客户分群](https://github.com/huaweicloud/ModelArts-Lab/issues/177#issuecomment-515298281)   
   
   
-* katzkuraki：17个积分，贡献点：
+* katzkuraki：19个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-537070831)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-538623189)，[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-540036658)，[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-540506465)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-540618795)，[第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-541035991)，[第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-541323928)，[第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-546317179)，[第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-546333001)，[第十期](https://github.com/huaweicloud/ModelArts-Lab/issues/1111#issuecomment-546366703)，[第十一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1177#issuecomment-546378636)，[第十二期](https://github.com/huaweicloud/ModelArts-Lab/issues/1248#issuecomment-546570151)，[第十三期](https://github.com/huaweicloud/ModelArts-Lab/issues/1343#issuecomment-546571049)，[第十四期](https://github.com/huaweicloud/ModelArts-Lab/issues/1364#issuecomment-546573103)，[第十五期](https://github.com/huaweicloud/ModelArts-Lab/issues/1395#issuecomment-546573999)，[第十六期](https://github.com/huaweicloud/ModelArts-Lab/issues/1445#issuecomment-546786025)
-     * 体验文章：[ModelArts环境使用有感](https://bbs.huaweicloud.com/blogs/127363)
+     * 体验文章：[ModelArts环境使用有感](https://bbs.huaweicloud.com/blogs/127363)，[ModelArts在线服务测试](https://bbs.huaweicloud.com/blogs/127442)，[ModelArts SDK体验](https://bbs.huaweicloud.com/blogs/127505)
      * 扩展案例：
      * 实际应用案例：    
      * 微认证: 
