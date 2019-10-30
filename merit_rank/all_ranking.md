@@ -1546,14 +1546,14 @@
      * 实际应用案例：    
      * 微认证: 
 	 
-* chain78 :1个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546669100)
+* chain78 :2个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546669100)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-547715597)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
      * 微认证: 
      
- * hw08522274:1个积分点，贡献点：
+* hw08522274:1个积分点，贡献点：
      *完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-547388281)
      * 体验文章：
      * 扩展案例：
