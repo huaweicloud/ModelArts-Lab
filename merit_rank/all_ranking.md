@@ -1525,9 +1525,10 @@
      * 实际应用案例：    
      * 微认证: 
 
-* hw60990420 :2个积分，贡献点：
+* hw60990420 :3个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546655752)
                 [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-546905660)
+		[第十一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1177#issuecomment-547937583)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
