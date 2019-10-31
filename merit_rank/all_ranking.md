@@ -1386,8 +1386,8 @@
      * 实际应用案例：
      * 微认证：
 
-* conquerok：3个积分，贡献点：
-     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-520202482)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-546823096),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-547403814)
+* conquerok：5个积分，贡献点：
+     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-520202482)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-546823096),[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-547403814),[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-548201410)，[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-548201123)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例： 
