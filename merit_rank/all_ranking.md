@@ -1610,3 +1610,10 @@
     * 扩展案例：
     * 实际应用案例：
     * 微认证：
+    
+* ynxdb2002:1个积分点，贡献点：
+    * 完成案例：[第十六期](https://github.com/huaweicloud/ModelArts-Lab/issues/1445#issuecomment-548419263)
+    * 体验文章：
+    * 扩展案例：
+    * 实际应用案例：
+    * 微认证：
