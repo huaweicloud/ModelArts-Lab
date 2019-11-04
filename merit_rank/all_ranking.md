@@ -1519,7 +1519,7 @@
      * 实际应用案例：    
      * 微认证:
      
-* Rocky98 :10个积分，贡献点：
+* Rocky98 :16个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-546655304)                           [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-546683220)
 		[第三期](https://github.com/huaweicloud/ModelArts-Lab/issues/219#issuecomment-549125874)
 		[第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-549126066)
@@ -1529,6 +1529,12 @@
 		[第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-549126751)
 		[第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-549126893)
 		[第十期](https://github.com/huaweicloud/ModelArts-Lab/issues/1111#issuecomment-549127032)
+		[第十一期](https://github.com/huaweicloud/ModelArts-Lab/issues/1177#issuecomment-549289364)
+		[第十二期](https://github.com/huaweicloud/ModelArts-Lab/issues/1248#issuecomment-549290306)
+		[第十三期](https://github.com/huaweicloud/ModelArts-Lab/issues/1343#issuecomment-549292498)
+		[第十四期](https://github.com/huaweicloud/ModelArts-Lab/issues/1364#issuecomment-549293137)
+		[第十五期](https://github.com/huaweicloud/ModelArts-Lab/issues/1395#issuecomment-549294102)
+		[第十六期](https://github.com/huaweicloud/ModelArts-Lab/issues/1445#issuecomment-549294732)
      * 体验文章：
      * 扩展案例：
      * 实际应用案例：    
