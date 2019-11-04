@@ -1,5 +1,7 @@
 # OCR程序的实际应用案例
 
+(先上传字体下载链接，因为不会传只能上传网盘了哈，将这个字体和CNN、CRNN放在一起就可以了，[地址](https://pan.baidu.com/s/19obLcEAbwuBJouD986biXg)   提取码c398 ) 
+
 在GIthub上找到了一个大神的ocr程序，是做验证码的识别~~，拿出来分享给大家，很厉害，[地址]( https://github.com/ypwhs/captcha_break )。
 
 那么我要做的就是在人家的基础上去做一个中文验证码的识别模型，数据集来自于咱们华为云16期的keys。
