@@ -152,6 +152,7 @@ crnn在训练四次是85%，cnn训练5次是85%，因此crnn比cnn要好一些
 
 ③：预训练文件的导入，在模型构造时有预训练文件会好很多；
 
+[项目地址](https://github.com/JUSxuaxuan/OCR-one/tree/master/OCR%E5%81%9A%E4%B8%AD%E6%96%87%E9%AA%8C%E8%AF%81%E7%A0%81)
 
 
 
