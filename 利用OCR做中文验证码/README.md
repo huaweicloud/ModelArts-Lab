@@ -44,13 +44,13 @@
 
 ①：若想改变验证码的长度，只需要改掉这个n_len即可；
 
-![image-20191102161804922](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102161804922.png)
+![image](https://user-images.githubusercontent.com/50792908/68101273-bea74d00-ff07-11e9-9344-42d916cea789.png)
 
 
 
 ②：数据集的定义在characters中改变就可以
 
-![image-20191102171110266](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102171110266.png)
+![image](https://user-images.githubusercontent.com/50792908/68101281-c961e200-ff07-11e9-843a-147fe1c0c01b.png)
 
 ③：因为时间问题设置的epoch都很少，如果有兴趣可以改一改。
 
@@ -100,27 +100,29 @@
 
 效果图：
 
-![image-20191102215800363](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102215800363.png)
+![image](https://user-images.githubusercontent.com/50792908/68101204-63755a80-ff07-11e9-95c2-5dfffb498b7a.png)
 
-准确率![image-20191102215717052](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102215717052.png)
+
+
+准确率
+![image](https://user-images.githubusercontent.com/50792908/68101196-5b1d1f80-ff07-11e9-9df0-7ccbccfe0ce6.png)
 
 
 
 ### crnn部分
 
 效果图
-
-![image-20191102215922345](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102215922345.png)
+![image](https://user-images.githubusercontent.com/50792908/68101219-74be6700-ff07-11e9-85d8-7b6f8a9480ef.png)
 
 
 
 准确率
 
-![image-20191102215731987](C:\Users\11198\AppData\Roaming\Typora\typora-user-images\image-20191102215731987.png)
+![image](https://user-images.githubusercontent.com/50792908/68101231-856edd00-ff07-11e9-8846-59438fd63853.png)
 
 
-
-简单菲尼
+简单总结
+crnn在训练四次是85%，cnn训练5次是85%，因此crnn比cnn要好一些
 
 
 
