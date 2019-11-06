@@ -1654,3 +1654,10 @@
     * 扩展案例：
     * 实际应用案例：
     * 微认证：
+    hw40732214:2个积分点，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-549346273),
+      [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-549670119)
+    * 体验文章：
+    * 扩展案例：
+    * 实际应用案例：
+    * 微认证：
