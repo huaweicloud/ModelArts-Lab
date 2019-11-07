@@ -1599,8 +1599,8 @@
     * 实际应用案例：
     * 微认证：
 
-* hw85639406:2个积分，贡献点：
-    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-548358394),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-549098440)
+* hw85639406:3个积分，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-548358394),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-549098440)，[第四期]https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-550962209
     * 体验文章：
     * 扩展案例：
     * 实际应用案例：
