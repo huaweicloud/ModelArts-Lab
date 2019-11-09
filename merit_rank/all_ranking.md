@@ -1687,8 +1687,8 @@
      * 扩展案例：
      * 微认证：
 
- * hw40732214：2个积分点，贡献点：
-    * 完成案例:[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-551514488),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-551480496),
+ * hw40732214：4个积分点，贡献点：
+    * 完成案例:[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-551514488),[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-551480496),[第四期]（https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-551002254）；[第五期](https://github.com/huaweicloud/ModelArts-Lab/issues/637#issuecomment-551093337);
     * 体验文章：
     * 扩展案例：
     * 实际应用案例：
