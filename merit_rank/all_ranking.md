@@ -1666,8 +1666,8 @@
     * 扩展案例：
     * 实际应用案例：
     * 微认证：
- * hw81326756:1个积分点，贡献点：
-    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-548198727)
+ * hw81326756:2个积分点，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-548198727)，[第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-508905355)
     * 体验文章：
     * 扩展案例：
     * 实际应用案例：
