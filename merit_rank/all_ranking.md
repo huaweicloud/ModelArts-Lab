@@ -1592,10 +1592,11 @@
      * 实际应用案例：    
      * 微认证:
  
-* hw28321490:13个积分点，贡献点：
+* hw28321490:14个积分点，贡献点：
     * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-548236705)，
                [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-549618240)，
 	       [第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-552059197)，
+	       [第六期](https://github.com/huaweicloud/ModelArts-Lab/issues/837#issuecomment-552099352)，
 	       [第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-552065288)，
 	       [第八期](https://github.com/huaweicloud/ModelArts-Lab/issues/1025#issuecomment-552067184)，
 	       [第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-552069197)，
