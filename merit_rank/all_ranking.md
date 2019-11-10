@@ -1738,5 +1738,13 @@
     * 扩展案例：
     * 实际应用案例：
     * 微认证：
+新增hw94630028:1个积分点，贡献点：
+    * 完成案例：
+              第二期https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-552202739
+
+    * 体验文章：
+    * 扩展案例：
+    * 实际应用案例：
+    * 微认证
 
 
