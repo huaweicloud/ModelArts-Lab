@@ -1738,5 +1738,14 @@
     * 扩展案例：
     * 实际应用案例：
     * 微认证：
-
+*hw53443949:5个积分点，贡献点：
+    * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-552180351)
+                         [第二期](https://github.com/huaweicloud/ModelArts-Lab/issues/113#issuecomment-552088821)
+                         [第四期](https://github.com/huaweicloud/ModelArts-Lab/issues/402#issuecomment-552093757)
+                         [第七期](https://github.com/huaweicloud/ModelArts-Lab/issues/931#issuecomment-552181871)
+                         [第九期](https://github.com/huaweicloud/ModelArts-Lab/issues/1087#issuecomment-552181939)
+    * 体验文章：
+    * 扩展案例：
+    * 实际应用案例：
+    * 微认证：
 
