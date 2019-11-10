@@ -1730,6 +1730,14 @@
     * 实际应用案例：
     * 微认证：
 
+* hw75489257:1个积分，贡献点:
+  * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-552104666)
+  * 体验文章：
+  * 扩展案例：
+  * 实际应用案例：
+  * 微认证：
+
+
 * hw15598979：1个积分，贡献点：
      * 完成案例：[第一期](https://github.com/huaweicloud/ModelArts-Lab/issues/49#issuecomment-552081035)
        体验文章：
