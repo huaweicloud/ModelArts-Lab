@@ -8,11 +8,11 @@ Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts
 ## Online Documents
 * [MoXing-API](docs/moxing_api_doc)
 * [FAQs](docs/faqs.md) 
-* [贡献者积分](merit_rank/all_ranking.md) 
+* [贡献者积分，积分兑换活动2019年11月10日结束](merit_rank/all_ranking.md) 
 
 ## 案例内容介绍 Introduction of Cases
 
-### [16期实战营活动](https://github.com/huaweicloud/ModelArts-Lab/issues?q=is%3Aissue+is%3Aopen+label%3A"华为云+ModelArts-Lab+AI实战营")
+### [16期实战营活动，积分兑换活动2019年11月10日结束](https://github.com/huaweicloud/ModelArts-Lab/issues?q=is%3Aissue+is%3Aclosed+label%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91+ModelArts-Lab+AI%E5%AE%9E%E6%88%98%E8%90%A5%22)
 
 ### 自动学习案例 ExeML Cases
 AI要规模化走进各行各业，必须要降低AI模型开发难度和门槛。当前仅少数算法工程师和研究员掌握AI的开发和调优能力，并且大多数算法工程师仅掌握算法原型开发能力，缺少相关的原型到真正产品化、工程化的能力。而对于大多数业务开发者来说，更是不具备AI算法的开发和参数调优能力。这导致大多数企业都不具备AI开发能力。

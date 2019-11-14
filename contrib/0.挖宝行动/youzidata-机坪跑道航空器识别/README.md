@@ -1,10 +1,13 @@
-﻿# 基于 YoloV3 的机坪飞机图像识别
+
+# 基于 YoloV3 的机坪飞机图像识别
+
 
 [TOC]
 
 
 
 ## 1. 应用价值
+
 
 与道路交通不同的是，航空器在地面运行时难以通过高架、隧道等方式将航班滑行路径分离，由于飞机起降架次的增多，加上恶劣天气的影响，跑道侵入事件已成为民航领域航空器地面安全运行的头等问题，跑道安全事故在民用航空事故中占有很大比例，因此对与在机场跑道和滑行道上运行的航空器、车辆等目标的身份、位置及其动态的掌控程度，很大程度上决定了跑道运行安全的系数。
 
@@ -20,14 +23,14 @@
 
 本项目基于Yolo模型，其主要程序参考华为“ModelArts/开发环境/notebook”，Examples中的mxnet_objection_detection项目构建。
 
-#### 2.1 基本流程与yolov3
+#### a. 基本流程与yolov3
 
 本项目基本流程如图，基本遵循从华为提供的样例代码开始进行修改，并最终调整应用的过程。如开发其它类型基于华为样例代码的工程，同样可以参考本开发流程。开发流程示意图如下：
 ![develop_flow](./md_img/develop_flow.png)
 
 本项目使用yolov3模型,该模型是经典的目标检测模型。可以实现快速、准确的目标检测。其采用darknet_53作为特征提取网络，并采用多层级检测的方式，实现对大小不同的目标进行快速检测。详细内容可以参考论文原文：	[YOLOv3: An Incremental Improvement](https://arxiv.org/pdf/1804.02767v1.pdf)
 
-#### 2.2 标注并准备训练数据
+#### b. 标注并准备训练数据
 
 模型开发的第一步就是进行数据，由于MA提供的数据准备函数是基于PASCAL VOC 系列数据集的，其中每一张图片对应一个xml标注数据文件。具体可是可以参考[PASCAL VOC](http://host.robots.ox.ac.uk/pascal/VOC/) 系列数据集的描述和详细内容。
 
@@ -37,7 +40,7 @@
 
 除了单纯的提取数据之外，还可以根据个人需求进行简单的数据加工，比如重新改写标注名称等等。由于本项目中无需额外处理，因此具体方法不再赘述。
 
-#### 2.3 获得参考代码
+#### c. 获得参考代码
 
 参考代码有两个来源，一个是华为提供的notebook example中的notebook代码，另一个是notebook中需要下载的库代码，本小节将描述两个代码具体的获得办法。
 
@@ -49,7 +52,7 @@
 
 在公网也可以正常下载，可以使用如下命令直接下载然后解压缩获得参考代码:`wget https://ai-course-common-20.obs.cn-north-1.myhuaweicloud.com/object_detection/object_detection.tar.gz`
 
-#### 2.4 修改数据准备代码，加载数据
+#### d. 修改数据准备代码，加载数据
 
 方便起见，notebook代码和其他参考代码放到一个文件中进行使用，且都存储于obs上。其他参考代码主要用于提供python库包，所以不用修改，修改内容集中在notebook代码中。修改内容较为繁杂，具体修改内容可以通过对比本项目提供的notebook文件和原始notebook参考代码来确定。这里仅就其中较为关键的部分进行说明。
 
@@ -102,7 +105,7 @@ NUM_EXAMPLES =  58   # 设定训练的样本数量
 
 最后可以通过`len(train_data._dataset.label_cache)`和`len(val_data._dataset.label_cache)`来查看数据集的数量是否正确分配。
 
-#### 2.5 修改训练代码，进行训练
+#### e. 修改训练代码，进行训练
 
 **初始化使用gpu**
 
@@ -131,7 +134,7 @@ devs = mx.cpu() if NUM_GPUS is None or NUM_GPUS == 0 else [
 
 正确配置后就可以开始训练，执行训练代码即可。通常mAP会逐渐提高，可以到80%-90%。此时可以进行推理测试阶段。
 
-#### 2.6 推理测试与优化显示
+#### f. 推理测试与优化显示
 
 推理部分内容相对比较简单，这里对其中的关键点进行描述。
 
@@ -164,7 +167,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 本程序修改自 Huawei ModelArts 提供的mxnet_objection_detection图像检测项目。所有程序遵循Apache 2.0 开源协议。
 
-### a. 目录结构介绍
+#### 目录结构介绍
 
 **文档所述的主程序为mxnet_yolov3.ipynb, 位于src目录下.**
 
@@ -182,7 +185,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 ├── *model*       模型目录 
 
-│   ├── *fine_tune-0000.params    迁移学习后模型参数，可直接使用*
+│   ├── *fine_tune-0000.params    迁移学习后模型参数，可以直接使用*
 
 │   ├── *fine_tune-symbol.json   迁移学习后模型symbol，可直接使用*
 
@@ -210,11 +213,13 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 
 
+
 ## 4. 程序与数据部署
 
 本部分基于已经给出的程序进行描述，与开发过程有一定不同，可以相互参考使用。
 
-### a. 数据获取
+
+#### a. 数据获取
 
 鉴于本程序所用数据包较大，为方便实践，本程序的数据和代码打包在一起，存储于百度云上：
 
@@ -225,7 +230,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 
 
-### b. 数据上传
+#### b. 数据上传
 
 建议将本程序打包上传到华为的obs系统中，然后进行后续的训练和推测。之所以采用obs保存代码和文件是基于如下几个理由：
 
@@ -241,17 +246,18 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 
 
+
 ## 5. 训练与评估
 
 训练可以采用两种方式，一种是使用ModelArts中的“开发环境/Notebook”进行训练，另一个方法是通过“训练管理/训练作业”进行训练。Notebook训练在研发阶段中比较方便。才用训练作业的方法，更适合使用自动化的方法。本程序同时支持两种训练方法，这里重点说明Notebook中如何进行训练和评估，后续会简述如何使用训练作业进行训练
 
-### a.  新建Notebook服务器
+#### a.  新建Notebook服务器
 
 选择 开发环境-〉Notebook-〉创建，新建一个Notebook服务器，这里存储位置建议选择obs中的/youziyolo/youzi，这样可以直接使用在obs上保存的notebook。如果只是推理可以使用cpu，如果需要进行训练推荐使用gpu，否则训练速度会非常慢
 
 ![juptyer](./md_img/load_model.png)
 
-### b. 运行程序进行训练
+#### b. 运行程序进行训练
 
 创建成功后，打开/youziyolo/youzi/src/mxnet_yolov3.ipynb，按序运行程序至开始训练即可，notebook文件中。这里有几点需要注意。
 
@@ -270,7 +276,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 4. 本程序没有严格区分训练集和测试集，而是从原始数据及中以8:2的数量随机选取训练集和测试集用例。比例可以在使用get_data_iter()函数读取数据集的过程中修改split_spec参数以调整训练集和测试集的比例。
 
-### c. 验证训练结果
+#### c. 验证训练结果
 
 本程序使用标准的mAP验证模型的性能，在每一个训练轮之后进行一次模型验证工作，其验证结果格式类似：
 
@@ -282,7 +288,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 
 本程序所提供的fine tune后的模型是在darknet_53预训练模型基础之上进行迁移训练，共训练了200 epochs，batch_size=16，在单卡p100上花费5小时45分钟训练得到的。结果mAP如上述所示，为0.8。
 
-### d. 采用“训练管理/训练作业”进行训练
+#### d. 采用“训练管理/训练作业”进行训练
 
 本文档所述程序也可以采用“训练管理/训练作业”方式进行训练，该方法易于通过ModelArts进行版本管理，并且适合多参数测试并发训练。但该训练方法较为复杂，需要对训练代码进行适当调整，以适配训练管理的功能。本程序提供了相关代码，核心代码与notebook相同。由于笔者也尚未完全吃透该功能，因此，本部分代码仅为想尝试训练作业功能的开发者提供参考。
 
@@ -291,6 +297,7 @@ file_name = r"s3://youziyolo/youzi/data/flight_test1.jpg"
 ![cjob](./md_img/train_config.png)
 
 然后启动训练即可，其结果将会保存 obs:/your-buckt/output/model/ 下。
+
 
 ## 6.预测测试
 
