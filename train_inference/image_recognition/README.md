@@ -3,6 +3,8 @@
 
 本期实战为图像分类第二期。在第一期我们学习了图像分类的自动学习案例（自动学习可以零代码构建一个图像分类案例）和notebook案例（notebook案例是为让大家体验了交互式开发和代码调试）。本期实战，我们使用数据智能标注、模型训练和模型部署端到端模拟真实AI开发场景，构建一个图像分类应用。
 
+你好
+
 
 ### 1. 配置ModelArts访问秘钥
 登录[ModelArts](https://console.huaweicloud.com/modelarts/?region=cn-north-1#/manage/dashboard)管理控制台，在“全局配置”界面添加访问秘钥，如下图（如已添加密钥，可跳过此步）：
