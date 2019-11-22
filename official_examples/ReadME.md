@@ -21,7 +21,7 @@
 </thead>
 <tbody><tr id="row83001722162619"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p2030052217268"><a name="p2030052217268"></a><a name="p2030052217268"></a>1</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p11300192212269"><a name="p11300192212269"></a><a name="p11300192212269"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_ExeML_to_Create_a_YunBao_Detection_Model">找云宝</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p11300192212269"><a name="p11300192212269"></a><a name="p11300192212269"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/找云宝（使用自动学习实现物体检测应用）.md">找云宝</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p17786351102618"><a name="p17786351102618"></a><a name="p17786351102618"></a>不涉及</p>
 </td>
@@ -34,7 +34,7 @@
 </tr>
 <tr id="row103001522142615"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p15300162213269"><a name="p15300162213269"></a><a name="p15300162213269"></a>2</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p1330092217265"><a name="p1330092217265"></a><a name="p1330092217265"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_ModelArts_to_Create_a_Bank_Marketing_Application">银行存款预测</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p1330092217265"><a name="p1330092217265"></a><a name="p1330092217265"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/银行存款预测（使用自动学习实现预测分析）.md">银行存款预测</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p107862051142613"><a name="p107862051142613"></a><a name="p107862051142613"></a>不涉及</p>
 </td>
@@ -42,25 +42,25 @@
 </td>
 <td class="cellrowborder" valign="top" width="10.501123375989058%" headers="mcps1.2.7.1.5 "><p id="p185703682820"><a name="p185703682820"></a><a name="p185703682820"></a>预测分析</p>
 </td>
-<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p1230014223264"><a name="p1230014223264"></a><a name="p1230014223264"></a><span>根据客户特征（年龄、工作类型、婚姻状况、文化程度、是否有房贷和是否有个人贷款），预测客户是否愿意办理定期存款业务。</span></p>
+<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p1230014223264"><a name="p1230014223264"></a><a name="p1230014223264"></a>根据客户特征（年龄、工作类型、婚姻状况、文化程度、是否有房贷和是否有个人贷款），预测客户是否愿意办理定期存款业务。</p>
 </td>
 </tr>
 <tr id="row11300622192614"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p12300192214264"><a name="p12300192214264"></a><a name="p12300192214264"></a>3</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p10542192511196"><a name="p10542192511196"></a><a name="p10542192511196"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_an_MXNet_Built-in_Algorithm_for_Flower_Recognition">花卉识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p10542192511196"><a name="p10542192511196"></a><a name="p10542192511196"></a><a href="花卉识别（使用TensorFlow预置算法实现图像分类）.md">花卉识别</a></p>
 </td>
-<td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p1578645172616"><a name="p1578645172616"></a><a name="p1578645172616"></a>MXNet</p>
+<td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p1578645172616"><a name="p1578645172616"></a><a name="p1578645172616"></a>TensorFlow</p>
 </td>
 <td class="cellrowborder" valign="top" width="16.264530624206312%" headers="mcps1.2.7.1.4 "><p id="p12289529182714"><a name="p12289529182714"></a><a name="p12289529182714"></a>预置算法</p>
 </td>
 <td class="cellrowborder" valign="top" width="10.501123375989058%" headers="mcps1.2.7.1.5 "><p id="p105707662811"><a name="p105707662811"></a><a name="p105707662811"></a>图像分类</p>
 </td>
-<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p2030015227265"><a name="p2030015227265"></a><a name="p2030015227265"></a><span>使用预置的</span><span>“ResNet_v1_50”</span><span>算法对花卉数据进行训练，</span>实现识别花卉种类的应用。</p>
+<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p2030015227265"><a name="p2030015227265"></a><a name="p2030015227265"></a>使用预置的“ResNet_v1_50”算法对花卉数据进行训练，实现识别花卉种类的应用。</p>
 </td>
 </tr>
 <tr id="row20300172222615"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p103008226269"><a name="p103008226269"></a><a name="p103008226269"></a>4</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p4300222182618"><a name="p4300222182618"></a><a name="p4300222182618"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MoXing_to_Create_a_Iceberg_Images_Classification_Application">冰山识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p4300222182618"><a name="p4300222182618"></a><a name="p4300222182618"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/冰山识别（使用MoXing框架实现图像分类）.md">冰山识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p178615516269"><a name="p178615516269"></a><a name="p178615516269"></a>MoXing</p>
 </td>
@@ -68,12 +68,12 @@
 </td>
 <td class="cellrowborder" valign="top" width="10.501123375989058%" headers="mcps1.2.7.1.5 "><p id="p8570116202816"><a name="p8570116202816"></a><a name="p8570116202816"></a>图像分类</p>
 </td>
-<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p63001022122612"><a name="p63001022122612"></a><a name="p63001022122612"></a><span>在ModelArts上使用MoXing框架，</span><span>利用算法识别出图像中是冰山（iceberg）还是船（ship）。</span></p>
+<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p63001022122612"><a name="p63001022122612"></a><a name="p63001022122612"></a>在ModelArts上使用MoXing框架，利用算法识别出图像中是冰山（iceberg）还是船（ship）。</p>
 </td>
 </tr>
 <tr id="row11300162262617"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p18300162252612"><a name="p18300162252612"></a><a name="p18300162252612"></a>5</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p6300322102610"><a name="p6300322102610"></a><a name="p6300322102610"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MoXing_to_Create_a_MNIST_Dataset_Recognition_Application">手写数字识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p6300322102610"><a name="p6300322102610"></a><a name="p6300322102610"></a><a href="使用MoXing开发训练脚本-实现手写数字识别.md">手写数字识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p18786145115261"><a name="p18786145115261"></a><a name="p18786145115261"></a>MoXing</p>
 </td>
@@ -86,7 +86,7 @@
 </tr>
 <tr id="row73001922182619"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p103003229268"><a name="p103003229268"></a><a name="p103003229268"></a>6</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p103001622102613"><a name="p103001622102613"></a><a name="p103001622102613"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_Notebook_to_Create_a_MNIST_Dataset_Recognition_Application">手写数字识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p103001622102613"><a name="p103001622102613"></a><a name="p103001622102613"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用Notebook实现手写数字识别.md">手写数字识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p1078610518263"><a name="p1078610518263"></a><a name="p1078610518263"></a>MoXing</p>
 </td>
@@ -99,7 +99,7 @@
 </tr>
 <tr id="row795734014456"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p2957114014519"><a name="p2957114014519"></a><a name="p2957114014519"></a>7</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p15957040154519"><a name="p15957040154519"></a><a name="p15957040154519"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MXNet_to_Create_a_MNIST_Dataset_Recognition_Application">手写数字识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p15957040154519"><a name="p15957040154519"></a><a name="p15957040154519"></a><a href="使用MXNet实现手写数字识别.md">手写数字识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p1695774074514"><a name="p1695774074514"></a><a name="p1695774074514"></a>MXNet</p>
 </td>
@@ -112,7 +112,7 @@
 </tr>
 <tr id="row59589408450"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p1295834017457"><a name="p1295834017457"></a><a name="p1295834017457"></a>8</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p995844019458"><a name="p995844019458"></a><a name="p995844019458"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_TensorFlow_to_Create_a_MNIST_Dataset_Recognition_Application">手写数字识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p995844019458"><a name="p995844019458"></a><a name="p995844019458"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用TensorFlow实现手写数字识别.md">手写数字识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p2095864013450"><a name="p2095864013450"></a><a name="p2095864013450"></a>TensorFlow</p>
 </td>
@@ -125,7 +125,7 @@
 </tr>
 <tr id="row1695814094512"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p12958164024515"><a name="p12958164024515"></a><a name="p12958164024515"></a>9</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p8958104017452"><a name="p8958104017452"></a><a name="p8958104017452"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_Caffe_to_Create_a_MNIST_Dataset_Recognition_Application">手写数字识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p8958104017452"><a name="p8958104017452"></a><a name="p8958104017452"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用Caffe实现手写数字识别.md">手写数字识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p595814064513"><a name="p595814064513"></a><a name="p595814064513"></a>Caffe</p>
 </td>
@@ -138,7 +138,7 @@
 </tr>
 <tr id="row695824044519"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p395854064510"><a name="p395854064510"></a><a name="p395854064510"></a>10</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p129581240114518"><a name="p129581240114518"></a><a name="p129581240114518"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_Spark_MLlib_to_Create_a_Precise_Recommendation_Application">精准推荐</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p129581240114518"><a name="p129581240114518"></a><a name="p129581240114518"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用Spark-MLlib实现精准推荐.md">精准推荐</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p10958194017453"><a name="p10958194017453"></a><a name="p10958194017453"></a>Spark MLlib</p>
 </td>
@@ -146,12 +146,12 @@
 </td>
 <td class="cellrowborder" valign="top" width="10.501123375989058%" headers="mcps1.2.7.1.5 "><p id="p15958140124510"><a name="p15958140124510"></a><a name="p15958140124510"></a>预测推荐</p>
 </td>
-<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p10958640184518"><a name="p10958640184518"></a><a name="p10958640184518"></a>基于Spark MLlib引擎，<span>提供精准营销的方向和辅助决策，提升消费品转化率和商家利润，改善消费者的消费体验。</span></p>
+<td class="cellrowborder" valign="top" width="41.96541955651069%" headers="mcps1.2.7.1.6 "><p id="p10958640184518"><a name="p10958640184518"></a><a name="p10958640184518"></a>基于Spark MLlib引擎，提供精准营销的方向和辅助决策，提升消费品转化率和商家利润，改善消费者的消费体验。</p>
 </td>
 </tr>
 <tr id="row3958134044515"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p69581640204518"><a name="p69581640204518"></a><a name="p69581640204518"></a>11</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p8958104014516"><a name="p8958104014516"></a><a name="p8958104014516"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_MXNet_to_Train_Caltech101">Caltech图像识别</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p8958104014516"><a name="p8958104014516"></a><a name="p8958104014516"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用MXNet实现Caltech图像识别.md">Caltech图像识别</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p79592400453"><a name="p79592400453"></a><a name="p79592400453"></a>MXNet</p>
 </td>
@@ -164,7 +164,7 @@
 </tr>
 <tr id="row1638184461710"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p17381744131716"><a name="p17381744131716"></a><a name="p17381744131716"></a>12</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p2382174451719"><a name="p2382174451719"></a><a name="p2382174451719"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_Spark_MLlib_to_Create_a_Car_Evaluation_Application">车辆满意度测评</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p2382174451719"><a name="p2382174451719"></a><a name="p2382174451719"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用Spark-MLlib实现车辆满意度测评.md">车辆满意度测评</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p138254420173"><a name="p138254420173"></a><a name="p138254420173"></a>Spark MLlib</p>
 </td>
@@ -177,7 +177,7 @@
 </tr>
 <tr id="row183821744151720"><td class="cellrowborder" valign="top" width="6.83794080296962%" headers="mcps1.2.7.1.1 "><p id="p18382204410175"><a name="p18382204410175"></a><a name="p18382204410175"></a>13</p>
 </td>
-<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p133821443175"><a name="p133821443175"></a><a name="p133821443175"></a><a href="https://github.com/yepingjoy/ModelArts-Lab/tree/master/offical_examples/Using_Spark_MLlib_to_Create_a_Flower_Classification_Application">鸢尾花卉分类预测</a></p>
+<td class="cellrowborder" valign="top" width="14.789489108137149%" headers="mcps1.2.7.1.2 "><p id="p133821443175"><a name="p133821443175"></a><a name="p133821443175"></a><a href="https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/docs/使用Spark-MLlib实现鸢尾花卉分类预测.md">鸢尾花卉分类预测</a></p>
 </td>
 <td class="cellrowborder" valign="top" width="9.641496532187164%" headers="mcps1.2.7.1.3 "><p id="p153825445177"><a name="p153825445177"></a><a name="p153825445177"></a>Spark MLlib</p>
 </td>
