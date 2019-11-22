@@ -16,14 +16,14 @@ The following instructions show how to achieve the performance that we submitted
 	numpy==1.17.3 
 	tensorflow==1.13.1 
 ```
-3.Download ModelArts-AIBOX from https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/tools/modelarts_aibox-0.13.0-py3-none-any.whl
-4. Clone this repo. 
-5. Modify 'DATA_DIR, UFF_FILE, CALIB_FILE' in configs.py if necessary.
-6. Run
+3. Download ModelArts-AIBOX from https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/tools/modelarts_aibox-0.13.0-py3-none-any.whl.
+4. Run
 ```bash
 	pip install modelarts_aibox-0.13.0-py3-none-any.whl
 	export LD_LIBRARY_PATH=/usr/local/lib/python3.5/dist-packages/modelarts/aibox:/usr/local/lib/python3.5/dist-packages/modelarts/aibox/operator/:/usr/local/cuda/lib64/:${LD_LIBRARY_PATH}
 	nvidia-smi -pm 1
 ```
+5. Clone this repo. 
+6. Modify 'DATA_DIR, UFF_FILE, CALIB_FILE' in configs.py if necessary.
 7. Run `python create_idx.py` to generate idx file. 
 8. Run `python inference_aibox.py`.
