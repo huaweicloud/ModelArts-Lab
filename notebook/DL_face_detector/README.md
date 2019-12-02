@@ -15,4 +15,4 @@
  
  ## 实战内容
  
- [人脸检测](./face_dlib.ipynb)
+ [人脸检测](./face_detection.ipynb)
