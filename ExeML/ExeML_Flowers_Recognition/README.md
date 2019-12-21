@@ -25,7 +25,7 @@
 
 ### 2. 设置ModelArts全局配置
 
-登陆[ModelArts服务控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-1&locale=zh-cn#/manage/dashboard)，在“全局配置”中设置全局访问密钥，具体操作步骤如下：
+登陆[ModelArts服务控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4&locale=zh-cn#/manage/dashboard)，在“全局配置”中设置全局访问密钥，具体操作步骤如下：
 
 **步骤 1** &#160; &#160; 登陆ModelArts服务页面，通过左侧导航栏进入到“全局配置”页面。请参考图4。
 
