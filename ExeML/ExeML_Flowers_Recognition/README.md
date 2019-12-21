@@ -49,7 +49,7 @@
 
 **步骤 1**&#160; &#160;点击[此链接](https://storage.huaweicloud.com/obs/?&locale=zh-cn#/obs/create) ，创建一个OBS桶（区域选北京四，桶名称自定义，其他使用默认参数），然后在创建的OBS桶下创建一个文件夹`/automl/flowers`（点击桶名称->对象->新建文件夹）。创建OBS桶和文件夹参考文档：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html 。
 
-**步骤 2**&#160; &#160;进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-1&locale=zh-cn#/manage/dashboard)界面。单击左侧导航栏的“自动学习”，进入“自动学习”界面。请参考图7。
+**步骤 2**&#160; &#160;进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4&locale=zh-cn#/manage/dashboard)界面。单击左侧导航栏的“自动学习”，进入“自动学习”界面。请参考图7。
 
 图7 自动学习界面
 
