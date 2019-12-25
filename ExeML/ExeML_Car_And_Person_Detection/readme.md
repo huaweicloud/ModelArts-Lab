@@ -37,7 +37,7 @@
 
 登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 页面右上角单击"**创建桶**"，系统弹出如下图所示的对话框，选择"区域"为"华北-北京四"，输入自定义的桶名称，其他选项保持默认即可，最后点击页面下方"立即创建"按钮即可成功创建。 
 
-![create_obs](./img/create_obs.png)
+![create_obs](./img/create_obs.PNG)
 
 ## 准备数据
 
