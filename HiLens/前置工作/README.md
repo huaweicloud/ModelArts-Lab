@@ -1,4 +1,4 @@
-ModelArts & HiLens 前置工作
+# ModelArts & HiLens 前置工作
 # 什么是HiLens 
 华为HiLens由具备AI推理能力的HiLens Kit和云上开发平台组成，包括一站式技能开发、设备部署与管理、数据管理、技能市场等，帮助用户开发AI技能并将其推送到端侧计算设备。
 
@@ -126,8 +126,4 @@ SSH连接到HiLens Kit，参考本节步骤3：SSH远程连接端侧设备 ，``
 
 ![create_obs](./img/create_obs.png)
 
-### 准备数据   Duration：3min
 
-从[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/codelab/gesture/gesture-data.tar.gz)下载数据到本地，解压。
-
-通过OBS Browser上传数据集文件夹到刚刚创建的OBS桶下，可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html) 。
