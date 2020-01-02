@@ -25,20 +25,20 @@
 
 体验手势识别AI应用的开发，需要完成以下准备工作
 
-### 创建华为云账号   Duration：2min
+### 创建华为云账号    
 
 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html)，注册华为云账号。
 
  **注意:** 在使用ModelArts时要及时检查账号状态，避免账号处于欠费或冻结状态时资源被冻结，影响您的使用。 
 
-### 获取访问密钥并完成ModelArts全局配置   Duration：2min
+### 获取访问密钥并完成ModelArts全局配置    
 
 参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0002.html)完成。
 
 **注意**：访问秘钥文件请妥善保存，使用OBS Browser会用到。
 
 
-### 完成HiLens基本操作   Duration：20min
+### 完成HiLens基本操作    
 1.	将HiLens Kit连接到电脑  
 ![connect_to_computer](./img/connect_to_computer.png)  
 ![connect_to_computer2](./img/connect_to_computer2.PNG)  
@@ -118,7 +118,7 @@ SSH连接到HiLens Kit，参考本节步骤3：SSH远程连接端侧设备 ，``
 
 **“注意”**：AK SK从访问秘钥文件中获取。
 
-### 创建OBS桶   Duration：2min
+### 创建OBS桶   
 
 **OBS**，即**Object Storage Service**，对象存储服务，是华为云上提供云上储存的服务。在使用ModelArts之前您需要创建一个OBS桶，并在其中创建一个用于存放数据的文件夹。 
 
