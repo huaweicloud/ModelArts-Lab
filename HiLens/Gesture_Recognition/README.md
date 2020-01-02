@@ -23,6 +23,11 @@
 - 一台HiLens Kit（如需购买，请在[此处](https://console.huaweicloud.com/hilens/?region=cn-north-4&locale=zh-cn#/hilens/skillMarket/hilensKitPurchase)购买）
 ## 准备工作
 请参照[此链接](https://github.com/huaweicloud/ModelArts-Lab/blob/master/HiLens/Gesture_Recognition/preparation.md)，完成准备工作
+### 准备数据   Duration：3min
+
+从[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/codelab/gesture/gesture-data.tar.gz)下载数据到本地，解压。
+
+通过OBS Browser上传数据集文件夹到刚刚创建的OBS桶下，可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html) 。
 ## ModelArts模型训练及转换 
 ### 创建训练作业   Duration：10min-20min
 接下来将通过ModelArts训练作业功能训练AI模型，在此过程中应用ModelArts的预置算法Resnet50训练出一个图像分类模型。
