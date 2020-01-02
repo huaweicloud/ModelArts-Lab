@@ -23,13 +23,13 @@
 - 一台HiLens Kit（如需购买，请在[此处](https://console.huaweicloud.com/hilens/?region=cn-north-4&locale=zh-cn#/hilens/skillMarket/hilensKitPurchase)购买）
 ## 准备工作
 请参照[此链接](https://github.com/huaweicloud/ModelArts-Lab/blob/master/HiLens/Gesture_Recognition/preparation.md)，完成准备工作
-### 准备数据   Duration：3min
+### 准备数据    
 
 从[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/codelab/gesture/gesture-data.tar.gz)下载数据到本地，解压。
 
 通过OBS Browser上传数据集文件夹到刚刚创建的OBS桶下，可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html) 。
 ## ModelArts模型训练及转换 
-### 创建训练作业   Duration：10min-20min
+### 创建训练作业    
 接下来将通过ModelArts训练作业功能训练AI模型，在此过程中应用ModelArts的预置算法Resnet50训练出一个图像分类模型。
 1. 进入[ModelArts管理控制台](https://www.huaweicloud.com/product/modelarts.html)，点击左侧工具栏“**训练管理**”>“**训练作业**”，进入“训练作业”页面。
 2. 单击“**创建**”，进入“创建训练作业”页面。
@@ -58,7 +58,7 @@
 5. 在“训练作业”管理页面，可以查看新建训练作业的状态。训练作业的创建和运行需要一些时间，若max_epoches=10，需要3分钟左右；若max_epoches=50，需要10分钟左右。当状态变更为“运行成功”时，表示训练作业创建完成。
 您可以单击训练作业的名称，可进入此作业详情页面，了解训练作业的“配置信息”、“日志”、“资源占用情况”和“评估结果”等信息。在“训练输出位置”所在的OBS路径中，即“/hilens-test1/gesture-data-output/”路径，可以获取到生成的模型文件。
 
-### 转换模型   Duration：3min
+### 转换模型   
 
 1.	进入[ModelArts管理控制台](https://www.huaweicloud.com/product/modelarts.html)，在左侧导航栏中选择“ **模型管理**”>  “**压缩/转换**”，进入模型转换列表页面。
 2.	单击左上角的“**创建任务**”，进入任务创建任务页面。
@@ -76,7 +76,7 @@
 如果“任务状态”变为“失败”，建议单击任务名称进入详情页面，查看日志信息，根据日志信息调整任务的相关参数并创建新的转换任务。
 
 ##  新建技能
-### 导入模型   Duration：1min
+### 导入模型    
 1.	登录[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/)，在左侧导航栏中选择 **“技能开发”** > **“模型管理”**，进入“模型管理”页面。
 2.	在“模型管理”页面，单击右上角的 **“导入（转换）模型”**。
 3.	在“导入模型”页面，然后参考图3-1填写参数，信息确认无误后单击 **“确定”**完成导入。
@@ -88,7 +88,7 @@
 
     模型导入后，将进入 **“模型管理”** 页面，您导入的模型可从列表中查看。
 
-### 开始新建技能   Duration：2min
+### 开始新建技能   
 1. 在[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/)的左侧导航栏中选择 **“技能开发” > “技能管理”**，进入技能列表。
 2. 在“技能管理”页面，单击右上角 **“新建技能”**，进入“创建技能”页面。  
 3. 填写基本信息  
@@ -121,7 +121,6 @@
 ![Create_skills](./img/create_skill2.png)
 
 ## 部署技能
-Duration：5min
 1. 登录[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/)，单击左侧导航栏“技能开发 > 技能管理”，进入“技能管理”页面。
 2. 选择需要部署的技能，单击右侧“部署”。
 3. 在弹出的部署对话框中，选择需要部署的设备，单击“部署”。
@@ -142,7 +141,6 @@ Duration：5min
 ![stop——skill](./img/stop_skill.PNG)
 
 ## 注销设备
-Duration：5min
 使用完后为方便其他账号使用，请注销设备。若不将此设备注销，其他用户将无法注册此设备。若此HiLens为您的个人设备，则无需进行此步骤。
 ### 卸载技能
 设备注销时，需先卸载技能。登录[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/),依次选择 **“设备管理”**> **“技能管理”**> **“卸载”**。依次卸载所有技能。
