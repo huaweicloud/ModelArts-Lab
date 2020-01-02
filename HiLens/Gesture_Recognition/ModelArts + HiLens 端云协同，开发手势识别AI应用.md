@@ -72,7 +72,7 @@
 
 - 一台HiLens Kit（如需购买，请在[此处](https://console.huaweicloud.com/hilens/?region=cn-north-4&locale=zh-cn#/hilens/skillMarket/hilensKitPurchase)购买）
 ## 准备工作
-请参照[此链接](https://github.com/huaweicloud/ModelArts-Lab/blob/master/HiLens/Gesture_Recognition/%20preparation.md)，完成准备工作
+请参照[此链接](https://github.com/huaweicloud/ModelArts-Lab/blob/master/HiLens/Gesture_Recognition/preparation.md)，完成准备工作
 ## ModelArts模型训练及转换 
 ### 创建训练作业   Duration：10min-20min
 接下来将通过ModelArts训练作业功能训练AI模型，在此过程中应用ModelArts的预置算法Resnet50训练出一个图像分类模型。
