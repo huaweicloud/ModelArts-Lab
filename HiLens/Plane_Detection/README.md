@@ -24,12 +24,13 @@
 
 *本实践需要开通 yolov3_resnet18 模型白名单，如需使用请使用工单联系工作人员。*
 
+### 首先请完成[前置工作](https://github.com/huaweicloud/ModelArts-Lab/tree/master/HiLens/%E5%89%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C)。
+
 #### 步骤1在[对象存储服务OBS](https://www.huaweicloud.com/product/obs.html)中完成；
 
 #### 步骤2-4在[ModelArts](https://www.huaweicloud.com/product/modelarts.html)中完成；
 
 #### 步骤5-7在[HiLens](https://www.huaweicloud.com/product/hilens.html)中完成。
-
 
 ### 1. 准备数据
 
