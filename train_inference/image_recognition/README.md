@@ -153,13 +153,7 @@ AI引擎：TensorFlow，TF-1.13.1-python3.6
 
 日志展示的是训练脚本运行过程中输出的日志，如果作业运行失败，可以通过日志信息定位问题；
 
-资源占用情况展示CPU、GPU和内存的利用率；
-
-评估结果展示训练得到的模型的精度，本训练脚本只计算了准确率。**可以在以下位置查看模型精度**：
-
-<img src="images/查看模型精度.PNG" width="1000px" />
-
-本次训练得到的模型的精度是0.82。
+资源占用情况展示CPU、GPU和内存的利用率。
 
 **步骤 5**  &#160; &#160;   创建TensorBoard查看训练过程，查看loss， accuracy等参数的变化信息。在训练详情页面，点击“创建TensorBoard”按钮，如下图所示：
 
@@ -213,6 +207,8 @@ ModelArts平台约定：推理脚本的名称必须为customize_service.py，模
 
 版本：选择相应的版本
 
+部署类型：在线服务
+
 其他参数会自动加载
 
 点击立即创建按钮，等待模型导入完成。
@@ -228,6 +224,8 @@ ModelArts平台约定：推理脚本的名称必须为customize_service.py，模
 <img src="images/开始部署在线服务.PNG" width="1000px" />
 
 名称：自定义
+
+是否自动停止：是，1小时后
 
 资源池：公共资源池
 
@@ -255,19 +253,4 @@ ModelArts平台约定：推理脚本的名称必须为customize_service.py，模
 
 <img src="images/停止在线服务.PNG" width="1000px" />
 
-**至此，本案例完成，下面只是该案例的扩展部分，供开发者探索。**
-
-### 开放附加题
-
-本案例提供的训练脚本，训练得到的模型的精度大概在82%左右（有一定的波动性）。在附加部分，我们提供几个思路，供优化模型的精度。
-
-思路1：观察并分析TensorBoard中loss和accuracy的变化曲线，调节batch_size（批大小）、learning_rate（学习率）、max_epochs（最大训练轮数）等超参。
-
-思路2：本案例中使用的VGG16神经网络结构可能不是最适合的，尝试使用其他的开源神经网络结构，比如ResNet50、Inception等。可以参考：<https://keras.io/zh/applications/#resnet50>  。
-
-以上两个思路只供参考，不限于以上两个思路。只要能增加模型的精度，其他的模型调优技巧也可以。
-
-**完成模型精度更高的代码和调优技巧，可以提交PR到社区contrib下，社区committers将根据扩展案例的价值评估积分奖励**
-
-进行模型调优，建议基于我们之前的 [猫狗识别notebook案例](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_image_recognition/image_recongition.ipynb)  在notebook中调试。notebook就是用于代码调试。
 

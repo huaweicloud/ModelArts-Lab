@@ -1,10 +1,10 @@
 # 费用相关FAQ
-1. “[ModelArts新手资源包](https://console.huaweicloud.com/modelarts/?region=cn-north-1#/userPackageWindow)” 包含以下三种资源：(1) 20小时CPU、(2) 10小时GPU（注：<b>只包含P100+P4，不包含V100</b>）以及 (3) 10小时自动学习；只要其中一个资源包用完，即使仍有其他种类资源包，若持续使用已用完的资源类型，仍会按照使用量扣费。当前《[ModelArts-Lab AI实战营](https://github.com/huaweicloud/ModelArts-Lab/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91+ModelArts-Lab+AI%E5%AE%9E%E6%88%98%E8%90%A5%22)》活动为开发者设计的 “ModelArts满减资源包” 中的 GPU 资源<b>只包含 P100+P4，不包含 V100</b>，请参加《ModelArts-Lab AI实战营》的开发者<b>不要选择 V100 规格</b>，避免产生套餐包之外的费用。
-   * 目前 “ModelArts新手资源包” 以及 “ModelArts满减资源包” 只可于 “北京一” 区域使用，请<b>务必选择 “北京一” </b>以免产生扣费！
+1. <B>ModelArts云资源包</B>包含三种资源：(1)GPU资源、(2) CPU资源、(3) 自动学习资源；只要其中一个资源包用完，即使仍有其他种类资源包，若持续使用已用完的资源包类型，仍会按照使用量扣费，可在<资源>下查看<我的套餐>，了解各类资源包使用情况。
+
 2. 案例实践中所使用的存储资源（OBS 或 EVS）不包含在上述 “ModelArts新手资源包” 中，可能涉及到费用。每个案例涉及的存储资源所需费用小于1元。
    * 对象存储服务 OBS 标准存储价格：0.0990元/GB/月
    * 云硬盘 EVS 超高 IO 收费：0.0014元/GB/小时
-      * Notebook 案例使用之 EVS 资源，磁盘规格默认为 5GB，当磁盘规格为 5GB 时不收费，超出 5GB 时，从 Notebook 实例创建成功起，直至删除成功，超出部分每 GB 按照规定费用收费
+      * Notebook 案例使用的EVS 资源，磁盘规格默认为 5GB，当磁盘规格为 5GB 时不收费，超出 5GB 时，从 Notebook 实例创建成功起，直至删除成功，超出部分每 GB 按照规定费用收费
 3. 实验完成后，请<b>手动停止</b>占用云资源的服务，如：停止 “开发环境” 中所创建的 Notebook 以及 “部署上线”-“在线服务” 中所部署的模型，以避免因持续占用云资源导致资源包无谓消耗和欠费发生。需使用时，再启动即可。
 4. 公有云的按需使用，都是后付费模式，也就是说，先使用再付费，一个小时会出一次话单，比如：2019.6.24 04:00~05:00 这段时间使用的费用，在 05:00 时刻采集完成后，才会出话单，进行扣费。
 5. 在 “总览” 页中，请确保各个服务皆为 “<b>0 计费中</b>”，如下图所示：
@@ -15,8 +15,10 @@
 
 
 # ModelArts使用FAQs
+* [领取的资源包在哪里可以查看](#领取的资源包在哪里可以查看)
 * [自动学习训练失败原因是什么？](#自动学习训练失败原因是什么)
 * [ModelArts是否支持Keras?](#modelarts是否支持keras)
+* [如何将Keras格式的模型转换为TensorFlow格式的模型](#如何将Keras格式的模型转换为TensorFlow格式的模型)
 * [创建Notebook时存储配置选择EVS和OBS有什么区别?](#创建notebook时存储配置选择evs和obs有什么区别)
 * [使用pip install时出现没有空间的错误](#使用pip-install时出现没有空间的错误)
 * [Notebook中Upload之后文件上传到哪里了?](#notebook中upload之后文件上传到哪里了)
@@ -34,6 +36,11 @@
 * [代码中自动下载Keras预训练模型速度缓慢或者失败怎么办](#代码中自动下载Keras预训练模型速度缓慢或者失败怎么办)
 * [如何选择ModelArts训练作业的各个路径参数](#如何选择ModelArts训练作业的各个路径参数)
 
+## 领取的资源包在哪里可以查看
+在华为云领取的资源包，可以在资源->我的套餐里面查看，如下图所示：
+
+<img src="images/查看资源.PNG" width="1000px" />
+
 ## 自动学习训练失败原因是什么？
 自动学习项目存储图片数据的OBS路径下，不允许存放文件夹，同时文件的名称中不允许存在特殊字符(特殊字符集：['~', '`', '@', '#', '$', '%', '^', '&', '*', '{', '}', '[', ']', ':', ';', '+', '=', '<', '>', '/'])。如果违反了以上两点规则之一，就会训练失败。
 
@@ -41,6 +48,9 @@
 
 Keras是一个用Python编写的高级神经网络API，它能够以TensorFlow、CNTK或Theano作为后端运行。ModelArts支持tf.keras，创建AI引擎为TensorFlow的Notebook后，可执行!pip list查看tf.keras的版本。
 TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-cn
+
+## 如何将Keras格式的模型转换为TensorFlow格式的模型
+Keras保存的模型格式是`.h5`，ModelArts推理支持的TensorFlow模型的格式是`.pb`，可以通过Python脚本将Keras模型转换为TensorFlow模型，用于ModelArts推理。Python脚本见[dog_and_cat_train.py](../train_inference/image_recognition/codes/dog_and_cat_train.py)中的`save_model_to_serving`函数。其中，`model`是Keres模型对象, `export_path`是TensorFlow模型的输出位置。
 
 ## 创建Notebook时“存储配置”选择EVS和OBS有什么区别？
 
@@ -128,6 +138,8 @@ TensorFlow Keras指南请参考：https://www.tensorflow.org/guide/keras?hl=zh-c
 
 3. 如果按第2步执行后重新打开的notebook仍然卡死，则打开modelArts管理控制台页面的notebook列表页面，将对应的notebook虚拟机停止、启动，再打开原来的notebook。
 <img src="images/停止notebook.png" width="1000px" />
+
+4. 如果打开Notebook后无法执行代码，在一些情况下是本地网络不稳定导致和服务端无法快速建立websocket连接，建议重新刷新notebook网页以触发主动重连,重连后可以正常使用。
 
 ## 如何上传本地文件至Notebook
 1. 如果是小尺寸（小于10MB）的文件，可以直接点击Notebook的Upload按钮，上传本地文件，会将文件直接上传到Notebook本地的`~/work`目录下。
