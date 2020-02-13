@@ -191,8 +191,8 @@ OBS是华为云的数据存储服务。
 如果一个文件夹中有多个文件和文件夹，如何上传这个文件夹至GitHub呢？可以直接使用GitHub的Upload files功能，上传整个文件夹至GitHub。如下所示：
 
 首先，进入待上传文件夹的路径，然后点击`Upload files`按钮：
-![upload](./img/upload_files.png)
+![upload](./images/upload_files.png)
 
 然后将本地的文件夹拖拽至网页的上传区域即可完成文件夹上传：
-![upload](./img/drop_files.png)
+![upload](./images/drop_files.png)
 
