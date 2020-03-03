@@ -3,6 +3,8 @@
 此库是AI开发者交流和学习平台，所有案例、样例代码是基于业界领先的AI开发平台ModelArts设计，帮助AI开发者快速掌握人工智能实战技能。
 This library is an AI developer communication and learning platform for ModelArts. All cases and sample code are designed based on the industry-leading AI development platform ModelArts (huawei cloud), helping AI developers to quickly master the artificial intelligence skills.
 
+此库提供的案例包括代码以及数据集均只能用于学习交流，案例数据集来自于开源社区，所有案例及数据集请勿用于除学习之外的其他商业用途，如果违反所产生的法律纠纷与提供方无关。
+
 Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
 
 ## Online Documents
