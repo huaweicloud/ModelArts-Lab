@@ -4,6 +4,8 @@ ModelArts-Lab是基于华为云ModelArts平台的示例代码库，如果国内�
 
 更多详尽的AI开发学习交流信息，请访问华为云AI开发者统一社区：https://developer.huaweicloud.com/resource/ai.html
 
+此库提供的案例包括代码以及数据集均只能用于学习交流，案例数据集来自于开源社区，所有案例及数据集请勿用于除学习之外的其他商业用途，如果违反所产生的法律纠纷与提供方无关。
+
 Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
 
 ## Online Documents
