@@ -6,6 +6,7 @@ This library is an AI developer communication and learning platform for ModelArt
 Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
 
 ## Online Documents
+* [ModelArts准备工作](docs/ModelArts准备工作)
 * [MoXing-API](docs/moxing_api_doc)
 * [FAQs](docs/faqs.md) 
 * [贡献者积分，积分兑换活动2019年11月10日结束](merit_rank/all_ranking.md) 
