@@ -1,8 +1,9 @@
 # ModelArts准备工作
+本文档适用于初次使用ModelArts的用户。使用ModelArts之前，需要做如下工作：注册华为云账号、完成ModelArts全局配置、以及熟悉OBS相关操作。
 
-## 创建账号
+## 注册华为云账号
 
-### 创建华为云账号
+### 注册账号
 
 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html)，注册华为云账号。
 
@@ -20,7 +21,7 @@
 
 ### 创建OBS桶
 
-**OBS**，即**Object Storage Service**，对象存储服务，是华为云上提供云上数据储存的服务。在使用ModelArts之前您需要创建一个OBS桶。 
+**OBS**，即**Object Storage Service**，对象存储服务，是华为云提供云上数据储存的服务。在使用ModelArts之前您需要创建一个OBS桶。 
 
 登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 单击页面右上角"**创建桶**"按钮。
 
@@ -50,5 +51,5 @@ OBS Browser+是OBS客户端，方便用户上传和下载文件。
 
 使用OBS客户端可以上传文件或者文件夹至OBS。打开OBS Browser+，点击进入一个OBS桶，然后点击“上传”按钮，上传本地文件夹或者文件至OBS桶。
 
-![food](./img/上传文件夹.png)
+![OBS](./img/上传文件夹.png)
 
