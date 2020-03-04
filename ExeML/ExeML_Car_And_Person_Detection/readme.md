@@ -1,43 +1,12 @@
 # 零代码完成自动驾驶AI模型开发
 
-## 案例内容
+在自动驾驶技术实现的过程中，物体检测是其中一个重要环节。本案例基于ModelArts自动学习功能，让开发者体验AI模型的开发过程，完成数据标注、模型训练和部署，开发一个物体检测AI应用。
 
-在自动驾驶技术实现的过程中，物体检测是其中一个重要环节。本案例基于ModelArts自动学习功能，让开发者体验AI模型的开发过程，完成数据标注、模型训练和部署，开发一个物体检测AI应用。自动学习的特点是零代码、零AI知识，可以帮助AI初学者快速体验AI应用开发流程，同时自动学习训练的模型也可以部署到生产环境中使用。
-## 案例目标
-
-- 掌握使用ModelArts自动学习训练和部署模型。
+ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，可以帮助AI初学者快速体验AI应用开发流程，同时自动学习训练生成的模型也可以部署到生产环境中使用。
 
 ## 准备工作
 
-完成零代码自动驾驶AI模型开发，需要完成以下准备工作
-
-### 创建华为云账号
-
-参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html)，注册华为云账号。
-
- **注意:**在使用ModelArts时要及时检查账号状态，避免账号处于欠费或冻结状态时资源被冻结，影响您的使用。 
-
-### 获取访问密钥并完成ModelArts全局配置
-
-参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0002.html)完成。
-
-**注意**：访问秘钥文件请妥善保存，使用OBS Browser会用到。
-
-### 下载并登录OBS Browser
-
-点击[此链接]( https://support.huaweicloud.com/clientogw-obs/zh-cn_topic_0045829056.html )，根据操作系统版本下载相应版本的OBS Browser。
-
-解压OBS Browser压缩包，参考[此文档](https://support.huaweicloud.com/clientogw-obs/zh-cn_topic_0045829058.html) 登录OBS Browser。
-
-**注意**：AK SK从访问秘钥文件中获取。
-
-### 创建OBS桶
-
-**OBS**，即**Object Storage Service**，对象存储服务，是华为云上提供云上储存的服务。在使用ModelArts之前您需要创建一个OBS桶，并在其中创建一个用于存放数据的文件夹。 
-
-登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 页面右上角单击"**创建桶**"，系统弹出如下图所示的对话框，选择"区域"为"华北-北京四"，输入自定义的桶名称，其他选项保持默认即可，最后点击页面下方"立即创建"按钮即可成功创建。 
-
-![create_obs](./img/create_obs.PNG)
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。
 
 ## 准备数据
 
