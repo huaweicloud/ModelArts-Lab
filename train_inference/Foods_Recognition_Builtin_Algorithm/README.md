@@ -6,62 +6,7 @@
 
 ## 准备工作
 
-如果是第一次使用ModelArts服务，在使用之前需要做如下准备工作。
-
-
-### 生成访问密钥
-
-登陆华为云控制台访问账号中心，用户新增访问密钥并下载到本地保存，操作步骤如下：
-
-**步骤 1** &#160; &#160;  点击[此链接](https://www.huaweicloud.com/product/modelarts.html)，登录华为云控制台。
-
-**步骤 2** &#160; &#160; 点击[此链接](https://console.huaweicloud.com/iam/?locale=zh-cn#/mine/accessKey)，进入我的凭证页面。
-
-**步骤 3** &#160; &#160; 在“我的凭证”页面切换到“访问密钥”页签，执行“新建访问密钥”操作，输入登陆密码和短信验证码后，密钥会自动生成并下载到本地，文件名为“credentials.csv”。请参考图3。
-
-图3 新增访问密钥
-
-![food](./img/新增访问秘钥.png)
-
-### 设置ModelArts全局配置
-
-登陆[ModelArts服务控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4&locale=zh-cn#/manage/dashboard)，在“全局配置”中设置全局访问密钥，具体操作步骤如下：
-
-**步骤 1** &#160; &#160; 登陆ModelArts服务页面，通过左侧导航栏进入到“全局配置”页面。请参考图4。
-
-图4 全局配置界面
-
-![food](./img/全局配置.png)
-
-**步骤 2** &#160; &#160; 执行“添加访问密钥”操作，输入“credentials.csv”文件中的“Access Key”和“Secret Access Key”信息，执行确定操作，完成全局密钥的设置。请参考图5。
-
-图5 添加访问密钥
-
-![food](./img/添加访问秘钥.png)
-
-### 创建OBS桶
-
-**OBS**，即**Object Storage Service**，对象存储服务，是华为云上提供云上数据储存的服务。在使用ModelArts之前您需要创建一个OBS桶。 
-
-登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 页面右上角单击"**创建桶**"，系统弹出如下图所示的对话框，选择"区域"为"华北-北京四"，输入自定义的桶名称，其他选项保持默认即可，最后点击页面下方"立即创建"按钮即可成功创建。
-
-### 下载并登录OBS Browser+
-
-安装OBS客户端，可以方便上传和下载数据。
-
-如果是Windows操作系统，点击[此链接](https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，根据操作系统版本下载相应版本的OBS Browser+，并点击`.exe`文件进行安装。
-
-然后参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用AK SK登录OBS Browser+。
-
-如果是Mac操作系统，可以参考[此文档](https://support.huaweicloud.com/clientogw-obs/zh-cn_topic_0045829055.html)下载和安装OBS Browser。
-
-**注意**：AK SK从访问秘钥文件中获取。
-
-### 创建OBS文件夹
-
-登录OBS Browser+（或者OBS Browser，下同），点击进入一个OBS桶，点击“新建文件夹”按钮，即可创建文件夹：
-
-![food](./img/创建文件夹.png)
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
 
 ## 准备数据
 
