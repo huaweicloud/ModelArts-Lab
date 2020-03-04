@@ -4,6 +4,8 @@
 
 本案例将介绍怎样使用ModelArts数据标注能力和预置算法ResNet50基于海量美食数据训练一个美食分类模型。
 
+ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，用户无需编码，无需AI背景，就可以使用自动学习快速构建自己的AI应用。
+
 ## 准备工作
 
 参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
