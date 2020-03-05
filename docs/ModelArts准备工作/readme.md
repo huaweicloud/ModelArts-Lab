@@ -11,7 +11,7 @@
 
 参考[此链接](https://support.huaweicloud.com/usermanual-account/zh-cn_topic_0133456714.html)，完成实名认证，推荐使用扫码认证。
 
-## ModelArts全局配置
+## 生成访问密钥并完成ModelArts全局配置
 
 参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0002.html)，生成访问密钥，并完成ModelArts全局配置。
 
