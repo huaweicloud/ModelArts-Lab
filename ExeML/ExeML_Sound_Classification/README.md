@@ -3,7 +3,11 @@
 
 本案例将详细介绍使用ModelArts自动学习声音分类识别动物叫声。
 
-### 下载数据集
+## 准备工作
+
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
+
+## 下载数据集
 
 首先点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_sound_classification/sound_classification.tar.gz)下载数据集压缩包至本地，然后解压。可以得到文件夹`sound_classification`。
 
