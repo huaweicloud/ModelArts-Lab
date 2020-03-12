@@ -1,6 +1,6 @@
-# ModelArts-Lab
+# ModelArts-Lab是基于华为云ModelArts平台的示例代码库。
 
-ModelArts-Lab是基于华为云ModelArts平台的示例代码库，如果国内访问慢，可以访问码云的镜像地址：https://gitee.com/ModelArts/ModelArts-Lab
+## 如果国内访问github慢，没关系！！您可以访问码云的镜像地址，内容完全一致：https://gitee.com/ModelArts/ModelArts-Lab
 
 更多详尽的AI开发学习交流信息，请访问华为云AI开发者统一社区：https://developer.huaweicloud.com/resource/ai.html
 
