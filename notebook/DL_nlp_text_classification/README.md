@@ -22,4 +22,4 @@
   
   ## 实战内容
   
-  [自然语言处理实战——文本分类](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_nlp_text_classification/text_classification.ipynb)
+  [自然语言处理实战——文本分类](./text_classification.ipynb)
