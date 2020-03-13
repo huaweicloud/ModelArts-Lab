@@ -22,5 +22,5 @@
 
   ## 实践案例
 
- - Notebook案例：[rebar_count.ipynb](https://nbviewer.jupyter.org/github/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_rebar_count/rebar_count.ipynb)
+ - Notebook案例：[rebar_count.ipynb](./rebar_count.ipynb)
 
