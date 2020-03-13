@@ -20,4 +20,4 @@
   
   ## 实战内容
   
-  [自然语言处理实战——问答系统](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_nlp_qa/qa.ipynb)
+打开：qa.ipynb
