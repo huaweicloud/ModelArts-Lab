@@ -20,4 +20,4 @@
   
   ## 实战内容
   
-  [自然语言处理实战——文本相似度分析](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_nlp_text_similarity/text_similarity.ipynb)
+  [自然语言处理实战——文本相似度分析](./text_similarity.ipynb)
