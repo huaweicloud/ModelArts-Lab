@@ -15,4 +15,4 @@ kaggle2013
 
 ## 实战内容
 
-打开文件：facial-expression.ipynb
+[表情判断](./facial-expression.ipynb)
