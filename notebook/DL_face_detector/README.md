@@ -21,4 +21,4 @@
  
  ## 实战内容
  
-打开文件：face_detection.ipynb
+[人脸检测](./face_detection.ipynb)
