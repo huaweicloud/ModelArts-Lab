@@ -46,7 +46,7 @@
     </tbody>
     </table>
 
--   从github下载[ModelArts-Lab](https://github.com/huaweicloud/ModelArts-Lab)工程，并在“ModelArts-Lab“工程中获取[codes](https://github.com/huaweicloud/ModelArts-Lab/tree/master/official_examples/Using_MXNet_to_Train_Caltech101/codes)文件夹中的示例代码，并上传至OBS中。详细文件及对应OBS路径请参见[表2](#table4435153217207)。
+-   从gitee下载[ModelArts-Lab](https://gitee.com/ModelArts/ModelArts-Lab)工程，并在“ModelArts-Lab“工程中获取[codes](https://gitee.com/ModelArts/ModelArts-Lab/tree/master/official_examples/Using_MXNet_to_Train_Caltech101/codes)文件夹中的示例代码，并上传至OBS中。详细文件及对应OBS路径请参见[表2](#table4435153217207)。
 
     **表 2**  获取示例文件并上传OBS
 
@@ -77,33 +77,33 @@
 
 Caltech101数据集是加利福尼亚理工学院提供的101类（加一个背景类）开源图像数据集，每一类大约有40\~800张左右的图片，每张图片是接近300×200大小不等的。关于该数据集详细请参见[Caltech 101](http://www.vision.caltech.edu/Image_Datasets/Caltech101/#Description)。
 
-ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Caltech101-data-set“。您可以通过如下步骤获取数据集，并上传至OBS桶对应的文件夹下。例如本示例中的路径为“test-modelarts/Caltech“。
+ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Caltech101-data-set“。您可以通过如下步骤获取数据集，并上传至OBS桶对应的文件夹下。例如本示例中的路径为“test-modelarts/Caltech/data“。
 
 1.  单击[数据集下载链接](https://modelarts-cnnorth1-market-dataset.obs.cn-north-1.myhuaweicloud.com/dataset-market/Caltech101-data-set/archiver/Caltech101-data-set.zip)，将“Caltech101-data-set“数据集下载至本地。
 2.  在本地，将“Caltech101-data-set.zip“压缩包解压。例如，解压至本地“Caltech101-data-set“文件夹下。
-3.  参考[上传文件](https://support.huaweicloud.com/usermanual-obs/zh-cn_topic_0045829660.html)，使用批量上传方式将“Caltech101-data-set“文件夹下的所有文件上传至“test-modelarts/Caltech“OBS路径下。
+3.  参考[上传文件](https://support.huaweicloud.com/usermanual-obs/obs_03_0307.html)，使用批量上传方式将“Caltech101-data-set“文件夹下的所有文件上传至“test-modelarts/Caltech/data“OBS路径下。
 
     为了方便进行预处理操作，已经制作好了MXNet使用的“rec“文件。需要说明的是，在深度学习领域，训练之前一般会把数据集按“6:2:2“的比例分成训练集、验证集和测试集。训练集就是训练时使用的数据集，验证集是在训练过程中评估模型好坏的数据集，测试集是在训练完成以后评估模型的数据集。由于本示例不需要评估模型最终的结果如何，所以没有使用测试集，直接按“8:2“分成了训练集和验证集。“train“是训练集，“val“是验证集。数据集中的“lst“文件和“idx“文件，“lst“文件里是图片路径的列表，即“train“和“val“数据集里各有哪些图片。“idx“文件可以帮忙做shuffle的文件，但是开发者在训练模型时不需要此文件，整个示例操作过程中不需关注。
 
 
 ## 训练模型<a name="section23901369314"></a>
 
-数据准备完成后，您需要使用MXNet接口编写训练脚本代码。ModelArts提供了一个编写好的代码示例，[train\_caltech.py](https://github.com/huaweicloud/ModelArts-Lab/blob/master/official_examples/Using_MXNet_to_Train_Caltech101/codes/train_caltech.py)，如下操作使用此示例训练模型。
+数据准备完成后，您需要使用MXNet接口编写训练脚本代码。ModelArts提供了一个编写好的代码示例，train\_caltech.py，如下操作使用此示例训练模型。
 
 本示例使用深度卷积神经网络resnet进行了训练，resnet的卷积层个数可选为“18“、“34“、“50“。在可选的“18“、“34“、“50“情况下，模型层数越大，代表模型越深，训练所需的时间越长，模型准确率能更好。resnet是常用的图像分类卷积神经网络之一。
 
-1.  请参见[准备工作](#section19807134731917)，将“codes“目录下训练作业所需文件上传至OBS，例如“test-modelarts/codes“。
+1.  请参见[准备工作](#section19807134731917)，将“codes“目录下训练作业所需文件上传至OBS，例如“test-modelarts/Caltech/code“。
 
     >![](public_sys-resources/icon-note.gif) **说明：**   
     >-   codes目录下训练模型所需文件为：“train\_caltech.py“、“libimageaugdefault.so“和“symbol“目录下所有文件。  
     >-   OBS中用于存储训练脚本的文件夹必须命名为“codes“。否则训练作业将执行失败。  
 
-2.  在ModelArts管理控制台，进入“训练作业“页面，单击左上角的“创建“。
-3.  在创建训练作业页面，参考[图1](#fig131391562296)和[图2](#fig1813955602910)填写相关信息，然后单击“下一步“。
-
-    “数据来源“：设置为Caltech101示例数据存储的路径。
+2.  在ModelArts管理控制台，进入“训练管理 \> 训练作业“页面，单击左上角的“创建“。
+3.  在“创建训练作业“页面，参考[图1](#fig131391562296)和[图2](#fig1813955602910)填写相关信息，然后单击“下一步“。
 
     “算法来源“：设置为“train\_caltech.py“示例脚本所在路径。
+
+    “数据来源“：设置为Caltech101示例数据存储的路径。
 
     “运行参数“：增加“max\_epoches=10“参数。针对“max\_epoches“参数，1个epoch代表整个数据集训练一遍，此运行参数表示训练10个epoch，数值可更改，不填写时使用默认值（默认值为100），“max\_epoches“值越大训练时间越长。更多运行参数的指导请参见[表3](#table197372255464)。
 
@@ -111,11 +111,11 @@ ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Calt
     >-   AI引擎请务必选择“MXNet“，“MXNet-1.2.1-python3.6“。由于示例代码已编写其使用引擎版本，如果使用“MXNet-1.2.1-python2.7“，训练作业将运行失败。  
     >-   由于此训练作业数据量较大，运行时间较长，建议选择GPU资源。  
 
-    **图 1**  创建训练作业-基本信息<a name="fig131391562296"></a>  
-    ![](figures/创建训练作业-基本信息-25.png "创建训练作业-基本信息-25")
+    **图 1**  创建训练作业-填写基本信息<a name="fig131391562296"></a>  
+    ![](figures/创建训练作业-填写基本信息-15.png "创建训练作业-填写基本信息-15")
 
     **图 2**  创建训练作业-详细参数<a name="fig1813955602910"></a>  
-    ![](figures/创建训练作业-详细参数-26.png "创建训练作业-详细参数-26")
+    ![](figures/创建训练作业-详细参数-16.png "创建训练作业-详细参数-16")
 
 4.  在“规格确认“页面，确认训练作业的参数信息，确认无误后单击“提交“。
 5.  在训练作业管理页面，当训练作业变为“运行成功“时，即完成了模型训练过程。如有问题，可单击作业名称，进入作业详情界面查看训练作业日志信息。
@@ -125,7 +125,7 @@ ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Calt
 
 6.  （可选）在模型训练的过程中或者完成后，可以通过创建可视化作业查看一些参数的统计信息。详细操作指导请参见[创建可视化作业](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0050.html)。
 
-    其中，“训练输出位置“请选择步骤训练作业中“训练输出位置“参数中的路径，如“/test-modelarts/caltech-log/“。根据界面提示完成可视化作业创建。
+    其中，“训练输出位置“请选择步骤训练作业中“训练输出位置“参数中的路径。根据界面提示完成可视化作业创建。
 
 
 **表 3**  运行参数说明
@@ -174,23 +174,23 @@ ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Calt
 
 模型训练完成后，可以创建预测作业，将模型部署为在线预测服务。在部署模型之前，获取推理代码“customize\_service.py“和配置文件“config.json“并上传至OBS中。此推理代码和配置文件为ModelArts为操作样例提供的示例。您也可以基于[模型包规范](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0091.html)，开发自己所需的推理代码及配置文件。
 
-1.  在部署模型之前，请参见[准备工作](#section19807134731917)，将推理代码和配置文件上传至对应OBS路径下。本示例使用的OBS路径为“test-modelarts/caltech-log/model“。
-2.  在ModelArts管理控制台，单击左侧导航栏中的“模型管理\>模型列表“，进入“模型列表“页面，单击“导入“。
-3.  在“导入模型“页面，参考[图3](#fig1391183516364)填写相关参数，然后单击“立即创建“。
+1.  在部署模型之前，请参见[准备工作](#section19807134731917)，将推理代码和配置文件上传至对应OBS路径下。本示例使用的OBS路径为“/test-modelarts/Caltech/output/“。
+2.  在ModelArts管理控制台，单击左侧导航栏中的“模型管理\>模型“，进入“模型“页面，单击“导入“。
+3.  在“导入“页面，参考[图3](#fig1391183516364)填写相关参数，然后单击“立即创建“。
 
     在“元模型来源“中，选择“从OBS中选择“页签。然后在“选择元模型“右侧文本框选择训练作业中“训练输出位置“指定的路径。
 
-    **图 3**  导入模型<a name="fig1391183516364"></a>  
-    ![](figures/导入模型-27.png "导入模型-27")
+    **图 3**  导入训练模型<a name="fig1391183516364"></a>  
+    ![](figures/导入训练模型.png "导入训练模型")
 
-    在“模型列表“页面，当模型状态变为“正常“时，表示模型已导入成功。
+    在“模型“页面，当模型状态变为“正常“时，表示模型已导入成功。
 
 4.  单击模型名称左侧的小三角，打开此模型下的所有版本。在对应版本所在行，单击操作列“部署\>在线服务“，将模型部署为在线服务。
 
     在“部署“页面，参考[图4](#fig3534111012408)填写参数，然后根据界面提示完成在线服务创建。
 
-    **图 4**  部署模型<a name="fig3534111012408"></a>  
-    ![](figures/部署模型-28.png "部署模型-28")
+    **图 4**  部署模型为在线服务<a name="fig3534111012408"></a>  
+    ![](figures/部署模型为在线服务.png "部署模型为在线服务")
 
 
 ## 预测结果<a name="section9961181112311"></a>
@@ -209,8 +209,8 @@ ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Calt
 
 3.  如果不在需要使用此模型及在线服务，建议清除相关资源，避免产生不必要的费用。
     -   在“在线服务“页面，“停止“或“删除“刚创建的在线服务。
-    -   在“数据集“管理页面，删除数据集并同步删除对应OBS路径下的数据。
     -   进入OBS，删除本示例使用的OBS桶及文件夹，以及文件夹的文件。
+    -   删除数据：前往OBS，删除上传的数据，然后删除文件夹及OBS桶。
 
 
 ## 进阶使用说明<a name="section163341538103113"></a>
@@ -261,8 +261,8 @@ ModelArts已将Caltech101数据集存储到OBS公共桶中，且命名为“Calt
     1.  在ModelArts管理控制台，在左侧导航栏中选择“开发环境\>Notebook“，在“Notebook“页面，单击“创建“，创建一个新的Notebook。
     2.  在创建Notebook页面，根据界面提示填写参数，如[图8](#fig19628193601219)所示。然后根据界面提示完成Notebook创建。
 
-        **图 8**  创建Notebook<a name="fig19628193601219"></a>  
-        ![](figures/创建Notebook-29.png "创建Notebook-29")
+        **图 8**  Notebook配置<a name="fig19628193601219"></a>  
+        ![](figures/Notebook配置.png "Notebook配置")
 
     3.  当Notebook状态变为运行中时，单击操作列打开，进入Jupyter页面。在Jupyter界面可以直接打开相应文件进行更改然后保存，也可以在右上角的“New“中创建Python环境运行代码做调试，或者新建“Terminal“（linux云上开发环境）去调试代码。
 
