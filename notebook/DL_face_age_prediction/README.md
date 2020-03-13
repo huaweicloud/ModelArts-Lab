@@ -15,4 +15,4 @@
  
  ## 实战内容
  
- [年龄判断](./face_age_prediction.ipynb)
+打开文件：face_age_prediction.ipynb
