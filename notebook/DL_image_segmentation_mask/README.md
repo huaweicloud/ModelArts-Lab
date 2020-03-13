@@ -17,4 +17,4 @@
   
   ## 模型详解
   
-  [Mask R-CNN 模型解析](https://github.com/huaweicloud/ModelArts-Lab/wiki/Mask-R-CNN模型解析)
+  [Mask R-CNN 模型解析](./Mask R-CNN.ipynb)
