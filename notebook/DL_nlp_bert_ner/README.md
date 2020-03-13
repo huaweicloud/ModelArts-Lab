@@ -21,6 +21,6 @@
   
   ## 实战内容
   
-  [自然语言处理实战——命名实体识别](https://github.com/huaweicloud/ModelArts-Lab/blob/master/notebook/DL_nlp_bert_ner/ner.ipynb)
+  [自然语言处理实战——命名实体识别](./ner.ipynb)
   
   
