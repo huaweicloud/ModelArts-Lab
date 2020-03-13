@@ -14,5 +14,4 @@
   创建notebook时请选择：**TensorFlow-1.13**
  
  ## 实战内容
- 
-打开文件：face_age_prediction.ipynb
+[年龄判断:](./face_age_prediction.ipynb)
