@@ -81,7 +81,6 @@
    （3）	将网线的一端连接到设备的以太网口上，另一端连接到对端设备的以太网口上。 
    正常开机后，如下图显示灯会亮。 
    ![connect_to_computer3](./img/connect_to_computer3.png) 
-
 2. 设置本地IP 
     将电脑本地IP修改为和HiLens Kit同一网段，使得本地能SSH登录到HiLens Kit。 
     （1）	打开“控制面板”—>“网络和Internet”—>“网络和共享中心”—>“更改适配器设置”  ![set_IP_adress](./img/set_IP_adress.png)
@@ -99,7 +98,6 @@
     ![mobaxterm](./img/mobaxterm.PNG)  
     （3）在“IES：/->”提示语后执行命令 `develop`，并输入密码`Huawei@SYS3`: 
     ![ies](./img/ies.jpg)  
-
 4. 设置时间 
     命令行输入 ``date``，检测HiLens Kit时间与网络时间是否匹配：
 
@@ -121,6 +119,7 @@
 
 5.	网络连接 
    本案例详细介绍HiLens Kit通过WIFI连接网络，其他方式请参考[此文档](https://support.huaweicloud.com/usermanual-hilens/hilens_02_0050.html): 
+   
    （1）登录Huawei HiLens智能边缘管理系统
    浏览器输入``https://192.168.2.111``，登录Huawei HiLens智能边缘管理系统。用户名为``admin``，密码为``Huawei12#$`` 
    ![Hilens_Kit_connect_ wifi](./img/Hilens_Kit_connectwifi.png)
@@ -140,13 +139,15 @@ SSH连接到HiLens Kit，参考本节步骤3：SSH远程连接端侧设备 ，``
 hdactl register -u 用户名 -d 账号名 -n 设备名
 ```
    其中，如果没有IAM账号，则“用户名”和“账号名”一致，都为华为云账号名。如果有IAM账号，则有相应“用户名”和“账号名”。设备名用户自定义。按回车完成设备注册。
+
 ![hdactl](./img/hdactl.png) 
-  输入注册指令之后，会提示输入密码，此时输入华为云账号密码：
+
+ 输入注册指令之后，会提示输入密码，此时输入华为云账号密码：
 ![sign_up_HiLens](./img/sign_up_HiLens.PNG)  （3）注册到HiLens console 
 登录Huawei HiLens[管理控制台](https://console.huaweicloud.com/hilens/?region=cn-north-4#/hilens/allManagement)，单击左侧导航栏“设备管理>设备列表”，可查看设备状态。注意，这里region选择“北京四”。  
 ![console](./img/console.png)
 （4）升级固件 
-注册完成后，检查固件是否为最新版本。固件版本``1.0.0``为出厂版本，需升级到最新版本，点击 **“设备管理—>设备列表”**，找到你已经注册的设备，点击 **“固件列表”**中，选择最新版本固件进行升级，如图所示：
+注册完成后，检查固件是否为最新版本。固件版本``1.0.0``为出厂版本，需升级到最新版本，点击 **“设备管理 **> **设备列表”**，找到你已经注册的设备，点击“**固件列表**”中，选择最新版本固件进行升级，如图所示：
  ![update_HiLens](./img/update_HiLens.PNG)  
 
 注意：固件升级时，设备会处于离线状态，请等待固件升级成功。
@@ -323,7 +324,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
  * 技能图片：用来向用户介绍技能的使用或技能的效果，可不上传。
 
- * OS平台：选择 **“Linux”**系统。
+ * OS平台：选择 “ **Linux**”系统。
 
  * 英文描述：输入技能的英文描述。
 
@@ -331,7 +332,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
  ![Create_skills](./img/创建技能1.png)
 
  ![Create_skills](./img/创建技能2.png)  
-4. 填写技能内容  
+4. 填写技能内容 
 根据您的模型和逻辑代码情况，填写技能内容，详细参数说明如下：
  * 模型：单击加号，您可以在弹出框中，选择导入的模型`mask-detection`。
 
@@ -339,7 +340,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
  * 代码执行文件：输入`index.py`。
 
- * 代码上传方式：选择“在线编辑”，在代码编辑框中直接编辑代码。一共有两个代码源文件，[`index.py`](./src/index.py)和       [`utils.py`](./src/utils.py)，将这两个文件中的代码依次复制到对应的代码编辑框中。`utils.py`文件可以通过代码编辑框左上角的**“文件” > “创建同级文件”**来创建，见下图。
+ * 代码上传方式：选择“在线编辑”，在代码编辑框中直接编辑代码。一共有两个代码源文件，[`index.py`](./src/index.py)和       [`utils.py`](./src/utils.py)，将这两个文件中的代码依次复制到对应的代码编辑框中。`utils.py`文件可以通过代码编辑框左上角的“**文件**” > “**创建同级文件**”来创建，见下图。
 
   注意：请确保`index.py`红线框中的模型名称和模型转换任务名称保持一致，否则请修改红线框中的模型名称。
 
@@ -357,14 +358,14 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ### 部署到设备
 
-1. 在[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/?region=cn-north-4#/hilens/skillDevelop/projectManagement)，单击左侧导航栏**“技能开发 > 技能管理”**，进入“技能管理”页面。
+1. 在[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/?region=cn-north-4#/hilens/skillDevelop/projectManagement)，单击左侧导航栏“**技能开发** > **技能管理**”，进入“技能管理”页面。
 2. 选择需要部署的技能，单击右侧“部署”。
 3. 在弹出的部署对话框中，选择需要部署的设备，单击“部署”。
 观察部署进度，等待部署成功。 如果此处部署失败，请检查HiLens Kit的时间有没有正确设置。
 ![deploy](./img/deploy.PNG)  
 4. 点击“确定”完成技能部署。
 ### 启动技能
-在[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/?region=cn-north-4#/hilens/deviceManagement/deviceManagement/deviceList)，进入 **“设备管理”** > **“设备列表”**。
+在[Huawei HiLens管理控制台](https://console.huaweicloud.com/hilens/?region=cn-north-4#/hilens/deviceManagement/deviceManagement/deviceList)，进入 “**设备管理**” > “**设备列表**”。
 ![manager](./img/技能管理.PNG)
 
 点击技能管理按钮，可以看到自己所有技能。用HDMI线连接HiLens Kit和显示屏，点击右侧“**启动**”按钮。
@@ -381,7 +382,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ### 停止技能
 
-为避免技能持续收费，请及时停止技能。单击左侧导航栏 **“设备管理”** > **“技能管理”**，进入“技能管理”页面。点击技能后面对应的 **“停止”**
+为避免技能持续收费，请及时停止技能。单击左侧导航栏 “**设备管理**” > “**技能管理**”，进入“技能管理”页面。点击技能后面对应的 **“停止”**
 ![stop——skill](./img/停止.PNG)
 
 此案例到此结束。
