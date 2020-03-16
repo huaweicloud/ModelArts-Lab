@@ -197,7 +197,7 @@ ModelArts针对多种AI引擎提供了多个样例，供新手用户学习使用
         例如，您已创建了命名为“test-modelarts“的OBS桶，且创建了一个命名为“dataset-yunbao“的文件夹。
 
     2.  将“Yunbao-Data-Custom.zip“在本地解压缩至“Yunbao-Data-Custom“文件夹下。
-    3.  参考[上传文件](https://support.huaweicloud.com/usermanual-obs/zh-cn_topic_0045829660.html)，将“Yunbao-Data-Custom“文件夹下的所有文件上传至“test-modelarts/dataset-yunbao“OBS路径下。
+    3.  参考[上传文件](https://support.huaweicloud.com/usermanual-obs/obs_03_0307.html)，将“Yunbao-Data-Custom“文件夹下的所有文件上传至“test-modelarts/dataset-yunbao“OBS路径下。
 
 
 ## 方式2：使用MoXing接口从公共桶拷贝至您的OBS桶<a name="section1610719538238"></a>
