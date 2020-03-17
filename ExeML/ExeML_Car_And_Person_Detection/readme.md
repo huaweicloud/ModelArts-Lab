@@ -19,8 +19,12 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 登录[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dashboard)，点击左侧导航栏的**自动学习**，进入自动学习页面；
 
 点击右侧项目页面中的物体检测的**创建项目**按钮。
-![create_job](./img/create_job.PNG)在创建自动学习项目页面，计费模式默认“按需计费”，填写“**名称**”并选择“**训练数据**”的存储路径。
+![create_job](./img/create_job.PNG)
+
+在创建自动学习项目页面，计费模式默认“按需计费”，填写“**名称**”并选择“**训练数据**”的存储路径。
 ![create_job](./img/create_job2.PNG)
+
+名称：自定义
 
 训练数据：选择`train`目录的OBS路径。
 
