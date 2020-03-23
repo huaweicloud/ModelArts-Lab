@@ -230,7 +230,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
   ![trainjob_test](./img/创建训练作业1.png)
 
-算法来源：单击“**选择**”，从“预置算法”列表中，选择“**yolov3_resnet18**”算法。目前如果想要使用该算法，可以[提工单](https://console.huaweicloud.com/ticket/?region=cn-north-4&locale=zh-cn#/ticketindex/createIndex)申请开通。工单选择产品ModelArts，问题描述填写：在华北北京四区域开通`yolov3_resnet18`预置算法白名单。
+算法来源：单击“**选择**”，从“预置算法”列表中，选择“**yolov3_resnet18**”算法。
 
 - 数据来源：数据集
 
@@ -238,7 +238,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 - 训练输出位置：选择一个空的OBS路径，用来存储训练输出的模型。如` /modelarts-course/mask_detection_500/output/ `，该路径需要自己创建。
 
-- 运行参数：列表中会自动增加`train_url`和`data_url`两个参数。需要添加两个运行参数`max_epochs=400`和`load_imagenet_weights=True`，`max_epochs`值越大训练时间越长。
+- 运行参数：列表中会自动增加`train_url`和`data_url`两个参数。需要添加一个运行参数`max_epochs=400`，`max_epochs`值越大训练时间越长。
 
 - 作业日志路径：选择一个空的OBS路径，用来存储作业训练日志。如` /modelarts-course/mask_detection_500/log/ `，该路径需要自己创建。
 
