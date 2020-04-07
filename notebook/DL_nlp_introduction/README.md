@@ -4,6 +4,8 @@
 
 - **环境创建**
 默认Notebook多引擎，Python3， CPU / GPU
+- **notebook创建**
+创建notebook时请选择：**TensorFlow-1.13**
 
 ## 课程内容
 
