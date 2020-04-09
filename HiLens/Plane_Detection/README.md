@@ -46,7 +46,7 @@
 
 点击页面上的“创建数据集”按钮， 创建数据集页面填写示例如下：
 
-![create_dataset](./img/1.png)
+![create_dataset](./img/0.png)
 
 
 - 数据集名称：自定义
@@ -65,7 +65,7 @@
 
 创建成功后，点击“发布”按钮，发布数据集。
 
-![mask](./img/2.png)
+![mask](./img/1.png)
 
 ### 2.模型训练
 
@@ -83,7 +83,7 @@
 
 - 描述：描述信息，可选。
 
-  ![trainjob_test](./img/3.png)
+  ![trainjob_test](./img/2.png)
 
 算法来源：单击“**选择**”，从“预置算法”列表中，选择“**yolov3_resnet18**”算法。
 
@@ -97,7 +97,7 @@
 
 - 作业日志路径：可以选择一个空的OBS路径，用来存储作业训练日志。
 
-![trainjob-parameter.png](./img/4.png)
+![trainjob-parameter.png](./img/3.png)
 
 
 - 资源池：公共资源池
@@ -108,7 +108,7 @@
 
 - 计算节点：1
 
-  ![trainjob-source.png](./img/5.png)
+  ![trainjob-source.png](./img/4.png)
   
 
 完成信息填写，单击“下一步”。
@@ -136,7 +136,7 @@
   *	转换输出目录：训练作业的训练输出目录下的`om/model` OBS目录。
   *	高级选项：“输入张量形状”为`images:1,352,640,3`。
 
-![convert_model](./img/6.png)
+![convert_model](./img/5.png)
 
 任务信息填写完成后，单击右下角“**立即创建**”按钮。等待模型转换任务完成。
 
@@ -151,7 +151,7 @@
  *	版本：输入 **“0.0.1”**。
  *	描述：一段简短的描述。口罩识别模型，用于检测人是否佩戴口罩。
  *	模型来源：单击 **“从ModelArts导入”**，在右侧下拉框中选择 **“OM（从转换任务中获取）”**，然后在下方转换任务列表中勾选之前ModelArts中的模型转换任务 **“convert-plane”**。
-![importmodel](./img/7.png)
+![importmodel](./img/6.png)
 
 （4）模型导入后，将进入 **“模型管理”** 页面，您导入的模型可从列表中查看。
 
