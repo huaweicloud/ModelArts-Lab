@@ -49,7 +49,7 @@ metric_dic = {}
 
 # start local Spark
 spark = pyspark.sql.SparkSession.builder.config("spark.driver.host", "localhost").master("local[*]").appName(
-    "product recommendation").getOrCreate()
+    "product_recommendation").getOrCreate()
 sc = spark.sparkContext
 
 
@@ -165,7 +165,7 @@ def create_config():
     :return:
     """
     schema_model = json.loads(
-        '{"model_algorithm":"Product Recommendation","model_source":"custom","tunable":"false","model_type":"Spark_MLlib","metrics":{},"apis":[{"protocol":"http","url":"/","method":"post","request":{"Content-type":"application/json","data":{"type":"object","properties":{"data":{"type":"object","properties":{"req_data":{"type":"array","items":[{"type":"object","properties":{"input_1":{"type":"number"},"input_2":{"type":"number"},"input_3":{"type":"number"},"input_4":{"type":"number"}}}]}}}}}},"response":{"Content-type":"application/json","data":{"type":"object","properties":{"resp_data":{"type":"array","items":[{"type":"object","properties":{"predictresult":{"type":"number"}}}]}}}}}]}',
+        '{"model_algorithm":"product_recommendation","model_source":"custom","tunable":"false","model_type":"Spark_MLlib","metrics":{},"apis":[{"protocol":"http","url":"/","method":"post","request":{"Content-type":"application/json","data":{"type":"object","properties":{"data":{"type":"object","properties":{"req_data":{"type":"array","items":[{"type":"object","properties":{"input_1":{"type":"number"},"input_2":{"type":"number"},"input_3":{"type":"number"},"input_4":{"type":"number"}}}]}}}}}},"response":{"Content-type":"application/json","data":{"type":"object","properties":{"resp_data":{"type":"array","items":[{"type":"object","properties":{"predictresult":{"type":"number"}}}]}}}}}]}',
         object_pairs_hook=OrderedDict)
 
     res_properties = collections.OrderedDict()
