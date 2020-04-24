@@ -86,7 +86,7 @@ mox.file.append_remote('s3://bucket/dir/data0.bin', 's3://bucket/dir/data1.bin')
 
 ```python
 import moxing as mox
-mox.file.copy('/tmp/file1.txt', /tmp/file2.txt')
+mox.file.copy('/tmp/file1.txt', '/tmp/file2.txt')
 ```
 
 上传一个本地文件到OBS：
@@ -107,7 +107,7 @@ mox.file.copy('s3://bucket/dir/file.txt', '/tmp/file.txt')
 
 ```python
 import moxing as mox
-mox.file.copy('s3://bucket/dir/file1.txt', s3://bucket/dir/file2.txt')
+mox.file.copy('s3://bucket/dir/file1.txt', 's3://bucket/dir/file2.txt')
 ```
 
 参数：
