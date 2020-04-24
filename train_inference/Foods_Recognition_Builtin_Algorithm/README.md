@@ -54,7 +54,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ### 创建数据集
 
-点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dataLabel_Beta)，进入ModelArts数据集。请确保区域在“华北-北京四”，本案例所有操作在“华北-北京四”。
+点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，进入ModelArts数据集。请确保区域在“华北-北京四”，本案例所有操作在“华北-北京四”。
 
 点击页面上的“创建数据集”按钮， 创建数据集页面填写示例如下：
 
@@ -106,7 +106,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 
 
-点击“发布”按钮，发布数据集：
+训练集比例填写0.8，点击“发布”按钮，发布数据集：
 
 ![food](./img/发布数据集.png)
 
@@ -146,7 +146,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 类型：GPU
 
-规格：`CPU：8 核 64GiB GPU：1 * nvidia-p100 16GiB`
+规格：`CPU：8 核 64GiB GPU：1 * nvidia-v100 32GiB` 
 
 计算节点：1
 
@@ -160,13 +160,13 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 填写好这些参数后，点击“下一步”按钮，确认参数无误，然后提交“提交”按钮。
 
-一键模型上线任务包含了三个子任务，首先会在[训练作业](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/trainingjobs)中创建一个训练作业，会训练得到一个模型，然后将训练所得模型导入到[模型管理](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/models/)中，最后将模型在[在线服务](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/webservice/real-time)中部署为一个在线API服务。以一键模型上线任务的名称为前缀可以找到这些任务。
+一键模型上线任务包含了三个子任务，首先会在[训练作业](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)中创建一个训练作业，会训练得到一个模型，然后将训练所得模型导入到[模型管理](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model?activeTab=myModels)中，最后将模型在[在线服务](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/webservice/realTimeService)中部署为一个在线API服务。以一键模型上线任务的名称为前缀可以找到这些任务。
 
 训练作业耗时5分钟左右，模型导入耗时3分钟左右，启动在线服务耗时5分钟作业。
 
 ### 查看训练作业
 
-点击进入[训练作业](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/trainingjobs)，通过一键模型上线任务的名称找到对应的训练作业，点击作业名称进入作业详情。
+点击进入[训练作业](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，通过一键模型上线任务的名称找到对应的训练作业，点击作业名称进入作业详情。
 
 “配置信息”页面展示了训练作业的配置详情：
 
@@ -180,7 +180,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 在线服务的本质是RESTful API，可以通过HTTP请求访问，在本案例中，我们直接在网页上访问在线服务。
 
-使用一键模型上线任务的名称为前缀，在[在线服务](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/webservice/real-time)中找到相应的在线服务，等待启动成功。
+使用一键模型上线任务的名称为前缀，在[在线服务](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/webservice/realTimeService)中找到相应的在线服务，等待启动成功。
 
 然后点击“预测”按钮，进入在线服务预测页面。如下图所示：
 

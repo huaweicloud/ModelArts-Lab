@@ -48,7 +48,7 @@ ModelArts有丰富的预置算法，使用ModelArts预置算法，无需自己�
 
 ### 发布数据集
 
-数据集创建成功后，点击“发布”按钮，发布数据集。数据集发布之后，才可在训练中使用。
+数据集创建成功后，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
 
 ![create_dataset](./img/发布数据集.png)
 
@@ -218,7 +218,7 @@ ModelArts有丰富的预置算法，使用ModelArts预置算法，无需自己�
 
 ### 确认关闭所有计费项
 
-点击[此链接]( https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dashboard )，进入ModelArts总览页面，如果所有计费中的数字都是0，表示所有计费项都关闭了。
+点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dashboard)，进入ModelArts总览页面，如果所有计费中的数字都是0，表示所有计费项都关闭了。
 
 ![train](./img/总览.PNG)
 
