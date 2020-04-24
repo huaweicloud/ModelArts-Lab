@@ -24,7 +24,7 @@ ModelArts有丰富的预置算法，使用ModelArts预置算法，无需自己�
 
 我们在ModelArts上创建一个人车检测数据集。
 
-点击进入[ModelArts数据集](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dataLabel_Beta)，请确保区域在“华北-北京四”，本案例所有操作在“华北-北京四”。
+点击进入[ModelArts数据集](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，请确保区域在“华北-北京四”，本案例所有操作在“华北-北京四”。
 
 点击页面上的“创建数据集”按钮， 创建数据集页面填写示例如下：
 
@@ -62,7 +62,7 @@ ModelArts有丰富的预置算法，使用ModelArts预置算法，无需自己�
 
 ### 创建预置算法训练作业
 
-点击进入[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/trainingjobs/)，进入ModelArts训练作业页面，然后点击“创建”按钮，如下图所示：
+点击进入[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，进入ModelArts训练作业页面，然后点击“创建”按钮，如下图所示：
 
 ![create_obs](./img/创建训练作业.png)
 
