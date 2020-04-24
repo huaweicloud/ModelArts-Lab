@@ -146,7 +146,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 类型：GPU
 
-规格：`CPU：8 核 64GiB GPU：1 * nvidia-p100 16GiB`
+规格：`GPU：1 * nvidia-v100 CPU：8 核 64GiB 32GiB` 
 
 计算节点：1
 
