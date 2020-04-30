@@ -7,6 +7,9 @@ import argparse
 
 import numpy as np
 import pandas as pd
+import tempfile
+
+import moxing as mox
 
 
 class DataStatsDict():
@@ -234,6 +237,19 @@ if __name__ == "__main__":
 
   args, _ = parser.parse_known_args()
 
+  # ============================= copy raw data to local ============
+  tmp_data_dir = tempfile.mkdtemp('deepfm')
+  mox.file.make_dirs(tmp_data_dir)
+  tmp_data_path = os.path.join(os.path.join(tmp_data_dir, 'raw_data'),
+                               os.path.split(args.data_file_path)[-1])
+  mox.file.copy(args.data_file_path, tmp_data_path)
+  args.data_file_path = tmp_data_path
+
+  # ============================= copy raw data to local ============
+  ori_output_path = args.output_path
+  args.output_path = os.path.join(tmp_data_dir, 'h5_data')
+  # ============================= end ===========================
+
   data_stats = DataStatsDict(value_col_num=args.value_col_num, category_col_num=args.category_col_num)
   stats_output_path = os.path.join(args.output_path, "stats_dict")
   mkdir_path(stats_output_path)
@@ -249,3 +265,6 @@ if __name__ == "__main__":
   random_split_trans2h5(args.data_file_path, h5_save_path, data_stats,
                         part_rows=args.part_rows, test_size=args.test_ratio, seed=2020,
                         value_col_num=args.value_col_num, category_col_num=args.category_col_num)
+
+  # =============================copy save data to obs==============
+  mox.file.copy_parallel(args.output_path, ori_output_path)
