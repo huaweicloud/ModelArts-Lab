@@ -82,15 +82,15 @@ criteo feature数据
 文件输出格式如下（以3个训练集，2个验证集为例），dataset_path将作为训练的数据输入。
   ```shell
   dataset_path
-    |- train\_input\_part\_0.h5
-    |- train\_output\_part\_0.h5
-    |- train\_input\_part\_1.h5
-    |- train\_output\_part\_1.h5
-    |- train\_input\_part\_2.h5
-    |- train\_output\_part\_2.h5
-    |- test\_input\_part\_0.h5
-    |- test\_output\_part\_0.h5
-    |- test\_input\_part\_1.h5
-    |- test\_output\_part\_1.h5
+    |- train_input_part_0.h5
+    |- train_output_part_0.h5
+    |- train_input_part_1.h5
+    |- train_output_part_1.h5
+    |- train_input_part_2.h5
+    |- train_output_part_2.h5
+    |- test_input_part_0.h5
+    |- test_output_part_0.h5
+    |- test_input_part_1.h5
+    |- test_output_part_1.h5
     |...
   ```
