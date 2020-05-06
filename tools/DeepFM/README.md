@@ -36,6 +36,7 @@ criteo 原始数据中，第一列为label，表示是否点击，后续39列为
 
 criteo feature数据
 <center>	
+
 ![an image](./pics/demo_input_features.png) 
 </center>
  criteo label数据
