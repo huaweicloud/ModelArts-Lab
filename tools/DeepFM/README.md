@@ -1,8 +1,6 @@
 # DeepFM Data Preprocess
 
-线下数据预处理脚本请参考： [data_process.py](code/data_process.py)
-
-若使用 华为云-ModelArts 创建训练作业 做数据预处理，脚本请参考： [data_process_cloud.py](code/data_process_cloud.py)
+数据预处理脚本请参考： [data_process.py](code/data_process.py)
 
 以[Criteo数据集](https://www.kaggle.com/c/criteo-display-ad-challenge/data "Criteo数据集")为例。
 
