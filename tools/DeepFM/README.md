@@ -33,6 +33,7 @@ criteo 原始数据中，第一列为label，表示是否点击，后续39列为
      - 离散值weights（有值的部分为1，Nan(空值)的为0）
 
 处理后的特征数据保存为H5文件，特征数据共78列(0-38为id特征列，39-77为weights特征列)，内容格式如下：
+
 criteo feature数据
 <center>
 	
