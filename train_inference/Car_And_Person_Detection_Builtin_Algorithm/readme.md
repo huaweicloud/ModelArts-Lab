@@ -78,7 +78,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 按照如下提示，填写创建训练作业的参数。
 
-![train](./img/训练作业参数1.PNG)
+![train](./img/训练作业参数1.png)
 
 计费模式：按需计费
 
@@ -92,17 +92,17 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 选择数据集和版本：选择刚刚发布的人车数据集及其版本
 
-![train](./img/训练作业参数2.PNG)
+![train](./img/训练作业参数2.png)
 
 训练输出：选择OBS路径`/modelarts-course/car_and_person_detection/output/`（此OBS路径如果不存在，可以使用OBS客户端创建）。训练输出位置用来保存训练生成的模型。
 
 调优参数：用于设置算法中的超参。算法会加载默认参数，但是可以更改和添加参数。设置`learning_rate_strategy=20:0.001`，表示训练20轮，学习率固定为0.001。其他调优参数保持默认。
 
-![train](./img/训练作业参数3.PNG)
+![train](./img/训练作业参数3.png)
 
 作业日志路径：选择OBS路径`/modelarts-course/car_and_person_detection/log/`（此OBS路径如果不存在，可以使用OBS客户端创建）。
 
-![train](./img/训练作业参数4.PNG)
+![train](./img/训练作业参数4.png)
 
 资源池：公共资源池。
 
@@ -218,7 +218,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dashboard)，进入ModelArts总览页面，如果所有计费中的数字都是0，表示所有计费项都关闭了。
 
-![train](./img/总览.PNG)
+![train](./img/总览.png)
 
 **案例完成。**
 
