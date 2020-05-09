@@ -200,7 +200,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 预测结果会出现在右边的输出框：
 
-![food](./img/预测结果.png)
+![food](./img/预测结果.PNG)
 
 右边是API接口返回的详细信息，物体检测任务会将预测结果绘制在左边的图片上，检测框会框住目标，并且显示类别和置信度。
 
@@ -218,7 +218,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dashboard)，进入ModelArts总览页面，如果所有计费中的数字都是0，表示所有计费项都关闭了。
 
-![train](./img/总览.png)
+![train](./img/总览.PNG)
 
 **案例完成。**
 
