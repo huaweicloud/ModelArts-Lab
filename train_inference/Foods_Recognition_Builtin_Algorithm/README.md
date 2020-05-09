@@ -46,7 +46,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ### 上传数据至OBS
 
-在OBS Browser+中，进入进入刚刚创建的“华为北京四”区域的OBS桶，然后点击上传按钮，上传本地文件夹`foods_recongition_23`至OBS桶：
+在OBS Browser+中，进入进入刚刚创建的“华北北京四”区域的OBS桶，然后点击上传按钮，上传本地文件夹`foods_recongition_23`至OBS桶：
 
 ![food](./img/上传文件夹.png)
 
