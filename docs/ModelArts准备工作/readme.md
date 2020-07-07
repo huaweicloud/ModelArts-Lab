@@ -37,8 +37,6 @@ OBS Browser+是OBS客户端，方便用户上传和下载文件。
 
 参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用访问密钥登录OBS Browser+。
 
-如果是Mac操作系统，可以参考[此文档](https://support.huaweicloud.com/clientogw-obs/zh-cn_topic_0045829055.html)下载和安装OBS Browser。OBS Browser和OBS Browser+的使用方式类似。
-
 **注意**：AK和SK从访问秘钥文件中获取。
 
 ### 新建OBS文件夹
