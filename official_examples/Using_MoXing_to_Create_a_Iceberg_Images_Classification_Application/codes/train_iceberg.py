@@ -27,7 +27,7 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow.contrib import slim
 from tensorflow.python.keras.layers import Dropout, Flatten, Activation, Concatenate
-from moxing.tensorflow.datasets.tfrecord_common import ImageClassificationTFRecordMetadata
+from moxing.tensorflow.datasets.tfrecord.tfrecord_common import ImageClassificationTFRecordMetadata
 from moxing.tensorflow.datasets.tfrecord_common import BaseTFRecordDataset
 import moxing.tensorflow as mox
 from moxing.tensorflow.utils import tf_util

@@ -9,19 +9,19 @@
 	"dependencies": [{
 		"installer": "pip",
 		"packages": [{
-			"restraint": "ATLEAST",
-			"package_version": "3.4.1",
-			"package_name": "opencv-python"
+			"restraint": "EXACT",
+			"package_version": "3.4.1.15",
+			"package_name": "opencv-python-headless"
 		},{
-			"restraint": "ATLEAST",
+			"restraint": "EXACT",
 			"package_version": "5.2.0",
 			"package_name": "Pillow"
 		},{
-			"restraint": "ATLEAST",
+			"restraint": "EXACT",
 			"package_version": "2.2.0",
 			"package_name": "keras"
 		},{
-			"restraint": "ATLEAST",
+			"restraint": "EXACT",
 			"package_version": "1.15.0",
 			"package_name": "numpy"
 		}]
@@ -69,4 +69,3 @@
 		}
 	}]
 }
-
