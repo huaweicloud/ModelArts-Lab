@@ -180,17 +180,15 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ![create_dataset](./img/创建数据集1.png)
 
-![create_dataset](./img/创建数据集2.png)
-
 - 数据集名称：自定义
-
-- 数据集输入位置：`train`文件夹所在的OBS路径
-
-- 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，可以是使用OBS Browser+创建。
 
 - 标注场景：物体
 
 - 标注类型：物体检测
+
+- 数据集输入位置：`train`文件夹所在的OBS路径
+
+- 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，可以是使用OBS Browser+创建。
 
 填写完毕上述字段后，点击创建按钮。
 
