@@ -18,7 +18,7 @@
 | [物体检测Faster R-CNN实践](./notebook/DL_image_object_detection_faster/Faster-R-CNN.ipynb) | Notebook                             | 物体检测FasterRCNN算法原理，PyTorch1.0.0 |
 | [实例分割Mask R-CNN实践](./notebook/DL_image_segmentation_mask/Mask%20R-CNN.ipynb) | Notebook                             | 图像分割MaskRCNN算法原理，TensorFlow1.13 |
 | [使用Mask R-CNN模型实现人体关键节点标注](./notebook/DL_mask_rcnn_keypoints/mask-rcnn-keypoints.ipynb) | Notebook                             | 人体关键点标注，MaskRCNN，TensorFlow1.8  |
-| [人脸年龄预测](./master/notebook/DL_face_age_prediction/face_age_prediction.ipynb) | Notebook                             | 人脸识别                                 |
+| [人脸年龄预测](./notebook/DL_face_age_prediction/face_age_prediction.ipynb) | Notebook                             | 人脸识别                                 |
 | [人脸区域及关键点检测](./notebook/DL_face_detector/face_detection.ipynb) | Notebook                             | 人脸识别                                 |
 | [人脸表情识别](./notebook/DL_face_facial_expression/face_expression.ipynb) | Notebook                             | 人脸识别                                 |
 | [人脸分类案例](./notebook/DL_face_recognition/face_recognition.ipynb) | Notebook                             | 人脸识别                                 |
