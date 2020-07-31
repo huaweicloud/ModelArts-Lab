@@ -14,7 +14,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。
 
-点击[此链接](https://modelarts-labs.obs.myhuaweicloud.com/end2end/car_and_person_detection/car_and_person_500.tar.gz)下载数据到本地，解压，可以得到`car_and_person_500`文件夹。`car_and_person_500`文件夹下有`train`和`test`两个目录，`train`是已经标注好的训练集，共500张图片，`test`是测试集。
+点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/car_and_person_detection/car_and_person_500.tar.gz)下载数据到本地，解压，可以得到`car_and_person_500`文件夹。`car_and_person_500`文件夹下有`train`和`test`两个目录，`train`是已经标注好的训练集，共500张图片，`test`是测试集。
 
 ### 上传数据至OBS
 

@@ -9,7 +9,7 @@
 
 ## 下载数据集
 
-首先点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Sound_Classification/sound_classification.zip)下载数据集压缩包至本地，然后解压。可以得到文件夹`sound_classification`。
+首先点击[此处](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Sound_Classification/sound_classification.zip)下载数据集压缩包至本地，然后解压。可以得到文件夹`sound_classification`。
 
 训练集位于`sound_classification\train`目录下，共4类动物叫声，分别是鸟（bird）、猫（cat）、狗（dog）和虎（tiger），每种动物25个叫声音频数据，共一百条音频数据。测试集位于`sound_classification\test`目录下，每种动物提供5个叫声音频数据。音频数据格式均为`wav`格式，均可在各音频播放器直接播放试听。
 

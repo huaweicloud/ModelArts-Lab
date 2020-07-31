@@ -12,7 +12,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ### 下载数据
 
-本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。请点击[此链接](https://modelarts-labs.obs.myhuaweicloud.com/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹下有`train`和`test`两个目录，`train`是训练集，`test`是测试集。
+本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。请点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹下有`train`和`test`两个目录，`train`是训练集，`test`是测试集。
 
 ### 上传数据至OBS
 
