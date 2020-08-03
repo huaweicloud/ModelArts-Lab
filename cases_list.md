@@ -53,7 +53,7 @@
 | [Ascend910训练和Ascend310推理的样例](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html) | 训练+模型转换+在线部署               | 昇腾训练 + 昇腾部署 + 图像分类           |
 
 
-
+如果notebook的ipynb文件打开有问题，可以使用该网站来访问案例地址：https://nbviewer.jupyter.org/
 
 
 
