@@ -14,7 +14,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。
 
-点击[此链接](https://modelarts-labs.obs.myhuaweicloud.com/end2end/car_and_person_detection/car_and_person_500.tar.gz)下载数据到本地，解压，可以得到`car_and_person_500`文件夹。`car_and_person_500`文件夹下有`train`和`test`两个目录，`train`是已经标注好的训练集，共500张图片，`test`是测试集。
+点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/car_and_person_detection/car_and_person_500.tar.gz)下载数据到本地，解压，可以得到`car_and_person_500`文件夹。`car_and_person_500`文件夹下有`train`和`test`两个目录，`train`是已经标注好的训练集，共500张图片，`test`是测试集。
 
 ### 上传数据至OBS
 
@@ -196,11 +196,11 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 切换到“预测”页签。点击上传按钮，上传本地的`car_and_person_500\test`目录中的图片，然后点击“预测”按钮，进行测试：
 
-![food](./img/上传测试图片.png)
+![food](./img/上传测试图片.jpg)
 
 预测结果会出现在右边的输出框：
 
-![food](./img/预测结果.PNG)
+![food](./img/预测结果.jpg)
 
 右边是API接口返回的详细信息，物体检测任务会将预测结果绘制在左边的图片上，检测框会框住目标，并且显示类别和置信度。
 

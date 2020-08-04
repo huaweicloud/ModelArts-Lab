@@ -12,7 +12,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ### 下载数据
 
-本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。请点击[此链接](https://modelarts-labs.obs.myhuaweicloud.com/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹下有`train`和`test`两个目录，`train`是训练集，`test`是测试集。
+本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。请点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹下有`train`和`test`两个目录，`train`是训练集，`test`是测试集。
 
 ### 上传数据至OBS
 
@@ -50,20 +50,20 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 ![labeldata1](./img/标注第一张.png)
 
 使用鼠标左键框选图片中物体，并添加标签（画矩形框的方式是分别点击矩形框的左上角和右下角）。
-![persiontab](./img/添加标签.png)
+![persiontab](./img/添加标签.jpg)
 
 点击箭头进入下一张图像，以同样的方式标注照片中的人或汽车。
-![persiontab](./img/下一张.png)
+![persiontab](./img/下一张.jpg)
 
 标注若干张图片后，点击左上角的作业名称，返回自动学习主页面。
-![save](./img/返回主页面.png)
+![save](./img/返回主页面.jpg)
 
 如果您时间充足，可以把所有图片标注完。如果您时间有限，只标注几张图片即可，不标注完所有图片也可以训练。
 
 ## 模型训练
 点击“开始训练”按钮，设置最大训练时长为0.2(小时)，预期推理硬件选择CPU，其他默认。然后点击"确认"按钮，提交训练作业。如下图所示：
 
-![train](./img/开始训练.png)
+![train](./img/开始训练.jpg)
 
 具体的训练时长需要根据训练数据量来设置，如果精度不够，可以训练更长时间。
 

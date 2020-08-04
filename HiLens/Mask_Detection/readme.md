@@ -180,25 +180,27 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ![create_dataset](./img/创建数据集1.png)
 
-![create_dataset](./img/创建数据集2.png)
-
 - 数据集名称：自定义
-
-- 数据集输入位置：`train`文件夹所在的OBS路径
-
-- 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，可以是使用OBS Browser+创建。
 
 - 标注场景：物体
 
 - 标注类型：物体检测
 
+- 数据集输入位置：`train`文件夹所在的OBS路径
+
+- 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，可以是使用OBS Browser+创建。
+
 填写完毕上述字段后，点击创建按钮。
 
 训练集中已经包含了标注文件，ModelArts数据集会自动加载标注文件。
 
-创建成功后，点击“发布”按钮，发布数据集。
+### 发布数据集
+
+数据集创建成功后，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
 
 ![mask](./img/发布.png)
+
+![create_dataset](./img/发布数据集2.png)
 
 ### 数据标注格式解读
 
@@ -208,6 +210,14 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 数据集共有三种类型的标注框，person（包含头部和肩部）、face和mask。判断一个人有没有戴口罩的方法是，脸部的检测框里面是否有口罩的检测框。person物体的作用是对人做目标跟踪。
 
+## 订阅算法
+
+本实验中，我们从AI市场订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
+
+点击进入AI市场[YOLOv3_ResNet18算法主页](https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=948196c8-3e7a-4729-850b-069101d6e95c&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，进入算法管理页面。
+
+点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
+
 ## 模型训练
 
 我们在ModelArts中训练模型，并将模型格式转换成可在HiLens Kit上运行的格式。
@@ -216,7 +226,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 接下来将通过ModelArts训练作业训练AI模型，使用ModelArts的`yolov3`预置算法训练一个口罩检测模型。
 
-进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/trainingjobs)，进入ModelArts“训练作业”页面。
+进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，进入ModelArts“训练作业”页面。
 
 单击“**创建**”按钮，进入“创建训练作业”页面。
 
@@ -224,38 +234,39 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 “计费模式”和“版本”为系统自动生成，不需修改。
 
-- 名称：自定义
+名称：自定义
 
-- 描述：描述信息，可选。
+描述：描述信息，可选。
 
-  ![trainjob_test](./img/创建训练作业1.png)
+![trainjob_test](./img/创建训练作业1.png)
 
-算法来源：单击“**选择**”，从“预置算法”列表中，选择“**yolov3_resnet18**”算法。
+算法来源：算法管理
 
-- 数据来源：数据集
+算法名称：`物体检测-YOLOv3_ResNet18`
 
-- 选择数据集和选择版本：选择刚刚创建的口罩数据集和版本。
+训练输入：数据集
 
-- 训练输出位置：选择一个空的OBS路径，用来存储训练输出的模型。如` /modelarts-course/mask_detection_500/output/ `，该路径需要自己创建。
+选择数据集和版本：选择刚刚发布的口罩数据集及其版本
 
-- 运行参数：列表中会自动增加`train_url`和`data_url`两个参数。需要添加一个运行参数`max_epochs=400`，`max_epochs`值越大训练时间越长。
-
-- 作业日志路径：选择一个空的OBS路径，用来存储作业训练日志。如` /modelarts-course/mask_detection_500/log/ `，该路径需要自己创建。
+训练输出：选择一个空的OBS路径，用来存储训练输出的模型。如` /modelarts-course/mask_detection_500/output/ `，该路径需要自己创建。
 
 ![trainjob-parameter.png](./img/创建训练作业2.png)
 
-​       ![trainjob-parameter.png](./img/创建训练作业3.png)
 
-- 资源池：公共资源池
 
-- 类型：GPU
+调优参数：保持默认。我们训练200个epochs，学习率设置为0.001，`epochs`值越大训练时间越长。
 
-- 规格：`CPU：8 核 64GiB GPU：1 * nvidia-p100 16GiB`。也可以选择V100，V100比P100的算力更强，但是更贵。
+作业日志路径：选择一个空的OBS路径，用来存储作业训练日志。如` /modelarts-course/mask_detection_500/log/ `，该路径需要自己创建。
 
-- 计算节点：1
+![trainjob-parameter.png](./img/创建训练作业3.png)
 
-  ![trainjob-source.png](./img/创建训练作业4.png)
-  
+资源池：公共资源池
+
+规格：`CPU：8 核 64GiB GPU：1 * nvidia-p100 16GiB`。也可以选择V100，V100比P100的算力更强，但是更贵。
+
+计算节点：1
+
+![trainjob-source.png](./img/创建训练作业4.png)
 
 完成信息填写，单击“下一步”。
 
@@ -263,26 +274,33 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 在“训练作业”管理页面，可以查看新建训练作业的状态。
 
-如果设置`max_epochs=400`，训练过程需要4小时30分钟左右。当状态变更为“运行成功”时，表示训练作业运行完成。
+如果设置`max_epochs=200`，训练过程需要20分钟左右。当状态变更为“运行成功”时，表示训练作业运行完成。
 您可以单击训练作业的名称，可进入此作业详情页面，了解训练作业的“配置信息”、“日志”、“资源占用情况”和“评估结果”等信息。
 
 ## 模型转换
 
-进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/model-switch)，在左侧导航栏中选择“ **模型管理**”>  “**压缩/转换**”，进入模型转换列表页面。
+进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model-switch)，在左侧导航栏中选择“ **模型管理**”>  “**压缩/转换**”，进入模型转换列表页面。
 
 单击左上角的“**创建任务**”，进入任务创建任务页面。
 
 在“创建任务”页面，填写相关信息。
 
-  * 名称：输入“**convert-mask-detection**”。
-  *	描述：口罩识别。 
-  *	转换模板：选择“**TensorFlow frozen graph 转 Ascend**”。就是将TensorFlow的frozen graph格式的模型转换成可在昇腾芯片上推理的格式。
-  *	转换输入目录：训练作业的训练输出目录下的`frozen_graph` OBS目录，本案例中是`/modelarts-course/mask_detection_500/output/frozen_graph/`。
-  *	转换输出目录：训练作业的训练输出目录下的`om/model` OBS目录，本案例中是`/modelarts-course/mask_detection_500/output/om/model/`。
-  *	高级选项：“输入张量形状”为`images:1,352,640,3`。
- ![convert_model](./img/模型转换1.png)
+名称：输入“**convert-mask-detection**”。
 
-![convert_model](./img/模型转换2.png)
+描述：口罩识别。 
+
+输入框架：TensorFlow
+
+转换输入目录：训练作业的训练输出目录下的`frozen_graph` OBS目录，本案例中是`/modelarts-course/mask_detection_500/output/frozen_graph/`。
+
+输出框架：MindSpore
+
+转换输出目录：训练作业的训练输出目录下的`om/model` OBS目录，本案例中是`/modelarts-course/mask_detection_500/output/om/model/`。
+
+转换模板：选择“**TensorFlow frozen graph 转 Ascend**”。即将TensorFlow的frozen graph格式的模型转换成可在昇腾芯片上推理的格式。
+
+输入张量形状：`images:1,352,640,3`。
+![convert_model](./img/模型转换1.png)
 
 任务信息填写完成后，单击右下角“**立即创建**”按钮。等待模型转换任务完成。
 

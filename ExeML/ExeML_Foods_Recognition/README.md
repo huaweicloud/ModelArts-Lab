@@ -14,7 +14,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ### 下载数据集
 
-点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Foods_Recognition/foods_recognition.tar.gz)下载数据集压缩包至本地，然后解压。可以得到文件夹`foods_recognition`。
+点击[此处](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Foods_Recognition/foods_recognition.tar.gz)下载数据集压缩包至本地，然后解压。可以得到文件夹`foods_recognition`。
 
 训练集位于`foods_recognition\train`目录下，共4类美食，每个类别10张图片。测试集位于`foods_recognition\test`目录下。
 
@@ -56,7 +56,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 点击“开始训练”按钮，设置最大训练时长为0.1(小时)，预期推理硬件选择CPU，其他默认。然后点击确认按钮，提交训练作业。如下图所示：
 
-![food](./img/开始训练.png)
+![food](./img/开始训练.jpg)
 
 ## 模型部署
 
