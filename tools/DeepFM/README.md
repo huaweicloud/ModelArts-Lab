@@ -94,3 +94,74 @@ criteo feature数据
     |- test_output_part_1.h5
     |...
   ```
+
+
+
+# 4 数据集和预处理理解
+
+criteo数据集格式（第一列表示label，前n列记录了一些连续特征值，后m列记录了离散特征值，此时n=3,m=2）
+
+```shell
+0  240  1  0.01  red    large
+0  240  2  0.21  red    smalll
+1  120  2  0.21  blue   large
+1  30   3  0.31  black  small
+```
+
+转换成易于理解的数据格式其实就是针对一些商品
+
+的描述，比如商品的颜色（离散特征，枚举值），商品的价格（连续特征）
+
+label则表示预测结果，比如说用户是否购买
+```shell
+sample  color  spec   intensity  life    price  label
+1       red    large  240        1       0.01   0
+2       red    small  240        2       0.21   0
+3       blue   large  120        2       0.21   1
+4       black  small  30         3       0.31   1
+```
+
+那么要将这个数据集经过预处理才能训练，预处理首先要针对每个特征建立一个id隐射表
+
+连续特征单独占一个id，每个离散特征每种取值各占一个id，并预留一个id表示不再范围内
+
+```shell
+intensity  shopid  life   color_OOV  color_red  color_blue  color_black  spec_OOV  spec_large  spec_small
+0          1       2      3          4          5           6            7         8           9
+```
+
+针对连续性特征记录最大值和最小值
+
+```shell
+     intensity   life    price
+max  240         3       0.31
+min  30          1       0.01
+```
+
+将每一行样本转换成一下的id列表和value列表，ids表示该样本涉及的特征id
+
+例如sample=2这个样本
+
+涉及连续特征值三个intensity、shopid、life，所以ids中要加入[0,1,2]
+
+那么values则要加入这些连续特征的值，并且要在最大值(max)和最小值(min)上做归一化，也就是(x - min) / (max - min)
+
+sample=2这个样本的intensity是240，在intensity的最大最小值上归一化的结果是 (240 - 30) / (240 - 30) = 1.0
+
+sample=2这个样本的life是2，在life的最大最小值上归一化的结果是 (2 - 1) / (3 - 1) = 0.5
+
+sample=2这个样本的price是0.21，在intensity的最大最小值上归一化的结果是 (0.21 - 0.01) / (0.31 - 0.01) = 0.66667
+
+所以values中要加入[1.0, 0.5, 0.66667]
+
+然后涉及离散特征值，color是red，spec是large，所以取ids中加入[4,9]，离散特征的values为[1,1]
+
+转换完毕得到以下特征，就可以进入DeepFM这个网络进行训练了
+
+```shell
+sample   ids                values                          label
+1        [0, 1, 2, 4, 8]    [1.0,     0.0, 0.0,     1, 1]   0
+2        [0, 1, 2, 4, 9]    [1.0,     0.5, 0.66667, 1, 1]   0
+3        [0, 1, 2, 5, 8]    [0.42857, 0.5, 0.66667, 1, 1]   1
+4        [0, 1, 2, 6, 9]    [0.0   ,  1.0, 1.0,     1, 1]   1
+```
