@@ -147,7 +147,8 @@ def get_file_line_count(file_path):
   return line_count
 
 
-def random_split_trans2h5(in_file_path, output_path, data_stats, part_rows=2000000, test_size=0.1, seed=2020):
+def random_split_trans2h5(in_file_path, output_path, data_stats, part_rows=2000000, test_size=0.1,
+                          seed=2020, value_col_num=13, category_col_num=26):
   train_line_count = get_file_line_count(in_file_path)
   test_size = int(train_line_count * test_size)
   train_size = train_line_count - test_size
@@ -178,13 +179,13 @@ def random_split_trans2h5(in_file_path, output_path, data_stats, part_rows=20000
         print("Have handle {}w lines.".format(count // 10000))
       line = line.strip("\n")
       items = line.split("\t")
-      if len(items) != 40:
+      if len(items) != 1 + value_col_num + category_col_num:
         continue
       label = float(items[0])
-      values = items[1:14]
-      cats = items[14:]
-      assert len(values) == 13, "values.size： {}".format(len(values))
-      assert len(cats) == 26, "cats.size： {}".format(len(cats))
+      values = items[1:value_col_num+1]
+      cats = items[value_col_num+1:]
+      assert len(values) == value_col_num, "values.size： {}".format(len(values))
+      assert len(cats) == category_col_num, "cats.size： {}".format(len(cats))
       ids, wts = data_stats.map_cat2id(values, cats)
       if i not in test_indices_set:
         train_feature_list.append(ids + wts)
@@ -243,4 +244,5 @@ if __name__ == "__main__":
   h5_save_path = os.path.join(args.output_path, 'h5_data')
   mkdir_path(h5_save_path)
   random_split_trans2h5(args.data_file_path, h5_save_path, data_stats,
-                        part_rows=args.part_rows, test_size=args.test_ratio, seed=2020)
+                        part_rows=args.part_rows, test_size=args.test_ratio, seed=2020,
+                        value_col_num=args.value_col_num, category_col_num=args.category_col_num)
