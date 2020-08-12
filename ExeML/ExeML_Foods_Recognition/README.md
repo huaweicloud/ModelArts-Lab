@@ -4,27 +4,43 @@
 
 本案例将详细介绍怎样用ModelArts自动学习基于美食数据集快速构建美食识别应用。
 
-ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，用户无需编码，无需AI背景，就可以使用自动学习快速构建自己的AI应用。
+ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，用户无需编码，无需AI背景，就可以使用自动学习快速构建自己的AI应用。
 
 ## 准备工作
 
-参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
 
 ## 准备数据
 
-### 下载数据集
+### 数据集介绍
 
-点击[此处](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/ExeML/ExeML_Foods_Recognition/foods_recognition.tar.gz)下载数据集压缩包至本地，然后解压。可以得到文件夹`foods_recognition`。
-
-训练集位于`foods_recognition\train`目录下，共4类美食，每个类别10张图片。测试集位于`foods_recognition\test`目录下。
+本次实验，我们使用包含四个类别的美食分类数据集，每个类别10张图片。
 
 该数据集包含的美食及其类别如下图所示：
 
 ![food](./img/labels.jpg)
 
-### 上传数据
+### 下载训练数据集
 
-使用OBS客户端上传`foods_recognition`文件夹至一个北京四的OBS桶。
+我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。
+
+点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=61286af8-4477-4dd3-bc43-d6f9b09c68b1)，进入该数据集主页，点击![food](./img/下载按钮.png)，进入下载详情，按照如下提示填写下载详情：
+
+![food](./img/数据下载详情.png)
+
+下载方式：选择ModelArts数据集
+
+目标区域：华北-北京四
+
+目标位置：选择一个OBS路径，作为数据集的存储位置。
+
+名称：自定义。
+
+填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功，即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
+
+### 下载测试数据集
+
+点击[此处](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com/ExeML/ExeML_Foods_Recognition/foods_recognition.tar.gz)下载数据集压缩包至本地，然后解压。可以得到文件夹`foods_recognition`。测试集位于`foods_recognition\test`目录下。
 
 ## 创建图像分类项目
 
@@ -34,11 +50,9 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 名称：自定义
 
-数据来源：新建数据集
+数据来源：已有数据集
 
-数据集输入位置：选择`train`目录所在的OBS路径。
-
-数据集输出位置：保存数据标注文件的OBS路径，需要新建。
+数据集名称：选择刚刚从AI市场订阅的美食分类数据集。
 
 最后点击“创建项目”按钮完成图像分类项目创建。
 
