@@ -10,13 +10,27 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ## 准备数据
 
-### 下载数据
+### 下载训练数据集
 
-本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。请点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹下有`train`和`test`两个目录，`train`是训练集，`test`是测试集。
+华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。
 
-### 上传数据至OBS
+请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=ba03bb95-4a02-4fd1-ae72-81651e8a223b)，进入该数据集主页，，点击![car](./img/下载按钮.png),进入下载详情，按照如下提示填写下载详情：
 
-通过OBS客户端上传`car_and_person_150`数据集文件夹到刚刚创建的OBS桶下，可以参考[此文档](https://support.huaweicloud.com/qs-obs/obs_qs_0002.html) 。
+![car](./img/数据下载详情.png)
+
+下载方式：选择ModelArts数据集
+
+目标区域：华北-北京四
+
+目标位置：选择一个OBS路径，作为数据集的存储位置。
+
+名称：自定义。
+
+填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功，即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
+
+### 下载测试数据集
+
+请点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/ExeML/ExeML_Car_And_Person_Detection/car_and_person_150.tar.gz)下载数据到本地，解压。可以看到`car_and_person_150`文件夹。测试集位于`car_and_person_150\test`目录下。
 
 ## 创建项目
 
@@ -32,9 +46,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 数据来源：新建数据集
 
-数据集输入位置：选择`train`目录所在的OBS路径。
-
-数据集输出位置：保存数据标注文件的OBS路径，需要新建。
+数据集输入位置：选择刚刚从AI市场订阅的人车检测数据集。
 
 最后点击“创建项目”按钮完成物体检测项目创建。
 
