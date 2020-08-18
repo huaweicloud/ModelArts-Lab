@@ -21,7 +21,7 @@
 
 图3 新增访问密钥
 
-<img src="images/新增访问秘钥.png" width="800px" />
+![flower](./images/新增访问秘钥.png)
 
 ### 2. 设置ModelArts全局配置
 
@@ -31,13 +31,13 @@
 
 图4 全局配置界面
 
-<img src="images/全局配置.png" width="800px" />
+![flower](images/全局配置.png)
 
 **步骤 2** &#160; &#160; 执行“添加访问密钥”操作，输入“credentials.csv”文件中的“Access Key”和“Secret Access Key”信息，执行确定操作，完成全局密钥的设置。请参考图5。
 
 图5 添加访问密钥
 
-<img src="images/添加访问秘钥.png" width="800px" />
+![flower](images/添加访问秘钥.png)
 
 ## 使用自动学习构建花卉识别应用
 
@@ -55,9 +55,9 @@
 
 该数据集包含的花朵及其类别如下图所示：
 
-<img src="images/labels.png" width="800px" />
+![flower](images/labels.png)
 
-请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=a3f3c385-ea26-4902-9b9c-e3e47aedff3a)，进入该数据集主页，，点击![car](./images/下载按钮.png),进入下载详情，按照如下提示填写下载详情:
+请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=a3f3c385-ea26-4902-9b9c-e3e47aedff3a)，进入该数据集主页，，点击![flower](./images/下载按钮.png),进入下载详情，按照如下提示填写下载详情:
 
 图6下载详情：
 
@@ -83,13 +83,13 @@
 
 图7 自动学习界面
 
-<img src="images/自动学习.png" width="1000px" />
+![flower](images/自动学习.png)
 
 **步骤 3** &#160; &#160; 点击“图像分类”创建项目按钮，创建自动学习>图像分类项目，填写相应参数，点击“创建项目”完成图像分类项目创建。可参考图8提示填写。
 
 图8 创建项目
 
-<img src="images/创建分类项目1.png" width="1000px" />
+![flower](images/创建分类项目1.png)
 
 项目名称：自定义（本例输入exeML-flowers-4）
 
@@ -109,7 +109,7 @@
 
 图9 选择标签
 
-<img src="images/选择标签.png" width="1000px" />
+![flower](images/选择标签.png)
 
 “全部标签”中列举了所有的标签，以及每个标签下的图片数量，见图9 选择标签。
 
@@ -117,7 +117,7 @@
 
 点击打开图片，可以查看图片的标签，如下图所示：
 
-<img src="images/查看标签.png" width="1000px" />
+![flower](images/查看标签.png)
 
 如果发现标签不正确，可以选中图片，重新选择标签。
 
@@ -125,41 +125,39 @@
 
 在“数据标注”界面中，首先把数据集按照训练集/验证集=0.8/0.2的比例分开，设置训练时长为0.1（减小训练时长的同时，可能会降低模型精度），然后点击“开始训练”按钮，选择好训练参数，即可开始训练。参数设置如下图所示：
 
-<img src="images/训练设置.png" width="1000px" />
-
-
+![flower](images/训练设置.png)
 
 ### 5. 模型部署
 
 在“模型训练”页面等待训练完成（不超过6分钟），训练完成后，可以查看模型的精度：
 
-<img src="images/训练完成.png" width="1000px" />
+![flower](images/训练完成.png)
 
 点击“部署”按钮，将模型部署为一个在线服务：
 
-<img src="images/部署.png" width="1000px" />
-
-
+![flower](images/部署.png)
 
 ### 6. 服务测试
 
 在“部署上线”页面，等待服务部署成功。部署成功后，点击“上传本地图片”按钮，上传一张本地的测试图片（从测试集`test`目录中挑选）。如下图所示：
 
-<img src="images/上传本地图片.png" width="1000px" />
+![flower](images/上传本地图片.png)
 
 点击“预测”按钮进行预测：
 
-<img src="images/测试.png" width="800px" />
+![flower](images/测试.png)
 
 可以看到预测结果：
 
-<img src="images/预测结果.png" width="1000px" />
+![flower](images/预测结果.png)
+
+![flower](images/预测结果.png)
 
 ### 7. 关闭服务
 
 在“部署上线”页面，点击“停止”按钮，停止在线服务：
 
-<img src="images/停止服务.png" width="1000px" />
+![flower](images/停止服务.png)
 
 
 至此，花卉识别应用实验完成。
