@@ -6,7 +6,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ## 准备工作
 
-参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作。
 
 ## 准备数据
 
@@ -14,7 +14,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。
 
-请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=ba03bb95-4a02-4fd1-ae72-81651e8a223b)，进入该数据集主页，，点击![car](./img/下载按钮.png),进入下载详情，按照如下提示填写下载详情：
+请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=39df6b73-c36c-458f-9b50-4b8b559b1d03)，进入该数据集主页，点击![car](./img/下载按钮.png),进入下载详情，按照如下提示填写下载详情：
 
 ![car](./img/数据下载详情.png)
 
