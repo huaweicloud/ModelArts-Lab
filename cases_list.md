@@ -8,8 +8,9 @@
 | [零代码完成自动驾驶AI模型开发](./ExeML/ExeML_Car_And_Person_Detection) | 自动学习物体检测                     | 物体检测                                 |
 | [零代码美食分类模型开发](./ExeML/ExeML_Foods_Recognition)    | 自动学习图像分类                     | 图像分类                                 |
 | [零代码动物叫声分类模型开发](./ExeML/ExeML_Sound_Classification) | 自动学习声音分类                     | 声音分类                                 |
-| [使用ResNet50预置算法基于海量数据训练美食分类模型](./train_inference/Foods_Recognition_Builtin_Algorithm) | 预置算法图像分类，标注+训练+在线部署 | 图像分类                                 |
-| [使用FasterRCNN预置算法基于海量数据训练人车检测模型](./train_inference/Car_And_Person_Detection_Builtin_Algorithm) | 预置算法物体检测，标注+训练+在线部署 | 物体检测                                 |
+| [使用ResNet50预置算法基于海量数据训练美食分类模型](./train_inference/Foods_Recognition_Builtin_Algorithm) | 预置算法图像分类，标注+训练+在线部署 | 图像分类 |
+| [使用FasterRCNN预置算法基于海量数据训练人车检测模型](./train_inference/Car_And_Person_Detection_Builtin_Algorithm) | 预置算法物体检测，标注+训练+在线部署 | 物体检测 |
+| [人车检测数据智能标注](./train_inference/Auto_Labeling) | 物体检测智能标注 | 物体检测 |
 | [使用MoXing实现手写数字图像识别应用](./train_inference/MNIST%20Dataset%20Recognition) | MoXing自定义代码，训练+在线部署      | 图像分类                                 |
 | [图像分类综合应用](./train_inference/image_recognition)      | TensorFlow自定义代码，训练+在线部署  | 猫狗分类数据集                           |
 | [使用Spark MLlib实现葡萄酒质量预测](./train_inference/Using_Spark_ML_to_Create_a_Wine_Quality_Prediction_Application) | 训练+部署                            | Spark MLlib自定义代码                    |
