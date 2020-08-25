@@ -30,7 +30,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ### 下载测试数据集
 
-点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/car_and_person_detection/car_and_person_500.tar.gz)下载数据到本地，解压，可以得到`car_and_person_500`文件夹。测试集位于`car_and_person_500`文件夹下`test`目录中。
+点击[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/end2end/car_and_person_detection/car_and_person_500_test.tar.gz)下载测试数据到本地，解压，可以得到`car_and_person_500_test`文件夹，文件夹里面是测试图片。
 
 ### 发布数据集
 
@@ -180,7 +180,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 等待在线服务的状态变成运行中。
 
-切换到“预测”页签。点击上传按钮，上传本地的`car_and_person_500\test`目录中的图片，然后点击“预测”按钮，进行测试：
+切换到“预测”页签。点击上传按钮，上传本地的`car_and_person_500_test`目录中的图片，然后点击“预测”按钮，进行测试：
 
 ![food](./img/上传测试图片.jpg)
 
