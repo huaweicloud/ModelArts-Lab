@@ -34,13 +34,13 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ### 发布数据集
 
-数据集创建成功后，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
+点击进入[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，找到刚订阅的数据集，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
 
 ![create_dataset](./img/发布数据集.png)
 
 ![create_dataset](./img/发布数据集2.png)
 
-等待数据集发布成功，大概需要一分钟。
+等待数据集发布成功。
 
 ## 订阅算法
 
