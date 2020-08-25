@@ -24,7 +24,7 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 图6下载详情：
 
-![flower](./images/数据下载详情1.png)
+![flower](./images/数据下载详情.png)
 
 下载方式：选择ModelArts数据集
 
@@ -52,7 +52,7 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 图8 创建项目
 
-![flower](images/创建分类项目1.png)
+![flower](images/创建分类项目.png)
 
 项目名称：自定义
 
