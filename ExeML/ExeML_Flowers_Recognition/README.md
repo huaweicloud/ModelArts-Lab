@@ -20,13 +20,13 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 ![flower](images/labels.png)
 
-请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=a3f3c385-ea26-4902-9b9c-e3e47aedff3a)，进入该数据集主页，，点击![flower](./images/下载按钮.png),进入下载详情，按照如下提示填写下载详情:
+请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=a3f3c385-ea26-4902-9b9c-e3e47aedff3a)，进入该数据集主页，点击![flower](./images/下载按钮.png)，进入下载详情，按照如下提示填写下载详情:
 
 图6下载详情：
 
 ![flower](./images/数据下载详情1.png)
 
-下载方式：选择数据云存储位置
+下载方式：选择ModelArts数据集
 
 目标区域：华北-北京四
 
@@ -42,13 +42,13 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 **步骤 1**&#160; &#160;点击[此链接](https://storage.huaweicloud.com/obs/?&locale=zh-cn#/obs/create) ，创建一个OBS桶（区域选北京四，桶名称自定义，其他使用默认参数），然后在创建的OBS桶下创建一个文件夹`/automl/flowers`（点击桶名称->对象->新建文件夹）。创建OBS桶和文件夹参考文档：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html 。
 
-**步骤 2**&#160; &#160;进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4&locale=zh-cn#/manage/dashboard)界面。单击左侧导航栏的“自动学习”，进入“自动学习”界面。请参考图7。
+**步骤 2**&#160; &#160;进入[ModelArts自动学习](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/exeml)界面。
 
 图7 自动学习界面
 
 ![flower](images/自动学习.png)
 
-**步骤 3** &#160; &#160; 点击“图像分类”创建项目按钮，创建自动学习>图像分类项目，填写相应参数，点击“创建项目”完成图像分类项目创建。可参考图8提示填写。
+**步骤 3** &#160; &#160; 点击“图像分类”创建项目按钮，创建自动学习>图像分类项目，填写相应参数，点击“创建项目”完成图像分类项目创建。
 
 图8 创建项目
 
@@ -70,7 +70,7 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 ![flower](images/选择标签.png)
 
-“全部标签”中列举了所有的标签，以及每个标签下的图片数量，见图9 选择标签。
+“全部标签”中列举了所有的标签，以及每个标签下的图片数量。
 
 校验图片标签。完成所有图片标注后，进入“已标注”页面。如果每个类不是10张图片，说明标注有误，可以在“已标注”页面修改标签。如果标注正确，可以跳过此步骤。
 
