@@ -21,5 +21,5 @@
   
   ## 实践案例
   
- - Notebook案例：[Faster-R-CNN.ipynb](./Faster-R-CNN.ipynb)
+ - Notebook案例：[Faster-R-CNN.ipynb](https://console-test.ulanqab.huawei.com/modelarts-test/?region=cn-north-7#/notebook/loading?ma-share-id=2c9081d0745558c80174571fa7520041)
  - 预置算法案例：[ModelArts_builtin_algorithm_FasterRCNN.md](./ModelArts_builtin_algorithm_FasterRCNN.md)
