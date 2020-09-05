@@ -54,9 +54,24 @@
 
 银行中有一种常见业务：根据客户特征（年龄、工作类型、婚姻状况、文化程度、是否有房贷和是否有个人贷款），预测客户是否会办理存款业务。以下展示如何使用自动学习预测分析构建一个银行存款预测应用的具体步骤。
 
-### 1. 上传数据集文件
+### 1. 下载数据集文件
 
-上传银行数据集文件至OBS（OBS操作指导参考：https://support.huaweicloud.com/qs-obs/obs_qs_0001.html ），本案例上传至OBS路径“/ai-course-001/automl/bank/train.csv”，数据集文件位于./data/目录下。
+华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。本案例采用银行存款预测场景的数据集，数据集中包含年龄、职业等7个字段的302条数据。我们从华为云AI市场订阅数据集至数据云存储位置，然后就可以在ModelArts中引入使用了。
+
+请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=9475f97a-d6a0-48bd-a30a-d2cd2d77efbd)，进入该数据集主页，点击![car](./images/下载按钮.png),进入下载详情，按照如下提示填写下载详情：
+
+![bank](./images/数据下载详情.png)
+
+下载方式：选择数据云存储位置
+
+目标区域：华北-北京四
+
+目标位置：选择一个OBS路径，作为数据集的存储位置。
+
+
+填写好参数后，点击![bank](./images/下一步.png)按钮，然后点击![bank](./images/确定.png)按钮。等待数据集状态变为推送成功，即可在[OBS](https://storage.huaweicloud.com/obs/?region=cn-north-4#/obs/manager/buckets)中对应的桶文件夹查看到下载的数据集。
+
+
 
 银行客户数据集的字段解释如下：
 
