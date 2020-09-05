@@ -72,7 +72,6 @@
 填写好参数后，点击![bank](./images/下一步.png)按钮，然后点击![bank](./images/确定.png)按钮。等待数据集状态变为推送成功，即可在[OBS](https://storage.huaweicloud.com/obs/?region=cn-north-4#/obs/manager/buckets)中对应的桶文件夹查看到下载的数据集。
 
 
-
 银行客户数据集的字段解释如下：
 
 | 字段名 | 含义     | 类型   | 描述                     |
