@@ -29,9 +29,57 @@
 
 ![create_obs](./img/create_obs.PNG)
 
-### 安装并登录OBS Browser+
+### 工具选择
 
-OBS Browser+是OBS客户端，方便用户上传和下载文件。
+对象存储服务中提供了两种工具用于访问管理OBS，供用户使用。
+
+![create_obs](./img/select_tools.png)
+
+OBS Browser+是一款用于访问和管理对象存储服务的图形化工具，obsutil是一款用于访问管理OBS的命令行工具。
+
+当数据集比较大时，使用OBS Browser+上传和删除数据会比较耗时，使用obsutil工具可以实现快速上传和删除文件等操作。
+
+### 使用obsutil
+
+#### 1、安装并配置obsutil
+
+点击[此链接](https://support.huaweicloud.com/utiltg-obs/obs_11_0003.html), 根据操作系统版本下载相应版本的obsutil，解压到指定文件夹后，双击obsutil.exe即可开始使用。
+
+参考[此文档](https://support.huaweicloud.com/utiltg-obs/obs_11_0005.html)， 完成初始化配置。Windows操作系统的配置方法如下：
+
+```
+obsutil config -i=ak -k=sk -e=endpoint
+```
+
+**注意**：AK和SK从访问秘钥文件中获取；
+
+​			endpoint = https://obs.cn-north-4.myhuaweicloud.com
+
+#### 2、创建OBS文件夹
+
+在指定桶内创建文件夹
+
+```
+obsutil mkdir obs://bucket_name/folder 
+```
+
+#### 3、上传数据到OBS
+
+上传文件
+
+```
+obsutil cp local_file_url/dataset_file obs://bucket_name/folder -f 
+```
+
+上传文件夹
+
+```
+obsutil cp local_folder_url/dataset obs://bucket_name/folder -r -f
+```
+
+### 使用OBS Browser+
+
+#### 1、安装并登录OBS Browser+
 
 点击[此链接](https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，根据操作系统版本下载相应版本的OBS Browser+，并点击`.exe`文件进行安装。
 
@@ -39,13 +87,13 @@ OBS Browser+是OBS客户端，方便用户上传和下载文件。
 
 **注意**：AK和SK从访问秘钥文件中获取。
 
-### 新建OBS文件夹
+#### 2、新建OBS文件夹
 
 使用OBS客户端可以在OBS新建文件夹。打开OBS Browser+，点击进入一个OBS桶，然后点击“新建文件夹”按钮，即可新建文件夹。
 
 ![OBS](./img/新建文件夹.png)
 
-### 上传数据至OBS
+#### 3、上传数据至OBS
 
 使用OBS客户端可以上传文件或者文件夹至OBS。打开OBS Browser+，点击进入一个OBS桶，然后点击“上传”按钮，上传本地文件夹或者文件至OBS桶。
 
