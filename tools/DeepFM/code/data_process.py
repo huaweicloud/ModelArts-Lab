@@ -78,7 +78,10 @@ class DataStatsDict():
     def minmax_scale_value(i, val):
       min_v = float(self.val_min_dict["val_{}".format(i + 1)])
       max_v = float(self.val_max_dict["val_{}".format(i + 1)])
-      return (float(val) - min_v) * 1.0 / (max_v - min_v)
+      if max_v == min_v:
+        return 0.0
+      else:
+        return (float(val) - min_v) * 1.0 / (max_v - min_v)
 
     id_list = []
     weight_list = []
