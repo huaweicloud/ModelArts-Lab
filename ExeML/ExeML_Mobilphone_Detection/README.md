@@ -156,7 +156,7 @@
 
 **步骤 2** &#160; &#160; 在“部署上线”页面可上传手机图片进行模型测试，测试结果可在页面上进行显示，如果觉得模型准确率不满足预期，可在“数据标注”页面中添加图片并进行标注，再次进行模型训练及发布。
 
-首先单击"上传"按钮，上传本地测试图片（位于./test目录下），进行预测。
+首先单击"上传"按钮，上传[测试图片](https://cdn.jsdelivr.net/gh/huaweicloud/ModelArts-Lab/ExeML/ExeML_Mobilphone_Detection/test/249.jpg)（位于./test目录下），进行预测。
 
 <img src="images/18上传预测图片.png" width="1000px" />
 
@@ -165,17 +165,3 @@
 <img src="images/19预测结果.png" width="1000px" />
 
 至此手机检测应用实验完成。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
