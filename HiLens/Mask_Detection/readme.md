@@ -160,43 +160,27 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ### 下载数据集
 
-本案例使用口罩识别数据集，点击[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/codelab/mask_detection/mask_detection_500.tar.gz)，下载压缩包至本地，然后解压。
+本案例使用的口罩识别数据集包含500张图片，均已标注已经发布在AI市场，我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=2e4bfd87-322d-4235-bb1a-b60e7b1fbc4f)进入下载详情页，下载详情页示例如下：
 
-解压后，可以看到`mask_detection_500`文件夹下有`train`和`test`两个文件夹。`train`文件夹中存放的训练集，共500张图片，均已标注。`test`文件夹下存放的是测试图片。
+![dataset_download](./img/AI市场数据下载.png)
+
+下载方式：选择ModelArts数据集
+
+目标区域：华北-北京四
+
+目标位置：选择一个OBS路径，作为数据集的存储位置。
+
+名称：自定义
+
+填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功，即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
+
+等待数据集发布成功。
 
 **注意：该口罩识别数据集只能用于学习用途，不得用于商业用途。**
 
-### 上传数据至OBS
-
-在OBS Browser+中，进入刚刚创建的“华为北京四”区域的OBS桶，然后点击上传按钮，上传本地文件夹`mask_detection_500`至OBS桶：
-
-![create_train_job](./img/上传文件夹.png)
-
-### 创建数据集
-
-点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/manage/dataLabel_Beta)，进入ModelArts数据集。请确保区域在“华北-北京四”，本案例所有操作在“华北-北京四”。
-
-点击页面上的“创建数据集”按钮， 创建数据集页面填写示例如下：
-
-![create_dataset](./img/创建数据集1.png)
-
-- 数据集名称：自定义
-
-- 标注场景：物体
-
-- 标注类型：物体检测
-
-- 数据集输入位置：`train`文件夹所在的OBS路径
-
-- 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，可以是使用OBS Browser+创建。
-
-填写完毕上述字段后，点击创建按钮。
-
-训练集中已经包含了标注文件，ModelArts数据集会自动加载标注文件。
-
 ### 发布数据集
 
-数据集创建成功后，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
+点击进入[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，找到刚订阅的数据集，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
 
 ![mask](./img/发布.png)
 
