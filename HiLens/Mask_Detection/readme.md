@@ -160,7 +160,7 @@ hdactl register -u 用户名 -d 账号名 -n 设备名
 
 ### 下载数据集
 
-本案例使用的口罩识别数据集包含500张图片，均已标注已经发布在AI市场，我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=90259354-a047-49ec-8415-f033cc2f3e87)进入下载详情页，下载详情页示例如下：
+本案例使用的口罩识别数据集包含500张图片，均已标注已经发布在AI市场，我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=2e4bfd87-322d-4235-bb1a-b60e7b1fbc4f)进入下载详情页，下载详情页示例如下：
 
 ![dataset_download](./img/AI市场数据下载.png)
 
