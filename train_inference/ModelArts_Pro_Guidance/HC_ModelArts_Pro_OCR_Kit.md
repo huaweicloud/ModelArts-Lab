@@ -86,7 +86,7 @@
 
 单击上传文件对话框，在下载的本地数据集里分别选择已经准备好的“zip”包文件：
 * ”文档”模板上传“modelarts\_pro\_ocr\_dataset/文档/训练数据.zip”文件
-* ”表格”模板上传“modelarts\_pro\_ocr\_dataset/表格/训练数据.zip”
+* ”表格”模板上传“modelarts\_pro\_ocr\_dataset/表格/训练数据.zip”文件
 
 上传成功后页面右上方会提示“文件上传成功”。
 
