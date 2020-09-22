@@ -132,4 +132,6 @@
 
 在手机端，打开浏览器，输入网址：https://aidetect.huaweicloud.com；
 进入服务页面，填写自己的用户名、密码进行登录，选择上面部署的服务名称，进行手机端推理。
-![](./img/phone_1.jpg)![](./img/phone_2.jpg)![](./img/phone_3.jpg)
+<center class="third">
+    <img src="./img/phone_1.jpg"/><img src="./img/phone_2.jpg"/><img src="./img/phone_3.jpg"/>
+</center>
