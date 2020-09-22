@@ -19,20 +19,32 @@
 ![](./_image/image017.png)
 
 ## 使用工作流
+
 ### 数据集选择
+
+**本案例需要用到两个数据集，训练用数据集及SKU数据集**
+* 训练用数据集从OBS进行订阅(见下方操作示例)
+* SKU数据集请从[论坛帖附件下载](https://bbs.huaweicloud.com/forum/thread-78758-1-1.html)
+
+#### 训练用数据集
+
 在使用零售商品识别工作流开发应用时，您需要新建训练数据集，后续训练模型操作是基于您创建的训练数据集。
 
 * 新建训练数据需要获取访问OBS权限，在未进行委托授权之前，无法使用此功能。您需要提前获得OBS授权，详情请见[获取访问秘钥并完成ModelArts全局配置](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0003.html)。
 * 创建用于存储数据的OBS桶及文件夹，且数据存储的OBS桶与ModelArts Pro在同一区域（建议北京四），详情请见[创建OBS桶](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0004.html)。
 
-我们从华为云AI市场订阅数据集至OBS，然后就可以在ModelArts Pro中使用了。点击[此链接](https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/datasetDownload?content_id=7a52dbac-03d5-4e6f-a71f-95864b124ffb)进入下载详情页，详情页示例如下：
+我们从华为云AI市场订阅训练数据集至OBS，然后就可以在ModelArts Pro中使用了。点击[此链接](https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/datasetDownload?content_id=7a52dbac-03d5-4e6f-a71f-95864b124ffb)进入下载详情页，详情页示例如下：
 ![](./_image/2020-09-21-17-36-15.png)
 * 目标区域选择北京四，目标位置选择上面创建的OBS桶。
 * 填写好参数后，点击“下一步”按钮，然后点击“确定”按钮。等待数据集状态变为推送成功（可以点击右上角“刷新”按钮刷新状态），即可在OBS对应的桶中看到下载的数据集。
 
-在“应用开发>数据选择”页面，单击“新建训练数据集”，右侧弹出“新建数据集”页面，根据数据存储位置和数据标注情况，按[表3](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0060.html#modelartspro_01_0060__table1455214220167)填写数据集基本信息，然后单击“确定”。
+在“应用开发>数据选择”页面，单击“新建训练数据集”，右侧弹出“新建数据集”页面，根据数据存储位置和数据标注情况，按[表3](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0060.html#modelartspro_01_0060__table1455214220167)填写数据集基本信息，然后单击“确定”，**本案例中，输入位置为导入的数据集中的cake\_data文件夹，输出位置选择或新建一个空文件夹**。
+
 ![](./_image/image018.png)
 
+确定后，在页面中选择刚刚新建的数据集，点击“下一步”进行SKU创建，此时还不需要标注
+
+![](./_image/数据集选择.PNG)
 
 ### SKU创建
 当一次性上传一个SKU，即一种类别的商品时，您可以通过新建SKU操作上传SKU图片。
@@ -48,8 +60,10 @@
 | SKU单品图  | 在本地选择提前准备好的SKU单品图，后续存储至OBS中。单击“SKU单品图”右侧的“选择文件”，在本地选择图片，可选择多个图片。   **说明**：文件放置方式请按照“单品文件夹/单品图”或者“父文件夹/单品文件夹/单品图”的组织方式，选择单品文件夹或者父文件夹，平台将自动生成单品。每个单品的图片必须大于20张。|
 | SKU存储位置（OBS）  | 选择SKU单品图上传至OBS的桶和文件夹。单击“SKU存储位置（OBS）”右侧输入框，在“SKU存储位置（OBS）”对话框中选择SKU存储的OBS桶和文件夹，单击“确定”。 |
     
-   SKU 名称填blueberry\_cheesecake，选择文件cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu文件的上传。
-![](./_image/image019.png)
+   
+本案例中，需要创建**3个SKU**，第一个名称填 blueberry\_cheesecake，SKU单品图选择SKU数据集中的：cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu 的SKU创建及文件上传。
+
+![](./_image/sku创建.PNG)
 
 ### 数据标注
 智能标注自动开始，会显示自动标注的进度，如果自动标注完成，标注进度为100%。
