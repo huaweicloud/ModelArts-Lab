@@ -42,42 +42,14 @@
 
 2. 在“新建SKU”对话框中，按[表1](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0063.html#modelartspro_01_0063__table3131146191013)填写信息，然后单击“确定”。
 
-    ```table
-    表1 新建SKU参数说明
+|  **参数**   | **说明**  |
+|  :----:  | :---- |
+| SKU名称  | 输入SKU的名称。 |
+| SKU单品图  | 在本地选择提前准备好的SKU单品图，后续存储至OBS中。单击“SKU单品图”右侧的“选择文件”，在本地选择图片，可选择多个图片。   **说明**：文件放置方式请按照“单品文件夹/单品图”或者“父文件夹/单品文件夹/单品图”的组织方式，选择单品文件夹或者父文件夹，平台将自动生成单品。每个单品的图片必须大于20张。|
+| SKU存储位置（OBS）  | 选择SKU单品图上传至OBS的桶和文件夹。单击“SKU存储位置（OBS）”右侧输入框，在“SKU存储位置（OBS）”对话框中选择SKU存储的OBS桶和文件夹，单击“确定”。 |
     
-     
-    **参数**
-    
-     | **说明**
-    
-     
-    SKU名称
-    
-     | 输入SKU的名称。
-    
-     
-    SKU单品图
-    
-     | 在本地选择提前准备好的SKU单品图，后续存储至OBS中。
-    
-    单击“SKU单品图”右侧的“选择文件”，在本地选择图片，可选择多个图片。
-    
-    **说明：**
-    
-    文件放置方式请按照“单品文件夹/单品图”或者“父文件夹/单品文件夹/单品图”的组织方式，选择单品文件夹或者父文件夹，平台将自动生成单品。每个单品的图片必须大于20张。
-    
-     
-    SKU存储位置（OBS）
-    
-     | 选择SKU单品图上传至OBS的桶和文件夹。
-    
-    单击“SKU存储位置（OBS）”右侧输入框，在“SKU存储位置（OBS）”对话框中选择SKU存储的OBS桶和文件夹，单击“确定”。
-    
-     
-    ```
-
-    SKU 名称填blueberry\_cheesecake，选择文件cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu文件的上传。
-    ![](./_image/image019.png)
+   SKU 名称填blueberry\_cheesecake，选择文件cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu文件的上传。
+![](./_image/image019.png)
 
 ### 数据标注
 智能标注自动开始，会显示自动标注的进度，如果自动标注完成，标注进度为100%。
