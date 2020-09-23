@@ -7,13 +7,13 @@
 体验多模板识别分类工作流，需要完成以下准备工作。
 
 **完成****ModelArts Pro****准备工作**
-注册华为云账号、切换到北京四，进入ModelArts Pro [主页](https://console.huaweicloud.com/mapro/#/home)，申请文字识别套件的公测。
+注册华为云账号、切换到北京四，进入 ModelArts Pro <a href="https://console.huaweicloud.com/mapro/#/home" target="_blank">主页</a>，申请文字识别套件的公测。
 
 ## 准备数据
 ### 下载数据集
-本案例包含4张图片，2张图片属于文档类模板，2张图片属于表格类模板。我们从[活动论坛帖](https://bbs.huaweicloud.com/forum/thread-78758-1-1.html)（文末附件）进行下载，文件名：modelarts\_pro\_ocr\_dataset，下有“表格”及“文档”两个子文件夹
- 
 
+本案例包含4张图片，2张图片属于文档类模板，2张图片属于表格类模板。我们从<a href="https://bbs.huaweicloud.com/forum/thread-78758-1-1.html" target="_blank">活动论坛帖</a>（文末附件）进行下载，文件名：modelarts\_pro\_ocr\_dataset，下有“表格”及“文档”两个子文件夹
+ 
 ## 创建应用
 公测白名单审批完成以后，点击“进入套件”，开始使用文字识别套件
 ![](./_image/image001.png)

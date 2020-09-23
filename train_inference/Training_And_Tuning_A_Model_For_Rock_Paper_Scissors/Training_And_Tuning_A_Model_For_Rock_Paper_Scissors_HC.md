@@ -6,15 +6,15 @@
 
 ### 准备工作
 
-根据[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
+根据<a href="https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md" target="_blank">此文档</a>，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
 
-申请“数据处理”功能的白名单权限（[详见论坛帖](https://bbs.huaweicloud.com/forum/thread-78758-1-1.html)）。
+申请“数据处理”功能的白名单权限（<a href="https://bbs.huaweicloud.com/forum/thread-78758-1-1.html" target="_blank">详见论坛帖</a>）。
 
 ### 实验内容
 
 #### 准备训练数据集
 
-从数据集市场下载训练用数据集，请点击访问：[石头剪刀布\_训练集\_修正版](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=890d3449-42dd-4a13-b50e-7eb79045b40e)。
+从数据集市场下载训练用数据集，请点击访问：<a href="https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=890d3449-42dd-4a13-b50e-7eb79045b40e" target="_blank">石头剪刀布\_训练集\_修正版</a>。
 
 ![](./img/下载数据集_1.PNG)
 
@@ -22,7 +22,7 @@
 
 ![](./img/下载数据集_2.PNG)
 
-填写完成后，点击“下载”，进入启动下载页，然后点击“确定”，可以看到推送状态，推送成功后回到 [ModelArts数据集管理](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset),可以看到刚刚推送的数据集，点击数据集后的“发布”按钮。
+填写完成后，点击“下载”，进入启动下载页，然后点击“确定”，可以看到推送状态，推送成功后回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">ModelArts数据集管理</a>,可以看到刚刚推送的数据集，点击数据集后的“发布”按钮。
 
 ![数据集推送状态](./img/数据集推送状态.PNG)
 
@@ -38,11 +38,11 @@
 
 #### 订阅模型
 
-点击从AI市场订阅 [物体检测-EfficientDet 算法](https://marketplace.huaweicloud.com/markets/aihub/modelhub/detail/?id=e48f4e4d-5ebb-4753-a613-b44a5d965e7c)
+点击从AI市场订阅 <a href="https://marketplace.huaweicloud.com/markets/aihub/modelhub/detail/?id=e48f4e4d-5ebb-4753-a613-b44a5d965e7c" target="_blank">物体检测-EfficientDet 算法</a>
 
 ![](./img/订阅算法.PNG)
 
-订阅成功后，回到 [ModelArts算法管理](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/algorithms?activeTab=subscribedAlgos) 页签，同步订阅的算法
+订阅成功后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/algorithms?activeTab=subscribedAlgos" target="_blank">ModelArts算法管理</a> 页签，同步订阅的算法
 
 ![](img/同步算法.png)
 
@@ -62,17 +62,17 @@
 
 #### 准备测试数据集
 
-从市场下载：[石头剪刀布_测试集（含标注，坏数据）](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=deb27377-a44f-4bfc-8471-f07509a67823)，下载方式选择“数据云存储位置”，区域选择“北京四”，目标位置根据自己自己实际情况选择，点击“下一步”进行数据集推送。
+从市场下载： <a href="https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=deb27377-a44f-4bfc-8471-f07509a67823" target="_blank">石头剪刀布_测试集（含标注，坏数据）</a>，下载方式选择“数据云存储位置”，区域选择“北京四”，目标位置根据自己自己实际情况选择，点击“下一步”进行数据集推送。
 
 ![](./img/下载测试集.png)
 
-数据推送成功后，回到 [ModelArts-数据管理-数据处理](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/featureengineering?activeTab=preData&flag=false) 页签，点击“创建”数据校验作业，选择“数据校验”，场景类别为“物体检测”，输入为上一步下载的脏数据所在OBS目录，输出到新空目录。
+数据推送成功后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/featureengineering?activeTab=preData&flag=false" target="_blank">ModelArts-数据管理-数据处理</a> 页签，点击“创建”数据校验作业，选择“数据校验”，场景类别为“物体检测”，输入为上一步下载的脏数据所在OBS目录，输出到新空目录。
 
 ![](./img/数据校验.png)
 
 设置完成后，点击“创建”即可，等待数据处理任务“完成”。
 
-完成后，回到 [数据管理-数据集](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset) 页签，创建一个新测试数据集，用上面“数据校验”输出的OBS目录创建**测试用数据集**，数据集输入位置为上一步校验输出的目录，输出目录为任意空目录。
+完成后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">数据管理-数据集</a> 页签，创建一个新测试数据集，用上面“数据校验”输出的OBS目录创建**测试用数据集**，数据集输入位置为上一步校验输出的目录，输出目录为任意空目录。
 
 ![](./img/创建测试集.PNG)
 
@@ -102,7 +102,7 @@
 
 #### 创建评估作业
 
-模型发布成功后，在左侧菜单选择 [模型管理-评估/诊断](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model-evalBeta-list) 功能，点击“创建”按钮。
+模型发布成功后，在左侧菜单选择 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model-evalBeta-list" target="_blank">模型管理-评估/诊断</a> 功能，点击“创建”按钮。
 
 ![image-20200921185459629](./img/创建评估作业.png)
 
@@ -118,15 +118,15 @@
 
 #### 部署在线服务
 
-在 [模型管理 ](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model?activeTab=myModels)页面，点击“部署”按钮下拉框中的“在线服务”按钮。
+回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model?activeTab=myModels" target="_blank">模型管理</a> 页面，找到前面发布的模型，点击模型名称左侧下拉箭头，在弹出的页面中，点击“部署”按钮，选择点击“在线服务”按钮。
 
 ![](./img/发布服务_1.png)
 
-选择带GPU的资源规格。
+“在线服务”部署页面，选择带GPU的资源规格。
 
 ![](./img/发布服务_2.png)
 
-点击下一步进行提交，然后返回 [部署上线-在线服务](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/webservice/realTimeService) 页面可以查看服务部署状态，状态为“运行中”即可进行API调用和在线预测。
+点击下一步进行提交，然后返回 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/webservice/realTimeService" target="_blank">部署上线-在线服务</a> 页面可以查看服务部署状态，状态为“运行中”即可进行API调用和在线预测。
 
 #### 手机端测试
 

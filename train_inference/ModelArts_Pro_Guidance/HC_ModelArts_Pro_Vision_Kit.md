@@ -4,7 +4,7 @@
 此案例将带领开发者体验ModelArts Pro视觉套件中的零售商品识别服务。
 
 **完成****ModelArts Pro****准备工作**
-注册华为云账号、切换到北京四，进入ModelArts Pro [主页](https://console.huaweicloud.com/mapro/#/home)，申请视觉套件的公测。
+注册华为云账号、切换到北京四，进入 ModelArts Pro <a href="https://console.huaweicloud.com/mapro/#/home" target="_blank">主页</a>，申请视觉套件的公测。
 
 
 ## 创建应用
@@ -24,21 +24,22 @@
 
 **本案例需要用到两个数据集，训练用数据集及SKU数据集**
 * 训练用数据集从OBS进行订阅(见下方操作示例)
-* SKU数据集请从[论坛帖附件下载](https://bbs.huaweicloud.com/forum/thread-78758-1-1.html)
+* SKU数据集请从<a href="https://bbs.huaweicloud.com/forum/thread-78758-1-1.html" target="_blank">论坛帖附件下载</a>
 
 #### 训练用数据集
 
 在使用零售商品识别工作流开发应用时，您需要新建训练数据集，后续训练模型操作是基于您创建的训练数据集。
 
-* 新建训练数据需要获取访问OBS权限，在未进行委托授权之前，无法使用此功能。您需要提前获得OBS授权，详情请见[获取访问秘钥并完成ModelArts全局配置](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0003.html)。
-* 创建用于存储数据的OBS桶及文件夹，且数据存储的OBS桶与ModelArts Pro在同一区域（建议北京四），详情请见[创建OBS桶](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0004.html)。
+* 新建训练数据需要获取访问OBS权限，在未进行委托授权之前，无法使用此功能。您需要提前获得OBS授权，详情请见<a href="https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0003.html" target="_blank">获取访问秘钥并完成ModelArts全局配置</a>。
+* 创建用于存储数据的OBS桶及文件夹，且数据存储的OBS桶与ModelArts Pro在同一区域（建议北京四），详情请见<a href="https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0004.html" target="_blank">创建OBS桶</a>。
 
-我们从华为云AI市场订阅训练数据集至OBS，然后就可以在ModelArts Pro中使用了。点击[此链接](https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/datasetDownload?content_id=7a52dbac-03d5-4e6f-a71f-95864b124ffb)进入下载详情页，详情页示例如下：
+我们从华为云AI市场订阅训练数据集至OBS，然后就可以在ModelArts Pro中使用了。点击<a href="https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/datasetDownload?content_id=7a52dbac-03d5-4e6f-a71f-95864b124ffb" target="_blank">此链接</a>进入下载详情页，详情页示例如下：
+
 ![](./_image/2020-09-21-17-36-15.png)
 * 目标区域选择北京四，目标位置选择上面创建的OBS桶。
 * 填写好参数后，点击“下一步”按钮，然后点击“确定”按钮。等待数据集状态变为推送成功（可以点击右上角“刷新”按钮刷新状态），即可在OBS对应的桶中看到下载的数据集。
 
-在“应用开发>数据选择”页面，单击“新建训练数据集”，右侧弹出“新建数据集”页面，根据数据存储位置和数据标注情况，按[表3](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0060.html#modelartspro_01_0060__table1455214220167)填写数据集基本信息，然后单击“确定”，**本案例中，输入位置为导入的数据集中的cake\_data文件夹，输出位置选择或新建一个空文件夹**。
+在“应用开发>数据选择”页面，单击“新建训练数据集”，右侧弹出“新建数据集”页面，根据数据存储位置和数据标注情况，按<a href="https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0060.html#modelartspro_01_0060__table1455214220167" target="_blank">表3</a>填写数据集基本信息，然后单击“确定”，**本案例中，输入位置为导入的数据集中的cake\_data文件夹，输出位置选择或新建一个空文件夹**。
 
 ![](./_image/image018.png)
 
@@ -52,7 +53,7 @@
 1. 在“SKU创建”页面，单击“新建SKU”。
     弹出“新建SKU”对话框。
 
-2. 在“新建SKU”对话框中，按[表1](https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0063.html#modelartspro_01_0063__table3131146191013)填写信息，然后单击“确定”。
+2. 在“新建SKU”对话框中，按<a href="https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0063.html#modelartspro_01_0063__table3131146191013" target="_blank">表1</a>填写信息，然后单击“确定”。
 
 |  **参数**   | **说明**  |
 |  :----:  | :---- |
@@ -70,7 +71,8 @@
 
 标注完成后，您可以单击“标注结果确认”中的“前往确认”，进入标注概览页。
 
-在标注概览页单击右上方的“开始标注”，进入手动标注数据页面，针对“已标注”的数据进行核对和检查，详情请见[手动标注数据](https://support.huaweicloud.com/usermanual-modelartspro/zh-cn_topic_0272489069.html)。针对标注错误的数据[修改标注](https://support.huaweicloud.com/usermanual-modelartspro/zh-cn_topic_0272489069.html#ZH-CN_TOPIC_0272489069__section0534612151819)。
+在标注概览页单击右上方的“开始标注”，进入手动标注数据页面，针对“已标注”的数据进行核对和检查，详情请见<a href="https://support.huaweicloud.com/usermanual-modelartspro/zh-cn_topic_0272489069.html" target="_blank">手动标注数据</a>。
+针对标注错误的数据<a href="https://support.huaweicloud.com/usermanual-modelartspro/zh-cn_topic_0272489069.html#ZH-CN_TOPIC_0272489069__section0534612151819" target="_blank">修改标注</a>。
 
 ### 模型训练
 模型训练一般需要运行一段时间，等模型训练完成后，“开发应用>模型训练”页面下方显示训练详情。
