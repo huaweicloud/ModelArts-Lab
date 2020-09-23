@@ -11,9 +11,9 @@
 
 ## 准备数据
 ### 下载数据集
+
 本案例包含4张图片，2张图片属于文档类模板，2张图片属于表格类模板。我们从<a href="https://bbs.huaweicloud.com/forum/thread-78758-1-1.html" target="_blank">活动论坛帖</a>（文末附件）进行下载，文件名：modelarts\_pro\_ocr\_dataset，下有“表格”及“文档”两个子文件夹
  
-
 ## 创建应用
 公测白名单审批完成以后，点击“进入套件”，开始使用文字识别套件
 ![](./_image/image001.png)

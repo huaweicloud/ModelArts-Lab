@@ -9,17 +9,19 @@
 
 ### 完成ModelArts准备工作
 
-点击进入[ModelArts全局配置](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/authConfig)，点击“访问授权”按钮。在弹出的对话框中，授权方式选择“使用委托”，然后点击“自动创建”按钮，自动生成一个委托，并选择该委托。最后点击“同意授权”按钮。如下图所示：
+
+
+点击进入<a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/authConfig" target="_blank">ModelArts全局配置</a>，点击“访问授权”按钮。在弹出的对话框中，授权方式选择“使用委托”，然后点击“自动创建”按钮，自动生成一个委托，并选择该委托。最后点击“同意授权”按钮。如下图所示：
 
 ![dataset_download](./img/访问授权.png)
 
 ### 完成HiLens准备工作
 
-点击[此链接](https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening)，完成相关依赖服务的授权。
+点击<a href="https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening" target="_blank">此链接</a>，完成相关依赖服务的授权。
 
 ![dataset_download](./img/HiLens授权.png)
 
-然后点击[此链接](https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening)，申请HiLens Studio公测。
+然后点击<a href="https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening" target="_blank">此链接</a>，申请HiLens Studio公测。
 
 ![dataset_download](./img/HiLens申请公测.png)
 
@@ -27,7 +29,7 @@
 
 ### 下载数据集
 
-本案例口罩识别数据集，包含500张已标注的图片。我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=90259354-a047-49ec-8415-f033cc2f3e87)进入下载详情页，下载详情页示例如下：
+本案例口罩识别数据集，包含500张已标注的图片。我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击<a href="https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=90259354-a047-49ec-8415-f033cc2f3e87" target="_blank">此链接</a>进入下载详情页，下载详情页示例如下：
 
 ![dataset_download](./img/AI市场数据下载.png)
 
@@ -39,13 +41,13 @@
 
 名称：自定义
 
-填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功（可以点击右上角![food](./img/刷新.png)按钮刷新状态），即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
+填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功（可以点击右上角![food](./img/刷新.png)按钮刷新状态），即可在<a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">ModelArts数据集列表</a>中查看到下载的数据集。
 
 **注意：该口罩识别数据集只能用于学习用途，不得用于商业用途。**
 
 ### 发布数据集
 
-点击进入[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，找到刚订阅的数据集，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
+点击进入<a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">ModelArts数据集列表</a>，找到刚订阅的数据集，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
 
 ![mask](./img/发布.png)
 
@@ -63,7 +65,7 @@
 
 本实验中，我们从AI市场订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
 
-点击进入AI市场[YOLOv3_ResNet18算法主页](https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=948196c8-3e7a-4729-850b-069101d6e95c&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，选择华北-北京四区域， 进入算法管理页面。
+点击进入AI市场<a href="https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=948196c8-3e7a-4729-850b-069101d6e95c&type=algo" target="_blank">YOLOv3_ResNet18算法主页</a>，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，选择华北-北京四区域， 进入算法管理页面。
 
 点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
 
@@ -71,7 +73,7 @@
 
 接下来将通过ModelArts训练作业训练AI模型，使用`YOLOv3`算法训练一个口罩检测模型。
 
-进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，进入ModelArts“训练作业”页面。
+进入<a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs" target="_blank">ModelArts管理控制台</a>，进入ModelArts“训练作业”页面。
 
 单击“**创建**”按钮，进入“创建训练作业”页面。
 
@@ -128,7 +130,7 @@
 
 接下来将模型格式转换成可在HiLens设备上运行的格式。
 
-进入[ModelArts管理控制台](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model-switch)，在左侧导航栏中选择“ **模型管理**” >  “**压缩/转换**”，进入模型转换列表页面。
+进入<a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/model-switch" target="_blank">ModelArts管理控制台</a>，在左侧导航栏中选择“ **模型管理**” >  “**压缩/转换**”，进入模型转换列表页面。
 
 单击左上角的“**创建任务**”，进入任务创建任务页面。
 
@@ -160,7 +162,7 @@
 
 接下来，我们将使用HiLens Studio开发模型在端侧的推理代码，并调试。从而完成一个完整的AI应用的开发。
 
-点击进入[HiLens Studio](https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening) ，会弹出如下对话框，请参考[此文档](https://support.huaweicloud.com/modelarts_faq/modelarts_05_0004.html)添加访问密钥。然后点击“确定”按钮即可。
+点击进入<a href="https://console.huaweicloud.com/hilens/?region=cn-north-4#/skillDevelop/studioOpening" target="_blank">HiLens Studio</a>，会弹出如下对话框，请参考<a href="https://support.huaweicloud.com/modelarts_faq/modelarts_05_0004.html" target="_blank">此文档</a>添加访问密钥。然后点击“确定”按钮即可。
 
 ![skill](./img/添加访问密钥.png)
 

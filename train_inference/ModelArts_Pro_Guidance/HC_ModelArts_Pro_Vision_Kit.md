@@ -34,6 +34,7 @@
 * 创建用于存储数据的OBS桶及文件夹，且数据存储的OBS桶与ModelArts Pro在同一区域（建议北京四），详情请见<a href="https://support.huaweicloud.com/usermanual-modelartspro/modelartspro_01_0004.html" target="_blank">创建OBS桶</a>。
 
 我们从华为云AI市场订阅训练数据集至OBS，然后就可以在ModelArts Pro中使用了。点击<a href="https://console.huaweicloud.com/modelarts/?locale=zh-cn&region=cn-north-4#/aiMarket/datasetDownload?content_id=7a52dbac-03d5-4e6f-a71f-95864b124ffb" target="_blank">此链接</a>进入下载详情页，详情页示例如下：
+
 ![](./_image/2020-09-21-17-36-15.png)
 * 目标区域选择北京四，目标位置选择上面创建的OBS桶。
 * 填写好参数后，点击“下一步”按钮，然后点击“确定”按钮。等待数据集状态变为推送成功（可以点击右上角“刷新”按钮刷新状态），即可在OBS对应的桶中看到下载的数据集。
