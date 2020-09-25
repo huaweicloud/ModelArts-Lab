@@ -44,7 +44,7 @@
 
 订阅成功后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/algorithms?activeTab=subscribedAlgos" target="_blank">ModelArts算法管理</a> 页签，同步订阅的算法
 
-![](img/同步算法.png)
+![](./img/同步算法.png)
 
 #### 模型训练
 
@@ -73,7 +73,7 @@
 
 点击训练详情页面的“创建模型”按钮，进入发布页面，选择从obs导入，直接点击“立即创建”按钮。
 
-![](./img/./img/从obs发布模型_2.PNG)
+![](./img/从obs创建模型.PNG)
 
 等待模型发布成功
 
