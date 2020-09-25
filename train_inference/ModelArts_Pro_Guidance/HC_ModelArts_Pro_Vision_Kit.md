@@ -45,7 +45,7 @@
 
 确定后，在页面中选择刚刚新建的数据集，点击“下一步”进行SKU创建，此时还不需要标注
 
-![](./_image/数据集选择.PNG)
+![](./_image/数据集选择.png)
 
 ### SKU创建
 当一次性上传一个SKU，即一种类别的商品时，您可以通过新建SKU操作上传SKU图片。
@@ -64,7 +64,7 @@
    
 本案例中，需要创建**3个SKU**，第一个名称填 blueberry\_cheesecake，SKU单品图选择SKU数据集中的：cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu 的SKU创建及文件上传。
 
-![](./_image/sku创建.PNG)
+![](./_image/sku创建.png)
 
 ### 数据标注
 智能标注自动开始，会显示自动标注的进度，如果自动标注完成，标注进度为100%。

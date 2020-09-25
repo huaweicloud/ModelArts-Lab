@@ -16,31 +16,31 @@
 
 从数据集市场下载训练用数据集，请点击访问：<a href="https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=890d3449-42dd-4a13-b50e-7eb79045b40e" target="_blank">石头剪刀布\_训练集\_修正版</a>。
 
-![](./img/下载数据集_1.PNG)
+![](./img/下载数据集_1.png)
 
 点击“下载”进入下载详情页，**下载方式选择“ModelArts数据集”，区域选择“北京四”，目标位置和名称根据自己实际情况选择和填写，请勿照抄**。
 
-![](./img/下载数据集_2.PNG)
+![](./img/下载数据集_2.png)
 
 填写完成后，点击“下载”，进入启动下载页，然后点击“确定”，可以看到推送状态，推送成功后回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">ModelArts数据集管理</a>,可以看到刚刚推送的数据集，点击数据集后的“发布”按钮。
 
-![数据集推送状态](./img/数据集推送状态.PNG)
+![数据集推送状态](./img/数据集推送状态.png)
 
-![数据集发布](./img/数据集发布.PNG)
+![数据集发布](./img/数据集发布.png)
 
 发布训练用数据集（0.6切分训练集）
 
-![](./img/发布训练集.PNG)
+![](./img/发布训练集.png)
 
 发布成功后，点击上方“数据标注”按钮，可查看到以下信息
 
-![](./img/训练集.PNG)
+![](./img/训练集.png)
 
 #### 订阅模型
 
 点击从AI市场订阅 <a href="https://marketplace.huaweicloud.com/markets/aihub/modelhub/detail/?id=e48f4e4d-5ebb-4753-a613-b44a5d965e7c" target="_blank">物体检测-EfficientDet 算法</a>
 
-![](./img/订阅算法.PNG)
+![](./img/订阅算法.png)
 
 订阅成功后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/algorithms?activeTab=subscribedAlgos" target="_blank">ModelArts算法管理</a> 页签，同步订阅的算法
 
@@ -58,7 +58,7 @@
 
 其它可默认，点击“下一步”进入模型训练，等待模型训练完成（**等待时可先进行下一步的“准备测试数据集”**）.
 
-**![](./img/创建训练作业.PNG)**
+**![](./img/创建训练作业.png)**
 
 #### 准备测试数据集
 
@@ -74,17 +74,17 @@
 
 完成后，回到 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset" target="_blank">数据管理-数据集</a> 页签，创建一个新测试数据集，用上面“数据校验”输出的OBS目录创建**测试用数据集**，数据集输入位置为上一步校验输出的目录，输出目录为任意空目录。
 
-![](./img/创建测试集.PNG)
+![](./img/创建测试集.png)
 
 创建完成后，会生成一个已标注的数据集，点击数据集后的“发布”按钮进行版本版本，训练集比例设为0，因为这个数据集只用作测试。
 
-![](./img/发布测试集.PNG)
+![](./img/发布测试集.png)
 
 #### 查看第一次训练结果
 
 这时候，我们回到上上一步正在在训练的模型，看是否训练完成。训练结束后，点击训练作业名称，可以在训练详情页面点击“评估结果”页签，查看训练的各种指标。
 
-![训练作业评估结果](./img/训练作业评估结果.PNG)
+![训练作业评估结果](./img/训练作业评估结果.png)
 
 #### 发布模型
 
@@ -98,7 +98,7 @@
 
 等待模型发布成功。
 
-![](./img/发布模型_3.PNG)
+![](./img/发布模型_3.png)
 
 #### 创建评估作业
 
@@ -114,7 +114,7 @@
 
 评估作业完成后，查看评估结果，点击预测结果中的图像，放大展示。发现错误推理大部分来自图像中有多个手的图片。
 
-![](./img/评估结果_2.PNG)
+![](./img/评估结果_2.png)
 
 #### 部署在线服务
 
