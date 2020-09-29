@@ -24,14 +24,18 @@
 
 - 进阶案例，载入预训练的resnet50，在flowers数据集上做迁移学习，并使用新特性加速训练
 
-### [1.6. MoXing-TensorFlow 接口文档](MoXing_API_TensorFlow_apidoc.md)
+### [1.6. MoXing超参搜索案例](MoXing_API_Hyperselector_Training.md)
 
 - MoXing-TensorFlow的常用接口文档
 
-### [1.7. MoXing-TensorFlow 更多案例](MoXing_API_MoreExamples.md)
+### [1.7. MoXing-TensorFlow 接口文档](MoXing_API_TensorFlow_apidoc.md)
+
+- MoXing-TensorFlow的常用接口文档
+
+### [1.8. MoXing-TensorFlow 更多案例](MoXing_API_MoreExamples.md)
 
 - MoXing-TensorFlow更多案例脚本，代码仅供参考
 
-### [1.8. MoXing-TensorFlow 详细使用手册](MoXing_API_UserInstructions.md)
+### [1.9. MoXing-TensorFlow 详细使用手册](MoXing_API_UserInstructions.md)
 
 - MoXing-TensorFlow详细使用手册以及一些常见错误参考
