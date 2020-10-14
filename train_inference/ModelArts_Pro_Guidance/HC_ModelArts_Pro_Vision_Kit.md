@@ -3,7 +3,7 @@
 **视觉套件案例内容**
 此案例将带领开发者体验ModelArts Pro视觉套件中的零售商品识别服务。
 
-**完成****ModelArts Pro****准备工作**
+**完成ModelArts Pro准备工作**
 注册华为云账号、切换到北京四，进入 ModelArts Pro <a href="https://console.huaweicloud.com/mapro/#/home" target="_blank">主页</a>，申请视觉套件的公测。
 
 
@@ -60,8 +60,8 @@
 | SKU名称  | 输入SKU的名称。 |
 | SKU单品图  | 在本地选择提前准备好的SKU单品图，后续存储至OBS中。单击“SKU单品图”右侧的“选择文件”，在本地选择图片，可选择多个图片。   **说明**：文件放置方式请按照“单品文件夹/单品图”或者“父文件夹/单品文件夹/单品图”的组织方式，选择单品文件夹或者父文件夹，平台将自动生成单品。每个单品的图片必须大于20张。|
 | SKU存储位置（OBS）  | 选择SKU单品图上传至OBS的桶和文件夹。单击“SKU存储位置（OBS）”右侧输入框，在“SKU存储位置（OBS）”对话框中选择SKU存储的OBS桶和文件夹，单击“确定”。 |
-    
-   
+
+
 本案例中，需要创建**3个SKU**，第一个名称填 blueberry\_cheesecake，SKU单品图选择SKU数据集中的：cake\_hc\_demo/sku/ blueberry\_cheesecake，点击确认。同理，完成red\_velvet\_cake 和 tiramisu 的SKU创建及文件上传。
 
 ![](./_image/sku创建.png)

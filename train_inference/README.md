@@ -1,2 +1,17 @@
-注册ModelArts账户链接
-申请试用链接文章指引
+# 综合AI开发案例
+
+Auto_Labeling，智能标注
+
+Car_And_Person_Detection_Builtin_Algorithm，使用AI市场FasterRCNN预置算法训练人车检测模型
+
+Foods_Recognition_Builtin_Algorithm，使用AI市场ResNet50预置算法训练人车检测模型
+
+image_recognition，使用数据智能标注、模型训练和模型部署端到端实现猫狗图像分类
+
+MNIST Dataset Recognition，使用MoXing实现手写数字图像识别应用
+
+ModelArts_Pro_Guidance，ModelArts Pro开发指南
+
+Training_And_Tuning_A_Model_For_Rock_Paper_Scissors，石头剪刀布手势检测模型开发与评估诊断
+
+Using_Spark_ML_to_Create_a_Wine_Quality_Prediction_Application，使用Spark MLlib实现葡萄酒质量预测
