@@ -115,7 +115,7 @@ output_path
     |- test_part_0.tfrecord
     |- ...
   |- fixed.txt （多值特征，将不定长特征转为定长特征的中间产物，可忽略）
-  |- param.yaml(用于训练和在线推理的数据和模型参数)
+  |- param.toml(用于训练和在线推理的数据和模型参数)
 ```
 
 # 4 数据集和预处理理解
