@@ -71,6 +71,8 @@ criteo feature数据
 预处理脚本默认自动进行切分（test_ratio=0.2），如果原始数据已经准备好训练和测试集，需要分开处理训练集和验证集。
 参考如下命令。
 
+**每重新执行一次预处理脚本，param.toml文件都会更新。如果训练集和测试集分开处理，处理完训练集后请记录param.toml文件中的train\_size（训练集大小）的数值。再次处理测试集时，因为没有训练集，所以train\_size会被置为0，需要手动修改param.toml中的train\_size参数。** param.toml中的参数将用于后续的训练。请准确改写。
+
 训练集预处理：
 
     python process_data.py \
@@ -81,6 +83,8 @@ criteo feature数据
 	--test_ratio=0.0 \
 	--threshold=50 \
 	--part_rows=10000
+
+**请记录param.toml文件中的train\_size（训练集大小）的数值。**
 
 测试集预处理：
 
@@ -93,6 +97,8 @@ criteo feature数据
 	--test_ratio=1.0 \
 	--threshold=50 \
 	--part_rows=10000
+
+**请修改param.toml中train\_size参数，填入训练集大小的实际值。**
     
 ## 3 输出数据
 处理之后的数据格式如下：
