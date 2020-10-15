@@ -59,7 +59,7 @@ criteo feature数据
 
 ### 2.3 命令参考
 
-    python process_data.py \
+    python data_process.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/data.txt \  
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
@@ -75,7 +75,7 @@ criteo feature数据
 
 训练集预处理：
 
-    python process_data.py \
+    python data_process.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/train_data.txt \  
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
@@ -88,7 +88,7 @@ criteo feature数据
 
 测试集预处理：
 
-    python process_data.py \
+    python data_process.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/test_data.txt \  
     --stats_output_path=/home/xxx/deepfm/output_data/stats_dict \ (处理完训练集后，在output_path路径下生成的stats_dict文件夹路径)
 	--output_path=/home/xxx/deepfm/output_data/ \
