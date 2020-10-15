@@ -475,7 +475,7 @@ def main():
            'line_per_sample': args.line_per_sample,
            'train_tag': 'train_part',
            'test_tag': 'test_part'}
-  with open(os.path.join(args.output_path, 'param.yaml'), 'w') as f:
+  with open(os.path.join(args.output_path, 'param.toml'), 'w') as f:
     toml.dump(param, f)
 
   # convert to tfrecord data
