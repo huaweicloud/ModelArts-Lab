@@ -413,7 +413,7 @@ def convert_tfrecords(num_inputs, input_filename, output_filename, samples_per_l
 def main():
   parser = argparse.ArgumentParser(description='Get and Process datasets')
 
-  parser.add_argument('--data_file_path', type=str, default='./raw_data/new_part.csv', help='data file path')
+  parser.add_argument('--data_file_path', type=str, default='./raw_data/new_part.txt', help='data file path')
   parser.add_argument('--value_col_num', type=int, default=22,
                       help='continue value column number of data_file_path file.')
   parser.add_argument('--category_col_num', type=int, default=17,
