@@ -473,6 +473,7 @@ def main():
            'value_col_num': args.value_col_num,
            'category_col_num': args.category_col_num,
            'line_per_sample': args.line_per_sample,
+           'threshold': args.threshold,
            'train_tag': 'train_part',
            'test_tag': 'test_part'}
   with open(os.path.join(args.output_path, 'param.toml'), 'w') as f:
