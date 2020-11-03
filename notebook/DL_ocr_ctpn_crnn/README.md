@@ -13,5 +13,5 @@ CTPN+CRNN
 
 ## 实战内容
 
-[CTPN+CRNN.ipynb](./CTPN+CRNN.ipynb)
+[CTPN_CRNN.ipynb](./CTPN_CRNN.ipynb)
 
