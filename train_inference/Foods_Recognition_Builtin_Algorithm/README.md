@@ -8,13 +8,13 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ## 准备工作
 
-参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。只需要完成注册华为云账号、生成访问密钥并完成ModelArts全局配置、创建OBS桶、使用OBS Browser+这四个步骤即可。
 
 ## 准备数据
 
 ### 下载数据
 
-点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_23.tar.gz)，下载数据集压缩包至本地，解压，可以得到文件夹`foods_recongition_23`，其中的`train`目录是训练数据集，`test`目录是测试数据集。
+点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_23.zip)，下载数据集压缩包至本地，解压，可以得到文件夹`foods_recongition_23`，其中的`train`目录是训练数据集，`test`目录是测试数据集。
 
 该数据集共包含23类美食，及其部分标注数据。23类美食的种类如下所示：
 
@@ -46,7 +46,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ### 上传数据至OBS
 
-在OBS Browser+中，进入刚刚创建的“华北北京四”区域的OBS桶，然后点击上传按钮，上传本地文件夹`foods_recongition_23`至OBS桶：
+在OBS Browser+中，进入刚刚创建的“华北北京四”区域的OBS桶，然后点击上传按钮，上传本地文件夹`foods_recongition_23`至OBS桶，上传耗时取决于网速，网络较好情况下耗时约2分钟。
 
 ![food](./img/上传文件夹.png)
 
