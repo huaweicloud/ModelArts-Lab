@@ -26,7 +26,7 @@
 
 ### [1.6. MoXing超参搜索案例](MoXing_API_Hyperselector_Training.md)
 
-- MoXing-TensorFlow的常用接口文档
+- MoXing超参搜索案例，代码仅供参考
 
 ### [1.7. MoXing-TensorFlow 接口文档](MoXing_API_TensorFlow_apidoc.md)
 
