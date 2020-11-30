@@ -164,7 +164,12 @@ def statsdata(data_file_path, output_path, data_stats):
       if len(items) != data_stats.field_size + 1:  # feature columns; +  label_col
         errorline_list.append(count)
         print("line: {}".format(line))
-        raise ValueError()
+
+        raise ValueError(
+          "Expect column count is {}, real column count is {}, please check "
+          "your value_col_num and category_col_num. "
+          "\nError line number: {}, Error line content: {}".format(
+            data_stats.field_size + 1, len(items), count - 1, line))
 
       if count % 1000000 == 0:
         print("Have handle {}w lines.".format(count // 10000))
