@@ -9,9 +9,9 @@ CTPN+CRNN
 - **环境创建**
 默认Notebook多引擎，Python3， GPU
 - **notebook创建**
-创建notebook时请选择：**TensorFlow-1.13**
+创建notebook时请选择：**TensorFlow-1.13.1**
 
 ## 实战内容
 
-[CTPN_CRNN.ipynb](./CTPN_CRNN.ipynb)
+[CTPN+CRNN.ipynb](./CTPN+CRNN.ipynb)
 
