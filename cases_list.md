@@ -1,4 +1,4 @@
-# ModelArts案例列表
+# ModelArts案例
 
 为方便用户查找案例，提供此案例列表。
 
