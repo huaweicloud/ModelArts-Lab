@@ -2,9 +2,9 @@
 
 # 使用ResNet50预置算法基于海量数据训练美食分类模型
 
-本案例将介绍怎样使用ModelArts数据标注能力和AI市场中ModelArts官方发布的`ResNet50`算法，基于海量美食数据训练一个美食分类模型。
+本案例将介绍怎样使用ModelArts数据标注能力和AI Gallery中ModelArts官方发布的`ResNet50`算法，基于海量美食数据训练一个美食分类模型。
 
-ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发训练代码和推理代码，只要准备并标注好数据，就可以轻松快速训练并部署模型。
+ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开发训练代码和推理代码，只要准备并标注好数据，就可以轻松快速训练并部署模型。
 
 ## 准备工作
 
@@ -114,9 +114,9 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ## 订阅算法
 
-本实验中，我们从AI市场订阅ModelArts官方发布的图像分类算法`ResNet50`来训练模型。
+本实验中，我们从AI Gallery订阅ModelArts官方发布的图像分类算法`ResNet50`来训练模型。
 
-点击进入AI市场[ResNet50算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=40b66195-5bbe-463d-b8a2-03e57073538d&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，进入算法管理页面。
+点击进入AI Gallery[ResNet50算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=40b66195-5bbe-463d-b8a2-03e57073538d&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，进入算法管理页面。
 
 点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
 
