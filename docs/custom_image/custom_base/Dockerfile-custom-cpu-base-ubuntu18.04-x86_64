@@ -1,0 +1,59 @@
+FROM dls.io/dls/ubuntu_base:18.04-latest
+
+ARG download
+ARG username
+ARG usergroup
+ARG workname
+ARG workgroup
+
+RUN groupadd -g 1100 $usergroup && useradd -d /home/$username -m -u 1100 -g 1100 -s /bin/bash $username &&\
+  groupadd -g 1101 $workgroup && useradd -d /home/$workname -m -u 1101 -g 1101 -s /bin/bash $workname && \
+  mkdir /cache && chown -R $workname:$workgroup /cache && chmod 755 /cache
+
+RUN mv /etc/apt/sources.list /etc/apt/sources.list~ && \
+  wget ${download}/dls-release/ubuntu-18.04/ci-config/sources.list -P /etc/apt/ && \
+  apt-get update && \
+  apt-get install -y python-pip \
+    libcurl4-openssl-dev && \
+  echo "" > /etc/apt/apt.conf && \
+  rm -f /etc/apt/sources.list && \
+  rm -rf /var/lib/apt/lists/* && \
+  mv /etc/apt/sources.list~ /etc/apt/sources.list && \
+  chmod -R -s /usr/local/lib
+
+RUN mkdir -p /home/install && cd /home/install && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/dls-decryptor && \
+  chown root:root dls-decryptor && \
+  chmod 4755 dls-decryptor && \
+  mv dls-decryptor /usr/bin/ && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/dls-dns-fixer.tar.gz && \
+  tar -xvzf dls-dns-fixer.tar.gz && chown root:root dls-dns-fixer && \
+  chmod 6755 dls-dns-fixer && mv -v dls-dns-fixer /usr/bin/ && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/dls-pipe.tar.gz && \
+  tar -xzf dls-pipe.tar.gz && chown 1100:1100 modelarts-pipe &&  chmod 6755 modelarts-pipe && \
+  mv modelarts-pipe /usr/bin/ && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/dls-key-client.tar.gz && \
+  tar -xzf dls-key-client.tar.gz && chown root:root dls-key-client && chmod 0755 dls-key-client && \
+  mv -v dls-key-client /usr/bin/ && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/dls-downloader.tar.gz && \
+  tar -xzf dls-downloader.tar.gz && mv -v dls-downloader/modelarts-downloader.py /home/$workname/ && \
+  wget $download/dls-release/ubuntu-18.04/dls-tools-master/latest/ip-mapper.tar.gz && \
+  tar -xzf ip-mapper.tar.gz && \
+  mv -v ip-mapper/ip_mapper.py /home/$workname/ && \
+  mv -v ip-mapper/get_cluster_ib_ip.py /home/$workname/ && \
+  wget $download/dls-release/ubuntu-18.04/dl-scripts-master/latest/scripts.tar.gz 2>/dev/null && \
+  tar -xzf scripts.tar.gz && \
+  cp -rpf scripts/run_config/common/utils/utils.sh /home/$workname/ && \
+  cp -rpf scripts/run_config/custom/train/run_train.sh /home/$workname/ && \
+  rm -rf /home/install
+
+RUN mkdir -p /home/install && cd /home/install && \
+  mkdir -p ~/.pip/ && \
+  wget $download/dls-release/ubuntu-18.04/ci-config/pip.conf && mv pip.conf ~/.pip/ && \
+  pip install boto3==1.7.29 netifaces==0.10.7 pyzmq==17.0.0 && \
+  rm -rf ~/.pip/ && \
+  cd /home && \
+  rm -rf /home/install && \
+  mkdir -p ~/.pip/ && \
+  wget $download/dls-release/ubuntu-18.04/ci-config/pip-hwcloud.conf && \
+  mv pip-hwcloud.conf ~/.pip/pip.conf
