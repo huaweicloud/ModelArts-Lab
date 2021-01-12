@@ -60,7 +60,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ![create_dataset](./img/创建数据集1.png)
 
-![create_dataset](./img/创建数据集2.jpg)
+![create_dataset](./img/创建数据集2.png)
 
 数据集名称：自定义
 
@@ -68,7 +68,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 数据集输出位置：标注数据的输出OBS路径。需要在OBS中创建这个路径，创建方式见准备工作中的创建OBS文件夹。
 
-标注场景：物体
+标注场景：图片
 
 标注类型：图像分类
 
@@ -86,7 +86,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 点击“全部”页面的“同步数据源”按钮，数据同步完成后，右上角会出现“数据同步完成”的提示。“同步数据源”按钮的位置如下图所示：
 
-![sync_data](./img/sync_data.jpg)
+![sync_data](./img/sync_data.png)
 
 #### 步骤三，手工标注图片
 
@@ -94,7 +94,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 点击图片的左上角的选择框，选中图片，可以批量选择图片，然后输入标签名，可以从下拉列表中选择已有标签，然后点击“确认”按钮。如下图所示：
 
-![food](./img/select_image.jpg)
+![food](./img/select_image.png)
 
 按照此方法标注完所有数据。
 
