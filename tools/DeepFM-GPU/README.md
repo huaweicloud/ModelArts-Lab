@@ -16,6 +16,7 @@ criteo原始数据
 
 criteo 原始数据中，第一列为label，表示是否点击，后续39列为特征列，其中前13列为连续值特征，后26列为离散特征（为经过hash处理后的字符串）。
 
+
 ## 2. 预处理
 
 ### 2.1 预处理流程
@@ -49,21 +50,28 @@ criteo feature数据
  
 | 名称                 |  默认值 |  类型  |        描述          |
 | --------------------| --------| ----- | -------------------- |
-|data_file_path       |None     |string |      数据输入路径     |
+|data_file_path       |None     |string |      数据输入路径，文件夹或者文件路径|
 |output_path          |None     |string |  预处理后数据存储路径  |
 |value_col_num        |None     |int    |      连续特征列数     |
 |category_col_num     |None     |int    |      离散特征列数     |
+|multi_category_col_num  |0     |int    |      多值特征列数     |
 |test_ratio           |0.1      |float  |      验证集切分占比   |
 |threshold            |100      |int    | 词典中词频低于100的会被过滤掉， 会影响data vocab_size 的大小|
 |part_rows            |2000000  |int  | 每个文件保存的样本数，样本量大时，可分成多个输出文件 |
+|file_pattern         |   *     |string |     文件匹配字段，*默认匹配文件夹下所有文件|
+|multi_category_sep   |   ,    |string | 多值特征之间的分隔符，默认","逗号分隔符，无多值特征时参数无用，请根据数据集真实情况填写|
+|feat_sep             |   \t    |string | 特征之间的分隔符，包括连续，离散，多值特征，默认"\t"分隔符，请根据数据集真实情况填写|
+
+**预处理脚本支持单文件，多文件。如果为单文件`data\_file\_path`指定为文件路径即可。如果原始数据集包含多个文件，`data\_file\_path`指定到文件的父目录。文件格式可通过`file_pattern`参数匹配。默认读取文件夹下所有的文件。**
 
 ### 2.3 命令参考
 
     python data_process.py \
-	--data_file_path=/home/xxx/deepfm/data/raw/data.txt \  
+	--data_file_path=/home/xxx/deepfm/data/raw/data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+	--multi_category_col_num=0 \
 	--test_ratio=0.2 \
 	--threshold=50 \
 	--part_rows=10000
@@ -71,34 +79,37 @@ criteo feature数据
 预处理脚本默认自动进行切分（test_ratio=0.2），如果原始数据已经准备好训练和测试集，需要分开处理训练集和验证集。
 参考如下命令。
 
-**每重新执行一次预处理脚本，param.toml文件都会更新。如果训练集和测试集分开处理，处理完训练集后请记录param.toml文件中的train\_size（训练集大小）的数值。再次处理测试集时，因为没有训练集，所以train\_size会被置为0，需要手动修改param.toml中的train\_size参数。** param.toml中的参数将用于后续的训练。请准确改写。
+**每重新执行一次预处理脚本，param.toml文件都会更新。如果训练集和测试集分开处理，处理完训练集后请记录日志中的打印的train\_size（训练集大小）的数值，或者从param.toml文件中查看；再次处理测试集时，将train\_size作为参数传入，否则train\_size为0，需手动改写param.toml文件中的train\_size的值。** param.toml中的参数将用于后续的训练。
 
 训练集预处理：
 
     python data_process.py \
-	--data_file_path=/home/xxx/deepfm/data/raw/train_data.txt \  
+	--data_file_path=/home/xxx/deepfm/data/raw/train_data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+    --multi_category_col_num=0 \
 	--test_ratio=0.0 \
 	--threshold=50 \
-	--part_rows=10000
+	--part_rows=10000 \
+    --file_pattern=train* (请根据文件具体格式改写）
 
-**请记录param.toml文件中的train\_size（训练集大小）的数值。**
+**请记录日志或者param.toml文件中的train\_size（训练集大小）的数值。**
 
 测试集预处理：
 
     python data_process.py \
-	--data_file_path=/home/xxx/deepfm/data/raw/test_data.txt \  
+	--data_file_path=/home/xxx/deepfm/data/raw/test_data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
     --stats_output_path=/home/xxx/deepfm/output_data/stats_dict \ (处理完训练集后，在output_path路径下生成的stats_dict文件夹路径)
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+	--multi_category_col_num=0 \
 	--test_ratio=1.0 \
 	--threshold=50 \
-	--part_rows=10000
-
-**请修改param.toml中train\_size参数，填入训练集大小的实际值。**
+	--part_rows=10000 \
+	--file_pattern=test* \ (请根据文件具体格式改写）
+    --train_size=xxx (请根据训练集预处理结果填写）
     
 ## 3 输出数据
 处理之后的数据格式如下：
@@ -120,7 +131,7 @@ output_path
     |- train_part_1.tfrecord
     |- test_part_0.tfrecord
     |- ...
-  |- fixed.txt （多值特征，将不定长特征转为定长特征的中间产物，可忽略）
+  |- fixed.txt（将多值特征中不定长特征转为定长特征的中间产物，可忽略）
   |- param.toml(用于训练和在线推理的数据和模型参数)
 ```
 
