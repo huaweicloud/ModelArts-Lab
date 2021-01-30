@@ -319,7 +319,7 @@ def random_split_trans2h5(in_file_path, output_path, data_stats, part_rows=20000
 
   return num_features, filtered_train_size, filtered_test_size, num_inputs
 
-def fix_multi_cat(data_file_path, multi_cat_col_num, multi_category_len, output_dir, file_pattern):
+def fix_multi_cat(data_file_path, multi_cat_col_num, multi_category_len, output_dir, file_pattern, feat_sep, multi_category_sep):
 
   multi_cat_len = [0 for _ in range(multi_cat_col_num)]
 
@@ -336,10 +336,10 @@ def fix_multi_cat(data_file_path, multi_cat_col_num, multi_category_len, output_
         if not line:
           continue
 
-        items = line.split('\t')
+        items = line.split(feat_sep)
         multi_cat_items = items[len(items) - multi_cat_col_num:]
         for i, multi_cat in enumerate(multi_cat_items):
-          multi_cat_len[i] = max(multi_cat_len[i], len(multi_cat.split(',')))
+          multi_cat_len[i] = max(multi_cat_len[i], len(multi_cat.split(multi_category_sep)))
 
     for i in range(len(multi_cat_len)):
       if multi_category_len[i] is not None and multi_category_len[i] >= 0:
@@ -354,14 +354,14 @@ def fix_multi_cat(data_file_path, multi_cat_col_num, multi_category_len, output_
           if not line:
             continue
 
-          items = line.split('\t')
+          items = line.split(feat_sep)
           ok_items = items[:len(items) - multi_cat_col_num]
           fw.write('\t'.join(ok_items))
           multi_cat_items = items[len(items) - multi_cat_col_num:]
 
           for i, multi_cat in enumerate(multi_cat_items):
             fw.write('\t')
-            c_list = multi_cat.split(',')
+            c_list = multi_cat.split(multi_category_sep)
             c_list = c_list[:multi_cat_len[i]]
             fw.write('\t'.join(['m_%d_%s' % (i, c) for c in c_list]))
             padding_len = multi_cat_len[i] - len(c_list)
@@ -432,6 +432,10 @@ def main():
                       help='category column number of data_file_path file. ')
   parser.add_argument('--multi_category_col_num', type=int, default=0,
                       help='multi category column number of data_file_path file. ')
+  parser.add_argument('--multi_category_sep', type=str, default=',',
+                      help='multi category separator')
+  parser.add_argument('--feat_sep', type=str, default='\t',
+                      help='features separator')
   parser.add_argument('--multi_category_len', type=list, default=[None, None],
                       help='cut multi category len to this, if None, max len will be used')
   parser.add_argument('--output_path', type=str, default='./raw_data_output', help='The path to save h5 dataset')
@@ -455,7 +459,11 @@ def main():
                                                              args.multi_category_col_num,
                                                              args.multi_category_len,
                                                              args.output_path,
-                                                             args.file_pattern)
+                                                             args.file_pattern,
+                                                             args.feat_sep,
+                                                             args.multi_category_sep)
+  print(new_data_file_path, new_multi_category_len)
+
   args.data_file_path = new_data_file_path
   args.multi_category_len = new_multi_category_len
 
@@ -489,8 +497,11 @@ def main():
            'test_size': args.test_size or test_size,
            'value_col_num': args.value_col_num,
            'category_col_num': args.category_col_num,
+           'multi_category_len': args.multi_category_len,
            'line_per_sample': args.line_per_sample,
            'threshold': args.threshold,
+           'feat_sep': args.feat_sep,
+           'multi_category_sep': args.multi_category_sep,
            'train_tag': 'train_part',
            'test_tag': 'test_part'}
   with open(os.path.join(args.output_path, 'param.toml'), 'w') as f:
