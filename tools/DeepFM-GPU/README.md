@@ -54,10 +54,13 @@ criteo feature数据
 |output_path          |None     |string |  预处理后数据存储路径  |
 |value_col_num        |None     |int    |      连续特征列数     |
 |category_col_num     |None     |int    |      离散特征列数     |
+|multi_category_col_num  |0     |int    |      多值特征列数     |
 |test_ratio           |0.1      |float  |      验证集切分占比   |
 |threshold            |100      |int    | 词典中词频低于100的会被过滤掉， 会影响data vocab_size 的大小|
 |part_rows            |2000000  |int  | 每个文件保存的样本数，样本量大时，可分成多个输出文件 |
-|file_pattern         |*        |string |     文件匹配字段，*默认匹配文件夹下所有文件|
+|file_pattern         |   *     |string |     文件匹配字段，*默认匹配文件夹下所有文件|
+|multi_category_sep   |   ,    |string | 多值特征之间的分隔符，默认","逗号分隔符，无多值特征时参数无用，请根据数据集真实情况填写|
+|feat_sep             |   \t    |string | 特征之间的分隔符，包括连续，离散，多值特征，默认"\t|"分隔符，请根据数据集真实情况填写|
 
 **预处理脚本支持单文件，多文件。如果为单文件`data\_file\_path`指定为文件路径即可。如果原始数据集包含多个文件，`data\_file\_path`指定到文件的父目录。文件格式可通过`file_pattern`参数匹配。默认读取文件夹下所有的文件。**
 
@@ -68,6 +71,7 @@ criteo feature数据
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+	--multi_category_col_num=0 \
 	--test_ratio=0.2 \
 	--threshold=50 \
 	--part_rows=10000
@@ -84,6 +88,7 @@ criteo feature数据
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+    --multi_category_col_num=0 \
 	--test_ratio=0.0 \
 	--threshold=50 \
 	--part_rows=10000 \
@@ -99,6 +104,7 @@ criteo feature数据
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
 	--category_col_num=26 \
+	--multi_category_col_num=0 \
 	--test_ratio=1.0 \
 	--threshold=50 \
 	--part_rows=10000 \
@@ -125,7 +131,7 @@ output_path
     |- train_part_1.tfrecord
     |- test_part_0.tfrecord
     |- ...
-  |- fixed.txt （多值特征，将不定长特征转为定长特征的中间产物，可忽略）
+  |- fixed.txt（将多值特征中不定长特征转为定长特征的中间产物，可忽略）
   |- param.toml(用于训练和在线推理的数据和模型参数)
 ```
 
