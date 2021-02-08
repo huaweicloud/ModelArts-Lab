@@ -65,8 +65,9 @@ criteo feature数据
 **预处理脚本支持单文件，多文件。如果为单文件`data\_file\_path`指定为文件路径即可。如果原始数据集包含多个文件，`data\_file\_path`指定到文件的父目录。文件格式可通过`file_pattern`参数匹配。默认读取文件夹下所有的文件。**
 
 ### 2.3 命令参考
+数据预处理默认使用32进程。可修改预处理脚本`num_process`变量。
 
-    python data_process.py \
+    python data_process_multiprocess.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
@@ -83,7 +84,7 @@ criteo feature数据
 
 训练集预处理：
 
-    python data_process.py \
+    python data_process_multiprocess.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/train_data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
 	--output_path=/home/xxx/deepfm/output_data/ \
 	--value_col_num=13 \
@@ -98,7 +99,7 @@ criteo feature数据
 
 测试集预处理：
 
-    python data_process.py \
+    python data_process_multiprocess.py \
 	--data_file_path=/home/xxx/deepfm/data/raw/test_data.txt \  （或者文件夹/home/xxx/deepfm/data/raw/）
     --stats_output_path=/home/xxx/deepfm/output_data/stats_dict \ (处理完训练集后，在output_path路径下生成的stats_dict文件夹路径)
 	--output_path=/home/xxx/deepfm/output_data/ \
@@ -116,10 +117,9 @@ criteo feature数据
 
 ```shell
 output_path
-  |- preprocessed_data（预处理后的txt格式数据）
-    |- train_part_0.txt
-    |- train_part_1.txt
-    |- test_part_0.txt
+  |- preprocessed_data（预处理后的txt格式数据，可删除，训练使用tfrecord数据）
+    |- train_part_xxx.txt
+    |- test_part_xxx.txt
     |- ...
   |- stats_dict (特征字典，用于在线推理服务)
     |- cat_count_dict.pkl
@@ -127,11 +127,12 @@ output_path
     |- val_max_dict.pkl
     |- multi_cat_count_dict.pkl
   |- tfrecord (预处理后的tfrecord格式数据，训练使用tfrecord格式）
-    |- train_part_0.tfrecord
-    |- train_part_1.tfrecord
-    |- test_part_0.tfrecord
+    |- train_part_xxx.tfrecord
+    |- test_part_xxx.tfrecord
     |- ...
-  |- fixed.txt（将多值特征中不定长特征转为定长特征的中间产物，可忽略）
+  |- fixed（将多值特征中不定长特征转为定长特征的中间产物，自动会删除）
+    |- fixed_xxx.txt
+    |- ...
   |- param.toml(用于训练和在线推理的数据和模型参数)
 ```
 
