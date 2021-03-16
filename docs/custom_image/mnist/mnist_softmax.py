@@ -26,16 +26,19 @@ import argparse
 import sys
 
 from tensorflow.examples.tutorials.mnist import input_data
-
+import moxing as mox
 import tensorflow as tf
+
 
 FLAGS = None
 
 
 def main(_):
   # Import data
-  mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
-
+  local_dataset_path='/cache/datasets/'
+  mox.file.copy_parallel(FLAGS.data_url, local_dataset_path)
+  mnist = input_data.read_data_sets(local_dataset_path, one_hot=True)
+  
   # Create the model
   x = tf.placeholder(tf.float32, [None, 784])
   W = tf.Variable(tf.zeros([784, 10]))
@@ -73,7 +76,7 @@ def main(_):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument('--data_dir', '--data_url', type=str, default='/tmp/tensorflow/mnist/input_data',
+  parser.add_argument('--data_url', type=str, default='/tmp/tensorflow/mnist/input_data',
                       help='Directory for storing input data')
   FLAGS, unparsed = parser.parse_known_args()
   tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
