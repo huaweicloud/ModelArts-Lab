@@ -1,4 +1,4 @@
-# 零代码完成自动驾驶AI模型开发
+# 零代码实现自动驾驶场景人车检测模型开发
 
 在自动驾驶技术实现的过程中，物体检测是其中一个重要环节。本案例基于ModelArts自动学习功能，让开发者体验AI模型的开发过程，完成数据标注、模型训练和部署，开发一个物体检测AI应用。
 
@@ -12,7 +12,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 ### 下载训练数据集
 
-华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。
+华为云AI Gallery中有开发者分享了丰富的数据集，大家可以前往订阅使用。本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。我们从华为云AI Gallery订阅数据集至ModelArts，然后就可以在ModelArts中使用了。
 
 请点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=39df6b73-c36c-458f-9b50-4b8b559b1d03)，进入该数据集主页，点击![car](./img/下载按钮.png),进入下载详情，按照如下提示填写下载详情：
 
@@ -26,7 +26,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 名称：自定义。
 
-填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功，即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
+填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功（约2分钟），即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
 
 ### 下载测试数据集
 
@@ -46,7 +46,7 @@ ModelArts自动学习具有零代码、零AI背景、泛化能力强的特点，
 
 数据来源：新建数据集
 
-数据集输入位置：选择刚刚从AI市场订阅的人车检测数据集。
+数据集输入位置：选择刚刚从AI Gallery订阅的人车检测数据集。
 
 最后点击“创建项目”按钮完成物体检测项目创建。
 

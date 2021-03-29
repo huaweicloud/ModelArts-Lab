@@ -1,8 +1,8 @@
 # 使用FasterRCNN预置算法基于海量数据训练人车检测模型
 
-在自动驾驶方案实现的过程中，物体检测是其中一个重要的技术。本案例基于ModelArts AI市场中官方发布的物体检测算法`FasterRCNN`，训练一个人车检测模型，并部署成在线服务，生成一个人车检测AI应用。
+在自动驾驶方案实现的过程中，物体检测是其中一个重要的技术。本案例基于ModelArts AI Gallery中官方发布的物体检测算法`FasterRCNN`，训练一个人车检测模型，并部署成在线服务，生成一个人车检测AI应用。
 
-ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发训练代码和推理代码，只要准备并标注好数据，就可以轻松快速训练并部署模型。
+ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开发训练代码和推理代码，只要准备并标注好数据，就可以轻松快速训练并部署模型。
 
 ## 准备工作
 
@@ -14,7 +14,7 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 本案例采用自动驾驶场景的数据集，数据集中有两种物体，人和车。
 
-本案例的数据集已经发布在AI市场，我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=3e587ec7-71bc-4949-8dcf-4c9b08673963)进入下载详情页，下载详情页示例如下：
+本案例的数据集已经发布在AI Gallery，我们从华为云AI Gallery订阅数据集至ModelArts，然后就可以在ModelArts中使用了。点击[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=3e587ec7-71bc-4949-8dcf-4c9b08673963)进入下载详情页，下载详情页示例如下：
 
 ![car](./img/数据下载.png)
 
@@ -44,9 +44,9 @@ ModelArts的AI市场有丰富的算法，使用这些算法，无需自己开发
 
 ## 订阅算法
 
-本实验中，我们从AI市场订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
+本实验中，我们从AI Gallery订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
 
-点击进入AI市场[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，选择华北-北京四区域，进入算法管理页面。
+点击进入AI Gallery[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，选择华北-北京四区域，进入算法管理页面。
 
 点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
 

@@ -22,7 +22,7 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 ### 下载训练数据集
 
-我们从华为云AI市场订阅数据集至ModelArts，然后就可以在ModelArts中使用了。华为云AI市场中有开发者分享了丰富的数据集，大家可以前往订阅使用。
+我们从华为云AI Gallery订阅数据集至ModelArts，然后就可以在ModelArts中使用了。华为云AI Gallery中有开发者分享了丰富的数据集，大家可以前往订阅使用。
 
 点击[此处](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=61286af8-4477-4dd3-bc43-d6f9b09c68b1)，进入该数据集主页，点击![food](./img/下载按钮.png)，进入下载详情，按照如下提示填写下载详情：
 
@@ -52,7 +52,7 @@ ModelArts是一站式的AI开发平台。ModelArts自动学习具有零代码、
 
 数据来源：已有数据集
 
-数据集名称：选择刚刚从AI市场订阅的美食分类数据集。
+数据集名称：选择刚刚从AI Gallery订阅的美食分类数据集。
 
 最后点击“创建项目”按钮完成图像分类项目创建。
 
