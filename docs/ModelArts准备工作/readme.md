@@ -3,49 +3,39 @@
 
 ## 1. 注册华为云账号
 
-### 1.1 注册账号
+参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html)，注册华为云账号。
 
-参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html)，注册华为云账号。
+## 2.  完成ModelArts全局配置
 
-### 1.2 实名认证
+参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0007.html)，完成ModelArts全局配置。
 
-参考[此链接](https://support.huaweicloud.com/usermanual-account/zh-cn_topic_0133456714.html)，完成实名认证，推荐使用扫码认证。
+## 3. OBS相关操作
 
-### 1.3 生成访问密钥并完成ModelArts全局配置
+### 3.1 创建OBS桶
 
-参考[此文档](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0008.html)，生成访问密钥，并完成ModelArts全局配置。
-
-**注意：访问密钥文件请妥善保存，使用OBS客户端会用到。**
-
-## 2. OBS操作
-
-### 2.1 创建OBS桶
-
-**OBS**，即**Object Storage Service**，对象存储服务，是华为云提供云上数据储存的服务。在使用ModelArts之前您需要创建一个OBS桶。 
+**OBS**，即**Object Storage Service**，对象存储服务，是华为云提供云上数据储存的服务，在使用ModelArts之前您需要创建一个OBS桶。 
 
 登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 单击页面右上角"**创建桶**"按钮。
 
-系统弹出如下图所示的对话框，选择"区域"为"华北-北京四"，输入自定义的桶名称（该桶名需全局唯一），其他选项保持默认即可，最后点击页面下方"立即创建"按钮。 
+系统弹出如下图所示的对话框，选择"区域"为"华北-北京四"，输入自定义的桶名称（该桶名需全局唯一），数据冗余存储策略改为“单AZ存储”，  其他选项保持默认即可，最后点击页面下方"立即创建"按钮。 
 
 ![create_obs](./img/create_obs.PNG)
 
-### 2.2 OBS客户端安装
+### 3.2 OBS客户端安装
 
-对象存储服务中提供了两种工具用于访问管理OBS，供用户使用。OBS Browser+是一款用于访问和管理对象存储服务的图形化工具，obsutil是一款用于访问管理OBS的命令行工具。
+对象存储服务中提供了两种工具用于访问管理OBS，供用户使用。OBS Browser+是一款用于访问和管理对象存储服务的图形化工具，obsutil是一款用于访问管理OBS的命令行工具，**如果是首次使用OBS客户端，建议先使用OBS Browser+，可以更快上手。**
 
 ![create_obs](./img/select_tools.png)
 
-当数据集比较大时，使用OBS Browser+上传和删除数据会比较耗时，使用obsutil工具可以实现快速上传和删除文件等操作。
 
-#### 2.2.1 使用OBS Browser+
+
+#### 3.2.1 使用OBS Browser+
 
 #### （1）安装并登录OBS Browser+
 
-点击[此链接](https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，根据操作系统版本下载相应版本的OBS Browser+，并点击`.exe`文件进行安装。
+点击[此链接](https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，根据操作系统版本下载相应版本的OBS Browser+，解压后，点击`exe`文件进行安装。
 
-参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用访问密钥登录OBS Browser+。
-
-**注意：AK和SK从1.3节下载的csv格式的访问秘钥文件中获取。**
+参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用**AK方式**登录OBS Browser+。
 
 #### （2）新建OBS文件夹的方法
 
@@ -55,11 +45,13 @@
 
 #### （3）上传数据至OBS的方法
 
-使用OBS客户端可以上传文件或者文件夹至OBS。打开OBS Browser+，点击进入一个OBS桶，然后点击“上传”按钮，上传本地文件夹或者文件至OBS桶。
+使用OBS客户端可以上传文件或者文件夹至OBS。打开OBS Browser+，点击进入一个OBS桶，然后点击“上传”按钮，即可上传本地文件夹或者文件至OBS桶。
 
 ![OBS](./img/上传文件夹.png)
 
-### 2.2.2 使用obsutil（可跳过）
+
+
+### 3.2.2 使用obsutil（可选步骤）
 
 #### （1）安装并配置obsutil
 
@@ -97,4 +89,3 @@ obsutil cp local_file_url/dataset_file obs://bucket_name/folder -f
 obsutil cp local_folder_url/dataset obs://bucket_name/folder -r -f
 ```
 
-### 
