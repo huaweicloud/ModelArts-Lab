@@ -21,6 +21,7 @@ ModelArts针对多种AI引擎提供了多个样例，供新手用户学习使用
 **表 1**  样例数据集详细路径
 
 <a name="table889335391016"></a>
+
 <table><thead align="left"><tr id="row979918587101"><th class="cellrowborder" valign="top" width="11.31886811318868%" id="mcps1.2.6.1.1"><p id="p2080011589108"><a name="p2080011589108"></a><a name="p2080011589108"></a>样例名称</p>
 </th>
 <th class="cellrowborder" valign="top" width="11.218878112188781%" id="mcps1.2.6.1.2"><p id="p3800155861017"><a name="p3800155861017"></a><a name="p3800155861017"></a>数据集样式</p>
@@ -59,34 +60,6 @@ ModelArts针对多种AI引擎提供了多个样例，供新手用户学习使用
 <tr id="row678410814474"><td class="cellrowborder" valign="top" headers="mcps1.2.6.1.1 "><p id="p1956625284715"><a name="p1956625284715"></a><a name="p1956625284715"></a>华北-北京四</p>
 </td>
 <td class="cellrowborder" valign="top" headers="mcps1.2.6.1.2 "><p id="p5566155254719"><a name="p5566155254719"></a><a name="p5566155254719"></a>s3://modelarts-cnnorth4-market-dataset/dataset-market/Yunbao-Data-Custom/unarchiver</p>
-</td>
-</tr>
-<tr id="row18524164318478"><td class="cellrowborder" rowspan="4" valign="top" width="11.31886811318868%" headers="mcps1.2.6.1.1 "><p id="p411691588"><a name="p411691588"></a><a name="p411691588"></a>花卉识别</p>
-</td>
-<td class="cellrowborder" rowspan="2" valign="top" width="11.218878112188781%" headers="mcps1.2.6.1.2 "><p id="p164361959115713"><a name="p164361959115713"></a><a name="p164361959115713"></a>压缩包</p>
-</td>
-<td class="cellrowborder" valign="top" width="9.749025097490252%" headers="mcps1.2.6.1.3 "><p id="p155661452154720"><a name="p155661452154720"></a><a name="p155661452154720"></a>华北-北京一</p>
-</td>
-<td class="cellrowborder" valign="top" width="52.5947405259474%" headers="mcps1.2.6.1.4 "><p id="p1566165211476"><a name="p1566165211476"></a><a name="p1566165211476"></a>https://modelarts-cnnorth1-market-dataset.obs.cn-north-1.myhuaweicloud.com/dataset-market/Flowers-Data-Set/archiver/Flowers-Data-Set.zip</p>
-</td>
-<td class="cellrowborder" rowspan="4" valign="top" width="15.11848815118488%" headers="mcps1.2.6.1.5 "><p id="p738912182175"><a name="p738912182175"></a><a name="p738912182175"></a><a href="花卉识别（使用TensorFlow预置算法实现图像分类）.md">花卉识别（使用TensorFlow预置算法实现图像分类）</a></p>
-</td>
-</tr>
-<tr id="row15525104384711"><td class="cellrowborder" valign="top" headers="mcps1.2.6.1.1 "><p id="p165661152114712"><a name="p165661152114712"></a><a name="p165661152114712"></a>华北-北京四</p>
-</td>
-<td class="cellrowborder" valign="top" headers="mcps1.2.6.1.2 "><p id="p6566952154715"><a name="p6566952154715"></a><a name="p6566952154715"></a>https://modelarts-cnnorth4-market-dataset.obs.cn-north-4.myhuaweicloud.com/dataset-market/Flowers-Data-Set/archiver/Flowers-Data-Set.zip</p>
-</td>
-</tr>
-<tr id="row75251438471"><td class="cellrowborder" rowspan="2" valign="top" headers="mcps1.2.6.1.1 "><p id="p6436185913573"><a name="p6436185913573"></a><a name="p6436185913573"></a>解压版</p>
-</td>
-<td class="cellrowborder" valign="top" headers="mcps1.2.6.1.2 "><p id="p5566195294716"><a name="p5566195294716"></a><a name="p5566195294716"></a>华北-北京一</p>
-</td>
-<td class="cellrowborder" valign="top" headers="mcps1.2.6.1.3 "><p id="p155661152134712"><a name="p155661152134712"></a><a name="p155661152134712"></a>s3://modelarts-cnnorth1-market-dataset/dataset-market/Flowers-Data-Set/unarchiver</p>
-</td>
-</tr>
-<tr id="row195251143144715"><td class="cellrowborder" valign="top" headers="mcps1.2.6.1.1 "><p id="p17566135214472"><a name="p17566135214472"></a><a name="p17566135214472"></a>华北-北京四</p>
-</td>
-<td class="cellrowborder" valign="top" headers="mcps1.2.6.1.2 "><p id="p1456675214479"><a name="p1456675214479"></a><a name="p1456675214479"></a>s3://modelarts-cnnorth4-market-dataset/dataset-market/Flowers-Data-Set/unarchiver</p>
 </td>
 </tr>
 <tr id="row198255320107"><td class="cellrowborder" rowspan="4" valign="top" width="11.31886811318868%" headers="mcps1.2.6.1.1 "><p id="p99821653111013"><a name="p99821653111013"></a><a name="p99821653111013"></a>冰山识别</p>
