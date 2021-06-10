@@ -12,6 +12,8 @@ from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.classification import *
 from pyspark.ml.feature import *
 
+import moxing.framework.cloud_utils as cloud_utils
+
 # define local temporary file names and paths
 TRAIN_DATASET = 'iris.csv'
 MODEL_NAME = 'spark_model'
@@ -23,17 +25,18 @@ LOCAL_METRIC_PATH = '/tmp/metric.json'
 LOCAL_DATA = '/tmp/iris.csv'
 
 # get the OBS configuration from system environment variables
+sec_info = cloud_utils.get_auth()
 AK = os.getenv('MINER_USER_ACCESS_KEY')
 if AK is None:
-    AK = ''
+    AK = sec_info.AK
 
 SK = os.getenv('MINER_USER_SECRET_ACCESS_KEY')
 if SK is None:
-    SK = ''
+    SK = sec_info.SK
 
 obs_endpoint = os.getenv('MINER_OBS_URL')
 if obs_endpoint is None:
-    obs_endpoint = ''
+    obs_endpoint = os.getenv('S3_ENDPOINT')
 print("obs_endpoint: " + str(obs_endpoint))
 
 obs_path = os.getenv('TRAIN_URL')
