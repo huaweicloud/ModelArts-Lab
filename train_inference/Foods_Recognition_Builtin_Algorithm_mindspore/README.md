@@ -1,10 +1,10 @@
 
 
-# 使用ResNet50预置算法基于海量数据训练美食分类模型
+# 使用ResNet50预置算法训练美食分类模型
 
 ## 案例内容介绍
 
-本案例将介绍怎样使用ModelArts数据标注能力和AI Gallery中ModelArts官方发布的`ResNet50`算法，基于海量美食数据训练一个美食分类模型。
+本案例将介绍怎样使用ModelArts数据标注能力和AI Gallery中ModelArts官方发布的`ResNet50（MindSpore版）`算法，训练一个美食分类模型。
 
 ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开发训练代码和推理代码，只要准备并标注好数据，就可以轻松快速训练并部署模型。
 
@@ -17,110 +17,45 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ### 准备工作
 
-参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/ModelArts准备工作)，完成ModelArts准备工作。只需要完成注册华为云账号、生成访问密钥并完成ModelArts全局配置、创建OBS桶、使用OBS Browser+这四个步骤即可。
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作，包括注册华为云账号、ModelArts全局配置和OBS操作。
 
 ### 准备数据
 
 #### 下载数据
 
-下载训练数据集：
-我们从华为云AI Gallery订阅数据集至ModelArts，然后就可以在ModelArts中使用了。华为云AI Gallery中有开发者分享了丰富的数据集，大家可以前往订阅使用。
-1、	单击[dataset_food_1630数据集](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=dd14bee3-bed4-4207-8ef3-8eb5540dc1e5)，打开AI Gallery的数据集详情页面。
+本案例的数据集已经发布在AI Gallery，我们从华为云AI Gallery订阅数据集至ModelArts，然后就可以在ModelArts中使用了。
+
+点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/datasetDetail/metadata?content_id=c2b35c4a-20d2-4a3f-a4eb-60f4767b3ecd)进入数据集详情页，点击“下载”按钮，进入下载详情页，如下所示：
 
 ![image](./img/数据集下载页面.png)
 
-2、单击右下角“下载”。
-3、在弹出的对话框中，填写如下参数，将此数据集下载至数据管理中。
-* “下载方式”：ModelArts数据集
-* “目标区域”：华北-北京四
-* “目标位置”：请选择前期准备工作中创建的OBS桶，可以在弹窗中通过“创建文件夹”，创建命名为food-1630(可自定义)的文件夹用于存储数据。
-* “名称”：自定义ModelArts中呈现的数据集名称。您可以自行定义。
-	下载数据集:
-![image](./img/数据集下载.png)
+其中，目标位置要选择上面 **“准备工作”** 步骤中您自己创建的OBS桶（本文使用的桶名为food--recognition，下文中涉及桶名的地方都需要替换为您自己创建的桶名），点击进入该桶，新建文件夹“food_recognition”，选择该文件夹为目标位置。
 
-该数据集共包含23类美食，及其部分标注数据。23类美食的种类如下所示：
+
+## 数据观察
+
+点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，进入ModelArts数据集列表，在这里可看到刚才下载的数据集。  
+
+![数据集信息.PNG](./img/数据集信息.PNG)
+
+点击数据集名称，进入数据集概览页面，再点击右上角的“开始标注”，然后可以看到如下图所示的数据标注页面：
+
+![数据集信息查看.png](./img/数据集信息查看.png)
+
+可以看到，该数据集共包含4类美食，全部都已经进行了标注，类别名如下所示：
 
 ```
-美食/八宝玫瑰镜糕,
 美食/凉皮,
-美食/凉鱼,
-美食/德懋恭水晶饼,
-美食/搅团,
-美食/枸杞炖银耳,
 美食/柿子饼,
-美食/浆水面,
 美食/灌汤包,
-美食/烧肘子,
-美食/石子饼,
-美食/神仙粉,
-美食/粉汤羊血,
-美食/羊肉泡馍,
-美食/肉夹馍,
-美食/荞面饸饹,
-美食/菠菜面,
-美食/蜂蜜凉粽子,
-美食/蜜饯张口酥饺,
-美食/西安油茶,
-美食/贵妃鸡翅,
-美食/醪糟,
-美食/金线油塔
+美食/肉夹馍。
 ```
-
-4、单击“确定”开始下载。页面自动进入下载列表，您可以通过进度列查看详细下载进度。
-此页面需要自己手动刷新页面查看最新下载进度，下载预计要花费12分钟左右。
-
-5、前往ModelArts管理控制台，在左侧菜单栏中选择“数据管理>数据集”，在数据集列表中查看数据集状态。从AI Gallery下载数据集后，会自动在ModelArts数据管理页面创建命名为“dataset_food_1630”(你自己的命名)的数据集。您可以进入数据集列表，查看到下载任务创建的数据集，单击名称左侧的小三角，展开数据集详情，可查看数据集的导入状态。当状态变为“无任务”时，表示数据集已准备就绪。
-查看导入状态:
-
-![image](./img/下载完成.png)
-
-### 数据标注
-
-#### 标注数据
-
-##### 步骤一，进入数据集标注页面
-
-点击数据集名称，进入刚刚创建的数据集的总览页面。
-
-##### 步骤二，同步数据集
-
-点击“开始标注”按钮，进入数据集标注页面。
-
-点击“全部”页面的“同步数据源”按钮，“同步数据源”按钮的位置如下图所示：
-
-数据同步完成后，未标注图片数将显示为40，已标注图片数显示为1590，等待同步过程中，可以主动刷新页面查看是否同步完成，也可以等待页面右上角弹出“数据同步完成”的提示。
-
-![sync_data](./img/sync_data.png)
-
-##### 步骤三，手工标注图片
-
-本数据集中的绝大部分图片已经标注完成，为了让大家体验数据标注的过程，留了一小部分图片没有标注。点击进入“未标注”页面，该页面展示了所有未标注的图片。
-
-点击图片的左上角的选择框，选中图片，可以批量选择图片，然后输入标签名，可以从下拉列表中选择已有标签，然后点击“确认”按钮。如下图所示：
-
-![food](./img/select_image.png)
-
-按照此方法标注完所有数据。
-
-#### 发布数据集
-
-点击“返回数据集预览”按钮，进入数据集主页：
-
-![food](./img/返回数据集主页.jpg)
-
-点击“发布”按钮，训练集比例填写0.8，发布数据集：
-
-![food](./img/发布数据集.png)
-
-点击“返回数据集列表“按钮，等待数据集发布成功：
-
-![food](./img/返回数据集列表.png)
 
 ### 订阅算法
 
 本实验中，我们从AI Gallery订阅ModelArts官方发布的图像分类算法`ResNet50`来训练模型。
 
-点击进入AI Gallery [ResNet50算法主页](https://marketplace.huaweicloud.com/markets/aihub/modelhub/detail/?id=6b454013-dab9-4028-8c7a-47375067202c)，点击页面右上方的![food](./img/订阅.png)按钮，然后再点击![food](./img/继续订阅.png)，点击![food](./img/前往控制台.png)，云服务区域，选择“华为-北京四”，确定，进入算法管理页面。
+点击进入AI Gallery [ResNet50算法(MindSpore)主页](https://marketplace.huaweicloud.com/markets/aihub/modelhub/detail/?id=6b454013-dab9-4028-8c7a-47375067202c)，点击页面右上方的![food](./img/订阅.png)按钮，然后再点击![food](./img/继续订阅.png)，点击![food](./img/前往控制台.png)，云服务区域，选择“华为-北京四”，确定，进入算法管理页面。
 
 ![food](./img/选择区域.png)
 
@@ -134,13 +69,17 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ### 创建训练作业
 
-在算法管理中，点击“创建训练作业”按钮，进入训练作业的创建页面。
+接下来回到[ModelArts训练管理页面](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，在【训练管理】选择训练作业，点击【创建】，如下图所示：
 
 ![food](./img/创建训练作业.png)
 
-按照如下提示，填写创建训练作业的参数。
+ 在创建训练作业页面中选择算法：
 
-![food](./img/3.png)
+![food](./img/选择算法.png)
+
+选择算法，（算法列表是按订阅时间显示的，找到名称为`图像分类-ResNet50(MindSpore)`的算法，选中它）
+
+![算法管理](./img/算法管理.png)
 
 计费模式：按需计费
 
@@ -148,15 +87,15 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 算法来源：算法管理
 
-算法名称：`图像分类-ResNet50`
+算法名称：`图像分类-ResNet50(MindSpore)`
 
 数据来源：数据集
 
 选择数据集和版本：选择刚刚发布的美食数据集及其版本
 
-训练输出：选择OBS路径（可自行创建一个文件夹来保存训练生成的模型）。
+训练输出：选择 OBS路径`/food-recognition/datasets-food/output/`（注意，桶名“food-recognition”需更换为您自己的桶名，output目录可以通过新建文件夹创建）。训练输出位置用来保存训练生成的模型。
 
-![food](./img/新建文件夹.png)
+![food](./img/训练输入.png)
 
 调优参数：用于设置算法中的超参。算法会加载默认参数，但是可以更改和添加参数。调优参数保持默认。
 
@@ -166,11 +105,11 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 资源池：公共资源池。
 
-规格：modelarts.kat1.xlarge。
+规格：Ascend: 1 * Ascend-910(32GB) | ARM: 24 核 96GB。
 
 计算节点个数：选择1，表示我们运行一个单机训练任务。
 
-所有字段填写好之后，确认参数无误，点击“下一步”按钮，然后点击“提交”按钮，开始训练。训练时长预计25分钟左右。
+所有字段填写好之后，确认参数无误，点击“下一步”按钮，然后点击“提交”按钮，开始训练。
 
 ### 查看训练结果
 
@@ -178,13 +117,13 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 在训练作业页面，点击作业名称，进入配置信息页面。可以查看到训练作业的详情。
 
-![food](./img/训练作业参数.png)
+![food](./img/配置信息.png)
 
 切换到“日志”页签，查看训练作业的训练日志，还可以下载日志到本地查看。
 
 训练日志中会打印一些训练的精度和训练速度等信息。
 
-训练生成的模型会放到训练输出位置OBS路径下，可以直接下载到本地使用。、
+训练生成的模型会放到训练输出位置OBS路径下，可以直接下载到本地使用。
 
 ### 模型转换
 
@@ -249,7 +188,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 部署类型：默认
 
-输入输出模式：预制图像处理模式
+输入输出模式：预置图像处理模式
 
 其他参数保持默认。
 
@@ -302,7 +241,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 在线服务的本质是RESTful API，可以通过HTTP请求访问，在本案例中，我们直接在网页上访问在线服务。
 
-点击[此链接](https://hhj-ml-notebook.obs.cn-north-4.myhuaweicloud.com:443/mindspore-resnet50-test/test.zip?AccessKeyId=AHS7ZNRG8RW2HS7G9FTD&Expires=1647221633&Signature=fxSCyDIBwUyGWQLMuYTeD0aWq/E%3D),下载测试图片到本地，解压。
+点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com/end2end/foods_recongition/foods_recongition_test.zip),下载测试图片到本地，解压。
 
 等待在线服务的状态变成运行中。点击”预测“按钮，等待切换到”预测“页签。
 
@@ -312,15 +251,13 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ![food](./img/上传测试图片.png)
 
-预测结果会出现在右边的输出框：
+预测结果会出现在右边的输出框
 
-![food](./img/预测结果.png)
+预测结果中的predicted_label字段,表示了预测置信度最高的结果。
 
 预测结果中的scores字段，包含了图片为每种类别的置信度。
 
-也可以从网上下载23种美食范围内的图片来测试，评估模型的准确度。
 
-作为在线RESTful API，还可以通过HTTP请求访问，在调用指南页签中有该API的详细信息和调用指南文档。
 
 ### 关闭在线服务
 
@@ -339,5 +276,4 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 
 至此，本案例完成。
-
 

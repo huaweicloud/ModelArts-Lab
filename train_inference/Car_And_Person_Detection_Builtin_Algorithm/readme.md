@@ -6,7 +6,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ## 准备工作
 
-参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作。包括注册华为云账号、ModelArts全局配置和OBS相关操作。
+参考[此文档](https://github.com/huaweicloud/ModelArts-Lab/blob/master/docs/ModelArts准备工作/准备工作简易版.md)，完成ModelArts准备工作,包括注册华为云账号、ModelArts全局配置和OBS相关操作。
 
 ## 准备数据
 
@@ -46,7 +46,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 本实验中，我们从AI Gallery订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
 
-点击进入AI Gallery[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/下一步.png)按钮，再点击![food](./img/确认付款.png)按钮，最后点击![food](./img/确定.png)按钮进入我的订阅页面，可以看到刚刚订阅的算法。点击![food](./img/应用控制台.png)超链接，选择华北-北京四区域，进入算法管理页面。
+点击进入AI Gallery[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/继续订阅.png)按钮，再点击<img src="./img/前往控制台.png" alt="food" style="zoom:75%;" />按钮，选择华北-北京四区域，最后点击![food](./img/确定.png)按钮进入算法管理页面，可以看到刚刚订阅的算法。
 
 点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
 
@@ -58,9 +58,17 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ### 创建训练作业
 
-在算法管理中，点击“创建训练作业”按钮，进入训练作业的创建页面。
+回到[ModelArts训练管理页面](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，在【训练管理】选择训练作业，点击【创建】，如下图所示：
 
 ![create_obs](./img/创建训练作业.png)
+
+在创建训练作业页面中选择算法：
+
+![选择算法](./img/选择算法.PNG)
+
+选择算法，(算法列表是按订阅时间显示的,找到名称为`物体检测-FasterRCNN_ResNet50`的算法,选中它)
+
+![算法管理](./img/算法管理.PNG)
 
 按照如下提示，填写创建训练作业的参数。
 
@@ -80,19 +88,19 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ![train](./img/训练作业参数2.png)
 
-训练输出：选择OBS路径`/modelarts-course/car_and_person_detection/output/`（此OBS路径如果不存在，可以使用OBS客户端创建）。训练输出位置用来保存训练生成的模型。
+训练输出：选择OBS路径`/lftiny/car_and_person_detection/output/`（此OBS路径如果不存在，可以使用OBS客户端创建）。训练输出位置用来保存训练生成的模型。
 
 调优参数：用于设置算法中的超参。算法会加载默认参数，但是可以更改和添加参数。设置`learning_rate_strategy=20:0.001`，表示训练20轮，学习率固定为0.001。其他调优参数保持默认。
 
 ![train](./img/训练作业参数3.png)
 
-作业日志路径：选择OBS路径`/modelarts-course/car_and_person_detection/log/`（此OBS路径如果不存在，可以使用OBS客户端创建）。
+作业日志路径：选择OBS路径`/lftiny/car_and_person_detection/log/`（此OBS路径如果不存在，可以使用OBS客户端创建）。
 
 ![train](./img/训练作业参数4.png)
 
 资源池：公共资源池。
 
-规格：V100 GPU，如图所示。
+规格：` [限时免费]GPU: 1*NVIDIA-V100-pcie-32gb(32GB) | CPU: 8 核 64GB`，如图所示。
 
 计算节点个数：选择1，表示我们运行一个单机训练任务。
 
@@ -168,7 +176,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 模型：选择刚刚导入美食人车检测的模型和版本，会自动加载。
 
-计算节点规格：选择`CPU：2 核 8 GiB`，CPU实例。
+计算节点规格：选择[限时免费]`CPU：1 核 4 GiB`。
 
 计算节点个数：1。如果想要更高的并发数，可以增加计算节点个数，会以多实例的方式部署。
 
@@ -180,17 +188,19 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 等待在线服务的状态变成运行中。
 
-切换到“预测”页签。点击上传按钮，上传本地的`car_and_person_500_test`目录中的图片，然后点击“预测”按钮，进行测试：
-
-![food](./img/上传测试图片.jpg)
+先点[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/car_and_person_detection/car_and_person_test.zip)下载测试集，解压，再切换到预测标签，点击上传按钮，进行测试
 
 预测结果会出现在右边的输出框：
 
-![food](./img/预测结果.jpg)
+![food](./img/预测结果.png)
 
-右边是API接口返回的详细信息，物体检测任务会将预测结果绘制在左边的图片上，检测框会框住目标，并且显示类别和置信度。
 
-作为在线RESTful API，还可以通过HTTP请求访问，在调用指南页签中有该API的详细信息和调用指南文档。
+
+预测结果中的detection_classes字段，表示识别的分类（人与车）
+
+预测结果中的detection_boxes字段，表示识别框的四个角坐标
+
+预测结果中的detection_scores字段，表示图片为每种类别的置信度
 
 ## 关闭在线服务
 
