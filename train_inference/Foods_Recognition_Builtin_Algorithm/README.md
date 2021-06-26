@@ -56,7 +56,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 接下来回到[ModelArts训练管理页面](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/trainingJobs)，在【训练管理】选择训练作业，点击【创建】，如下图所示：
 
-![创建训练作业](./img/创建训练作业.PNG)
+![创建训练作业](./img/创建训练作业.png)
 
   在创建训练作业页面中选择算法：
 
