@@ -35,33 +35,13 @@
 
 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0007.html) ，完成授权配置（推荐使用委托授权）。
 
-#### 获取访问秘钥  
 
- 访问密钥（AK和SK）用于对请求加密签名，确保请求的机密性、完整性和请求双方身份的正确性。 
-
-参考[此链接](https://support.huaweicloud.com/tg-modelarts/modelarts_15_0004.html)，创建访问密钥（AK和SK）。
-
-#### 下载并登录OBS客户端
-
-点击[此链接]( https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，选择自己电脑对应的“OBS Browser + ”版本下载OBS客户端，  如下图：
-
-![imgs](./imgs/obs_browser.png)
-
-解压后安装启动， 并打开前面步骤获取的AK和SK访问秘钥文件“credentials.csv”，找到User Name、Access Key Id和Secret Access Key，分别填写到下图登录界面的红框处。
-
-秘钥文件：
-
-<img src="./imgs/aksk.png" alt="aksk" style="zoom:150%;" />：
-
-
-
-登录界面：
-
-![obs_login](./imgs/obs_login.jpg)
 
 #### 创建OBS桶和文件夹
 
-在OBS客户端，桶列表界面，点击“创建桶”按钮。系统会弹出如下图所示的对话框，
+![](./imgs/obs_creat.png)
+
+在对象存储服务OBS列表界面，点击“创建桶”按钮。系统会弹出如下图所示的对话框，
 
 **区域选择“华北-北京四”，**
 
@@ -89,7 +69,7 @@
 
 下载完成后，如下图所示：
 
-![transfer](./imgs/transfer_2.png)
+![transfer](./imgs/transfer_3.png)
 
 
 
