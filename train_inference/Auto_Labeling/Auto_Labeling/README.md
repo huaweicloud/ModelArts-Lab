@@ -15,13 +15,13 @@
 
 ### ModelArts准备工作
 
- 在使用ModelArts之前，您需要做如下工作：注册华为云账号、完成ModelArts全局配置、以及熟悉OBS相关操作。 
+ 在使用ModelArts之前，您需要做如下工作：注册华为云账号、实名认证、配置访问授权以及创建OBS桶和文件夹。 
 
 #### 注册华为云账号
 
 在使用华为云服务之前您需要注册华为云帐号。通过此帐号，只需为使用的服务付费，即可使用所有华为云服务。 
 
- 参考[此链接](https://support.huaweicloud.com/usermanual-account/zh-cn_topic_0069252244.html )，注册账号。
+ 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0001.html )，注册账号。
 
 #### 实名认证
 
@@ -35,27 +35,23 @@
 
 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0007.html) ，完成授权配置（推荐使用委托授权）。
 
-
-
 #### 创建OBS桶和文件夹
 
-![](./imgs/obs_creat.png)
+**OBS**，即**Object Storage Service**，对象存储服务，是华为云提供云上数据储存的服务。在使用ModelArts之前您需要创建一个OBS桶。 
 
-在对象存储服务OBS列表界面，点击“创建桶”按钮。系统会弹出如下图所示的对话框，
-
-**区域选择“华北-北京四”，**
-
-**“多AZ”关闭，**
-
-**自定义桶名称确保桶名称在华为云上全局唯一（本实验创建的桶名称为“hdc-hw”，下文中所有需要填写桶名的地方，请替换为您自己创建的桶名），**
-
-**其它参数保持默认值即可 。**
+登录[OBS管理控制台](https://storage.huaweicloud.com/obs/#/obs/manager/buckets)， 点击页面右上角"**创建桶**"按钮，将进入如下图所示页面：
 
 ![create_bucket](./imgs/create_bucket.png)
 
+区域，选择“华北-北京四”，
 
+数据冗余存储策略，选择“单AZ存储”，
 
-找到新创建的桶并进入，点击“新建文件夹”，在弹出对话框中按照命名规则填写“文件夹名称”，如“obs-data”，文件夹名称无需考虑华为云全局唯一，点击“确定”按钮即可完成文件夹创建。  
+桶名称，输入一个自定义的桶名，注意需确保该桶名在华为云上全局唯一（本实验创建的桶名称为“hdc-hw”，下文中所有需要填写桶名的地方，请替换为您自己创建的桶名），
+
+其它参数保持默认值即可 ，点击右下角的“立即创建”，将进入桶列表页面。
+
+在桶列表页面，找到刚创建的桶，点击桶名进入，再参考下图，点击“对象”、“新建文件夹”，在弹出对话框中按照命名规则填写“文件夹名称”，如“obs-data”，文件夹名称无需考虑华为云全局唯一，点击“确定”按钮即可完成文件夹创建。  
 
 ![create_folder](./imgs/create_folder.png)
 
@@ -63,13 +59,13 @@
 
 #### 下载实验数据到OBS  
 
-[点此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=06ef28c4-80ec-49cc-a54b-79d96f54eecf)，在右方点击下载按钮，区域选择·华北-北京四·，目标位置选择之前创建的“hdc-hw”桶，点击进入创建的文件夹。
+点[此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=06ef28c4-80ec-49cc-a54b-79d96f54eecf)进入数据集详情页面，在右方点击“下载”按钮，区域选择“华北-北京四”，参考下图点击文件夹标志，选择之前创建的桶和文件夹作为目标位置，数据集将会被下载到该位置。
 
 ![download_data](./imgs/download_data.png)
 
-下载完成后，如下图所示：
+点击右下角的“确定”按钮，将进入下载进度页面，如下图所示。等待下载进度变成100%后，下图中的“目标位置”会变成一个可点击的链接。
 
-![transfer](./imgs/transfer_3.png)
+![transfer](./imgs/transfer_3.jpg)
 
 
 
