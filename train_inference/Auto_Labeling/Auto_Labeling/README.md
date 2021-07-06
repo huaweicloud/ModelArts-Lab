@@ -35,37 +35,13 @@
 
 参考[此链接](https://support.huaweicloud.com/prepare-modelarts/modelarts_08_0007.html) ，完成授权配置（推荐使用委托授权）。
 
-#### 获取访问秘钥  
 
- 访问密钥（AK和SK）用于对请求加密签名，确保请求的机密性、完整性和请求双方身份的正确性。 
-
-参考[此链接](https://support.huaweicloud.com/tg-modelarts/modelarts_15_0004.html)，创建访问密钥（AK和SK）。
-
-#### 获取实验数据
-
-本案例使用交通标志识别数据集，点击[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com/codelab/2021/ModelArts/traffic-sign-auto-labeling.zip)，下载数据压缩包到本地，然后解压，可以得到traffic-sign-auto-labeling文件夹。
-
-#### 下载并登录OBS客户端
-
-点击[此链接]( https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，选择自己电脑对应的“OBS Browser + ”版本下载OBS客户端，  如下图：
-
-![imgs](./imgs/obs_browser.png)
-
-解压后安装启动， 并打开前面步骤获取的AK和SK访问秘钥文件“credentials.csv”，找到User Name、Access Key Id和Secret Access Key，分别填写到下图登录界面的红框处。
-
-秘钥文件：
-
-<img src="./imgs/aksk.png" alt="aksk" style="zoom:150%;" />：
-
-
-
-登录界面：
-
-![obs_login](./imgs/obs_login.jpg)
 
 #### 创建OBS桶和文件夹
 
-在OBS客户端，桶列表界面，点击“创建桶”按钮。系统会弹出如下图所示的对话框，
+![](./imgs/obs_creat.png)
+
+在对象存储服务OBS列表界面，点击“创建桶”按钮。系统会弹出如下图所示的对话框，
 
 **区域选择“华北-北京四”，**
 
@@ -85,15 +61,15 @@
 
 
 
-#### 上传实验数据到OBS  
+#### 下载实验数据到OBS  
 
-在OBS客户端中，进入到之前创建的“hdc-hw”桶，点击进入创建的文件夹，点击“上传 – > 添加文件夹“。  选择本地解压后的"traffic-sign-auto-labeling"数据集文件夹，进行上传。
+[点此链接](https://marketplace.huaweicloud.com/markets/aihub/datasets/detail/?content_id=06ef28c4-80ec-49cc-a54b-79d96f54eecf)，在右方点击下载按钮，区域选择·华北-北京四·，目标位置选择之前创建的“hdc-hw”桶，点击进入创建的文件夹。
 
-![transfer](./imgs/transfer.png)
+![download_data](./imgs/download_data.png)
 
-上传完成后，如下图所示：
+下载完成后，如下图所示：
 
-![transfer](./imgs/transfer_2.png)
+![transfer](./imgs/transfer_3.png)
 
 
 
