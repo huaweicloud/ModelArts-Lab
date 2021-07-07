@@ -46,7 +46,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 本实验中，我们从AI Gallery订阅ModelArts官方发布的物体检测算法`FasterRCNN`来训练模型。
 
-点击进入AI Gallery[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/继续订阅.png)按钮，再点击<img src="./img/前往控制台.png" alt="food" style="zoom:75%;" />按钮，选择华北-北京四区域，最后点击![food](./img/确定.png)按钮进入算法管理页面，可以看到刚刚订阅的算法。
+点击进入AI Gallery[FasterRCNN算法主页](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/aiMarket/aiMarketModelDetail/overview?modelId=198573e9-b2a9-46ef-aca9-51cc651b6364&type=algo)，点击页面右上方的![food](./img/订阅.png)按钮。然后点击页面下方的![food](./img/继续订阅.PNG)按钮，再点击<img src="./img/前往控制台.PNG" alt="food" style="zoom:75%;" />按钮，选择华北-北京四区域，最后点击![food](./img/确定.png)按钮进入算法管理页面，可以看到刚刚订阅的算法。
 
 点击“同步”按钮，同步算法，可以点击![food](./img/刷新.png)按钮，刷新状态。当状态变成就绪时，表示同步成功。
 
@@ -192,7 +192,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 预测结果会出现在右边的输出框：
 
-![food](./img/预测结果.png)
+![food](./img/预测结果.PNG)
 
 
 
