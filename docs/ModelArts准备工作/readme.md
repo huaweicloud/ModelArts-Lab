@@ -41,7 +41,7 @@
 
 点击[此链接](https://support.huaweicloud.com/browsertg-obs/obs_03_1003.html)，根据操作系统版本下载相应版本的OBS Browser+，解压后，点击`exe`文件进行安装。
 
-参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用**AK方式**登录OBS Browser+。
+参考[此文档](https://support.huaweicloud.com/browsertg-obs/obs_03_1004.html)，使用**AK方式**登录OBS Browser+。下载得到的名为“credentials.csv”的文件就是您的华为云账号的密钥文件，文件中Access Key Id的值即为AK，Secret Access Key的值即为SK，请妥善保管该文件，华为云的很多服务都需要用到AK和SK。
 
 #### （2）新建OBS文件夹的方法
 
@@ -61,19 +61,17 @@
 
 #### （1）安装并配置obsutil
 
-点击[此链接](https://support.huaweicloud.com/utiltg-obs/obs_11_0003.html), 根据操作系统版本下载相应版本的obsutil，解压到指定文件夹后，双击obsutil.exe即可开始使用。
+参考[此文档](https://support.huaweicloud.com/utiltg-obs/obs_11_0005.html)，完成obsutil的安装和配置。
 
-参考[此文档](https://support.huaweicloud.com/utiltg-obs/obs_11_0005.html)， 完成初始化配置。Windows操作系统的配置方法如下：
+注意：如果您的电脑访问外网需网络代理，则需要给obsutil也配置代理才可以访问OBS，请参考[此文档](https://support.huaweicloud.com/utiltg-obs/obs_11_0068.html)进行配置。
+
+#### （2）创建OBS桶的方法
 
 ```
-obsutil config -i=ak -k=sk -e=endpoint
+obsutil mb obs://bucket_name -location=cn-north-4
 ```
 
-**注意**：AK和SK从访问秘钥文件中获取；
-
-​			endpoint = https://obs.cn-north-4.myhuaweicloud.com
-
-#### （2）创建OBS文件夹的方法
+#### （3）创建OBS文件夹的方法
 
 在指定桶内创建文件夹
 
@@ -81,7 +79,7 @@ obsutil config -i=ak -k=sk -e=endpoint
 obsutil mkdir obs://bucket_name/folder 
 ```
 
-#### （3）上传数据到OBS的方法
+#### （4）上传数据到OBS的方法
 
 上传文件
 
