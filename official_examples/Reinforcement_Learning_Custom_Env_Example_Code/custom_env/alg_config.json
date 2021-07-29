@@ -1,0 +1,7 @@
+{
+  "env_url": "snake_env",
+  "config": {
+    "env": "snake_env"
+  }
+}
+

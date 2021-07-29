@@ -1,10 +1,9 @@
-import numpy as np
 from collections import deque
 
 import gym
+import numpy as np
 from gym import spaces, logger
 from gym.utils import seeding
-
 
 
 class SnakeAction(object):
@@ -54,6 +53,8 @@ class SnakeEnv(gym.Env):
         empty_cells = self.get_empty_cells()
         empty_cells = self.snake.init(empty_cells, self.np_random)
         self.foods = [empty_cells[i] for i in self.np_random.choice(len(empty_cells), self.n_foods, replace=False)]
+        import pdb
+        pdb.set_trace()
         return self.get_observation()
 
     def seed(self, seed=None):
@@ -218,8 +219,8 @@ class SnakeEnvMC(SnakeEnv):
         super().__init__(observation_mode='rgb')
 
 
-def create_custom_env(env_config=None):
+snake_env = SnakeEnvMC()
 
-    custom_env = SnakeEnvMC()
-
-    return custom_env
+if __name__ == '__main__':
+    ss = SnakeEnv()
+    ss.reset()
