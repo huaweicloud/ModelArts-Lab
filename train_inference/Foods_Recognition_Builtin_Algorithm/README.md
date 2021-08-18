@@ -21,7 +21,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 其中，目标位置要选择上面 **“准备工作”** 步骤中您自己创建的OBS桶（本文使用的桶名为food--recognition，下文中涉及桶名的地方都需要替换为您自己创建的桶名），点击进入该桶，新建文件夹“food_recognition”，选择该文件夹为目标位置。
 
 
-## 数据观察
+### 切分数据集
 
 点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，进入ModelArts数据集列表，在这里可看到刚才下载的数据集。  
 
@@ -39,6 +39,10 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 美食/灌汤包,
 美食/肉夹馍。
 ```
+
+开始训练之前，我们还需要对数据集进行训练集和验证集的切分。点击左上角的“返回数据集概览”，再点“发布”按钮，如下图所示，打开数据切分开关，训练集比例填写为0.7，点击确定，等待发布成功。
+
+![release_dataset](./img/release_dataset.jpg)
 
 ## 订阅算法
 
