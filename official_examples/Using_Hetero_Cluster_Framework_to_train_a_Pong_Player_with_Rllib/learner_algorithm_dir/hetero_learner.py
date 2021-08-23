@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--num_gpus', type=int, default=1, help='GPU')
 parser.add_argument('--data_url', type=str, default='')
 parser.add_argument('--train_url', type=str)
-parser.add_argument('--iter', type=int, default=50)
+parser.add_argument('--iter', type=int, default=1000)
 FLAGS, unparsed = parser.parse_known_args()
 
 sys.path.append(FLAGS.data_url)
@@ -71,6 +71,12 @@ def ray_server(run='PPO', address=ADDRESS, port=PORT):
 
     checkpoint = trainer.save("{}/ckpts".format(FLAGS.train_url.rstrip('/')))
     print("checkpoint saved at", checkpoint)
+    mox.file.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "config.json"),
+                  os.path.join(FLAGS.train_url, "config.json"))
+    mox.file.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "customize_service.py"),
+                  os.path.join(FLAGS.train_url, "customize_service.py"))
+    mox.file.copy(os.path.join(FLAGS.data_url, "rl_config.py"),
+                  os.path.join(FLAGS.train_url, "rl_config.py"))
 
     del trainer
 
