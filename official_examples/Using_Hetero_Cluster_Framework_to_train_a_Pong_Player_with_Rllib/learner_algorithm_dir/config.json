@@ -1,0 +1,67 @@
+{
+    "model_algorithm": "VRP_algorithm",
+    "runtime": "python3.6-cuda10.0",
+    "model_type": "Customize",
+    "apis": [{
+        "protocol": "http",
+        "url": "/",
+        "method": "post",
+        "request": {
+            "Content-type": "text/plain",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "obs": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "response": {
+            "Content-type": "text/plain",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }],
+    "dependencies": [{
+        "installer": "pip",
+        "packages": [
+            {
+            "restraint": "EXACT",
+            "package_version": "2.1.0",
+            "package_name": "tensorflow"
+            },
+            {
+            "restraint": "EXACT",
+            "package_version": "1.2.0",
+            "package_name": "ray"
+            },
+            {
+            "restraint": "EXACT",
+            "package_version": "0.18.0",
+            "package_name": "gym[atari]"
+            },
+            {
+            "restraint": "EXACT",
+            "package_version": "0.1.6",
+            "package_name": "dm-tree"
+            },
+            {
+            "restraint": "EXACT",
+            "package_version": "0.6",
+            "package_name": "dataclasses"
+            },
+            {
+            "restraint": "EXACT",
+            "package_version": "1.2.0",
+            "package_name": "ray[rllib]"
+            }
+        ]
+    }]
+}
