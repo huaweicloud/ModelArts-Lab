@@ -66,7 +66,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ![选择算法](./img/选择算法.PNG)
 
-选择算法，（算法列表是按订阅时间显示的，找到名称为“图像分类-ResNet_v1_50”的算法，选中它）
+选择算法，（算法列表是按订阅时间显示的，找到名称为“图像分类-ResNet_v1_50”的算法，选中它，然后选择一个最新的算法版本）
 
 ![算法管理](./img/算法管理.PNG)
 
@@ -183,7 +183,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 在线服务的本质是RESTful API，可以通过HTTP请求访问，在本案例中，我们直接在网页上访问在线服务。
 
-先点[此链接]([https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_test.zip](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com/end2end/foods_recongition/foods_recongition_test.zip))下载测试集，解压，再切换到“预测”标签，点击上传按钮，进行测试。
+先点[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_test.zip)下载测试集，解压，再切换到“预测”标签，点击上传按钮，进行测试。
 
 预测结果会出现在右边的输出框：
 
