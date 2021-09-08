@@ -21,7 +21,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 其中，目标位置要选择上面 **“准备工作”** 步骤中您自己创建的OBS桶（本文使用的桶名为food--recognition，下文中涉及桶名的地方都需要替换为您自己创建的桶名），点击进入该桶，新建文件夹“food_recognition”，选择该文件夹为目标位置。
 
 
-## 数据观察
+### 切分数据集
 
 点击[此链接](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，进入ModelArts数据集列表，在这里可看到刚才下载的数据集。  
 
@@ -39,6 +39,10 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 美食/灌汤包,
 美食/肉夹馍。
 ```
+
+开始训练之前，我们还需要对数据集进行训练集和验证集的切分。点击左上角的“返回数据集概览”，再点“发布”按钮，如下图所示，打开数据切分开关，训练集比例填写为0.7，点击确定，等待发布成功。
+
+![release_dataset](./img/release_dataset.jpg)
 
 ## 订阅算法
 
@@ -62,7 +66,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 ![选择算法](./img/选择算法.PNG)
 
-选择算法，（算法列表是按订阅时间显示的，找到名称为“图像分类-ResNet_v1_50”的算法，选中它）
+选择算法，（算法列表是按订阅时间显示的，找到名称为“图像分类-ResNet_v1_50”的算法，选中它，然后选择一个最新的算法版本）
 
 ![算法管理](./img/算法管理.PNG)
 
@@ -179,7 +183,7 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 在线服务的本质是RESTful API，可以通过HTTP请求访问，在本案例中，我们直接在网页上访问在线服务。
 
-先点[此链接]([https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_test.zip](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com/end2end/foods_recongition/foods_recongition_test.zip))下载测试集，解压，再切换到“预测”标签，点击上传按钮，进行测试。
+先点[此链接](https://modelarts-labs-bj4.obs.cn-north-4.myhuaweicloud.com:443/end2end/foods_recongition/foods_recongition_test.zip)下载测试集，解压，再切换到“预测”标签，点击上传按钮，进行测试。
 
 预测结果会出现在右边的输出框：
 

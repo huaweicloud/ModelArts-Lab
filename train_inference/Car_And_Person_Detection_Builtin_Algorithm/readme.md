@@ -28,10 +28,6 @@ ModelArts的AI Gallery有丰富的算法，使用这些算法，无需自己开�
 
 填写好参数后，点击![food](./img/下一步.png)按钮，然后点击![food](./img/确定.png)按钮。等待数据集状态变为推送成功，即可在[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)中查看到下载的数据集。
 
-### 下载测试数据集
-
-点击[此链接](https://modelarts-labs.obs.cn-north-1.myhuaweicloud.com/end2end/car_and_person_detection/car_and_person_500_test.tar.gz)下载测试数据到本地，解压，可以得到`car_and_person_500_test`文件夹，文件夹里面是测试图片。
-
 ### 发布数据集
 
 点击进入[ModelArts数据集列表](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dataset)，找到刚订阅的数据集，点击“发布”按钮，填写训练集比例为0.8，发布数据集。数据集发布之后，才可在训练中使用。
