@@ -1,0 +1,8 @@
+{
+  "algorithm": "ppo",
+  "hyper_params": {
+    "num_gpus": 0,
+    "num_workers": 0,
+    "train_batch_size": 4000
+  }
+}

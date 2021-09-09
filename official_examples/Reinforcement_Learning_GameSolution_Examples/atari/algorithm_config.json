@@ -1,0 +1,15 @@
+{
+	"algorithm": "impala",
+	"hyper_params": {
+		"seed": 123,
+		"num_gpus": 1,
+		"num_workers": 5,
+		"rollout_fragment_length": 50,
+		"clip_rewards": true,
+		"train_batch_size": 500,
+		"lr_schedule": [
+			[0, 0.0005],
+			[40000000, 0.000000000001]
+		]
+	}
+}
