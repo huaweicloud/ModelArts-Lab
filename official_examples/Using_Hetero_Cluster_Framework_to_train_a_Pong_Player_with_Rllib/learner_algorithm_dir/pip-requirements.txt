@@ -3,3 +3,4 @@ dm-tree
 dataclasses
 gym
 ray[rllib]
+aioredis<2.0
