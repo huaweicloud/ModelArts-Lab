@@ -6,38 +6,13 @@ from collections import OrderedDict
 
 import pandas as pd
 import pyspark
-from obs import ObsClient
-from pyspark.ml import Pipeline, PipelineModel
-from pyspark.ml.evaluation import RegressionEvaluator
-from pyspark.ml.classification import *
-from pyspark.ml.feature import *
+from pyspark.ml import Pipeline
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.feature import VectorAssembler, StringIndexer, IndexToString
 
-import moxing.framework.cloud_utils as cloud_utils
+import moxing as mox
 
-# define local temporary file names and paths
-TRAIN_DATASET = 'iris.csv'
-MODEL_NAME = 'spark_model'
-CONFIG_NAME = 'config.json'
-METRIC_NAME = 'metric.json'
-LOCAL_MODEL_PATH = '/tmp/'
-LOCAL_CONFIG_PATH = '/tmp/config.json'
-LOCAL_METRIC_PATH = '/tmp/metric.json'
-LOCAL_DATA = '/tmp/iris.csv'
-
-# get the OBS configuration from system environment variables
-sec_info = cloud_utils.get_auth()
-AK = os.getenv('MINER_USER_ACCESS_KEY')
-if AK is None:
-    AK = sec_info.AK
-
-SK = os.getenv('MINER_USER_SECRET_ACCESS_KEY')
-if SK is None:
-    SK = sec_info.SK
-
-obs_endpoint = os.getenv('MINER_OBS_URL')
-if obs_endpoint is None:
-    obs_endpoint = os.getenv('S3_ENDPOINT')
-print("obs_endpoint: " + str(obs_endpoint))
 
 obs_path = os.getenv('TRAIN_URL')
 if obs_path is None:
@@ -49,79 +24,71 @@ if data_path is None:
     data_path = ''
 print("data_path: " + str(data_path))
 
+# define local temporary file names and paths
+TRAIN_DATASET = 'iris.csv'
+MODEL_NAME = 'spark_model'
+CONFIG_NAME = 'config.json'
+METRIC_NAME = 'metric.json'
+LOCAL_MODEL_PATH = '/tmp/spark_model'
+LOCAL_CONFIG_PATH = '/tmp/config.json'
+LOCAL_METRIC_PATH = '/tmp/metric.json'
+LOCAL_DATA_PATH = '/tmp/iris.csv'
+
 # start local Spark
 spark = pyspark.sql.SparkSession.builder.config("spark.driver.host", "localhost").master("local[*]").appName(
     "flower_classification").getOrCreate()
 metric_dict = {}
 
 
-# download file from OBS
-def download_dataset():
-    print("Start to download dataset from OBS")
-
-    obs_client = ObsClient(AK, SK, is_secure=True, server=obs_endpoint)
-
-    try:
-        bucket_name = data_path.split("/", 1)[0]
-        train_file = data_path.split("/", 1)[1] + "/iris.csv"
-        resp = obs_client.getObject(bucket_name, train_file, downloadPath=LOCAL_DATA)
-        if resp.status < 300:
-            print('Succeeded to download training dataset')
-        else:
-            print('Failed to download ')
-            raise Exception('Failed to download training dataset from OBS !')
-
-    finally:
-        obs_client.close()
-
-
-# upload file to OBS
-def upload_to_obs():
-    obs_client = ObsClient(AK, SK, is_secure=True, server=obs_endpoint)
-
-    bucket_name = obs_path.split("/", 1)[0]
-    work_metric = obs_path.split("/", 1)[1] + '/'
-    model_dir = obs_path.split("/", 1)[1] + '/model/'
-    model_file = model_dir + MODEL_NAME
-    config_file = model_dir + CONFIG_NAME
-    metric_file = work_metric + METRIC_NAME
-
-    # upload model to OBS
-    print_title("upload model to obs !")
-    obs_client.putFile(bucket_name, model_file, file_path=LOCAL_MODEL_PATH + MODEL_NAME)
-
-    # upload config file to OBS
-    print_title("upload config to obs !")
-    obs_client.putFile(bucket_name, config_file, file_path=LOCAL_CONFIG_PATH)
-
-    # upload metric file to OBS
-    print_title("upload metric to obs !")
-    obs_client.putFile(bucket_name, metric_file, file_path=LOCAL_METRIC_PATH)
-
-    return 0
-
-
 def print_title(title=""):
     print("=" * 15 + " %s " % title + "=" * 15)
 
 
+# download file from OBS
+def download_dataset():
+    print("Start to download dataset from OBS")
+
+    try:
+        train_file = os.path.join("obs://", data_path, "iris.csv")
+        mox.file.copy(train_file, LOCAL_DATA_PATH)
+        print('Succeeded to download training dataset')
+    except Exception:
+        print('Failed to download training dataset from OBS !')
+        raise Exception('Failed to download training dataset from OBS !')
+
+
+# upload file to OBS
+def upload_to_obs():
+    try:
+        # upload model to OBS
+        print_title("upload model to obs !")
+        mox.file.copy_parallel(LOCAL_MODEL_PATH, os.path.join("obs://", obs_path, "model", MODEL_NAME))
+
+        # upload config file to OBS
+        print_title("upload config to obs !")
+        mox.file.copy(LOCAL_CONFIG_PATH, os.path.join("obs://", obs_path, "model", CONFIG_NAME))
+
+        # upload metric file to OBS
+        print_title("upload metric to obs !")
+        mox.file.copy(LOCAL_METRIC_PATH, os.path.join("obs://", obs_path, "model", METRIC_NAME))
+    except Exception:
+        print('Failed to upload training output to OBS !')
+        raise Exception('Failed to upload training output to OBS !')
+
+    return 0
+
+
 # calculate the metric value
-def calculate_metric_value(regression_model, regression_df):
-    """
-    because modelarts console UI only support displaying value: f1, recall, precision, and accuracy,
-    this step maps `mae` to `recall`, `mse` maps to `precision`, and `rmse` maps to `accuracy`.
-    :return:
-    """
-    # split a portion of the data for testing
-    dataset = regression_model.transform(regression_df)
+def calculate_metric_value(multiclass_classification_model, df):
+    dataset = multiclass_classification_model.transform(df)
 
     # calculate metric
-    evaluator = RegressionEvaluator(predictionCol="prediction")
-    # modelarts only supports multi-classification metric currently, borrow recall/precision/accuracy to show regression metric
-    metric_dict["f1"] = 0
-    metric_dict["recall"] = (evaluator.evaluate(dataset, {evaluator.metricName: "mae"}))
-    metric_dict["precision"] = (evaluator.evaluate(dataset, {evaluator.metricName: "mse"}))
-    metric_dict["accuracy"] = (evaluator.evaluate(dataset, {evaluator.metricName: "rmse"}))
+    # evaluator = RegressionEvaluator(predictionCol="prediction")
+    evaluator = MulticlassClassificationEvaluator(predictionCol="prediction")
+    metric_dict["f1"] = (evaluator.evaluate(dataset, {evaluator.metricName: "f1"}))
+    metric_dict["recall"] = (evaluator.evaluate(dataset, {evaluator.metricName: "weightedPrecision"}))
+    metric_dict["precision"] = (evaluator.evaluate(dataset, {evaluator.metricName: "weightedRecall"}))
+    metric_dict["accuracy"] = (evaluator.evaluate(dataset, {evaluator.metricName: "accuracy"}))
 
 
 def create_config():
@@ -193,22 +160,21 @@ def train_model():
     df.printSchema()
 
     # convert features
-    assembler = pyspark.ml.feature.VectorAssembler(inputCols=['sepal-length', 'petal-width', 'petal-length', 'sepal-width'], outputCol='features')
+    assembler = VectorAssembler(inputCols=['sepal-length', 'petal-width', 'petal-length', 'sepal-width'], outputCol='features')
 
     # convert text labels into indices
-    label_indexer = pyspark.ml.feature.StringIndexer(inputCol='class', outputCol='label').fit(df)
+    label_indexer = StringIndexer(inputCol='class', outputCol='label').fit(df)
 
     # train
-    lr = pyspark.ml.classification.LogisticRegression(regParam=0.01)
-    label_converter = pyspark.ml.feature.IndexToString(inputCol='prediction', outputCol='predictionClass', labels=label_indexer.labels)
+    lr = LogisticRegression(regParam=0.01)
+    label_converter = IndexToString(inputCol='prediction', outputCol='predictionClass', labels=label_indexer.labels)
     pipeline = Pipeline(stages=[assembler, label_indexer, lr, label_converter])
 
     # fit the pipeline to training documents.
     model = pipeline.fit(df)
-    model_local_path = os.path.join(LOCAL_MODEL_PATH, MODEL_NAME)
 
     # save model
-    model.save(model_local_path)
+    model.save(LOCAL_MODEL_PATH)
     calculate_metric_value(model, df)
 
 

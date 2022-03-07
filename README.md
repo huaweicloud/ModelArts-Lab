@@ -1,13 +1,15 @@
-#### 如果国内访问github慢，没关系！！您可以访问码云的镜像地址，内容完全一致：https://gitee.com/ModelArts/ModelArts-Lab
+# <font color='red'>更多最新的AI开发学习交流信息，请访问华为云AI开发者社区：[AI Gallery](www.huaweicloud.ai)</font>
 
-#### 更多详尽的AI开发学习交流信息，请访问华为云AI开发者统一社区：huaweicloud.ai
+#### 如果您访问github较慢，可以访问gitee代码库地址，内容完全一致：https://gitee.com/ModelArts/ModelArts-Lab
+
+------
+
+
 
 # ModelArts-Lab
 基于华为云ModelArts平台的示例代码库。
 
 此库提供的案例包括代码以及数据集均只能用于学习交流，案例数据集来自于开源社区，所有案例及数据集请勿用于除学习之外的其他商业用途，如果违反所产生的法律纠纷与提供方无关。
-
-Visit count: [![HitCount](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab.svg)](http://hits.dwyl.io/chenliang613/huaweicloud/ModelArts-Lab)
 
 ## Online Documents
 * [ModelArts准备工作](docs/ModelArts准备工作)

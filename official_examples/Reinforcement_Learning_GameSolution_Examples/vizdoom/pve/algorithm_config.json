@@ -1,0 +1,9 @@
+{
+	"algorithm": "ppo",
+	"hyper_params": {
+		"seed": 123,
+		"num_gpus": 1,
+		"num_workers": 10,
+		"vf_loss_coeff": 0.01
+	}
+}
