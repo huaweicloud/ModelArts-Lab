@@ -68,7 +68,7 @@ def env_boost(ind=0):
             rewards = 0
             client.end_episode(eid, obs)
             obs = env.reset()
-            eid = client.start_episode(training_enabled=not FLAGS.no_train)
+            eid = client.start_episode(training_enabled=True)
 
 
 if __name__ == "__main__":

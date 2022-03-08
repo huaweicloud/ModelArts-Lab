@@ -1,7 +1,6 @@
 ray==1.2
 dm-tree
 dataclasses
-gym
 ray[rllib]
 aioredis<2.0
 aiohttp==3.7
