@@ -5,7 +5,7 @@ ACTION_SPACE = gym.spaces.Discrete(6)
 OBSERVATION_SPACE = gym.spaces.Box(0, 255, (42, 42, 1))
 CONFIG_PPO = {
     "rollout_fragment_length": 3000,
-    "train_batch_size": 6000,
+    "train_batch_size": 3000,
     "framework": "tf",
     "preprocessor_pref": "rllib",
     "batch_mode": "complete_episodes",
