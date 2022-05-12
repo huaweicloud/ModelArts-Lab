@@ -1,4 +1,4 @@
-# <font color='red'>更多最新的AI开发学习交流信息，请访问华为云AI开发者社区：[AI Gallery](www.huaweicloud.ai)</font>
+# <font color='red'>此代码库暂停维护，更多最新的AI开发学习交流信息，请访问华为云AI开发者社区：[AI Gallery](www.huaweicloud.ai)</font>
 
 #### 如果您访问github较慢，可以访问gitee代码库地址，内容完全一致：https://gitee.com/ModelArts/ModelArts-Lab
 
