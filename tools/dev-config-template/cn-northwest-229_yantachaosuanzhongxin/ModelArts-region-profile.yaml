@@ -1,6 +1,6 @@
 regions:
   - region: cn-northwest-229
-    displayname: yantachaosuanzhongxin
+    displayName: yantachaosuanzhongxin
     default: true
     projects:
       - name: cn-northwest-229
