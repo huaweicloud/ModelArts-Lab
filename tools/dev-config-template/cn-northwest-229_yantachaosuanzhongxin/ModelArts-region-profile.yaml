@@ -1,6 +1,6 @@
 regions:
   - region: cn-northwest-229
-    displayName: yantachaosuanzhongxin
+    displayName: 西北-西安-西安雁塔超算
     default: true
     projects:
       - name: cn-northwest-229
@@ -9,6 +9,5 @@ regions:
     obsEndpoint: obs.cn-northwest-229.yantachaosuanzhongxin.com
     modelartsEndpoint: modelarts.cn-northwest-229.yantachaosuanzhongxin.com
     swrEndpoint: swr.cn-northwest-229.yantachaosuanzhongxin.com
-    consoleEndpoint: console.cloudbrain2.pcl.ac.cn
+    consoleEndpoint: console.yantachaosuanzhongxin.com
 serviceProviderType: hcso
-isAdaptListAll: true

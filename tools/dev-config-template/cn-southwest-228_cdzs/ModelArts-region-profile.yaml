@@ -1,0 +1,13 @@
+regions:
+  - region: cn-southwest-228
+    displayName: 西南-成都-智算中心
+    default: true
+    projects:
+      - name: cn-southwest-228
+        default: true
+    iamEndpoint: iam-pub.cn-southwest-228.cdzs.cn
+    obsEndpoint: obs.cn-southwest-228.cdzs.cn
+    modelartsEndpoint: modelarts.cn-southwest-228.cdzs.cn
+    swrEndpoint: swr.cn-southwest-228.cdzs.cn
+    consoleEndpoint: console.cdzs.cn
+serviceProviderType: hcso
