@@ -1,6 +1,6 @@
 regions:
   - region: cn-northwest-229
-    displayName: 西北-西安-西安雁塔超算
+    displayName: 西北-西安-雁塔超算
     default: true
     projects:
       - name: cn-northwest-229

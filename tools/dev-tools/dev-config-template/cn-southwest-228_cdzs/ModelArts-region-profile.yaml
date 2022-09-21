@@ -5,9 +5,9 @@ regions:
     projects:
       - name: cn-southwest-228
         default: true
-    iamEndpoint: iam-pub.cn-southwest-228.cdzs.com
-    obsEndpoint: obs.cn-southwest-228.cdzs.com
-    modelartsEndpoint: modelarts.cn-southwest-228.cdzs.com
-    swrEndpoint: swr.cn-southwest-228.cdzs.com
+    iamEndpoint: iam-pub.cn-southwest-228.cdzs.cn
+    obsEndpoint: obs.cn-southwest-228.cdzs.cn
+    modelartsEndpoint: modelarts.cn-southwest-228.cdzs.cn
+    swrEndpoint: swr-api.cn-southwest-228.cdzs.cn
     consoleEndpoint: console.cdzs.cn
 serviceProviderType: hcso
