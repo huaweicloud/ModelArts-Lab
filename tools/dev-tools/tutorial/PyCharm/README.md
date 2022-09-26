@@ -1,2 +1,2 @@
-# 高效使用PyCharm插件完成远程连接开发
-## [配置本地IDE（PyCharm ToolKit连接）](https://support.huaweicloud.com/devtool-modelarts/devtool-modelarts_0016.html)
+# PyCharm插件远程开发最佳实践
+## [HCSO局点ModelArts PyCharm插件最佳实践](https://bbs.huaweicloud.com/blogs/375714)
