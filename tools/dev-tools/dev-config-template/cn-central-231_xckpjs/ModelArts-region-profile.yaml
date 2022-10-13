@@ -1,0 +1,13 @@
+regions:
+  - region: cn-central-231
+    displayName: 华中-许昌-中原人工智能计算中心
+    default: true
+    projects:
+      - name: cn-central-231
+        default: true
+    iamEndpoint: iam-pub.cn-central-231.xckpjs.com
+    obsEndpoint: obs.cn-central-231.xckpjs.com
+    modelartsEndpoint: modelarts.cn-central-231.xckpjs.com
+    swrEndpoint: swr.cn-central-231.xckpjs.com
+    consoleEndpoint: console.xckpjs.com
+serviceProviderType: hcso
