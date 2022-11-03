@@ -1,0 +1,13 @@
+regions:
+  - region: cn-northeast-226
+    displayName: 东北-沈阳-沈阳人工智能计算中心 
+    default: true
+    projects:
+      - name: cn-northeast-226
+        default: true
+    iamEndpoint: iam-pub.cn-northeast-226.syaicenter.com
+    obsEndpoint: obs.cn-northeast-226.syaicenter.com
+    modelartsEndpoint: modelarts.cn-northeast-226.syaicenter.com
+    swrEndpoint: swr.cn-northeast-226.syaicenter.com
+    consoleEndpoint: console.syaicenter.com
+serviceProviderType: hcso

@@ -1,0 +1,13 @@
+regions:
+  - region: cn-east-292
+    displayName: 华东-杭州-杭州智算中心
+    default: true
+    projects:
+      - name: cn-east-292
+        default: true
+    iamEndpoint: iam-pub.cn-east-292.mygaoxinai.com
+    obsEndpoint: obs.cn-east-292.mygaoxinai.com
+    modelartsEndpoint: modelarts.cn-east-292.mygaoxinai.com
+    swrEndpoint: swr.cn-east-292.mygaoxinai.com
+    consoleEndpoint: console.gaoxinai.com
+serviceProviderType: hcso
