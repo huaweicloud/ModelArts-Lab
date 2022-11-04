@@ -1,0 +1,13 @@
+regions:
+  - region: cn-east-317
+    displayName: 青岛人工智能计算中心
+    default: true
+    projects:
+      - name: cn-east-317
+        default: true
+    iamEndpoint: iam-pub.cn-east-317.qdrgznjszx.com
+    obsEndpoint: obs.cn-east-317.qdrgznjszx.com
+    modelartsEndpoint: modelarts.cn-east-317.qdrgznjszx.com
+    swrEndpoint: swr.cn-east-317.qdrgznjszx.com
+    consoleEndpoint: console.qdrgznjszx.com
+serviceProviderType: hcso

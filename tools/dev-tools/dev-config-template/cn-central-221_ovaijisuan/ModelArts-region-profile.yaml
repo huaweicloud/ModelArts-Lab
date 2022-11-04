@@ -1,0 +1,13 @@
+regions:
+  - region: cn-central-221
+    displayName: 华中-武汉-人工智能计算中心
+    default: true
+    projects:
+      - name: cn-central-221
+        default: true
+    iamEndpoint: iam-pub.cn-central-221.ovaijisuan.com
+    obsEndpoint: obs.cn-central-221.ovaijisuan.com
+    modelartsEndpoint: modelarts.cn-central-221.ovaijisuan.com
+    swrEndpoint: swr.cn-central-221.ovaijisuan.com
+    consoleEndpoint: console.ovaijisuan.com
+serviceProviderType: hcso

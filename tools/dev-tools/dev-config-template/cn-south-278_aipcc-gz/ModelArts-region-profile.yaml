@@ -1,0 +1,13 @@
+regions:
+  - region: cn-south-278
+    displayName: 广州人工智能公共算力中心
+    default: true
+    projects:
+      - name: cn-south-278
+        default: true
+    iamEndpoint: iam-pub.cn-south-278.aipcc-gz.com
+    obsEndpoint: obs.cn-south-278.aipcc-gz.com
+    modelartsEndpoint: modelarts.cn-south-278.aipcc-gz.com
+    swrEndpoint: swr.cn-south-278.aipcc-gz.com
+    consoleEndpoint: console.aipcc-gz.com
+serviceProviderType: hcso

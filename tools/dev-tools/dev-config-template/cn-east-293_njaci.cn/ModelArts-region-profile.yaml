@@ -1,0 +1,13 @@
+regions:
+  - region: cn-east-293
+    displayName: 华东-南京-江北新区AI算力中心
+    default: true
+    projects:
+      - name: cn-east-293
+        default: true
+    iamEndpoint: iam-pub.cn-east-293.njaci.cn
+    obsEndpoint: obs.cn-east-293.njaci.cn
+    modelartsEndpoint: modelarts.cn-east-293.njaci.cn
+    swrEndpoint: swr.cn-east-293.njaci.cn
+    consoleEndpoint: console.njaci.cn
+serviceProviderType: hcso

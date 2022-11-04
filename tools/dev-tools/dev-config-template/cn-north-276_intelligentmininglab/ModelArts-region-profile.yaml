@@ -1,0 +1,13 @@
+regions:
+  - region: cn-north-276
+    displayName: 华北-晋城-智能矿山创新实验室
+    default: true
+    projects:
+      - name: cn-north-276
+        default: true
+    iamEndpoint: iam-pub.cn-north-276.intelligentmininglab.com
+    obsEndpoint: obs.cn-north-276.intelligentmininglab.com
+    modelartsEndpoint: modelarts.cn-north-276.intelligentmininglab.com
+    swrEndpoint: swr.cn-north-276.intelligentmininglab.com
+    consoleEndpoint: console.intelligentmininglab.com
+serviceProviderType: hcso
