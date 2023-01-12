@@ -1,0 +1,59 @@
+regions:
+  - region: cn-north-4
+    displayName: CN-North-Beijing4
+    default: true
+    iamEndpoint: iam.cn-north-4.myhuaweicloud.cn
+    obsEndpoint: obs.cn-north-4.myhuaweicloud.cn
+    modelartsEndpoint: modelarts.cn-north-4.myhuaweicloud.cn
+    swrEndpoint: swr.cn-north-4.myhuaweicloud.cn
+    consoleEndpoint: console.myhuaweicloud.cn
+  - region: cn-east-3
+    displayName: CN-East-Shanghai1
+    iamEndpoint: iam.cn-east-3.myhuaweicloud.cn
+    obsEndpoint: obs.cn-east-3.myhuaweicloud.cn
+    modelartsEndpoint: modelarts.cn-east-3.myhuaweicloud.cn
+    swrEndpoint: swr.cn-east-3.myhuaweicloud.cn
+    consoleEndpoint: console.myhuaweicloud.cn
+  - region: cn-south-1
+    displayName: CN-South-Guangzhou
+    iamEndpoint: iam.cn-south-1.myhuaweicloud.cn
+    obsEndpoint: obs.cn-south-1.myhuaweicloud.cn
+    modelartsEndpoint: modelarts.cn-south-1.myhuaweicloud.cn
+    swrEndpoint: swr.cn-south-1.myhuaweicloud.cn
+    consoleEndpoint: console.myhuaweicloud.cn
+  - region: cn-north-9
+    displayName: CN-North-Ulanqab1
+    iamEndpoint: iam.cn-north-9.myhuaweicloud.cn
+    obsEndpoint: obs.cn-north-9.myhuaweicloud.cn
+    modelartsEndpoint: modelarts.cn-north-9.myhuaweicloud.cn
+    swrEndpoint: swr.cn-north-9.myhuaweicloud.cn
+    consoleEndpoint: console.myhuaweicloud.cn
+  - region: ap-southeast-1
+    displayName: CN-HongKong
+    iamEndpoint: iam.ap-southeast-1.myhuaweicloud.cn
+    obsEndpoint: obs.ap-southeast-1.myhuaweicloud.cn
+    modelartsEndpoint: modelarts.ap-southeast-1.myhuaweicloud.cn
+    swrEndpoint: swr.ap-southeast-1.myhuaweicloud.cn
+    consoleEndpoint: console.myhuaweicloud.cn
+  - region: ap-southeast-2
+    displayName: AP-Bangkok
+    iamEndpoint: iam.ap-southeast-2.myhuaweicloud.com
+    obsEndpoint: obs.ap-southeast-2.myhuaweicloud.com
+    modelartsEndpoint: modelarts.ap-southeast-2.myhuaweicloud.com
+    swrEndpoint: swr.ap-southeast-2.myhuaweicloud.com
+    consoleEndpoint: console.myhuaweicloud.com
+  - region: ap-southeast-3
+    displayName: AP-Singapore
+    iamEndpoint: iam.ap-southeast-3.myhuaweicloud.com
+    obsEndpoint: obs.ap-southeast-3.myhuaweicloud.com
+    modelartsEndpoint: modelarts.ap-southeast-3.myhuaweicloud.com
+    swrEndpoint: swr.ap-southeast-3.myhuaweicloud.com
+    consoleEndpoint: console.myhuaweicloud.com
+  - region: la-south-2
+    displayName: LA-Santiago
+    iamEndpoint: iam.la-south-2.myhuaweicloud.com
+    obsEndpoint: obs.la-south-2.myhuaweicloud.com
+    modelartsEndpoint: modelarts.la-south-2.myhuaweicloud.com
+    swrEndpoint: swr.la-south-2.myhuaweicloud.com
+    consoleEndpoint: console.myhuaweicloud.com
+serviceProviderType: huawei_cloud
