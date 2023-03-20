@@ -1,0 +1,13 @@
+regions:
+  - region: ae-ad-1
+    displayName: G42
+    default: true
+    projects:
+      - name: ae-ad-1
+        default: true
+    iamEndpoint: iam.ae-ad-1.g42cloud.com
+    obsEndpoint: obs.ae-ad-1.g42cloud.com
+    modelartsEndpoint: modelarts.ae-ad-1.g42cloud.com
+    swrEndpoint: swr.ae-ad-1.g42cloud.com
+    consoleEndpoint: console.g42cloud.com
+serviceProviderType: hcso
