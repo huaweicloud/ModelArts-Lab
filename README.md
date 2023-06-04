@@ -41,3 +41,6 @@ The ModelArts Notebook development environment is ideally suited as a tool for t
 ### 综合AI开发案例 Train_inference Cases
 在ModelArts平台完成端到端从数据准备、模型开发、模型训练、模型部署发布、模型共享(AI市场)等全流程的人工智能模型开发，及应用实践。
 End-to-end data development, model development, model training, model deployment and release, model sharing (AI market) and other full-process artificial intelligence model development, and application practices In ModelArts.
+
+
+test
