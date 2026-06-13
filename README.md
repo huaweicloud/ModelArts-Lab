@@ -40,6 +40,46 @@ bash scripts/format.sh
 The project records lint and test dependencies, but not a conda environment
 definition.
 
+## Full Installation
+
+Two installation scripts are provided:
+
+### A3 / DeepSeek V4 Pro
+
+Uses the official vllm-ascend repo:
+
+```bash
+bash install_all.sh <vllm_version> <vllm_ascend_ref>
+```
+
+Example:
+
+```bash
+bash install_all.sh 0.20.2 0.20.2rc1
+```
+
+### A5 / Qwen3.5
+
+Uses a custom vllm-ascend fork with NPU-specific tweaks (no triton uninstall,
+`--no-build-isolation --no-deps`):
+
+```bash
+bash install_all_a5.sh <vllm_version> <vllm_ascend_commit>
+```
+
+Example:
+
+```bash
+# Uses TallMessiWu fork (Qwen3.5 baseline)
+VLLM_ASCEND_REPO=https://github.com/TallMessiWu/vllm-ascend.git \
+  bash install_all_a5.sh 0.20.2 1ba24186d0e422d1b7fdf76bbd2c6a234e6e166f
+```
+
+Set `VLLM_ASCEND_REPO` to override the vllm-ascend git URL (defaults to
+`https://github.com/vllm-project/vllm-ascend.git`).
+
+See [`docs/version-matrix.md`](docs/version-matrix.md) for the current baseline.
+
 ## Upstream Policy
 
 Before importing upstream source, choose and record the exact baseline in

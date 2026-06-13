@@ -7,13 +7,6 @@
 
 set -x -eo pipefail
 
-export COMPILE_CUSTOM_KERNELS=1
-export ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest
-source /usr/local/Ascend/ascend-toolkit/set_env.sh
-source /usr/local/Ascend/nnal/atb/set_env.sh
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/Ascend/ascend-toolkit/latest/`uname -i`-linux/devlib
-export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/c++/12:/usr/include/c++/12/`uname -i`-openEuler-linux
-
 # 获取 pip 安装根路径 + 拼接 torch_npu 目录
 PIP_ROOT=$(pip show torch-npu | grep "Location:" | awk '{print $2}')
 TORCH_NPU_PATH="$PIP_ROOT/torch_npu"
@@ -101,13 +94,13 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=${vllm_version}
 VLLM_TARGET_DEVICE=empty python setup.py bdist_wheel
 mv dist/vllm* "${BUILD_ROOT}"/build/
 pip install "${BUILD_ROOT}"/build/vllm*whl
-pip uninstall -y triton
+# pip uninstall -y triton
 pip cache purge
 
 # 安装 vllm_ascend
 VLLM_ASCEND_PATH=${BUILD_ROOT}/${VLLM_ASCEND_DIR}
 cd "${VLLM_ASCEND_PATH}"
-pip install -v -e .
+pip install -v --no-build-isolation --no-deps -e .
 pip cache purge
 
 # 安装 ascend_vllm
