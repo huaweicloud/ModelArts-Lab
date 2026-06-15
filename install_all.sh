@@ -106,8 +106,28 @@ cd "$current_path"/Mooncake/thirdparties/
 rm -rf glog
 git clone -b v0.7.1 https://github.com/google/glog.git
 cd glog
-cmake -DWITH_GTEST=OFF -S 。 -B build -G "Unix Makefiles"
+cmake -DWITH_GTEST=OFF -S . -B build -G "Unix Makefiles"
 cmake --build build --target install -j$(nproc)
+
+cd "$current_path"/Mooncake/thirdparties/
+go_version=1.23.8
+if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
+  echo "Go ${go_version} installed. Skipping..."
+else
+  arch=$(uname -m)
+  if [ "${arch}" == "aarch64" ] || [ "${arch}" == "x86_64" ]; then
+    arch="arm64"
+  else
+    echo "Unsupported architecture: ${arch}"
+    exit 1
+  fi
+  wget -q --show-progress http://mirrors.aliyun.com/golang/go${go_version}.linux-${arch}.tar.gz
+  tar -zxf go${go_version}.linux-${arch}.tar.gz -C /usr/local/
+  rm -rf go${go_version}.linux-${arch}.tar.gz
+fi
+go env -w GO111MODULE=on
+go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
+go env -w GONOSUMDB=*
 
 cd "$current_path"/Mooncake/
 if [ -f ".gitmodules" ]; then
@@ -124,19 +144,11 @@ else
   echo "No .gitmodules file."
   exit 1
 fi
-
-go_version=1.23.8
-if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
-  echo "Go ${go_version} installed. Skipping..."
-else
-  arch=$(uname -m)
-  if [ "${arch}" == "aarch64" ] || [ "${arch}" == "x86_64" ]; then
-    arch="arm64"
-  else
-    echo "Unsupported architecture: ${arch}"
-    exit 1
-  fi
-  wget -q --show-progress http://mirrors.aliyun.com/golang/go${go_version}.linux-${arch}.tar.gz
-  tar -zxf go${go_version}.linux-${arch}.tar.gz -C /usr/local/
-  rm -rf go${go_version}.linux-${arch}.tar.gz
-fi
+source ~/.bashrc
+rm -rf build
+mkdir build
+cd build
+cmake -DUSE_ASCEND_DIRECT=ON -DUSE_CUDA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=4.0 -DUSE_ETCD=ON -DSTORE_USE_ETCD=ON -DBUILD_UNIT_TESTS=OFF -DBUILD_EXAMPLES=OFF ..
+make -j
+make install
+ldconfig
