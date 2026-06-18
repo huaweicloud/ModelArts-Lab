@@ -8,7 +8,7 @@ export PIP_EXTRA_INDEX_URL="https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 pip install --force-reinstall numpy==1.26.4
 
 # Find the installed numpy package path.
-numpy_path="$(pip show numpy | awk '/^Location:/ {print $2; exit}')"
+numpy_path="$(python -c 'import numpy, os; print(os.path.dirname(numpy.__path__[0]))')"
 target_np_path="${numpy_path}/numpy/testing/_private/utils.py"
 
 echo "target numpy path is: ${target_np_path}, fix bug of lscpu running start."
