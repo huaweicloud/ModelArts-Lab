@@ -21,5 +21,4 @@ def adapt_patch(is_global_patch: bool = False):
     if is_global_patch:
         from ascend_vllm.patch import platform  # noqa: F401
     else:
-        import ascend_vllm.ops  # noqa: F401
         from ascend_vllm.patch import worker  # noqa: F401
