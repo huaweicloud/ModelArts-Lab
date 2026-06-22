@@ -5,13 +5,54 @@ import sys
 import types
 import uuid
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 
 import pytest
-from pydantic import BaseModel, ConfigDict
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 PATCH_PATH = ROOT / "ascend_vllm" / "patch" / "platform" / "patch_disable_completion_tokens_details.py"
+
+
+class _Field:
+    def __init__(self, annotation: Any) -> None:
+        self.annotation = annotation
+
+
+class _BaseModel:
+    model_fields: ClassVar[dict[str, _Field]]
+
+    def __init_subclass__(cls) -> None:
+        super().__init_subclass__()
+        cls.model_fields = {
+            name: _Field(annotation) for name, annotation in getattr(cls, "__annotations__", {}).items()
+        }
+
+    def __init__(self, **kwargs: Any) -> None:
+        for name in self.model_fields:
+            if name in kwargs:
+                setattr(self, name, kwargs.pop(name))
+            elif hasattr(type(self), name):
+                setattr(self, name, getattr(type(self), name))
+
+        for name, value in kwargs.items():
+            setattr(self, name, value)
+
+    @classmethod
+    def model_rebuild(cls, *, force: bool = False) -> bool:
+        return force
+
+    def model_dump(self) -> dict[str, Any]:
+        return {name: self._dump_value(getattr(self, name)) for name in self.model_fields if hasattr(self, name)}
+
+    @classmethod
+    def _dump_value(cls, value: Any) -> Any:
+        if isinstance(value, _BaseModel):
+            return value.model_dump()
+        if isinstance(value, list):
+            return [cls._dump_value(item) for item in value]
+        if isinstance(value, dict):
+            return {key: cls._dump_value(item) for key, item in value.items()}
+        return value
 
 
 def _make_package(name: str) -> types.ModuleType:
@@ -30,8 +71,8 @@ def _install_vllm_stubs(monkeypatch: pytest.MonkeyPatch) -> type[Any]:
     engine = _make_package("vllm.entrypoints.openai.engine")
     protocol = types.ModuleType("vllm.entrypoints.openai.engine.protocol")
 
-    class OpenAIBaseModel(BaseModel):
-        model_config = ConfigDict(extra="allow")
+    class OpenAIBaseModel(_BaseModel):
+        pass
 
     class PromptTokenUsageInfo(OpenAIBaseModel):
         cached_tokens: int | None = None
@@ -48,7 +89,7 @@ def _install_vllm_stubs(monkeypatch: pytest.MonkeyPatch) -> type[Any]:
     class ChatCompletionStreamResponse(OpenAIBaseModel):
         usage: UsageInfo | None = None
 
-    class RequestResponseMetadata(BaseModel):
+    class RequestResponseMetadata(_BaseModel):
         final_usage_info: UsageInfo | None = None
 
     class OriginalUsageInfo:
