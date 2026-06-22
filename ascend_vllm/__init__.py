@@ -18,6 +18,8 @@ _GLOBAL_PATCH_APPLIED = False
 
 def _ensure_global_patch():
     """Apply vllm-ascend's process-wide patches once per process."""
+    import ascend_vllm.patch.platform  # noqa: F401
+
     global _GLOBAL_PATCH_APPLIED
     if _GLOBAL_PATCH_APPLIED:
         return

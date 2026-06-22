@@ -77,7 +77,7 @@ class NestedBaseValidator(BaseValidator):
                 if self.checker:
                     if err_str := self.checker(sub_cur_param, value):
                         return err_str
-            elif isinstance(val, (list, dict)):
+            elif isinstance(val, list | dict):
                 err_str = self.check_field(val, sub_cur_param)
                 if err_str:
                     return err_str
