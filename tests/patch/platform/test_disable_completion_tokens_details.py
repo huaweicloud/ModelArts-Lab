@@ -8,8 +8,9 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from pydantic import BaseModel, ConfigDict
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[2]
 PATCH_PATH = ROOT / "ascend_vllm" / "patch" / "platform" / "patch_disable_completion_tokens_details.py"
 
 
@@ -24,27 +25,48 @@ def _install_vllm_stubs(monkeypatch: pytest.MonkeyPatch) -> type[Any]:
     entrypoints = _make_package("vllm.entrypoints")
     openai = _make_package("vllm.entrypoints.openai")
     chat_completion = _make_package("vllm.entrypoints.openai.chat_completion")
+    chat_protocol = types.ModuleType("vllm.entrypoints.openai.chat_completion.protocol")
     chat_serving = types.ModuleType("vllm.entrypoints.openai.chat_completion.serving")
     engine = _make_package("vllm.entrypoints.openai.engine")
     protocol = types.ModuleType("vllm.entrypoints.openai.engine.protocol")
 
-    class UsageInfo:
+    class OpenAIBaseModel(BaseModel):
+        model_config = ConfigDict(extra="allow")
+
+    class PromptTokenUsageInfo(OpenAIBaseModel):
+        cached_tokens: int | None = None
+
+    class UsageInfo(OpenAIBaseModel):
+        prompt_tokens: int = 0
+        total_tokens: int = 0
+        completion_tokens: int | None = 0
+        prompt_tokens_details: PromptTokenUsageInfo | None = None
+
+    class ChatCompletionResponse(OpenAIBaseModel):
+        usage: UsageInfo | None = None
+
+    class ChatCompletionStreamResponse(OpenAIBaseModel):
+        usage: UsageInfo | None = None
+
+    class RequestResponseMetadata(BaseModel):
+        final_usage_info: UsageInfo | None = None
+
+    class OriginalUsageInfo:
         def __init__(
             self,
             *,
             prompt_tokens: int,
             completion_tokens: int,
-            num_cached_tokens: int | None = None,
+            total_tokens: int,
         ) -> None:
             self.prompt_tokens = prompt_tokens
             self.completion_tokens = completion_tokens
-            self.num_cached_tokens = num_cached_tokens
+            self.total_tokens = total_tokens
 
-    class PromptTokenUsageInfo:
-        def __init__(self, *, cached_tokens: int) -> None:
-            self.cached_tokens = cached_tokens
-
-    vars(chat_serving)["UsageInfo"] = UsageInfo
+    vars(chat_protocol)["UsageInfo"] = UsageInfo
+    vars(chat_protocol)["ChatCompletionResponse"] = ChatCompletionResponse
+    vars(chat_protocol)["ChatCompletionStreamResponse"] = ChatCompletionStreamResponse
+    vars(chat_serving)["UsageInfo"] = OriginalUsageInfo
     exec(
         """
 def _inject_stream_usage_details(data, state):
@@ -55,7 +77,7 @@ def _make_full_response_usage(self, state):
     return UsageInfo(
         prompt_tokens=-1,
         completion_tokens=-1,
-        num_cached_tokens=None,
+        total_tokens=-2,
     )
 
 
@@ -72,12 +94,20 @@ class OpenAIServingChat:
     )
 
     vars(chat_serving)["PromptTokenUsageInfo"] = PromptTokenUsageInfo
+    vars(protocol)["OpenAIBaseModel"] = OpenAIBaseModel
+    vars(protocol)["PromptTokenUsageInfo"] = PromptTokenUsageInfo
     vars(protocol)["UsageInfo"] = UsageInfo
+    vars(protocol)["RequestResponseMetadata"] = RequestResponseMetadata
 
     monkeypatch.setitem(sys.modules, "vllm", vllm)
     monkeypatch.setitem(sys.modules, "vllm.entrypoints", entrypoints)
     monkeypatch.setitem(sys.modules, "vllm.entrypoints.openai", openai)
     monkeypatch.setitem(sys.modules, "vllm.entrypoints.openai.chat_completion", chat_completion)
+    monkeypatch.setitem(
+        sys.modules,
+        "vllm.entrypoints.openai.chat_completion.protocol",
+        chat_protocol,
+    )
     monkeypatch.setitem(sys.modules, "vllm.entrypoints.openai.chat_completion.serving", chat_serving)
     monkeypatch.setitem(sys.modules, "vllm.entrypoints.openai.engine", engine)
     monkeypatch.setitem(sys.modules, "vllm.entrypoints.openai.engine.protocol", protocol)
@@ -90,7 +120,11 @@ class OpenAIServingChat:
     monkeypatch.setitem(sys.modules, "vllm_ascend", vllm_ascend)
     monkeypatch.setitem(sys.modules, "vllm_ascend.patch", vllm_ascend_patch)
     monkeypatch.setitem(sys.modules, "vllm_ascend.patch.platform", vllm_ascend_patch_platform)
-    monkeypatch.setitem(sys.modules, "vllm_ascend.patch.platform.patch_minimax_usage_accounting", minimax_patch)
+    monkeypatch.setitem(
+        sys.modules,
+        "vllm_ascend.patch.platform.patch_minimax_usage_accounting",
+        minimax_patch,
+    )
 
     return chat_serving.__dict__["OpenAIServingChat"]
 
@@ -124,12 +158,21 @@ def test_make_usage_info_drops_completion_details_and_keeps_prompt_cache(
 
     assert usage.prompt_tokens == 11
     assert usage.completion_tokens == 7
-    assert usage.num_cached_tokens == 3
-    assert usage.prompt_token_details.cached_tokens == 3
+    assert usage.total_tokens == 18
+    assert usage.prompt_tokens_details.cached_tokens == 3
+    assert not hasattr(usage, "num_cached_tokens")
     assert not hasattr(usage, "completion_tokens_details")
 
+    payload = module.chat_protocol.ChatCompletionResponse(usage=usage).model_dump()
+    assert payload["usage"] == {
+        "prompt_tokens": 11,
+        "total_tokens": 18,
+        "completion_tokens": 7,
+        "prompt_tokens_details": {"cached_tokens": 3},
+    }
 
-def test_make_usage_info_omits_prompt_details_when_cache_is_empty(
+
+def test_make_usage_info_keeps_zero_cached_prompt_details(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     module = _load_patch_module(monkeypatch)
@@ -142,7 +185,8 @@ def test_make_usage_info_omits_prompt_details_when_cache_is_empty(
         num_cached_tokens=0,
     )
 
-    assert not hasattr(usage, "prompt_token_details")
+    assert usage.total_tokens == 18
+    assert usage.prompt_tokens_details.cached_tokens == 0
     assert not hasattr(usage, "completion_tokens_details")
 
 
@@ -174,7 +218,8 @@ def test_full_response_usage_uses_basic_usage_without_completion_details(
 
     assert usage.prompt_tokens == 13
     assert usage.completion_tokens == 10
-    assert usage.num_cached_tokens == 4
+    assert usage.total_tokens == 23
+    assert usage.prompt_tokens_details is None
     assert not hasattr(usage, "completion_tokens_details")
 
 
