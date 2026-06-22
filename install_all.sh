@@ -27,6 +27,8 @@ mkdir -p "$BUILD_ROOT"/build/
 
 vllm_version="$1"
 vllm_ascend_version="$2"
+ascend_cloud_work_dir="$3"
+soc_version="$4"
 
 # 定义重试函数
 retry() {
@@ -78,11 +80,7 @@ if [ -d "./${VLLM_ASCEND_DIR}" ]; then
   rm -rf "$VLLM_ASCEND_DIR"
 fi
 echo "vllm_ascend_version: ${vllm_ascend_version}"
-VLLM_ASCEND_REPO="${VLLM_ASCEND_REPO:-https://github.com/vllm-project/vllm-ascend.git}"
-echo "vllm_ascend_repo: ${VLLM_ASCEND_REPO}"
-git clone --depth 1 "${VLLM_ASCEND_REPO}" "${VLLM_ASCEND_DIR}"
-git -C "${VLLM_ASCEND_DIR}" fetch origin "${vllm_ascend_version}"
-git -C "${VLLM_ASCEND_DIR}" checkout FETCH_HEAD
+git clone -b v"${vllm_ascend_version}" https://github.com/vllm-project/vllm-ascend.git --depth 1 "${VLLM_ASCEND_DIR}"
 
 # 安装 vllm patch
 VLLM_PATH=${BUILD_ROOT}/${VLLM_DIR}
