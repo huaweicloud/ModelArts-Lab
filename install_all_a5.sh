@@ -100,6 +100,8 @@ pip cache purge
 # 安装 vllm_ascend
 VLLM_ASCEND_PATH=${BUILD_ROOT}/${VLLM_ASCEND_DIR}
 cd "${VLLM_ASCEND_PATH}"
+# 解决A3出包A5不可用的问题，6月份950DT的芯片型号是ascend950dt_9582，后续如果有新型号可做成可配置
+export SOC_VERSION=ascend950dt_9582
 pip install -v --no-build-isolation --no-deps -e .
 pip cache purge
 
