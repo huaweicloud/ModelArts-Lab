@@ -90,6 +90,7 @@ if [ -d "${BUILD_ROOT}/ascend_vllm/third_patch/vllm_patch" ]; then
 fi
 
 # 安装 vllm
+pip install setuptools_rust
 export SETUPTOOLS_SCM_PRETEND_VERSION=${vllm_version}
 VLLM_TARGET_DEVICE=empty python setup.py bdist_wheel
 mv dist/vllm* "${BUILD_ROOT}"/build/

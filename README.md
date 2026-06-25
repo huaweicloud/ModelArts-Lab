@@ -42,7 +42,7 @@ definition.
 
 ## Full Installation
 
-Two installation scripts are provided:
+Three installation scripts are provided:
 
 ### A3 / DeepSeek V4 Pro
 
@@ -77,6 +77,20 @@ VLLM_ASCEND_REPO=https://github.com/TallMessiWu/vllm-ascend.git \
 
 Set `VLLM_ASCEND_REPO` to override the vllm-ascend git URL (defaults to
 `https://github.com/vllm-project/vllm-ascend.git`).
+
+### A5 / DeepSeek V4 Flash
+
+Uses the official vllm-ascend repo:
+
+```bash
+bash install_all.sh <vllm_version> <vllm_ascend_ref>
+```
+
+Example:
+
+```bash
+  bash install_all_a5.sh 0.22.1 releases/v0.22.1rc
+```
 
 See [`docs/version-matrix.md`](docs/version-matrix.md) for the current baseline.
 
