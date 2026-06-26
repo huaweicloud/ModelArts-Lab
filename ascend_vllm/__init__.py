@@ -18,7 +18,6 @@ _GLOBAL_PATCH_APPLIED = False
 
 def _ensure_global_patch():
     """Apply vllm-ascend's process-wide patches once per process."""
-    import ascend_vllm.patch.platform  # noqa: F401
 
     global _GLOBAL_PATCH_APPLIED
     if _GLOBAL_PATCH_APPLIED:
@@ -65,3 +64,19 @@ def register_model():
     from vllm_ascend.models import register_model
 
     register_model()
+
+
+def register_kv_failure_patch():
+    """Load patches for Mooncake KV load failure reporting and recovery."""
+    # The KV failure fix spans both scheduler and worker processes:
+    # scheduler handles invalid KV blocks, while worker reports Mooncake KV
+    # load failures from the decode recv thread. This function is called from a
+    # vllm.general_plugins entry point so both sides can be patched in the
+    # processes where vLLM loads general plugins.
+    from ascend_vllm.patch.platform import patch_recompute_scheduler  # noqa: F401
+    from ascend_vllm.patch.worker import patch_mooncake_hybrid_connector  # noqa: F401
+
+
+def register_general_plugin_patch():
+    """Load ModelArts patches that require vLLM general-plugin timing."""
+    register_kv_failure_patch()
