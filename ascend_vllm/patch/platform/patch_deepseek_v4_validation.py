@@ -6,7 +6,7 @@ from typing import Any
 from transformers import PreTrainedTokenizerFast
 from vllm.entrypoints.openai.chat_completion import protocol as chat_protocol
 from vllm.tokenizers import deepseek_v4 as deepseek_v4_tokenizer
-from vllm_ascend.patch.platform import deepseek_v4_thinking as ascend_patch
+from vllm_ascend.patch.platform import patch_deepseek_v4_thinking as ascend_patch
 
 _VALIDATION_PATCH_APPLIED = False
 
