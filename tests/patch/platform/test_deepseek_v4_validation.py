@@ -171,8 +171,7 @@ def test_apply_patch_replaces_vllm_and_ascend_tokenizer_hooks(monkeypatch: pytes
     assert module._VALIDATION_PATCH_APPLIED is True
     assert deepseek_v4.get_deepseek_v4_tokenizer is module._patched_get_deepseek_v4_tokenizer
     assert (
-        stubs["ascend_deepseek_patch"]._patched_get_deepseek_v4_tokenizer
-        is module._patched_get_deepseek_v4_tokenizer
+        stubs["ascend_deepseek_patch"]._patched_get_deepseek_v4_tokenizer is module._patched_get_deepseek_v4_tokenizer
     )
 
 
@@ -182,9 +181,7 @@ def test_from_pretrained_wraps_fast_tokenizer_and_uses_cache(monkeypatch: pytest
 
     tokenizer = deepseek_v4.DeepseekV4Tokenizer.from_pretrained("repo/model", revision="main")
 
-    assert stubs["PreTrainedTokenizerFast"].calls == [
-        {"args": ("repo/model",), "kwargs": {"revision": "main"}}
-    ]
+    assert stubs["PreTrainedTokenizerFast"].calls == [{"args": ("repo/model",), "kwargs": {"revision": "main"}}]
     assert deepseek_v4.cached_tokenizers == [tokenizer]
     assert isinstance(tokenizer, _FakeTokenizer)
     assert tokenizer.__class__.__name__ == "DSV4_FakeTokenizer"
