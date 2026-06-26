@@ -136,7 +136,7 @@ def _patched_get_deepseek_v4_tokenizer(tokenizer: deepseek_v4_tokenizer.HfTokeni
             return added_vocab.copy()
 
         def __reduce__(self):
-            return get_deepseek_v4_tokenizer, (tokenizer,)
+            return _patched_get_deepseek_v4_tokenizer, (tokenizer,)
 
     _DeepseekV4Tokenizer.__name__ = f"DSV4{tokenizer.__class__.__name__}"
 
