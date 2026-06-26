@@ -114,7 +114,7 @@ def _install_external_dependency_stubs(monkeypatch: pytest.MonkeyPatch) -> dict[
     vllm_ascend = _make_package("vllm_ascend")
     vllm_ascend_patch = _make_package("vllm_ascend.patch")
     vllm_ascend_patch_platform = _make_package("vllm_ascend.patch.platform")
-    ascend_deepseek_patch = types.ModuleType("vllm_ascend.patch.platform.deepseek_v4_thinking")
+    ascend_deepseek_patch = types.ModuleType("vllm_ascend.patch.platform.patch_deepseek_v4_thinking")
     vars(ascend_deepseek_patch)["_patched_get_deepseek_v4_tokenizer"] = object()
 
     monkeypatch.setitem(sys.modules, "transformers", transformers)
@@ -134,7 +134,7 @@ def _install_external_dependency_stubs(monkeypatch: pytest.MonkeyPatch) -> dict[
     monkeypatch.setitem(sys.modules, "vllm_ascend.patch.platform", vllm_ascend_patch_platform)
     monkeypatch.setitem(
         sys.modules,
-        "vllm_ascend.patch.platform.deepseek_v4_thinking",
+        "vllm_ascend.patch.platform.patch_deepseek_v4_thinking",
         ascend_deepseek_patch,
     )
 
