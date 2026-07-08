@@ -201,6 +201,7 @@ else
   echo "No .gitmodules file."
   exit 1
 fi
+
 source ~/.bashrc
 rm -rf build
 mkdir build
