@@ -16,7 +16,6 @@ rm -rf llm_infer/tests
 } >> llm_infer/version.info
 
 version=$(grep -m1 'version=' setup.py | sed "s/.*version=\"\([^\"]*\)\".*/\1/" || echo "0.1.0")
-
 zip -q -r AscendCloud-LLM-"${version}"-"${build_time}".zip llm_infer/
 zip -q -r AscendCloud-"${version}"-"${build_time}".zip AscendCloud-LLM-*.zip
 echo "build package success."
