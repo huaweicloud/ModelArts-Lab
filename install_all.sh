@@ -89,7 +89,7 @@ cd "$current_path"
 yum install -y rdma-core-devel gflags-devel yaml-cpp-devel gtest-devel jsoncpp-devel libunwind-devel numactl-devel boost-devel boost-system boost-thread openssl-devel grpc-devel protobuf-devel protobuf-compiler libcurl-devel hiredis-devel patchelf
 
 git clone -b v0.3.8.post1 https://github.com/kvcache-ai/Mooncake.git
-cd /Mooncake/
+cd "$current_path"/Mooncake/
 
 mkdir thirdparties/
 cd thirdparties
@@ -125,6 +125,10 @@ else
   tar -zxf go${go_version}.linux-${arch}.tar.gz -C /usr/local/
   rm -rf go${go_version}.linux-${arch}.tar.gz
 fi
+if ! grep -q "export PATH=\$PATH:/usr/local/go/bin" ~/.bashrc; then
+  echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+fi
+export PATH=$PATH:/usr/local/go/bin
 go env -w GO111MODULE=on
 go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
 go env -w GONOSUMDB=*
@@ -144,7 +148,7 @@ else
   echo "No .gitmodules file."
   exit 1
 fi
-source ~/.bashrc
+
 rm -rf build
 mkdir build
 cd build
