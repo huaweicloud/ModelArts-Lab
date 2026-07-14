@@ -9,6 +9,20 @@ Add new platform patches here by importing the patch module:
 """
 
 # ruff: noqa: I001
+# Env var registration must run first so later patches can read
+# VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO via vllm_ascend.envs.
+from ascend_vllm.patch.platform import patch_envs as patch_envs  # noqa: F401
+
+# chunk_offsets_idx device path must be installed before the builder that
+# consumes build_chunk_meta_device.
+from ascend_vllm.patch.platform import (
+    patch_gdn_chunk_meta as patch_gdn_chunk_meta,
+)
+from ascend_vllm.patch.platform import (
+    patch_gdn_attn_builder as patch_gdn_attn_builder,
+)
+from ascend_vllm.patch.platform import patch_layernorm as patch_layernorm  # noqa: F401
+from ascend_vllm.patch.platform import patch_chunk_fla as patch_chunk_fla  # noqa: F401
 from ascend_vllm.patch.platform import patch_health as patch_health
 from ascend_vllm.patch.platform import (
     patch_disable_completion_tokens_details as patch_disable_completion_tokens_details,
