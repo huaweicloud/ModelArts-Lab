@@ -21,6 +21,15 @@ mkdir -p "$BUILD_ROOT"/build/
 vllm_version="$1"
 vllm_ascend_version="$2"
 
+# 解析可选参数
+compile_mooncake="FALSE"
+for arg in "$@"; do
+  case "${arg,,}" in
+    compile_mooncake=true) compile_mooncake="TRUE" ;;
+    compile_mooncake=false) compile_mooncake="FALSE" ;;
+  esac
+done
+
 # 定义重试函数
 retry() {
     local max_attempts=$1
@@ -103,7 +112,7 @@ VLLM_ASCEND_PATH=${BUILD_ROOT}/${VLLM_ASCEND_DIR}
 cd "${VLLM_ASCEND_PATH}"
 # 解决A3出包A5不可用的问题，6月份950DT的芯片型号是ascend950dt_9582，后续如果有新型号可做成可配置
 export SOC_VERSION=ascend950dt_9582
-pip install -v --no-build-isolation --no-deps -e .
+pip install -v -e .
 pip cache purge
 
 # 安装 ascend_vllm
@@ -142,74 +151,80 @@ cd "$current_path"/ascend_vllm/scripts/
 bash patch_third_pkg.sh
 
 # install mooncake
-cd "$current_path"
-yum install -y rdma-core-devel gflags-devel yaml-cpp-devel gtest-devel jsoncpp-devel libunwind-devel numactl-devel boost-devel boost-system boost-thread openssl-devel grpc-devel protobuf-devel protobuf-compiler libcurl-devel hiredis-devel patchelf
+if [ "$compile_mooncake" = "TRUE" ]; then
+  echo "[install_all] Installing mooncake with source code (compile_mooncake=${compile_mooncake})"
+  cd "$current_path"
+  yum install -y rdma-core-devel gflags-devel yaml-cpp-devel gtest-devel jsoncpp-devel libunwind-devel numactl-devel boost-devel boost-system boost-thread openssl-devel grpc-devel protobuf-devel protobuf-compiler libcurl-devel hiredis-devel patchelf
 
-git clone -b v0.3.9 https://github.com/kvcache-ai/Mooncake.git
-cd "$current_path"/Mooncake/
+  git clone -b v0.3.9 https://github.com/kvcache-ai/Mooncake.git
+  cd "$current_path"/Mooncake/
 
-mkdir thirdparties/
-cd thirdparties
-rm -rf yalantinglibs
-git clone -b 0.5.5 https://github.com/alibaba/yalantinglibs.git
-cd yalantinglibs
-mkdir build
-cd build
-cmake .. -DBUILD_EXAMPLES=OFF -DBUILD_BENCHMARK=OFF -DBUILD_UNIT_TESTS=OFF
-cmake --build . -j$(nproc)
-cmake --install .
+  mkdir thirdparties/
+  cd thirdparties
+  rm -rf yalantinglibs
+  git clone -b 0.5.5 https://github.com/alibaba/yalantinglibs.git
+  cd yalantinglibs
+  mkdir build
+  cd build
+  cmake .. -DBUILD_EXAMPLES=OFF -DBUILD_BENCHMARK=OFF -DBUILD_UNIT_TESTS=OFF
+  cmake --build . -j$(nproc)
+  cmake --install .
 
-cd "$current_path"/Mooncake/thirdparties/
-rm -rf glog
-git clone -b v0.7.1 https://github.com/google/glog.git
-cd glog
-cmake -DWITH_GTEST=OFF -S . -B build -G "Unix Makefiles"
-cmake --build build --target install -j$(nproc)
+  cd "$current_path"/Mooncake/thirdparties/
+  rm -rf glog
+  git clone -b v0.7.1 https://github.com/google/glog.git
+  cd glog
+  cmake -DWITH_GTEST=OFF -S . -B build -G "Unix Makefiles"
+  cmake --build build --target install -j$(nproc)
 
-cd "$current_path"/Mooncake/thirdparties/
-go_version=1.23.8
-if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
-  echo "Go ${go_version} installed. Skipping..."
-else
-  arch=$(uname -m)
-  if [ "${arch}" == "aarch64" ] || [ "${arch}" == "x86_64" ]; then
-    arch="arm64"
+  cd "$current_path"/Mooncake/thirdparties/
+  go_version=1.23.8
+  if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
+    echo "Go ${go_version} installed. Skipping..."
   else
-    echo "Unsupported architecture: ${arch}"
+    arch=$(uname -m)
+    if [ "${arch}" == "aarch64" ] || [ "${arch}" == "x86_64" ]; then
+      arch="arm64"
+    else
+      echo "Unsupported architecture: ${arch}"
+      exit 1
+    fi
+    wget -q --show-progress http://mirrors.aliyun.com/golang/go${go_version}.linux-${arch}.tar.gz
+    tar -zxf go${go_version}.linux-${arch}.tar.gz -C /usr/local/
+    rm -rf go${go_version}.linux-${arch}.tar.gz
+  fi
+  if ! grep -q "export PATH=\$PATH:/usr/local/go/bin" ~/.bashrc; then
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+  fi
+  export PATH=$PATH:/usr/local/go/bin
+  go env -w GO111MODULE=on
+  go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
+  go env -w GONOSUMDB=*
+
+  cd "$current_path"/Mooncake/
+  if [ -f ".gitmodules" ]; then
+    FIRST_SUBMODULE=$(grep "path" .gitmodules | head -1 | awk '{print $3}')
+    echo "Enter respository root: ${current_path}/Mooncake/"
+    if [ -d "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ] || [ -f "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ]; then
+      echo "Git submodules already initialized. Skipping..."
+    else
+      echo "initializing git submodules..."
+      git submodule update --init
+      echo "Git submodules initialized and updated successfully"
+    fi
+  else
+    echo "No .gitmodules file."
     exit 1
   fi
-  wget -q --show-progress http://mirrors.aliyun.com/golang/go${go_version}.linux-${arch}.tar.gz
-  tar -zxf go${go_version}.linux-${arch}.tar.gz -C /usr/local/
-  rm -rf go${go_version}.linux-${arch}.tar.gz
-fi
-if ! grep -q "export PATH=\$PATH:/usr/local/go/bin" ~/.bashrc; then
-  echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
-fi
-export PATH=$PATH:/usr/local/go/bin
-go env -w GO111MODULE=on
-go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
-go env -w GONOSUMDB=*
 
-cd "$current_path"/Mooncake/
-if [ -f ".gitmodules" ]; then
-  FIRST_SUBMODULE=$(grep "path" .gitmodules | head -1 | awk '{print $3}')
-  echo "Enter respository root: ${current_path}/Mooncake/"
-  if [ -d "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ] || [ -f "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ]; then
-    echo "Git submodules already initialized. Skipping..."
-  else
-    echo "initializing git submodules..."
-    git submodule update --init
-    echo "Git submodules initialized and updated successfully"
-  fi
+  rm -rf build
+  mkdir build
+  cd build
+  cmake -DUSE_ASCEND_DIRECT=ON -DUSE_CUDA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=4.0 -DUSE_ETCD=ON -DSTORE_USE_ETCD=ON -DBUILD_UNIT_TESTS=OFF -DBUILD_EXAMPLES=OFF ..
+  make -j
+  make install
+  ldconfig
 else
-  echo "No .gitmodules file."
-  exit 1
+  echo "[install_all] Installing mooncake with wheel package"
+  pip install mooncake_transfer_engine_npu==0.3.11.post1
 fi
-
-rm -rf build
-mkdir build
-cd build
-cmake -DUSE_ASCEND_DIRECT=ON -DUSE_CUDA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=4.0 -DUSE_ETCD=ON -DSTORE_USE_ETCD=ON -DBUILD_UNIT_TESTS=OFF -DBUILD_EXAMPLES=OFF ..
-make -j
-make install
-ldconfig

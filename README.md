@@ -58,39 +58,29 @@ Example:
 bash install_all.sh 0.20.2 0.20.2rc1
 ```
 
-### A5 / Qwen3.5
-
-Uses a custom vllm-ascend fork with NPU-specific tweaks (no triton uninstall,
-`--no-build-isolation --no-deps`):
+### A5 / Qwen3.5 AND DeepSeek V4
 
 ```bash
-bash install_all_a5.sh <vllm_version> <vllm_ascend_commit>
+bash install_all_a5.sh <vllm_version> <vllm_ascend_commit/vllm_ascend_ref> [compile_mooncake=TRUE]
 ```
+
+- `compile_mooncake=TRUE`: Install mooncake with source code; otherwise install mooncake with wheel package
 
 Example:
 
 ```bash
-# Uses TallMessiWu fork (Qwen3.5 baseline)
-VLLM_ASCEND_REPO=https://github.com/TallMessiWu/vllm-ascend.git \
-  bash install_all_a5.sh 0.20.2 1ba24186d0e422d1b7fdf76bbd2c6a234e6e166f
+# Uses vllm-ascend releases/v0.23.0 branch with specified commit id since RC version is not ready, install mooncake with source code
+  bash install_all_a5.sh 0.23.0 cabfbf8906d78d083a51e1e552fea751a937a880 compile_mooncake=TRUE
+```
+
+```bash
+# Uses vllm-ascend releases/v0.23.0 branch with specified commit id since RC version is not ready, install mooncake with wheel package
+  bash install_all_a5.sh 0.23.0 cabfbf8906d78d083a51e1e552fea751a937a880
 ```
 
 Set `VLLM_ASCEND_REPO` to override the vllm-ascend git URL (defaults to
 `https://github.com/vllm-project/vllm-ascend.git`).
 
-### A5 / DeepSeek V4 Flash
-
-Uses the official vllm-ascend repo:
-
-```bash
-bash install_all.sh <vllm_version> <vllm_ascend_ref>
-```
-
-Example:
-
-```bash
-  bash install_all_a5.sh 0.22.1 releases/v0.22.1rc
-```
 
 See [`docs/version-matrix.md`](docs/version-matrix.md) for the current baseline.
 
