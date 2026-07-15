@@ -1,0 +1,15 @@
+qwen_lora_scheduler_config:
+  base_image_seq_len: 256
+  base_shift: 1.0986122886681098
+  invert_sigmas: False
+  max_image_seq_len: 8192
+  max_shift: 1.0986122886681098
+  num_train_timesteps: 1000
+  shift: 1.0
+  shift_terminal: null
+  stochastic_sampling: False
+  time_shift_type: "exponential"
+  use_beta_sigmas: False
+  use_dynamic_shifting: True
+  use_exponential_sigmas: False
+  use_karras_sigmas: False

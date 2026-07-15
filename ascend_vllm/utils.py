@@ -18,3 +18,7 @@ from vllm_ascend.utils import adapt_patch as _adapt_vllm_ascend_patch
 
 def adapt_patch(is_global_patch: bool = False):
     _adapt_vllm_ascend_patch(is_global_patch=is_global_patch)
+    if is_global_patch:
+        from ascend_vllm.patch import platform  # noqa: F401
+    else:
+        from ascend_vllm.patch import worker  # noqa: F401

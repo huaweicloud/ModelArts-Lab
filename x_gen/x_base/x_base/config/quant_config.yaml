@@ -1,0 +1,148 @@
+# ============================================================
+# 量化层配置
+# 支持白名单和黑名单模式，针对不同模型定制量化策略
+# ============================================================
+
+# 默认量化策略（所有模型）
+default:
+  # 白名单：只量化匹配这些模式的层（null 表示不限）
+  include_patterns: null
+  # 黑名单：排除匹配这些模式的层
+  exclude_patterns:
+    - "timesteps_proj"
+    - "time_embedder"
+    - "lora"
+  # 层类型（只量化这些类型的层）
+  layer_types:
+    - "Linear"
+  # w4a4 量化模块选择配置
+  # 匹配这些层名的使用 w4a4 专用模块（WeightQuantLinearModule_w4a4）
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  # w4a4 模块必须同时匹配的 block 模式
+  w4a4_block_patterns:
+    - "blocks"
+
+# Qwen Image 模型量化策略
+qwen_image:
+  include_patterns:
+    - "img_mlp"
+    - "txt_mlp"
+  exclude_patterns:
+    - "timesteps_proj"
+    - "time_embedder"
+    - "lora"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+
+# Wan 模型量化策略
+wan:
+  include_patterns: null
+  exclude_patterns:
+    - "timesteps_proj"
+    - "time_embedder"
+    - "lora"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+
+# Hunyuan 模型量化策略
+hunyuan:
+  include_patterns: null
+  exclude_patterns:
+    - "timesteps_proj"
+    - "time_embedder"
+    - "lora"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+
+# CogVideoX 模型量化策略
+cogvideox:
+  include_patterns: null
+  exclude_patterns:
+    - "timesteps_proj"
+    - "time_embedder"
+    - "lora"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+# z_image 模型量化策略
+z_image:
+  include_patterns:
+    - all_x_embedder
+    - adaLN_modulation
+  exclude_patterns:
+    - "lora"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+# longcat_image 模型量化策略
+longcat_image:
+  include_patterns: null
+  exclude_patterns:
+    - "lora"
+    - "time_proj"
+    - "timestep_embedder"
+  layer_types:
+    - "Linear"
+  w4a4_patterns:
+    - "to_k"
+    - "to_v"
+    - "to_q"
+    - "to_out"
+    - "proj"
+  w4a4_block_patterns:
+    - "blocks"
+
+# ============================================================
+# 模型类型映射（自动推断）
+# 将模型类名/类型映射到配置名称
+# ============================================================
+model_type_mapping:
+  "QwenImageTransformer2DModel": "qwen_image"
+  "WanTransformer3DModel": "wan"
+  "HunyuanVideoTransformer3DModel": "hunyuan"
+  "CogVideoXTransformer3DModel": "cogvideox"
+  "ZImageTransformer2DModel": "z_image"
+  "LongCatImageTransformer2DModel": "longcat_image"

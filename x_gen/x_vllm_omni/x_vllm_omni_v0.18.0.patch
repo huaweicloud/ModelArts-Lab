@@ -1,0 +1,110 @@
+diff --git a/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image.py b/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image.py
+index 76d3efa2..0c59e516 100644
+--- a/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image.py
++++ b/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image.py
+@@ -27,6 +27,7 @@ from vllm_omni.diffusion.data import DiffusionOutput, OmniDiffusionConfig
+ from vllm_omni.diffusion.distributed.cfg_parallel import CFGParallelMixin
+ from vllm_omni.diffusion.distributed.utils import get_local_device
+ from vllm_omni.diffusion.model_loader.diffusers_loader import DiffusersPipelineLoader
++from vllm_omni.diffusion.utils.tf_utils import get_transformer_config_kwargs
+ from vllm_omni.diffusion.models.longcat_image.longcat_image_transformer import LongCatImageTransformer2DModel
+ from vllm_omni.diffusion.profiler.diffusion_pipeline_profiler import DiffusionPipelineProfilerMixin
+ from vllm_omni.diffusion.request import OmniDiffusionRequest
+@@ -236,7 +237,8 @@ class LongCatImagePipeline(nn.Module, CFGParallelMixin, DiffusionPipelineProfile
+         self.vae = AutoencoderKL.from_pretrained(model, subfolder="vae", local_files_only=local_files_only).to(
+             self.device
+         )
+-        self.transformer = LongCatImageTransformer2DModel(od_config=od_config)
++        transformer_kwargs = get_transformer_config_kwargs(od_config.tf_model_config, LongCatImageTransformer2DModel)
++        self.transformer = LongCatImageTransformer2DModel(od_config=od_config, **transformer_kwargs)
+         self.tokenizer = AutoTokenizer.from_pretrained(model, subfolder="tokenizer", local_files_only=local_files_only)
+ 
+         self.vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1) if getattr(self, "vae", None) else 8
+diff --git a/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image_edit.py b/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image_edit.py
+index 7eccf686..50efc079 100644
+--- a/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image_edit.py
++++ b/vllm_omni/diffusion/models/longcat_image/pipeline_longcat_image_edit.py
+@@ -29,6 +29,7 @@ from vllm_omni.diffusion.data import DiffusionOutput, OmniDiffusionConfig
+ from vllm_omni.diffusion.distributed.cfg_parallel import CFGParallelMixin
+ from vllm_omni.diffusion.distributed.utils import get_local_device
+ from vllm_omni.diffusion.model_loader.diffusers_loader import DiffusersPipelineLoader
++from vllm_omni.diffusion.utils.tf_utils import get_transformer_config_kwargs
+ from vllm_omni.diffusion.models.interface import SupportImageInput
+ from vllm_omni.diffusion.models.longcat_image.longcat_image_transformer import (
+     LongCatImageTransformer2DModel,
+@@ -257,7 +258,8 @@ class LongCatImageEditPipeline(nn.Module, CFGParallelMixin, SupportImageInput, D
+         self.vae = AutoencoderKL.from_pretrained(model, subfolder="vae", local_files_only=local_files_only).to(
+             self.device
+         )
+-        self.transformer = LongCatImageTransformer2DModel(od_config=od_config)
++        transformer_kwargs = get_transformer_config_kwargs(od_config.tf_model_config, LongCatImageTransformer2DModel)
++        self.transformer = LongCatImageTransformer2DModel(od_config=od_config, **transformer_kwargs)
+         self.tokenizer = AutoTokenizer.from_pretrained(model, subfolder="tokenizer", local_files_only=local_files_only)
+ 
+         self.vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1) if getattr(self, "vae", None) else 8
+@@ -455,6 +457,14 @@ class LongCatImageEditPipeline(nn.Module, CFGParallelMixin, SupportImageInput, D
+             else:
+                 image_latents = torch.cat([image_latents], dim=0)
+ 
++            # Resize image_latents to match target height/width (in latent space)
++            # Note: height/width have already been converted to latent space at line 438-439
++            target_latent_height = height
++            target_latent_width = width
++            if image_latents.shape[2] != target_latent_height or image_latents.shape[3] != target_latent_width:
++                import torch.nn.functional as F
++                image_latents = F.interpolate(image_latents, size=(target_latent_height, target_latent_width), mode='bilinear', align_corners=False)
++
+             image_latents = self._pack_latents(image_latents, batch_size, num_channels_latents, height, width)
+ 
+             image_latents_ids = prepare_pos_ids(
+@@ -618,8 +628,8 @@ class LongCatImageEditPipeline(nn.Module, CFGParallelMixin, SupportImageInput, D
+             image,
+             batch_size * num_images_per_prompt,
+             num_channels_latents,
+-            calculated_height,
+-            calculated_width,
++            height,
++            width,
+             prompt_embeds.dtype,
+             prompt_embeds.shape[1],
+             device,
+@@ -700,7 +710,7 @@ class LongCatImageEditPipeline(nn.Module, CFGParallelMixin, SupportImageInput, D
+         if output_type == "latent":
+             image = latents
+         else:
+-            latents = self._unpack_latents(latents, calculated_height, calculated_width, self.vae_scale_factor)
++            latents = self._unpack_latents(latents, height, width, self.vae_scale_factor)
+             latents = (latents / self.vae.config.scaling_factor) + self.vae.config.shift_factor
+ 
+             if latents.dtype != self.vae.dtype:
+diff --git a/vllm_omni/entrypoints/openai/serving_chat.py b/vllm_omni/entrypoints/openai/serving_chat.py
+index 1ae0102a..a9bd0ddf 100644
+--- a/vllm_omni/entrypoints/openai/serving_chat.py
++++ b/vllm_omni/entrypoints/openai/serving_chat.py
+@@ -2249,16 +2249,20 @@ class OmniOpenAIServingChat(OpenAIServingChat, AudioMixin):
+                 stop_reason=None,
+             )
+ 
+-            response = ChatCompletionResponse(
++            # Use model_construct for UsageInfo to avoid Pydantic validation issues
++            usage_info = UsageInfo.model_construct(
++                prompt_tokens=len(prompt.split()),
++                completion_tokens=1,
++                total_tokens=len(prompt.split()) + 1,
++            )
++
++            # Use model_construct for ChatCompletionResponse to bypass validation
++            response = ChatCompletionResponse.model_construct(
+                 id=request_id,
+                 created=created_time,
+                 model=self._diffusion_model_name,
+                 choices=[choice],
+-                usage=UsageInfo(
+-                    prompt_tokens=len(prompt.split()),
+-                    completion_tokens=1,
+-                    total_tokens=len(prompt.split()) + 1,
+-                ),
++                usage=usage_info,
+             )
+ 
+             logger.info(

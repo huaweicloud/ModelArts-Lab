@@ -1,0 +1,3295 @@
+diff --git a/__init__.py b/__init__.py
+deleted file mode 100644
+index bc79914..0000000
+--- a/__init__.py
++++ /dev/null
+@@ -1,20 +0,0 @@
+-"""
+-SeedVR2 Video Upscaler - Transition progressive vers architecture modulaire
+-
+-Ce fichier gère la transition entre:
+-- Ancien code monolithique (seedvr2.py)
+-- Nouvelle architecture modulaire (src/)
+-
+-Migration en cours...
+-"""
+-
+-# 🆕 TENTATIVE: Nouvelle architecture modulaire
+-from .src.interfaces.comfyui_node import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
+-USING_MODULAR = True
+-
+-
+-# Export pour ComfyUI
+-__all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
+-
+-# Métadonnées
+-__version__ = "1.5.0-transition" if not USING_MODULAR else "2.0.0-modular"
+diff --git a/seedvr/__init__.py b/seedvr/__init__.py
+new file mode 100644
+index 0000000..719b9ed
+--- /dev/null
++++ b/seedvr/__init__.py
+@@ -0,0 +1 @@
++from .inference import SeedVR2_Pipe
+\ No newline at end of file
+diff --git a/seedvr/inference.py b/seedvr/inference.py
+new file mode 100644
+index 0000000..bc4cc1b
+--- /dev/null
++++ b/seedvr/inference.py
+@@ -0,0 +1,398 @@
++import sys
++import os
++import argparse
++import time
++from pathlib import Path
++import torch
++import torch_npu
++from torch_npu.contrib import transfer_to_npu
++import cv2
++import numpy as np
++from datetime import datetime
++from src.core.model_manager import configure_runner
++from src.core.generation import generation_loop_tiling
++import torch.distributed as dist
++from torch.distributed.fsdp import (
++    MixedPrecision,
++    ShardingStrategy,
++    FullyShardedDataParallel as FSDP
++)
++from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
++from torch.distributed.fsdp.wrap import size_based_auto_wrap_policy
++from functools import partial
++import time
++from typing import Dict, List
++from x_base import OffloadManager
++
++def fsdp_wrap(module, sharding_strategy="full", mixed_precision=True, wrap_strategy="size", min_num_params=int(1e6),
++              transformer_module=None):
++    if mixed_precision:
++        mixed_precision_policy = MixedPrecision(
++            param_dtype=torch.bfloat16,
++            reduce_dtype=torch.float32,
++            buffer_dtype=torch.float32,
++            cast_forward_inputs=False
++        )
++    else:
++        mixed_precision_policy = None
++
++    if wrap_strategy == "transformer":
++        auto_wrap_policy = partial(
++            transformer_auto_wrap_policy,
++            transformer_layer_cls=transformer_module
++        )
++    elif wrap_strategy == "size":
++        auto_wrap_policy = partial(
++            size_based_auto_wrap_policy,
++            min_num_params=min_num_params
++        )
++    else:
++        raise ValueError(f"Invalid wrap strategy: {wrap_strategy}")
++
++    os.environ["NCCL_CROSS_NIC"] = "1"
++
++    sharding_strategy = {
++        "full": ShardingStrategy.FULL_SHARD,
++        "hybrid_full": ShardingStrategy.HYBRID_SHARD,
++        "hybrid_zero2": ShardingStrategy._HYBRID_SHARD_ZERO2,
++        "no_shard": ShardingStrategy.NO_SHARD,
++    }[sharding_strategy]
++
++    module = FSDP(
++        module,
++        auto_wrap_policy=auto_wrap_policy,
++        sharding_strategy=sharding_strategy,
++        mixed_precision=mixed_precision_policy,
++        device_id=torch.cuda.current_device(),
++        limit_all_gathers=True,
++        sync_module_states=False  # Load ckpt on rank 0 and sync to other ranks
++    )
++    return module
++
++
++def extract_frames_from_video(video_path, skip_first_frames=0, load_cap=None):
++    cap = cv2.VideoCapture(video_path)
++    if not cap.isOpened():
++        raise ValueError(f"Cannot open video file: {video_path}")
++
++    fps = cap.get(cv2.CAP_PROP_FPS)
++    frames = []
++    frame_idx, frames_loaded = 0, 0
++
++    while True:
++        ret, frame = cap.read()
++        if not ret:
++            break
++        if frame_idx < skip_first_frames:
++            frame_idx += 1
++            continue
++        if load_cap and frames_loaded >= load_cap:
++            break
++        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
++        frames.append(frame)
++        frame_idx += 1
++        frames_loaded += 1
++
++    cap.release()
++    if not frames:
++        raise ValueError(f"No frames extracted from video: {video_path}")
++    frames = np.stack(frames)
++    frames = frames[1:]
++    return frames, fps
++
++
++def save_frames_to_video_tr(frames_tensor, output_path, fps=30.0):
++    os.makedirs(os.path.dirname(output_path), exist_ok=True)
++    frames_np = (frames_tensor.cpu().numpy() * 255.0).astype(np.uint8)
++    T, H, W, _ = frames_np.shape
++    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (W, H))
++    for frame in frames_np:
++        out.write(cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
++    out.release()
++
++
++def merge_video_with_border(
++        h_block,
++        w_block,
++        world_size: int,
++        tensor_list: List[torch.Tensor],
++        overlap_border: int = 32
++) -> torch.Tensor:
++    """
++    修正后的视频块合并函数，处理带缓存边界的视频块
++    输入张量形状为 (t, h, w, c)，列表索引对应进程rank
++
++    参数:
++        world_size: 总进程数（支持2,4,8）
++        tensor_list: 视频块列表，每个元素为一个进程的带缓存视频块
++        overlap_border: 缓存边界像素数（默认32）
++
++    返回:
++        合并后的完整视频，形状为 (t, full_h, full_w, c)
++    """
++    # 单进程直接返回
++    if world_size == 1:
++        return tensor_list[0]
++
++    # 输入验证
++    if not tensor_list:
++        raise ValueError("tensor_list不能为空")
++    if len(tensor_list) != world_size:
++        raise ValueError(f"tensor_list长度({len(tensor_list)})与world_size({world_size})不匹配")
++
++    # 获取基础信息（从第一个有效张量）
++    first_tensor = None
++    for tensor in tensor_list:
++        if tensor is not None:
++            first_tensor = tensor
++            break
++    if first_tensor is None:
++        raise ValueError("tensor_list中所有元素均为None")
++
++    if first_tensor.dim() != 4:
++        raise ValueError(f"输入张量必须是4维(t, h, w, c)，实际为{first_tensor.shape}")
++
++    # 解析形状 (t, h, w, c)
++    t, h, w, c = first_tensor.shape
++    device = first_tensor.device
++    dtype = first_tensor.dtype
++
++    # 验证所有张量的基本维度一致性
++    for rank in range(world_size):
++        tensor = tensor_list[rank]
++        if tensor is None:
++            raise ValueError(f"rank {rank} 的张量为None")
++        if tensor.device != device:
++            raise ValueError(f"rank {rank} 设备不匹配: {tensor.device} vs {device}")
++        if tensor.shape[0] != t or tensor.shape[3] != c:
++            raise ValueError(
++                f"rank {rank} 维度不匹配: 期望(t={t}, c={c})，实际{tensor.shape}"
++            )
++
++    # 确定切分方式
++    if world_size == 8:
++        long_div, short_div = 4, 2  # 长边4分，短边2分
++    elif world_size == 4:
++        long_div, short_div = 2, 2  # 长边2分，短边2分
++    elif world_size == 2:
++        long_div, short_div = 2, 1  # 长边2分，短边不切
++    else:
++        raise ValueError("world_size只支持2,4,8")
++
++    # 确定长边和短边（基于视频块的空间尺寸）
++    if w_block >= h_block:
++        is_landscape = True  # 宽为长边，高为短边
++        long_side = w  # w_block
++        short_side = h  # h_block
++    else:
++        is_landscape = False  # 高为长边，宽为短边
++        long_side = h  # h_block
++        short_side = w  # w_block
++
++    # 计算单块有效尺寸（减去两边缓存）
++    if world_size == 4:
++        effective_long = long_side - overlap_border
++        effective_short = short_side - overlap_border
++    elif world_size == 2:
++        effective_long = long_side - overlap_border
++        effective_short = short_side
++    elif world_size == 8:
++        effective_long = long_side - 2 * overlap_border
++        effective_short = short_side - overlap_border
++    else:
++        raise ValueError("world_size只支持2,4,8")
++
++    # 计算完整视频尺寸
++    if world_size == 8:
++        full_long = effective_long * long_div + 2 * overlap_border
++        full_short = effective_short * short_div
++    else:
++        full_long = effective_long * long_div
++        full_short = effective_short * short_div
++
++    # 映射到实际视频的高和宽
++    if is_landscape:
++        full_w, full_h = full_long, full_short
++    else:
++        full_h, full_w = full_long, full_short
++
++    # 初始化合并结果和计数矩阵
++    merged_video = torch.zeros(
++        (t, full_h, full_w, c),
++        device=device,
++        dtype=dtype
++    )
++    count_matrix = torch.zeros(
++        (full_h, full_w),
++        device=device,
++        dtype=torch.int32
++    )
++
++    # 处理每个视频块
++    for rank in range(world_size):
++        tensor = tensor_list[rank]
++        t_curr, h_curr, w_curr, c_curr = tensor.shape
++
++        # 计算当前块在网格中的位置
++        i = rank // short_div  # 长边方向索引
++        j = rank % short_div  # 短边方向索引
++
++        # 计算有效区域在完整视频中的坐标（不含缓存）
++        if is_landscape:
++            # 宽为长边，高为短边
++            if world_size == 8:
++                x_start = max(i * effective_long, 0)
++                x_end = min(x_start + effective_long + 2 * overlap_border, full_w)
++            else:
++                x_start = max(i * effective_long - overlap_border, 0)
++                x_end = min(x_start + effective_long + overlap_border, full_w)
++            if short_div > 1:
++                y_start = max(j * effective_short - overlap_border, 0)
++                y_end = min(y_start + effective_short + overlap_border, full_h)
++            else:
++                y_start = j * effective_short
++                y_end = y_start + effective_short
++
++
++        else:
++            if world_size == 8:
++                y_start = max(i * effective_long, 0)
++                y_end = min(y_start + effective_long + 2 * overlap_border, full_h)
++            else:
++                # 高为长边，宽为短边
++                y_start = max(i * effective_long - overlap_border, 0)
++                y_end = min(y_start + effective_long + overlap_border, full_h)
++            if short_div > 1:
++                x_start = max(j * effective_short - overlap_border, 0)
++                x_end = min(x_start + effective_short + overlap_border, full_w)
++            else:
++                x_start = j * effective_short
++                x_end = x_start + effective_short
++
++        merged_video[:, y_start:y_end, x_start:x_end, :] += tensor[:, :, :, :]
++        count_matrix[y_start:y_end, x_start:x_end] += 1
++
++    # 处理重叠区域：计算平均值
++    count_matrix = count_matrix.clamp(min=1)  # 避免除零
++    count_matrix = count_matrix.unsqueeze(0).unsqueeze(-1)  # 扩展为 (1, h, w, 1)
++    merged_video = merged_video / count_matrix.to(dtype)
++
++    if world_size == 8:
++        if is_landscape:
++            merged_video = merged_video[:, :, 32:full_long - 32, :]
++        else:
++            merged_video = merged_video[:, 32:full_long - 32, :, :]
++
++    return merged_video
++
++
++def save_frames_to_video(frames_tensor, output_path, fps=30.0, debug=False):
++    """
++    Save frames tensor to video file
++
++    Args:
++        frames_tensor (torch.Tensor): Frames in format [T, H, W, C] (Float16, 0-1)
++        output_path (str): Output video path
++        fps (float): Output video FPS
++        debug (bool): Enable debug logging
++    """
++    if debug:
++        print(f"🎬 Saving {frames_tensor.shape[0]} frames to video: {output_path}")
++
++    # Ensure output directory exists
++    # os.makedirs(os.path.dirname(output_path), exist_ok=True)
++
++    # Convert tensor to numpy and denormalize
++    frames_np = frames_tensor.detach().cpu().numpy()
++    frames_np = (frames_np * 255.0).astype(np.uint8)
++
++    # Get video properties
++    T, H, W, C = frames_np.shape
++
++    # Initialize video writer
++    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
++    out = cv2.VideoWriter(output_path, fourcc, fps, (W, H))
++
++    if not out.isOpened():
++        raise ValueError(f"Cannot create video writer for: {output_path}")
++
++    # Write frames
++    for i, frame in enumerate(frames_np):
++        # Convert RGB to BGR for OpenCV
++        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
++        out.write(frame_bgr)
++
++        if debug and (i + 1) % 100 == 0:
++            print(f"💾 Saved {i + 1}/{T} frames")
++
++    out.release()
++
++    if debug:
++        print(f"✅ Video saved successfully: {output_path}")
++
++
++def run_distributed_processing_tiling(runner, frames_np, args):
++    rank = dist.get_rank()
++    world_size = dist.get_world_size()
++    torch.cuda.set_device(rank)
++
++    device = f"npu:{rank}"
++
++    t, h, w, c = frames_np.shape
++
++    chunks = frames_np
++
++    local_chunk = torch.from_numpy(frames_np).to(torch.bfloat16).cuda(rank)  # Ensure local_chunk is on the correct GPU
++
++    generation_loop_tiling(
++        runner=runner,
++        images=local_chunk,
++        cfg_scale=1.0,
++        seed=args.seed,
++        res_w=args.resolution,
++        batch_size=t + 1,
++        preserve_vram=True,
++        temporal_overlap=0,
++        debug=False,
++        rank=rank,
++        world_size=world_size,
++        device=device,
++        frame_interpolation = args.frame_interpolation_sr,
++        frame_model_path = args.frame_model_path,
++        save_fps = args.save_fps,
++    )
++
++
++class SeedVR2_Pipe():
++    def __init__(self, args):
++        self.args = args
++        self.runner = configure_runner(
++            args.seedvr2_model_name,
++            args.seedvr2_model_dir,
++            True,
++            False,
++        )
++        device=f"npu:{dist.get_rank()}"
++        self.runner.dit.to("cpu",dtype=torch.float16)
++        self.runner.vae.to(device,dtype=torch.float16)
++
++        for name, module in self.runner.dit.named_children():
++            if name != "blocks":
++                module.to("npu")
++
++        
++        inf_vram_blocks_num = 1
++        offloader = OffloadManager(
++            self.runner.dit,
++            module_groups={"blocks": self.runner.dit.blocks},
++            keep_n={"blocks": int(inf_vram_blocks_num)},
++            device=device,
++            dist_group=dist.group.WORLD,
++            sync_at_layer=True if dist.is_initialized() else False,
++        )
++        offloader.enable()
++
++    def __call__(self, images):
++        start_time = time.time()
++        with torch.no_grad():
++            run_distributed_processing_tiling(self.runner, images, self.args)
+\ No newline at end of file
+diff --git a/setup.py b/setup.py
+new file mode 100644
+index 0000000..38059fc
+--- /dev/null
++++ b/setup.py
+@@ -0,0 +1,22 @@
++import os
++from setuptools import setup, find_packages
++from wheel.bdist_wheel import bdist_wheel
++
++with open(os.path.join(os.path.dirname(__file__), 'requirements.txt'), 'r') as f:
++    install_requires = []
++    for line in f.read().splitlines():
++        if line.strip() and not line.startswith('#'):
++            install_requires.append(line)
++
++setup(
++    name="seedvr",
++    version="0.0.1",
++    description="seedvr",
++    packages=find_packages(),
++    install_requires=install_requires,
++    python_requires='>=3.9',
++    classifiers=[
++        "Programming Language :: Python :: 3",
++        "Operating System :: OS Independent",
++    ],
++)
+diff --git a/src/core/generation.py b/src/core/generation.py
+index 3f4baf2..2019fa6 100644
+--- a/src/core/generation.py
++++ b/src/core/generation.py
+@@ -20,18 +20,25 @@ import os
+ import gc
+ import torch
+ import time
++import numpy as np
+ from torchvision.transforms import Compose, Lambda, Normalize
+-
+-
++import torch.distributed as dist
++import torch.nn.functional as F
+ # Import required modules
+ from src.optimization.memory_manager import reset_vram_peak
+ from src.optimization.performance import (
+-    optimized_video_rearrange, optimized_single_video_rearrange, 
++    optimized_video_rearrange, optimized_single_video_rearrange,
+     optimized_sample_to_image_format, temporal_latent_blending
+ )
+ from src.common.seed import set_seed
++from src.common.distributed import (
++    get_device,
++)
++from typing import Dict, List
++
+ try:
+     import comfy.model_management
++
+     COMFYUI_AVAILABLE = True
+ except:
+     COMFYUI_AVAILABLE = False
+@@ -45,23 +52,27 @@ from src.data.image.transforms.divisible_crop import DivisibleCrop
+ from src.data.image.transforms.na_resize import NaResize
+ 
+ from src.utils.color_fix import wavelet_reconstruction
+-
+-
++from x_base.vae_parallelism.save_video_stream import SaveVideoStream
++from x_diffusers.framework.vae.vfi_utils import generic_frame_loop, InterpolationStateList
++from x_diffusers.framework.vae.IFRNet_S_arch import IRFNet_S
++from x_diffusers.framework.vae.wan import vfi
++from x_base.utils.infer_info import infer_info
++import cv2
+ 
+ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, temporal_overlap):
+     """
+     Execute a single generation step with adaptive dtype handling
+-    
++
+     Args:
+         runner: VideoDiffusionInfer instance
+         text_embeds_dict (dict): Text embeddings for positive and negative prompts
+         preserve_vram (bool): Whether to enable VRAM optimization
+         cond_latents (list): Conditional latents for generation
+         temporal_overlap (int): Number of frames for temporal overlap
+-        
++
+     Returns:
+         tuple: (samples, last_latents) for potential temporal continuation
+-        
++
+     Features:
+         - Adaptive dtype detection (FP8/FP16/BFloat16)
+         - Optimal autocast configuration for each model type
+@@ -70,10 +81,11 @@ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, tempo
+         - Advanced inference optimization
+     """
+     device = "cuda" if torch.cuda.is_available() else "cpu"
+-    
++
+     # Adaptive dtype detection for optimal performance
++
+     model_dtype = next(runner.dit.parameters()).dtype
+-    
++
+     # Configure dtypes according to model architecture
+     if model_dtype in (torch.float8_e4m3fn, torch.float8_e5m2):
+         # FP8 native: use BFloat16 for intermediate calculations (optimal compatibility)
+@@ -95,17 +107,17 @@ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, tempo
+         base_noise = torch.randn_like(cond_latents[0], dtype=dtype)
+         noises = [base_noise]
+         aug_noises = [base_noise * 0.1 + torch.randn_like(base_noise) * 0.05]
+-    
++
+     # Move tensors with adaptive dtype (optimized for FP8/FP16/BFloat16)
+     noises, aug_noises, cond_latents = _move_to_cuda(noises), _move_to_cuda(aug_noises), _move_to_cuda(cond_latents)
+-    
++
+     cond_noise_scale = 0.0
+ 
+     def _add_noise(x, aug_noise):
+         # Use adaptive optimal dtype
+         t = (
+-            torch.tensor([1000.0], device=device, dtype=dtype)
+-            * cond_noise_scale
++                torch.tensor([1000.0], device=device, dtype=dtype)
++                * cond_noise_scale
+         )
+         shape = torch.tensor(x.shape[1:], device=device)[None]
+         t = runner.timestep_transform(t, shape)
+@@ -118,73 +130,551 @@ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, tempo
+         task="sr",
+         latent_blur=_add_noise(cond_latents[0], aug_noises[0]),
+     )
+-    conditions = [condition]
++    conditions = [condition.to(device)]
+     t = time.time()
+-    
++
+     # Check if BlockSwap is active
+     use_blockswap = hasattr(runner, "_blockswap_active") and runner._blockswap_active
+ 
+     # Use adaptive autocast for optimal performance
+-    with torch.no_grad():
+-        with torch.autocast("cuda", autocast_dtype, enabled=True):
+-            video_tensors = runner.inference(
+-                noises=noises,
+-                conditions=conditions,
+-                preserve_vram=preserve_vram  # Memory offload optimization
+-                and not use_blockswap,  # Disable dit_offload if BlockSwap active
+-                temporal_overlap=temporal_overlap,
+-                use_blockswap=use_blockswap,
+-                **text_embeds_dict,
+-            )
+-    
+-    print(f"🔄 INFERENCE time: {time.time() - t} seconds")
+-    
+-    # Process samples with advanced optimization
++    # runner.dit.to(device,dtype=torch.float16)
++    latents, decode_dtype = runner.inference_my(
++        noises=noises,
++        conditions=conditions,
++        preserve_vram=True  # Memory offload optimization
++                      and not use_blockswap,  # Disable dit_offload if BlockSwap active
++        temporal_overlap=temporal_overlap,
++        use_blockswap=use_blockswap,
++        **text_embeds_dict,
++    )
++    # runner.dit.to("cpu")
++    return latents, decode_dtype
++
++
++def generation_step_decode(runner, latents, decode_dtype):
++    video_tensors = runner.vae_decode_my(latents, decode_dtype)
++
+     samples = optimized_video_rearrange(video_tensors)
+-    #last_latents = samples[-temporal_overlap:] if temporal_overlap > 0 else samples[-1:]
+-    noises = noises[0].to("cpu")
+-    aug_noises = aug_noises[0].to("cpu")
+-    cond_latents = cond_latents[0].to("cpu")
+-    conditions = conditions[0].to("cpu")
+-    condition = condition.to("cpu")
+-    
+-    return samples #, last_latents
++    # print(f"???video_tensors:{video_tensors[0].shape},samples:{samples[0].shape}")
++    return samples
+ 
+ 
+ def cut_videos(videos):
+     """
+     Correct video cutting respecting the constraint: frames % 4 == 1
+-    
++
+     Args:
+         videos (torch.Tensor): Video tensor to format
+-        
++
+     Returns:
+         torch.Tensor: Properly formatted video tensor
+-        
++
+     Features:
+         - Ensures frames % 4 == 1 constraint for model compatibility
+         - Intelligent padding with last frame repetition
+         - Memory-efficient tensor operations
+     """
+     t = videos.size(1)
+-    
++
+     if t % 4 == 1:
+         return videos
+-    
++
+     # Calculate next valid number (4n + 1)
+     padding_needed = (4 - (t % 4)) % 4 + 1
+-    
++
+     # Apply padding to reach 4n+1 format
+     last_frame = videos[:, -1:].expand(-1, padding_needed, -1, -1).contiguous()
+     result = torch.cat([videos, last_frame], dim=1)
+-    
++
+     return result
+ 
+ 
+-def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_size=90, preserve_vram=False, temporal_overlap=0, debug=False, block_swap_config=None, progress_callback=None):
++def prepare_video_transforms(res_w):
++    """
++    Prepare optimized video transformation pipeline
++
++    Args:
++        res_w (int): Target resolution width
++
++    Returns:
++        Compose: Configured transformation pipeline
++
++    Features:
++        - Resolution-aware upscaling (no downsampling)
++        - Proper normalization for model compatibility
++        - Memory-efficient tensor operations
+     """
+-    Main generation loop with context-aware temporal processing
++    return Compose([
++        NaResize(
++            resolution=(res_w),
++            mode="side",
++            downsample_only=False,  # Model trained for high resolution
++        ),
++        Lambda(lambda x: torch.clamp(x, 0.0, 1.0)),
++        DivisibleCrop((16, 16)),
++        Normalize(0.5, 0.5),
++        Lambda(lambda x: x.permute(1, 0, 2, 3)),  # t c h w -> c t h w
++    ])
++
++
++def load_text_embeddings(script_directory, device, dtype):
++    """
++    Load and prepare text embeddings for generation
++
++    Args:
++        script_directory (str): Script directory path
++        device (str): Target device
++        dtype (torch.dtype): Target dtype
++
++    Returns:
++        dict: Text embeddings dictionary
++
++    Features:
++        - Adaptive dtype handling
++        - Device-optimized loading
++        - Memory-efficient embedding preparation
++    """
++    text_pos_embeds = torch.load(os.path.join(script_directory, 'pos_emb.pt')).to(device, dtype=dtype)
++    text_neg_embeds = torch.load(os.path.join(script_directory, 'neg_emb.pt')).to(device, dtype=dtype)
++
++    return {"texts_pos": [text_pos_embeds], "texts_neg": [text_neg_embeds]}
++
++
++def calculate_optimal_batch_params(total_frames, batch_size, temporal_overlap):
++    """
++    Calculate optimal batch processing parameters
++
++    Args:
++        total_frames (int): Total number of frames
++        batch_size (int): Desired batch size
++        temporal_overlap (int): Temporal overlap frames
++
++    Returns:
++        dict: Optimized parameters and recommendations
++
++    Features:
++        - 4n+1 constraint optimization
++        - Padding waste calculation
++        - Performance recommendations
++    """
++    step = batch_size - temporal_overlap
++    if step <= 0:
++        step = batch_size
++        temporal_overlap = 0
++
++    # Find optimal batch sizes (4n+1 constraint)
++    optimal_batches = [x for x in [i for i in range(1, 200) if i % 4 == 1] if x <= total_frames]
++    best_batch = max(optimal_batches) if optimal_batches else 1
++
++    # Calculate potential padding waste
++    padding_waste = 0
++    if batch_size not in optimal_batches:
++        padding_waste = sum(((i // 4) + 1) * 4 + 1 - i for i in range(batch_size, total_frames, batch_size))
++
++    return {
++        'step': step,
++        'temporal_overlap': temporal_overlap,
++        'best_batch': best_batch,
++        'padding_waste': padding_waste,
++        'is_optimal': batch_size in optimal_batches
++    }
++
++
++def split_video_with_border(transformed_video, world_size, rank, overlap=32):
++    """
++    切分视频数据（忽略时间维度），在交界处添加32像素缓存
++
++    参数:
++        transformed_video: 视频数据，形状为 (c, t, h, w) 的NumPy数组或Tensor
++        world_size: 切分的总块数（支持2,4,8）
++        rank: 当前块的序号（0到world_size-1）
++
++    返回:
++        tuple: (切分后的视频块(带缓存), 原始区块左上角坐标, 原始区块右下角坐标)
++    """
++    if world_size == 1:
++        return transformed_video
++    # 检查输入形状
++    if len(transformed_video.shape) != 4:
++        raise ValueError("输入视频必须是形状为 (c, t, h, w) 的数组")
++
++    c, t, h, w = transformed_video.shape
++
++    # 确定长边和短边（仅考虑空间维度h和w）
++    if w >= h:
++        long_side = w  # 宽度为长边
++        short_side = h  # 高度为短边
++        is_landscape = True
++    else:
++        long_side = h  # 高度为长边
++        short_side = w  # 宽度为短边
++        is_landscape = False
++
++    # 根据world_size确定切分方式
++    if world_size == 16:
++        long_div = 4
++        short_div = 4
++    elif world_size == 8:
++        long_div = 4  # 长边分为4份
++        short_div = 2  # 短边分为2份
++    elif world_size == 4:
++        long_div = 2
++        short_div = 2
++    elif world_size == 2:
++        long_div = 2
++        short_div = 1
++    elif world_size == 1:
++        long_div = 1
++        short_div = 1
++    else:
++        raise ValueError("world_size只支持2, 4, 8")
++
++    # 计算每块的基础尺寸
++    long_step = long_side // long_div
++    short_step = short_side // short_div
++
++    # 计算当前rank对应的位置索引
++    i = rank // short_div  # 长边方向的索引
++    j = rank % short_div  # 短边方向的索引
++
++    if world_size == 8:
++        if is_landscape:
++            transformed_video = torch.nn.functional.pad(
++                transformed_video,
++                pad=(overlap, overlap, 0, 0),
++                mode='constant',
++                value=0
++            )
++        else:
++            transformed_video = torch.nn.functional.pad(
++                transformed_video,
++                pad=(0, 0, overlap, overlap),
++                mode='constant',
++                value=0
++            )
++    elif world_size == 16:
++        transformed_video = torch.nn.functional.pad(
++            transformed_video,
++            pad=(overlap, overlap, overlap, overlap),
++            mode='constant',
++            value=0
++        )
++    # 计算原始区块在长边和短边方向的坐标
++    if world_size == 16:
++        long_start = i * long_step
++        long_end = long_start + long_step + 2 * overlap
++
++        short_start = j * short_step
++        short_end = short_start + short_step + 2 * overlap
++        
++    elif world_size == 8:
++        long_start = i * long_step
++        long_end = long_start + long_step + 2 * overlap
++
++        short_start = max(0, j * short_step - overlap)
++        short_end = short_start + short_step + overlap
++    else:
++        long_start = max(0, i * long_step - overlap)
++        long_end = long_start + long_step + overlap
++
++        short_start = max(0, j * short_step - overlap)
++        short_end = short_start + short_step + overlap  
++
+     
++
++    # 转换回实际图像坐标（x为宽，y为高）
++    if is_landscape:
++        # 宽为长边，高为短边
++
++        x1_b, y1_b = long_start, short_start
++        x2_b, y2_b = long_end, short_end
++    else:
++        # 高为长边，宽为短边
++
++        x1_b, y1_b = short_start, long_start
++        x2_b, y2_b = short_end, long_end
++
++    # 切分视频（所有时间步共享相同的空间切分）
++    # 注意：视频形状为 (c, t, h, w)，切片顺序为 [c, t, y_slice, x_slice]
++
++    cropped_with_border = transformed_video[:, :, y1_b:y2_b, x1_b:x2_b]
++
++    # 返回带缓存的视频块
++    return cropped_with_border
++
++def resize_video_tensor(merged_video: torch.Tensor) -> torch.Tensor:
++    """
++    根据环境变量配置调整视频张量的分辨率
++    核心逻辑：若加载T2V模型或强制缩放，按resolution环境变量指定的尺寸插值缩放
++
++    Args:
++        merged_video: 输入视频张量，格式为 [B, H, W, C]（批次、高度、宽度、通道）
++
++    Returns:
++        torch.Tensor: 调整后的视频张量，格式保持 [B, H, W, C]
++
++    Raises:
++        ValueError: 分辨率环境变量格式错误/宽高非整数
++        TypeError: 输入张量维度不符合要求
++    """
++    # 1. 校验输入张量维度（必须是4维 [B, H, W, C]）
++    if merged_video.dim() != 4:
++        raise TypeError(f"输入张量必须是4维 [B, H, W, C]，当前维度：{merged_video.dim()}")
++
++    # 2. 读取环境变量配置
++    load_model = os.getenv("LOAD_MODEL", "Wan2.2-I2V-A14B")
++    force_resize = os.getenv("force_size", "false").lower()  # 统一转小写，避免大小写问题
++
++    # 3. 判断是否需要缩放
++    need_resize = "T2V" in load_model or (force_resize in ("true", "1", "yes"))
++    res_str = os.environ.get("resolution", "devserver")
++    if res_str == "devserver":
++        if infer_info.task_type == "i2v" and infer_info.i2v_image_path:
++            img_path = infer_info.i2v_image_path
++            img = cv2.imread(img_path)
++            img_height, img_width, _ = img.shape
++            if (img_height == 1080 and img_width == 1920) or (img_height == 1920 and img_width == 1080): # or (img_height == 720 and img_width == 1280) or (img_height == 1280 and img_width == 720) 修改逻辑，超分只用来做1080
++                need_resize = True
++    if not need_resize:
++        return merged_video  # 无需缩放，直接返回原张量
++
++    # 4. 解析分辨率环境变量
++    try:
++        if res_str == "devserver":
++            target_size = (img_height, img_width)
++        else:
++            target_width, target_height = map(int, res_str.split(","))
++            target_size = (target_height, target_width)
++    except (ValueError, AttributeError):
++        raise ValueError(
++            f"分辨率环境变量格式错误！当前值：{res_str}，请确保格式为 '宽度,高度'（如720,480）"
++        )
++
++    # 5. 调整张量维度并插值缩放
++    # [B, H, W, C] → [B, C, H, W]（适配F.interpolate的输入格式）
++    merged_video = merged_video.permute(0, 3, 1, 2)
++    # 双线性插值缩放
++    merged_video_resized = F.interpolate(
++        merged_video,
++        size=target_size,
++        mode="bilinear",
++        align_corners=False
++    )
++    # [B, C, H, W] → [B, H, W, C]（还原原始维度格式）
++    merged_video_resized = merged_video_resized.permute(0, 2, 3, 1)
++    return merged_video_resized
++
++def merge_video_with_border(
++        h_block,
++        w_block,
++        world_size: int,
++        tensor_list: List[torch.Tensor],
++        overlap_border: int = 32
++) -> torch.Tensor:
++    """
++    修正后的视频块合并函数，处理带缓存边界的视频块
++    输入张量形状为 (t, h, w, c)，列表索引对应进程rank
++
++    参数:
++        world_size: 总进程数（支持2,4,8）
++        tensor_list: 视频块列表，每个元素为一个进程的带缓存视频块
++        overlap_border: 缓存边界像素数（默认32）
++
++    返回:
++        合并后的完整视频，形状为 (t, full_h, full_w, c)
++    """
++    # 单进程直接返回
++    if world_size == 1:
++        return tensor_list[0]
++
++    # 输入验证
++    if not tensor_list:
++        raise ValueError("tensor_list不能为空")
++    if len(tensor_list) != world_size:
++        raise ValueError(f"tensor_list长度({len(tensor_list)})与world_size({world_size})不匹配")
++
++    # 获取基础信息（从第一个有效张量）
++    first_tensor = None
++    for tensor in tensor_list:
++        if tensor is not None:
++            first_tensor = tensor
++            break
++    if first_tensor is None:
++        raise ValueError("tensor_list中所有元素均为None")
++
++    if first_tensor.dim() != 4:
++        raise ValueError(f"输入张量必须是4维(t, h, w, c)，实际为{first_tensor.shape}")
++
++    # 解析形状 (t, h, w, c)
++    t, h, w, c = first_tensor.shape
++    device = first_tensor.device
++    dtype = first_tensor.dtype
++
++    # 验证所有张量的基本维度一致性
++    for rank in range(world_size):
++        tensor = tensor_list[rank]
++        if tensor is None:
++            raise ValueError(f"rank {rank} 的张量为None")
++        if tensor.device != device:
++            raise ValueError(f"rank {rank} 设备不匹配: {tensor.device} vs {device}")
++        if tensor.shape[0] != t or tensor.shape[3] != c:
++            raise ValueError(
++                f"rank {rank} 维度不匹配: 期望(t={t}, c={c})，实际{tensor.shape}"
++            )
++
++    # 确定切分方式
++    if world_size == 16:
++        long_div, short_div = 4, 4  # 长边4分，短边4分
++    elif world_size == 8:
++        long_div, short_div = 4, 2  # 长边4分，短边2分
++    elif world_size == 4:
++        long_div, short_div = 2, 2  # 长边2分，短边2分
++    elif world_size == 2:
++        long_div, short_div = 2, 1  # 长边2分，短边不切
++    else:
++        raise ValueError("world_size只支持2,4,8")
++
++    # 确定长边和短边（基于视频块的空间尺寸）
++    if w_block >= h_block:
++        is_landscape = True  # 宽为长边，高为短边
++        long_side = w  # w_block
++        short_side = h  # h_block
++    else:
++        is_landscape = False  # 高为长边，宽为短边
++        long_side = h  # h_block
++        short_side = w  # w_block
++
++    # 计算单块有效尺寸（减去两边缓存）
++    if world_size == 4:
++        effective_long = long_side - overlap_border
++        effective_short = short_side - overlap_border
++    elif world_size == 2:
++        effective_long = long_side - overlap_border
++        effective_short = short_side
++    elif world_size == 8:
++        effective_long = long_side - 2 * overlap_border
++        effective_short = short_side - overlap_border
++    elif world_size == 16:
++        effective_long = long_side - 2 * overlap_border
++        effective_short = short_side - 2 * overlap_border
++    else:
++        raise ValueError("world_size只支持2,4,8")
++
++    # 计算完整视频尺寸
++    if world_size == 16:
++        full_long = effective_long * long_div + 2 * overlap_border
++        full_short = effective_short * short_div + 2 * overlap_border
++    elif world_size == 8:
++        full_long = effective_long * long_div + 2 * overlap_border
++        full_short = effective_short * short_div
++    else:
++        full_long = effective_long * long_div
++        full_short = effective_short * short_div
++
++    # 映射到实际视频的高和宽
++    if is_landscape:
++        full_w, full_h = full_long, full_short
++    else:
++        full_h, full_w = full_long, full_short
++
++    # 初始化合并结果和计数矩阵
++    merged_video = torch.zeros(
++        (t, full_h, full_w, c),
++        device=device,
++        dtype=dtype
++    )
++    count_matrix = torch.zeros(
++        (full_h, full_w),
++        device=device,
++        dtype=torch.int32
++    )
++
++    # 处理每个视频块
++    for rank in range(world_size):
++        tensor = tensor_list[rank]
++        t_curr, h_curr, w_curr, c_curr = tensor.shape
++
++        # 计算当前块在网格中的位置
++        i = rank // short_div  # 长边方向索引
++        j = rank % short_div  # 短边方向索引
++
++        # 计算有效区域在完整视频中的坐标（不含缓存）
++        if is_landscape:
++            # 宽为长边，高为短边
++            if world_size == 16:
++
++                x_start = max(i * effective_long, 0)
++                x_end = min(x_start + effective_long + 2 * overlap_border, full_w)
++
++            elif world_size == 8:
++                x_start = max(i * effective_long, 0)
++                x_end = min(x_start + effective_long + 2 * overlap_border, full_w)
++            else:
++                x_start = max(i * effective_long - overlap_border, 0)
++                x_end = min(x_start + effective_long + overlap_border, full_w)
++
++            if short_div > 2:
++                y_start = max(j * effective_short, 0)
++                y_end = min(y_start + effective_short + 2 * overlap_border, full_h)
++
++            elif short_div > 1:
++                y_start = max(j * effective_short - overlap_border, 0)
++                y_end = min(y_start + effective_short + overlap_border, full_h)
++            else:
++                y_start = j * effective_short
++                y_end = y_start + effective_short
++
++
++        else:
++            if world_size == 16:
++                y_start = max(i * effective_long, 0)
++                y_end = min(y_start + effective_long + 2 * overlap_border, full_h)
++
++            elif world_size == 8:
++                y_start = max(i * effective_long, 0)
++                y_end = min(y_start + effective_long + 2 * overlap_border, full_h)
++            else:
++                # 高为长边，宽为短边
++                y_start = max(i * effective_long - overlap_border, 0)
++                y_end = min(y_start + effective_long + overlap_border, full_h)
++
++            if short_div > 2:
++                x_start = max(j * effective_short, 0)
++                x_end = min(x_start + effective_short + 2 * overlap_border, full_w)
++
++            elif short_div > 1:
++                x_start = max(j * effective_short - overlap_border, 0)
++                x_end = min(x_start + effective_short + overlap_border, full_w)
++            else:
++                x_start = j * effective_short
++                x_end = x_start + effective_short
++
++        merged_video[:, y_start:y_end, x_start:x_end, :] += tensor[:, :, :, :]
++        count_matrix[y_start:y_end, x_start:x_end] += 1
++
++    # 处理重叠区域：计算平均值
++    count_matrix = count_matrix.clamp(min=1)  # 避免除零
++    count_matrix = count_matrix.unsqueeze(0).unsqueeze(-1)  # 扩展为 (1, h, w, 1)
++    merged_video = merged_video / count_matrix.to(dtype)
++
++    if world_size == 8:
++        if is_landscape:
++            merged_video = merged_video[:, :, 32:full_long - 32, :]
++        else:
++            merged_video = merged_video[:, 32:full_long - 32, :, :]
++    elif world_size == 16:
++        merged_video = merged_video[:, 32:full_long - 32, 32:full_short-32, :]
++
++    merged_video = resize_video_tensor(merged_video)
++    return merged_video
++
++
++def generation_loop_tiling(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_size=90, preserve_vram=False,
++                           temporal_overlap=0, debug=False, block_swap_config=None, progress_callback=None, rank=None,
++                           world_size=None, device="cpu", frame_interpolation=False,frame_model_path=None, save_fps=16):
++    """
++    Main generation loop with context-aware temporal processing
++
+     Args:
+         runner: VideoDiffusionInfer instance
+         images (torch.Tensor): Input images for upscaling
+@@ -197,10 +687,10 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+         debug (bool): Debug mode
+         block_swap_config (dict): Optional BlockSwap configuration
+         progress_callback (callable): Optional callback for progress reporting
+-        
++
+     Returns:
+         torch.Tensor: Generated video frames
+-        
++
+     Features:
+         - Context-aware generation with temporal overlap
+         - Adaptive dtype pipeline (FP8/FP16/BFloat16)
+@@ -209,7 +699,15 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+         - Intelligent VRAM management throughout process
+         - Real-time progress reporting
+     """
+-    device = "cuda" if torch.cuda.is_available() else "cpu"
++    if frame_interpolation :
++        interpolation_model = IRFNet_S()
++        interpolation_model.load_state_dict(torch.load(frame_model_path))
++        if save_fps % 16 == 0:
++            multiplier =  save_fps // 16
++            is_skip  = False
++        else:
++            multiplier =  save_fps // 16 + 1
++            is_skip = True if save_fps % 8 < 4 else False
+ 
+     # Log BlockSwap status
+     if block_swap_config:
+@@ -222,7 +720,7 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+     try:
+         # Get real dtype of loaded DiT model
+         model_dtype = next(runner.dit.parameters()).dtype
+-        
++
+         # Adapt dtypes according to model
+         if model_dtype in (torch.float8_e4m3fn, torch.float8_e5m2):
+             # For FP8, use BFloat16 for intermediate calculations (compatible)
+@@ -237,7 +735,7 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+             compute_dtype = torch.bfloat16
+             autocast_dtype = torch.bfloat16
+             vae_dtype = torch.bfloat16
+-            
++
+     except Exception as e:
+         print(f"⚠️ Could not detect model dtype: {e}, falling back to BFloat16")
+         model_dtype = torch.bfloat16
+@@ -268,15 +766,32 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+     set_seed(seed)
+ 
+     # Advanced video transformation pipeline
++    if world_size > 4:
++        size = 64
++    elif world_size > 1:
++        size = 32
++    else:
++        size = 16
++
++    def wan_image_preprocess(image, res_w):
++        h, w = image.shape[1], image.shape[2]
++        aspect_ratio = h / w
++        max_area = round(res_w * res_w * 16 / 9)
++        new_height = round(np.sqrt(max_area * aspect_ratio))
++        new_width = round(np.sqrt(max_area / aspect_ratio))
++        return new_height, new_width
++
++    new_res = min(wan_image_preprocess(images, res_w))
++
+     video_transform = Compose([
+         NaResize(
+-            resolution=(res_w),
++            resolution=(new_res),
+             mode="side",
+             # Upsample image, model only trained for high res
+             downsample_only=False,
+         ),
+         Lambda(lambda x: torch.clamp(x, 0.0, 1.0)),
+-        DivisibleCrop((16, 16)),
++        DivisibleCrop((size, size)),  # 原先为16
+         Normalize(0.5, 0.5),
+         Lambda(lambda x: x.permute(1, 0, 2, 3)),  # t c h w -> c t h w (faster than Rearrange)
+     ])
+@@ -284,323 +799,187 @@ def generation_loop(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_si
+     # Initialize generation state
+     batch_samples = []
+     final_tensor = None
+-    
++
+     # Load text embeddings with adaptive dtype
+     text_pos_embeds = torch.load(os.path.join(script_directory, 'pos_emb.pt')).to(device, dtype=compute_dtype)
+     text_neg_embeds = torch.load(os.path.join(script_directory, 'neg_emb.pt')).to(device, dtype=compute_dtype)
+     text_embeds = {"texts_pos": [text_pos_embeds], "texts_neg": [text_neg_embeds]}
+-    
+-    
+-    
++
+     # Standard processing (non-TileVAE) continues below
+     # Memory optimization
+     reset_vram_peak()
+-    
++
+     # Calculate processing parameters
+     step = batch_size - temporal_overlap
+     if step <= 0:
+         step = batch_size
+         temporal_overlap = 0
+-    
++
+     # Calculate total batches for progress reporting
+     total_batches = len(range(0, len(images), step))
+-    
++
+     # Move images to CPU for memory efficiency
+-    #t = time.time()
+-    #images = images.to("cpu")
+-    #print(f"🔄 Images to CPU time: {time.time() - t} seconds")
+-    
++    # t = time.time()
++    # images = images.to("cpu")
++    # print(f"🔄 Images to CPU time: {time.time() - t} seconds")
++
+     # Use existing debugger from runner if available
+     debugger = None
+     if hasattr(runner, '_blockswap_debugger') and runner._blockswap_debugger is not None:
+         debugger = runner._blockswap_debugger
+         debugger.clear_history()
+-    
+-    try:
+-        # Main processing loop with context awareness
+-        for batch_count, batch_idx in enumerate(range(0, len(images), step)):
+-            # Calculate batch indices with overlap
+-            if COMFYUI_AVAILABLE:
+-                comfy.model_management.throw_exception_if_processing_interrupted()
+-            if batch_idx == 0:
+-                # First batch: no overlap
+-                start_idx = 0
+-                end_idx = min(batch_size, len(images))
+-                effective_batch_size = end_idx - start_idx
+-                is_first_batch = True
+-            else:
+-                # Subsequent batches: temporal overlap
+-                start_idx = batch_idx 
+-                end_idx = min(start_idx + batch_size, len(images))
+-                effective_batch_size = end_idx - start_idx
+-                is_first_batch = False
+-                if effective_batch_size <= temporal_overlap:
+-                    break  # Not enough new frames, stop
+-
+-            tps_loop = time.time()
+-            batch_number = (batch_idx // step + 1) if step > 0 else 1
+-            current_frames = end_idx - start_idx
+-            print(f"\n🎬 Batch {batch_number}: frames {start_idx}-{end_idx-1}")
+-            
+ 
+-            
+-            # Process current batch
+-            video = images[start_idx:end_idx]
+-            if debug:
+-                print(f"🔄 video Compute dtype: {compute_dtype}")
+-            # Use adaptive computation dtype 
+-            video = video.permute(0, 3, 1, 2).to(device, dtype=compute_dtype)
+-            
+-            # Apply video transformations with memory optimization
+-            transformed_video = video_transform(video)
+-            del video
+-            #video = video.to("cpu")
+-            #del video
+-            ori_lengths = [transformed_video.size(1)]
+-            
+-            # Handle correct format: frames % 4 == 1
+-            t = transformed_video.size(1)
+-            print(f"📹 Sequence of {t} frames")
+-            
+-            
+-            if len(images) >= 5 and t % 4 != 1:
+-                if debug:
+-                    print(f"🔄 Transformed video shape before cut: {transformed_video.shape}")
+-                transformed_video = cut_videos(transformed_video)
+-                if debug:
+-                    print(f"🔄 Transformed video shape: {transformed_video.shape}")
+-            
+-            # Context-aware temporal strategy
+-            # First batch: standard complete diffusion
+-            tps_vae = time.time()
+-            runner.vae.to(device)
+-            if debug:
+-                print(f"🔄 VAE to GPU time: {time.time() - tps_vae} seconds")
+-            tps_vae = time.time()
++    tps_vae = time.time()
++
++    if debug:
++        print(f"🔄 VAE to GPU time: {time.time() - tps_vae} seconds")
++    tps_vae = time.time()
++    # Main processing loop with context awareness
++    for batch_count, batch_idx in enumerate(range(0, len(images), step)):
++        # Calculate batch indices with overlap
++
++        if COMFYUI_AVAILABLE:
++            comfy.model_management.throw_exception_if_processing_interrupted()
++        if batch_idx == 0:
++            # First batch: no overlap
++            start_idx = 0
++            end_idx = min(batch_size, len(images))
++            effective_batch_size = end_idx - start_idx
++            is_first_batch = True
++        else:
++            # Subsequent batches: temporal overlap
++            start_idx = batch_idx
++            end_idx = min(start_idx + batch_size, len(images))
++            effective_batch_size = end_idx - start_idx
++            is_first_batch = False
++            if effective_batch_size <= temporal_overlap:
++                break  # Not enough new frames, stop
++
++        tps_loop = time.time()
++        batch_number = (batch_idx // step + 1) if step > 0 else 1
++        current_frames = end_idx - start_idx
++        print(f"\n🎬 Batch {batch_number}: frames {start_idx}-{end_idx - 1}")
++
++        # Process current batch
++        video_tmp = images[start_idx:end_idx]
++        if debug:
++            print(f"🔄 video Compute dtype: {compute_dtype}")
++
++        # Use adaptive computation dtype
++
++        video_tmp = video_tmp.permute(0, 3, 1, 2).to(dtype=compute_dtype)
++
++        # Apply video transformations with memory optimization
++        transformed_video = video_transform(video_tmp)
++
++        del video_tmp
++
++        transformed_video = split_video_with_border(transformed_video, world_size, rank)
++
++        # video = video.to("cpu")
++        # del video
++        ori_lengths = [transformed_video.size(1)]
++
++        # Handle correct format: frames % 4 == 1
++        t = transformed_video.size(1)
++        print(f"📹 Sequence of {t} frames")
++
++        if len(images) >= 5 and t % 4 != 1:
+             if debug:
+-                print(f"🔄 VAE dtype: {autocast_dtype}")
+-            with torch.autocast("cuda", autocast_dtype, enabled=True):
+-                cond_latents = runner.vae_encode([transformed_video])
++                print(f"🔄 Transformed video shape before cut: {transformed_video.shape}")
++            transformed_video = cut_videos(transformed_video)
+             if debug:
+-                print(f"🔄 VAE encode time: {time.time() - tps_vae} seconds")
+-            #tps = time.time()
+-            #transformed_video = transformed_video.to("cpu")
+-            #print(f"🔄 Transformed video to cpu time: {time.time() - tps} seconds")
+-            if debug:
+-                print(f"🔄 Cond latents shape: {cond_latents[0].shape}, time: {time.time() - tps_vae} seconds")
+-            
+-            # Normal generation
+-            samples = generation_step(runner, text_embeds, preserve_vram, cond_latents=cond_latents, temporal_overlap=temporal_overlap)
+-            #del cond_latents
+-            del cond_latents
+-               
+-            
+-            # Post-process samples
+-            sample = samples[0]
+-            del samples 
+-            #del samples
+-            if ori_lengths[0] < sample.shape[0]:
+-                sample = sample[:ori_lengths[0]]
+-            #if temporal_overlap > 0 and not is_first_batch and sample.shape[0] > effective_batch_size - temporal_overlap:
+-            #    sample = sample[temporal_overlap:]  # Remove overlap frames from output
+-            
+-            # Apply color correction if available
+-            tps = time.time()
+-            transformed_video = transformed_video.to(device)
+-            if debug:
+-                print(f"🔄 Transformed video to device time: {time.time() - tps} seconds")
+-            
+-            input_video = [optimized_single_video_rearrange(transformed_video)]
+-            del transformed_video
+-            #transformed_video = transformed_video.to("cpu")
+-            #del transformed_video
+-            sample = wavelet_reconstruction(sample, input_video[0][:sample.size(0)])
+-            del input_video
+-
+-            # Convert to final image format
+-            sample = optimized_sample_to_image_format(sample)
+-            sample = sample.clip(-1, 1).mul_(0.5).add_(0.5)
+-            sample_cpu = sample.to(torch.float16).to("cpu")
+-            del sample
+-            batch_samples.append(sample_cpu)
+-            #del sample 
+-            
+-            # Aggressive cleanup after each batch
+-            tps = time.time()
+-                        # Progress callback - batch start
+-            if progress_callback:
+-                progress_callback(batch_count+1, total_batches, current_frames, "Processing batch...")
+-            #transformed_video = transformed_video.to("cpu")
+-            #print(f"🔄 Transformed video to cpu time: {time.time() - tps} seconds")
+-            if debug:
+-                print(f"🔄 Time batch: {time.time() - tps_loop} seconds")
+-            # Clean VRAM after each batch when preserve_vram is active (but not with blockswap)
+-            if preserve_vram and not (block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0):
+-                torch.cuda.empty_cache()
+-            #del transformed_video
+-            #clear_vram_cache()
+-            # Log memory state at the end of each batch
+-            if debugger:
+-                debugger.log_memory_state(f"Batch {batch_number} - Memory", show_tensors=False)
+-
+-    finally:
+-        if debugger:
+-            debugger.log("🧹 Generation loop cleanup")
+-
+-        # Final cleanup of embeddings
+-        text_pos_embeds = text_pos_embeds.to("cpu")
+-        text_neg_embeds = text_neg_embeds.to("cpu")
+-        runner.dit.to("cpu")
+-        runner.vae.to("cpu")
+-        torch.cuda.empty_cache()
+-        #del text_pos_embeds, text_neg_embeds
+-        #clear_vram_cache()
+-
+-        # Log final memory state
+-        if debugger:
+-            debugger.log_memory_state("Generation loop - After cleanup", show_tensors=False)
+-    
+-    # OPTIMISATION ULTIME : Pré-allocation et copie directe (évite les torch.cat multiples)
+-    print(f"💾 Processing {len(batch_samples)} batch_samples with memory-optimized pre-allocation")
+-    
+-    # 1. Calculer la taille totale finale
+-    total_frames = sum(batch.shape[0] for batch in batch_samples)
+-    if len(batch_samples) > 0:
+-        sample_shape = batch_samples[0].shape
+-        H, W, C = sample_shape[1], sample_shape[2], sample_shape[3]
+-        print(f"📊 Total frames: {total_frames}, shape per frame: {H}x{W}x{C}")
+-        
+-        # 2. Pré-allouer le tensor final directement sur CPU (évite concatenations)
+-        final_video_images = torch.empty((total_frames, H, W, C), dtype=torch.float16)
+-        
+-        # 3. Copier par blocs directement dans le tensor final
+-        block_size = 500
+-        current_idx = 0
+-        
+-        for block_start in range(0, len(batch_samples), block_size):
+-            block_end = min(block_start + block_size, len(batch_samples))
+-            block_num = block_start // block_size + 1
+-            total_blocks = (len(batch_samples) + block_size - 1) // block_size
+-            
+-            print(f"🔄 Block {block_num}/{total_blocks}: batch_samples {block_start}-{block_end-1}")
+-            
+-            # Charger le bloc en VRAM
+-            current_block = []
+-            for i in range(block_start, block_end):
+-                current_block.append(batch_samples[i].to(device))
+-            
+-            # Concatener en VRAM (rapide)
+-            block_result = torch.cat(current_block, dim=0)
+-            
+-            # Convertir en Float16 sur GPU
+-            #if block_result.dtype != torch.float16:
+-            #    block_result = block_result.to(torch.float16)
+-            
+-            # Copier directement dans le tensor final (pas de concatenation!)
+-            block_frames = block_result.shape[0]
+-            final_video_images[current_idx:current_idx + block_frames] = block_result.to("cpu")
+-            current_idx += block_frames
+-            
+-            # Nettoyage immédiat VRAM
+-            del current_block, block_result
+-            torch.cuda.empty_cache()
+-            
+-        print(f"✅ Pre-allocation strategy completed: {final_video_images.shape}")
+-    else:
+-        print("⚠️ No batch_samples to process")
+-        final_video_images = torch.empty((0, 0, 0, 0), dtype=torch.float16)
+-    
+-    # Cleanup batch_samples
+-    #del batch_samples
+-    return final_video_images
++                print(f"🔄 Transformed video shape: {transformed_video.shape}")
+ 
++        # Context-aware temporal strategy
++        # First batch: standard complete diffusion
+ 
+-def prepare_video_transforms(res_w):
+-    """
+-    Prepare optimized video transformation pipeline
+-    
+-    Args:
+-        res_w (int): Target resolution width
+-        
+-    Returns:
+-        Compose: Configured transformation pipeline
+-        
+-    Features:
+-        - Resolution-aware upscaling (no downsampling)
+-        - Proper normalization for model compatibility
+-        - Memory-efficient tensor operations
+-    """
+-    return Compose([
+-        NaResize(
+-            resolution=(res_w),
+-            mode="side",
+-            downsample_only=False,  # Model trained for high resolution
+-        ),
+-        Lambda(lambda x: torch.clamp(x, 0.0, 1.0)),
+-        DivisibleCrop((16, 16)),
+-        Normalize(0.5, 0.5),
+-        Lambda(lambda x: x.permute(1, 0, 2, 3)),  # t c h w -> c t h w
+-    ])
++        if debug:
++            print(f"🔄 VAE dtype: {autocast_dtype}")
+ 
+ 
+-def load_text_embeddings(script_directory, device, dtype):
+-    """
+-    Load and prepare text embeddings for generation
+-    
+-    Args:
+-        script_directory (str): Script directory path
+-        device (str): Target device
+-        dtype (torch.dtype): Target dtype
+-        
+-    Returns:
+-        dict: Text embeddings dictionary
+-        
+-    Features:
+-        - Adaptive dtype handling
+-        - Device-optimized loading
+-        - Memory-efficient embedding preparation
+-    """
+-    text_pos_embeds = torch.load(os.path.join(script_directory, 'pos_emb.pt')).to(device, dtype=dtype)
+-    text_neg_embeds = torch.load(os.path.join(script_directory, 'neg_emb.pt')).to(device, dtype=dtype)
+-    
+-    return {"texts_pos": [text_pos_embeds], "texts_neg": [text_neg_embeds]}
++        cond_latents = runner.vae_encode([transformed_video], preserve_vram=False)
+ 
+ 
+-def calculate_optimal_batch_params(total_frames, batch_size, temporal_overlap):
+-    """
+-    Calculate optimal batch processing parameters
+-    
+-    Args:
+-        total_frames (int): Total number of frames
+-        batch_size (int): Desired batch size
+-        temporal_overlap (int): Temporal overlap frames
+-        
+-    Returns:
+-        dict: Optimized parameters and recommendations
+-        
+-    Features:
+-        - 4n+1 constraint optimization
+-        - Padding waste calculation
+-        - Performance recommendations
+-    """
+-    step = batch_size - temporal_overlap
+-    if step <= 0:
+-        step = batch_size
+-        temporal_overlap = 0
+-    
+-    # Find optimal batch sizes (4n+1 constraint)
+-    optimal_batches = [x for x in [i for i in range(1, 200) if i % 4 == 1] if x <= total_frames]
+-    best_batch = max(optimal_batches) if optimal_batches else 1
+-    
+-    # Calculate potential padding waste
+-    padding_waste = 0
+-    if batch_size not in optimal_batches:
+-        padding_waste = sum(((i // 4) + 1) * 4 + 1 - i for i in range(batch_size, total_frames, batch_size))
+-    
+-    return {
+-        'step': step,
+-        'temporal_overlap': temporal_overlap,
+-        'best_batch': best_batch,
+-        'padding_waste': padding_waste,
+-        'is_optimal': batch_size in optimal_batches
+-    } 
+\ No newline at end of file
++        #import gc
++        #gc.collect()  # 清理 Python 层的引用
++        #torch.cuda.empty_cache()  # 通知 PyTorch 清理缓存池
++
++        # 清理后，打印NPU内存中所有张量的信息
++
++        if debug:
++            print(f"🔄 VAE encode time: {time.time() - tps_vae} seconds")
++        # tps = time.time()
++        # transformed_video = transformed_video.to("cpu")
++        # print(f"🔄 Transformed video to cpu time: {time.time() - tps} seconds")
++        if debug:
++            print(f"🔄 Cond latents shape: {cond_latents[0].shape}, time: {time.time() - tps_vae} seconds")
++
++        # Normal generation
++
++        latents, decode_dtype = generation_step(runner, text_embeds, preserve_vram, cond_latents=cond_latents,
++                                                temporal_overlap=temporal_overlap)
++
++      
++        transformed_video = transformed_video.to(device)
++
++        transformed_video_rag = optimized_single_video_rearrange(transformed_video)
++        start_steam=time.time()
++        h = images.shape[1]
++        w = images.shape[2]
++
++        if rank == 0:
++            infer_info.save_width = None
++            infer_info.save_height = None
++
++            steam = SaveVideoStream()
++            
++
++        latents0 = latents[0]
++
++        for i in range(latents0.shape[0] - 1):
++            if i == 0:
++                latent_start = 0
++                latent_end = 2
++                sample_start = 0
++                sample_end = 5
++            else:
++                latent_start = i + 1
++                sample_start = 4 * i + 1
++                sample_end = 4 * (i + 1) + 1
++                latent_end = i + 2
++
++            tmp_latent = [latents0[latent_start:latent_end, :, :, :]]
++            tmp_samples = generation_step_decode(runner, tmp_latent, decode_dtype)
++            sample = tmp_samples[0]
++            input_video = transformed_video_rag[sample_start:sample_end, :, :, :]
++            sample = wavelet_reconstruction(sample, input_video)
++            sample = optimized_sample_to_image_format(sample)
++            sample = sample.clip(-1, 1).mul_(0.5).add_(0.5)
++            sample_cpu = sample.to(torch.float16)  # t,h,w,c
++            result_tensor = sample_cpu.cuda()
++            gathered_list = [torch.zeros_like(result_tensor).cuda(rank) for _ in range(world_size)]
++            result_tensor = result_tensor.cuda()
++
++            # Perform all_gather operation
++            dist.all_gather(gathered_list, result_tensor)
++
++            if rank == 0:
++                result = merge_video_with_border(h, w, world_size, gathered_list, overlap_border=32)  # 4,h,w,c
++                
++                input_tensor = result.permute(0,3,1,2)
++                if frame_interpolation and i==0:
++                    result = vfi(input_tensor, rank, interpolation_model, 1, multiplier=multiplier, is_skip=is_skip).permute(0,2,3,1).contiguous()
++                elif frame_interpolation:
++                    input_tensor = torch.cat([first_frame, input_tensor], dim=0)
++                    result = vfi(input_tensor, rank, interpolation_model, 1, multiplier=multiplier, is_skip=is_skip)[1:].permute(0,2,3,1).contiguous()
++                first_frame = result[-1:].permute(0,3,1,2)
++                result = result.clip(0, 1)
++
++                result = result * 255
++
++                steam.save(result)
++
++        if rank == 0:
++            steam.close()
++        print(f"流保存时间{time.time()-start_steam}")
+diff --git a/src/core/infer.py b/src/core/infer.py
+index 3d6d2dd..4e7f184 100644
+--- a/src/core/infer.py
++++ b/src/core/infer.py
+@@ -51,6 +51,7 @@ def optimized_channels_to_last(tensor):
+         dims = [dims[0]] + dims[2:] + [dims[1]]  # [0, 2, 3, ..., 1]
+         return tensor.permute(*dims)
+ 
++
+ def optimized_channels_to_second(tensor):
+     """🚀 Optimized replacement for rearrange(tensor, 'b ... c -> b c ...')
+     Moves channels from last position to position 1 using PyTorch native operations.
+@@ -67,10 +68,14 @@ def optimized_channels_to_second(tensor):
+         dims = [dims[0], dims[-1]] + dims[1:-1]  # [0, -1, 1, 2, ..., -2]
+         return tensor.permute(*dims)
+ 
++
+ class VideoDiffusionInfer():
+     def __init__(self, config: DictConfig, debug: bool = False):
+         self.config = config
+         self.debug = debug
++        self.dit = None
++        self.vae = None
++
+     def get_condition(self, latent: Tensor, latent_blur: Tensor, task: str) -> Tensor:
+         t, h, w, c = latent.shape
+         cond = torch.zeros([t, h, w, c + 1], device=latent.device, dtype=latent.dtype)
+@@ -96,7 +101,7 @@ class VideoDiffusionInfer():
+             cond[:, ..., -1:] = 1.0
+             return cond
+         raise NotImplementedError
+-    
++
+     def configure_diffusion(self):
+         self.schedule = create_schedule_from_config(
+             config=self.config.diffusion.schedule,
+@@ -143,13 +148,13 @@ class VideoDiffusionInfer():
+                     sample = self.vae.preprocess(sample)
+                 if use_sample:
+                     latent = self.vae.encode(sample).latent
+-                    #latent = self.vae.encode(sample, preserve_vram).latent
++                    # latent = self.vae.encode(sample, preserve_vram).latent
+                 else:
+                     # Deterministic vae encode, only used for i2v inference (optionally)
+                     latent = self.vae.encode(sample).posterior.mode().squeeze(2)
+                 latent = latent.unsqueeze(2) if latent.ndim == 4 else latent
+                 latent = rearrange(latent, "b c ... -> b ... c")
+-                #latent = optimized_channels_to_last(latent)
++                # latent = optimized_channels_to_last(latent)
+                 latent = (latent - shift) * scale
+                 latents.append(latent)
+ 
+@@ -160,14 +165,14 @@ class VideoDiffusionInfer():
+                 latents = [latent.squeeze(0) for latent in latents]
+ 
+         return latents
+-    
+ 
+     @torch.no_grad()
+-    def vae_decode(self, latents: List[Tensor], target_dtype: torch.dtype = None, preserve_vram: bool = False) -> List[Tensor]:
++    def vae_decode(self, latents: List[Tensor], target_dtype: torch.dtype = None, preserve_vram: bool = False) -> List[
++        Tensor]:
+         """🚀 VAE decode optimisé - décodage direct sans chunking, compatible avec autocast externe"""
+         samples = []
+         if len(latents) > 0:
+-            #t = time.time()
++            # t = time.time()
+             device = get_device()
+             dtype = getattr(torch, self.config.vae.dtype)
+             scale = self.config.vae.scaling_factor
+@@ -178,7 +183,6 @@ class VideoDiffusionInfer():
+             if isinstance(shift, ListConfig):
+                 shift = torch.tensor(shift, device=device, dtype=dtype)
+ 
+-
+             # 🚀 OPTIMISATION 1: Group latents intelligemment pour batch processing
+             if self.config.vae.grouping:
+                 latents, indices = na.pack(latents)
+@@ -187,7 +191,7 @@ class VideoDiffusionInfer():
+ 
+             if self.debug:
+                 print(f"🔄 shape of latents: {latents[0].shape}")
+-            #print(f"🔄 GROUPING time: {time.time() - t} seconds")
++            # print(f"🔄 GROUPING time: {time.time() - t} seconds")
+             t = time.time()
+             # 🚀 OPTIMISATION 2: Traitement batch optimisé avec dtype adaptatif
+             for i, latent in enumerate(latents):
+@@ -197,35 +201,35 @@ class VideoDiffusionInfer():
+                 latent = latent.to(device, effective_dtype, non_blocking=True)
+                 latent = latent / scale + shift
+                 latent = rearrange(latent, "b ... c -> b c ...")
+-                #latent = optimized_channels_to_second(latent)
++                # latent = optimized_channels_to_second(latent)
+                 latent = latent.squeeze(2)
+-                
++
+                 # 🚀 OPTIMISATION 3: Décodage direct SANS autocast (utilise l'autocast externe)
+-                #with torch.autocast("cuda", torch.float16, enabled=True):
++                # with torch.autocast("cuda", torch.float16, enabled=True):
+                 sample = self.vae.decode(latent, preserve_vram).sample
+-                #sample = self.vae.decode(latent).sample
+-                #sample = self.vae.decode(latent).sample
+-                
++                # sample = self.vae.decode(latent).sample
++                # sample = self.vae.decode(latent).sample
++
+                 # 🚀 OPTIMISATION 4: Post-processing conditionnel
+                 if hasattr(self.vae, "postprocess"):
+                     sample = self.vae.postprocess(sample)
+-                    
++
+                 samples.append(sample)
+-                
++
+                 # 🚀 OPTIMISATION 5: Nettoyage sélectif
+-                #if i % 2 == 0 or i == len(latents) - 1:
+-                    #torch.cuda.empty_cache()
+-            
++                # if i % 2 == 0 or i == len(latents) - 1:
++                # torch.cuda.empty_cache()
++
+             if self.debug:
+                 print(f"🔄 DECODE time: {time.time() - t} seconds")
+-            #t = time.time()
++            # t = time.time()
+             # Ungroup back to individual sample with the original order.
+             if self.config.vae.grouping:
+                 samples = na.unpack(samples, indices)
+             else:
+                 samples = [sample.squeeze(0) for sample in samples]
+-            #print(f"🔄 UNGROUPING time: {time.time() - t} seconds")
+-            #t = time.time()
++            # print(f"🔄 UNGROUPING time: {time.time() - t} seconds")
++            # t = time.time()
+         return samples
+ 
+     def timestep_transform(self, timesteps: Tensor, latents_shapes: Tensor):
+@@ -263,16 +267,16 @@ class VideoDiffusionInfer():
+     def get_vram_usage(self):
+         """Obtenir l'utilisation VRAM actuelle (allouée et réservée)"""
+         if torch.cuda.is_available():
+-            allocated = torch.cuda.memory_allocated() / (1024**3)
+-            reserved = torch.cuda.memory_reserved() / (1024**3)
+-            max_allocated = torch.cuda.max_memory_allocated() / (1024**3)
++            allocated = torch.cuda.memory_allocated() / (1024 ** 3)
++            reserved = torch.cuda.memory_reserved() / (1024 ** 3)
++            max_allocated = torch.cuda.max_memory_allocated() / (1024 ** 3)
+             return allocated, reserved, max_allocated
+         return 0, 0, 0
+ 
+     def get_vram_peak(self):
+         """Obtenir le pic VRAM depuis le dernier reset"""
+         if torch.cuda.is_available():
+-            return torch.cuda.max_memory_allocated() / (1024**3)
++            return torch.cuda.max_memory_allocated() / (1024 ** 3)
+         return 0
+ 
+     def reset_vram_peak(self):
+@@ -282,15 +286,15 @@ class VideoDiffusionInfer():
+ 
+     @torch.no_grad()
+     def inference(
+-        self,
+-        noises: List[Tensor],
+-        conditions: List[Tensor],
+-        texts_pos: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
+-        texts_neg: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
+-        cfg_scale: Optional[float] = None,
+-        preserve_vram: bool = False,
+-        temporal_overlap: int = 0,
+-        use_blockswap: bool = False,
++            self,
++            noises: List[Tensor],
++            conditions: List[Tensor],
++            texts_pos: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
++            texts_neg: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
++            cfg_scale: Optional[float] = None,
++            preserve_vram: bool = False,
++            temporal_overlap: int = 0,
++            use_blockswap: bool = False,
+     ) -> List[Tensor]:
+         assert len(noises) == len(conditions) == len(texts_pos) == len(texts_neg)
+         batch_size = len(noises)
+@@ -300,8 +304,8 @@ class VideoDiffusionInfer():
+             return []
+ 
+         # Monitoring VRAM initial et reset des pics
+-        #self.reset_vram_peak()
+-        
++        # self.reset_vram_peak()
++
+         # Set cfg scale
+         if cfg_scale is None:
+             cfg_scale = self.config.diffusion.cfg.scale
+@@ -314,13 +318,13 @@ class VideoDiffusionInfer():
+         if model_dtype in (torch.float8_e4m3fn, torch.float8_e5m2):
+             # FP8 natif: utiliser BFloat16 pour les calculs intermédiaires (compatible)
+             target_dtype = torch.float16
+-            #print(f"🚀 FP8 model detected: using BFloat16 for intermediate calculations")
++            # print(f"🚀 FP8 model detected: using BFloat16 for intermediate calculations")
+         elif model_dtype == torch.float16:
+             target_dtype = torch.bfloat16
+-            #print(f"🎯 FP16 model: using FP16 pipeline")
++            # print(f"🎯 FP16 model: using FP16 pipeline")
+         else:
+             target_dtype = torch.bfloat16
+-            #print(f"🎯 BFloat16 model: using BFloat16 pipeline")
++            # print(f"🎯 BFloat16 model: using BFloat16 pipeline")
+         if self.debug:
+             print(f"🎯 target_dtype: {target_dtype}")
+         # Text embeddings.
+@@ -357,7 +361,6 @@ class VideoDiffusionInfer():
+         latents = latents.to(target_dtype) if latents.dtype != target_dtype else latents
+         latents_cond = latents_cond.to(target_dtype) if latents_cond.dtype != target_dtype else latents_cond
+ 
+-        
+         if preserve_vram:
+             if conditions[0].shape[0] > 1:
+                 t = time.time()
+@@ -375,7 +378,7 @@ class VideoDiffusionInfer():
+                 pass
+ 
+         t = time.time()
+-        
++
+         with torch.autocast("cuda", target_dtype, enabled=True):
+             latents = self.sampler.sample(
+                 x=latents,
+@@ -397,19 +400,19 @@ class VideoDiffusionInfer():
+                     scale=(
+                         cfg_scale
+                         if (args.i + 1) / len(self.sampler.timesteps)
+-                        <= self.config.diffusion.cfg.get("partial", 1)
++                           <= self.config.diffusion.cfg.get("partial", 1)
+                         else 1.0
+                     ),
+                     rescale=self.config.diffusion.cfg.rescale,
+                 ),
+             )
+-        
++
+         if self.debug:
+             print(f"🔄 INFERENCE time: {time.time() - t} seconds")
+ 
+         latents = na.unflatten(latents, latents_shapes)
+-        #print(f"🔄 UNFLATTEN time: {time.time() - t} seconds")
+-        
++        # print(f"🔄 UNFLATTEN time: {time.time() - t} seconds")
++
+         # 🎯 Pré-calcul des dtypes (une seule fois)
+         vae_dtype = getattr(torch, self.config.vae.dtype)
+         decode_dtype = torch.float16 if (vae_dtype == torch.float16 or target_dtype == torch.float16) else vae_dtype
+@@ -424,46 +427,245 @@ class VideoDiffusionInfer():
+                 clear_vram_cache()
+             if self.debug:
+                 print(f"🔄 Dit to CPU time: {time.time() - t} seconds")
+-            
++
+             if latents[0].shape[0] > 1:
+                 t = time.time()
+                 self.vae = self.vae.to(get_device())
+-                
++
+                 if self.debug:
+                     print(f"🔄 VAE to GPU time: {time.time() - t} seconds")
+ 
+-
+-
+-
+-        #with torch.autocast("cuda", decode_dtype, enabled=True):
++        # with torch.autocast("cuda", decode_dtype, enabled=True):
+         samples = self.vae_decode(latents, target_dtype=decode_dtype, preserve_vram=preserve_vram)
+-        
++
+         if self.debug:
+             print(f"🔄 Samples shape: {samples[0].shape}")
+-        #print(f"🔄  ULTRA-FAST VAE DECODE time: {time.time() - t} seconds")
+-        #t = time.time()
+-        #self.dit.to(get_device())
+-        #self.vae.to("cpu")
+-        #print(f"🔄 Dit to GPU time: {time.time() - t} seconds")
+-        #t = time.time()
++        # print(f"🔄  ULTRA-FAST VAE DECODE time: {time.time() - t} seconds")
++        # t = time.time()
++        # self.dit.to(get_device())
++        # self.vae.to("cpu")
++        # print(f"🔄 Dit to GPU time: {time.time() - t} seconds")
++        # t = time.time()
+         # 🚀 CORRECTION CRITIQUE: Conversion batch Float16 pour ComfyUI (plus rapide)
+         if samples and len(samples) > 0 and samples[0].dtype != torch.float16:
+             if self.debug:
+                 print(f"🔧 Converting {len(samples)} samples from {samples[0].dtype} to Float16")
+             samples = [sample.to(torch.float16, non_blocking=True) for sample in samples]
+-        
+-        #print(f"🚀 Conversion batch Float16 time: {time.time() - t} seconds")
+-        
++
++        # print(f"🚀 Conversion batch Float16 time: {time.time() - t} seconds")
++
+         # 🚀 OPTIMISATION: Nettoyage final minimal
+-        #t = time.time()
+-        #if dit_offload:
++        # t = time.time()
++        # if dit_offload:
+         #    self.vae.to("cpu")
+         #    torch.cuda.empty_cache()
+         #    self.dit.to(get_device())
+-        #else:
+-            # Garder VAE sur GPU pour les prochains appels
+-        #torch.cuda.empty_cache()
+-        #print(f"🔄 FINAL CLEANUP time: {time.time() - t} seconds")
++        # else:
++        # Garder VAE sur GPU pour les prochains appels
++        # torch.cuda.empty_cache()
++        # print(f"🔄 FINAL CLEANUP time: {time.time() - t} seconds")
+ 
+-        
+         return samples
++
++
++    @torch.no_grad()
++    def inference_my(self,
++                     noises: List[Tensor],
++                     conditions: List[Tensor],
++                     texts_pos: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
++                     texts_neg: Union[List[str], List[Tensor], List[Tuple[Tensor]]],
++                     cfg_scale: Optional[float] = None,
++                     preserve_vram: bool = False,
++                     temporal_overlap: int = 0,
++                     use_blockswap: bool = False, ):
++        assert len(noises) == len(conditions) == len(texts_pos) == len(texts_neg)
++        batch_size = len(noises)
++
++        # Return if empty.
++        if batch_size == 0:
++            return []
++
++        # Monitoring VRAM initial et reset des pics
++        # self.reset_vram_peak()
++
++        # Set cfg scale
++        if cfg_scale is None:
++            cfg_scale = self.config.diffusion.cfg.scale
++
++        # 🚀 OPTIMISATION: Détecter le dtype du modèle pour performance optimale
++        model_dtype = next(self.dit.parameters()).dtype
++        if self.debug:
++            print(f"🎯 model_dtype: {model_dtype}")
++        # Adapter les dtypes selon le modèle
++        if model_dtype in (torch.float8_e4m3fn, torch.float8_e5m2):
++            # FP8 natif: utiliser BFloat16 pour les calculs intermédiaires (compatible)
++            target_dtype = torch.float16
++            # print(f"🚀 FP8 model detected: using BFloat16 for intermediate calculations")
++        elif model_dtype == torch.float16:
++            target_dtype = torch.bfloat16
++            # print(f"🎯 FP16 model: using FP16 pipeline")
++        else:
++            target_dtype = torch.bfloat16
++            # print(f"🎯 BFloat16 model: using BFloat16 pipeline")
++        if self.debug:
++            print(f"🎯 target_dtype: {target_dtype}")
++        # Text embeddings.
++        assert type(texts_pos[0]) is type(texts_neg[0])
++        if isinstance(texts_pos[0], str):
++            text_pos_embeds, text_pos_shapes = self.text_encode(texts_pos)
++            text_neg_embeds, text_neg_shapes = self.text_encode(texts_neg)
++        elif isinstance(texts_pos[0], tuple):
++            text_pos_embeds, text_pos_shapes = [], []
++            text_neg_embeds, text_neg_shapes = [], []
++            for pos in zip(*texts_pos):
++                emb, shape = na.flatten(pos)
++                text_pos_embeds.append(emb)
++                text_pos_shapes.append(shape)
++            for neg in zip(*texts_neg):
++                emb, shape = na.flatten(neg)
++                text_neg_embeds.append(emb)
++                text_neg_shapes.append(shape)
++        else:
++            text_pos_embeds, text_pos_shapes = na.flatten(texts_pos)
++            text_neg_embeds, text_neg_shapes = na.flatten(texts_neg)
++
++        # Adapter les embeddings texte au dtype cible (compatible avec FP8)
++        if isinstance(text_pos_embeds, torch.Tensor):
++            text_pos_embeds = text_pos_embeds.to(target_dtype)
++        if isinstance(text_neg_embeds, torch.Tensor):
++            text_neg_embeds = text_neg_embeds.to(target_dtype)
++
++        # Flatten.
++        latents, latents_shapes = na.flatten(noises)
++        latents_cond, _ = na.flatten(conditions)
++
++        # Adapter les latents au dtype cible (compatible avec FP8)
++        latents = latents.to(target_dtype) if latents.dtype != target_dtype else latents
++        latents_cond = latents_cond.to(target_dtype) if latents_cond.dtype != target_dtype else latents_cond
++
++        t = time.time()
++
++        with torch.autocast("cuda", target_dtype, enabled=True):
++            latents = self.sampler.sample(
++                x=latents,
++                f=lambda args: classifier_free_guidance_dispatcher(
++                    pos=lambda: self.dit(
++                        vid=torch.cat([args.x_t, latents_cond], dim=-1),
++                        txt=text_pos_embeds,
++                        vid_shape=latents_shapes,
++                        txt_shape=text_pos_shapes,
++                        timestep=args.t.repeat(batch_size),
++                    ).vid_sample,
++                    neg=lambda: self.dit(
++                        vid=torch.cat([args.x_t, latents_cond], dim=-1),
++                        txt=text_neg_embeds,
++                        vid_shape=latents_shapes,
++                        txt_shape=text_neg_shapes,
++                        timestep=args.t.repeat(batch_size),
++                    ).vid_sample,
++                    scale=(
++                        cfg_scale
++                        if (args.i + 1) / len(self.sampler.timesteps)
++                           <= self.config.diffusion.cfg.get("partial", 1)
++                        else 1.0
++                    ),
++                    rescale=self.config.diffusion.cfg.rescale,
++                ),
++            )
++
++        if self.debug:
++            print(f"🔄 INFERENCE time: {time.time() - t} seconds")
++
++        latents = na.unflatten(latents, latents_shapes)
++        # print(f"🔄 UNFLATTEN time: {time.time() - t} seconds")
++
++        # 🎯 Pré-calcul des dtypes (une seule fois)
++        vae_dtype = getattr(torch, self.config.vae.dtype)
++        decode_dtype = torch.float16 if (vae_dtype == torch.float16 or target_dtype == torch.float16) else vae_dtype
++
++        return latents, decode_dtype
++
++    @torch.no_grad()
++    def vae_decode_my(self, latents: List[Tensor], target_dtype: torch.dtype = None):
++        samples = []
++        if len(latents) > 0:
++            # t = time.time()
++            device = get_device()
++            dtype = getattr(torch, self.config.vae.dtype)
++            scale = self.config.vae.scaling_factor
++            shift = self.config.vae.get("shifting_factor", 0.0)
++
++            if isinstance(scale, ListConfig):
++                scale = torch.tensor(scale, device=device, dtype=dtype)
++            if isinstance(shift, ListConfig):
++                shift = torch.tensor(shift, device=device, dtype=dtype)
++
++            # 🚀 OPTIMISATION 1: Group latents intelligemment pour batch processing
++            if self.config.vae.grouping:
++                latents, indices = na.pack(latents)
++            else:
++                latents = [latent.unsqueeze(0) for latent in latents]
++
++            if self.debug:
++                print(f"🔄 shape of latents: {latents[0].shape}")
++            # print(f"🔄 GROUPING time: {time.time() - t} seconds")
++            t = time.time()
++            # 🚀 OPTIMISATION 2: Traitement batch optimisé avec dtype adaptatif
++            for i, latent in enumerate(latents):
++                # Préparation optimisée du latent
++                # Utiliser target_dtype si fourni (évite double autocast)
++                effective_dtype = target_dtype if target_dtype is not None else dtype
++                latent = latent.to(device, effective_dtype, non_blocking=True)
++                latent = latent / scale + shift
++                latent = rearrange(latent, "b ... c -> b c ...")
++                # latent = optimized_channels_to_second(latent)
++                latent = latent.squeeze(2)
++
++                # 🚀 OPTIMISATION 3: Décodage direct SANS autocast (utilise l'autocast externe)
++                # with torch.autocast("cuda", torch.float16, enabled=True):
++                self.vae.to(device=device,dtype=torch.float16)
++      
++                sample = self.vae.decode(latent).sample
++
++                # 🚀 OPTIMISATION 4: Post-processing conditionnel
++                if hasattr(self.vae, "postprocess"):
++                    sample = self.vae.postprocess(sample)
++
++                samples.append(sample)
++
++                # 🚀 OPTIMISATION 5: Nettoyage sélectif
++                # if i % 2 == 0 or i == len(latents) - 1:
++                # torch.cuda.empty_cache()
++
++            if self.debug:
++                print(f"🔄 DECODE time: {time.time() - t} seconds")
++            # t = time.time()
++            # Ungroup back to individual sample with the original order.
++            if self.config.vae.grouping:
++                samples = na.unpack(samples, indices)
++            else:
++                samples = [sample.squeeze(0) for sample in samples]
++            # print(f"🔄 UNGROUPING time: {time.time() - t} seconds")
++            # t = time.time()
++        if self.debug:
++            print(f"🔄 Samples shape: {samples[0].shape}")
++        # print(f"🔄  ULTRA-FAST VAE DECODE time: {time.time() - t} seconds")
++        # t = time.time()
++
++        # import pdb;pdb.set_trace()
++
++        # self.dit.to(get_device())
++
++        # del self.dit
++        # self.dit.to("cpu")
++        # self.vae.to("cpu")
++        # print(f"🔄 Dit to GPU time: {time.time() - t} seconds")
++        # t = time.time()
++        # 🚀 CORRECTION CRITIQUE: Conversion batch Float16 pour ComfyUI (plus rapide)
++        if samples and len(samples) > 0 and samples[0].dtype != torch.float16:
++            if self.debug:
++                print(f"🔧 Converting {len(samples)} samples from {samples[0].dtype} to Float16")
++            samples = [sample.to(torch.float16, non_blocking=True) for sample in samples]
++
++        return samples
++
+diff --git a/src/core/model_manager.py b/src/core/model_manager.py
+index a2181f1..4e93681 100644
+--- a/src/core/model_manager.py
++++ b/src/core/model_manager.py
+@@ -23,6 +23,7 @@ from omegaconf import DictConfig, OmegaConf
+ # Import SafeTensors with fallback
+ try:
+     from safetensors.torch import load_file as load_safetensors_file
++
+     SAFETENSORS_AVAILABLE = True
+ except ImportError:
+     print("⚠️ SafeTensors not available, recommended install: pip install safetensors")
+@@ -39,10 +40,11 @@ from src.optimization.blockswap import apply_block_swap_to_dit
+ script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ 
+ 
+-def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, block_swap_config=None, cached_runner=None):
++def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, block_swap_config=None,
++                     cached_runner=None,device="cpu"):
+     """
+     Configure and create a VideoDiffusionInfer runner for the specified model
+-    
++
+     Args:
+         model (str): Model filename (e.g., "seedvr2_ema_3b_fp16.safetensors")
+         base_cache_dir (str): Base directory containing model files
+@@ -50,10 +52,10 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+         debug (bool): Enable debug logging
+         block_swap_config (dict): Optional BlockSwap configuration
+         cached_runner: Optional cached runner to reuse entirely (not just DiT)
+-        
++
+     Returns:
+         VideoDiffusionInfer: Configured runner instance ready for inference
+-        
++
+     Features:
+         - Dynamic config loading based on model type (3B vs 7B)
+         - Automatic import path resolution for different environments
+@@ -62,39 +64,40 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+     """
+ 
+     # Check if we can fully reuse the cached runner
+-    if cached_runner and block_swap_config and block_swap_config.get("cache_model", False):        
++    if cached_runner and block_swap_config and block_swap_config.get("cache_model", False):
+         # Clear RoPE caches before reuse
+         if hasattr(cached_runner, 'dit'):
+             dit_model = cached_runner.dit
+             if hasattr(dit_model, 'dit_model'):
+                 dit_model = dit_model.dit_model
+             clear_rope_lru_caches(dit_model)
+-        
++
+         print(f"♻️ Reusing cached runner for {model}")
+-        
++
+         # Check if blockswap needs to be applied
+         blockswap_needed = block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0
+-        
++
+         if blockswap_needed:
+             # Check if we have cached configuration
+             has_cached_config = hasattr(cached_runner, "_cached_blockswap_config")
+-            
++
+             if has_cached_config:
+                 # Compare configurations
+                 cached_config = cached_runner._cached_blockswap_config
+                 config_matches = (
+-                    cached_config.get("blocks_to_swap") == block_swap_config.get("blocks_to_swap") and
+-                    cached_config.get("offload_io_components") == block_swap_config.get("offload_io_components", False) and
+-                    cached_config.get("use_non_blocking") == block_swap_config.get("use_non_blocking", True)
++                        cached_config.get("blocks_to_swap") == block_swap_config.get("blocks_to_swap") and
++                        cached_config.get("offload_io_components") == block_swap_config.get("offload_io_components",
++                                                                                            False) and
++                        cached_config.get("use_non_blocking") == block_swap_config.get("use_non_blocking", True)
+                 )
+-                
++
+                 if config_matches:
+                     # Configuration matches - fast re-application
+                     print("✅ BlockSwap config matches, performing fast re-application")
+-                    
++
+                     # Mark as active before applying
+                     cached_runner._blockswap_active = True
+-                    
++
+                     # Apply BlockSwap (will be fast since model structure is intact)
+                     apply_block_swap_to_dit(cached_runner, block_swap_config)
+                 else:
+@@ -105,28 +108,28 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+                 # No cached config - apply fresh
+                 print("🔄 Applying BlockSwap to cached runner")
+                 apply_block_swap_to_dit(cached_runner, block_swap_config)
+-            
++
+             return cached_runner
+         else:
+             # No BlockSwap needed
+             return cached_runner
+-    
++
+     # If we reach here, create a new runner
+     t = time.time()
+     vram_info = get_basic_vram_info()
+     if debug:
+         print(f"🔄 RUNNER : VRAM INFO: {vram_info}")
+-    # Select config based on model type
+ 
+ 
+-    
++    # Select config based on model type
++
+     if "7b" in model:
+-        config_path = os.path.join(script_directory, './configs_7b', 'main.yaml')
++        config_path = os.path.join(script_directory, 'configs_7b', 'main.yaml')
+         model_weight = "7b_fp8" if "fp8" in model else "7b_fp16"
+     else:
+-        config_path = os.path.join(script_directory, './configs_3b', 'main.yaml')
++        config_path = os.path.join(script_directory, 'configs_3b', 'main.yaml')
+         model_weight = "3b_fp8" if "fp8" in model else "3b_fp16"
+-    
++
+     config = load_config(config_path)
+     if debug:
+         print(f"🔄 RUNNER : CONFIG LOAD TIME: {time.time() - t} seconds")
+@@ -139,23 +142,23 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+     vae_config = OmegaConf.load(vae_config_path)
+     if debug:
+         print(f"🔄 RUNNER : VAE CONFIG LOAD TIME: {time.time() - t} seconds")
+-    
++
+     t = time.time()
+     # Configure VAE parameters
+     spatial_downsample_factor = vae_config.get('spatial_downsample_factor', 8)
+     temporal_downsample_factor = vae_config.get('temporal_downsample_factor', 4)
+-    
++
+     vae_config.spatial_downsample_factor = spatial_downsample_factor
+     vae_config.temporal_downsample_factor = temporal_downsample_factor
+     if debug:
+         print(f"🔄 RUNNER : VAE CONFIG SET TIME: {time.time() - t} seconds")
+-    
++
+     # Merge additional VAE config with main config (preserving __object__ from main config)
+     t = time.time()
+     config.vae.model = OmegaConf.merge(config.vae.model, vae_config)
+     if debug:
+         print(f"🔄 RUNNER : VAE CONFIG MERGE TIME: {time.time() - t} seconds")
+-    
++
+     t = time.time()
+     # Create runner
+     runner = VideoDiffusionInfer(config, debug)
+@@ -164,34 +167,39 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+     runner._model_name = model
+     if debug:
+         print(f"🔄 RUNNER : RUNNER VIDEO DIFFUSION INFER TIME: {time.time() - t} seconds")
+-    
++
+     # Set device
+-    device = "cuda" if torch.cuda.is_available() else "cpu"
+-    
++    #device = "cuda" if torch.cuda.is_available() else "cpu"
++
+     # Configure models
+-    checkpoint_path = os.path.join(base_cache_dir, f'./{model}')
++    checkpoint_path = os.path.join(base_cache_dir, f'{model}')
+     t = time.time()
+-    runner = configure_dit_model_inference(runner, device, checkpoint_path, config, preserve_vram, model_weight, vram_info, debug, block_swap_config)
++
++
++
++    runner = configure_dit_model_inference(runner, device, checkpoint_path, config, preserve_vram, model_weight,
++                                           vram_info, debug, block_swap_config)
+     if debug:
+         print(f"🔄 RUNNER : DIT MODEL INFERENCE TIME: {time.time() - t} seconds")
+-    
++
+     t = time.time()
+-    checkpoint_path = os.path.join(base_cache_dir, f'./{config.vae.checkpoint}')
+-    runner = configure_vae_model_inference(runner, device, checkpoint_path, config, preserve_vram, model_weight, vram_info, debug, block_swap_config)
++    checkpoint_path = os.path.join(base_cache_dir, f'{config.vae.checkpoint}')
++    runner = configure_vae_model_inference(runner, device, checkpoint_path, config, preserve_vram, model_weight,
++                                           vram_info, debug, block_swap_config)
+     if debug:
+         print(f"🔄 RUNNER : VAE MODEL INFERENCE TIME: {time.time() - t} seconds")
+-    
++
+     t = time.time()
+     if hasattr(runner.vae, "set_memory_limit"):
+         runner.vae.set_memory_limit(**runner.config.vae.memory_limit)
+     if debug:
+         print(f"🔄 RUNNER : VAE MEMORY LIMIT TIME: {time.time() - t} seconds")
+-    
++
+     # Check if BlockSwap is active
+     blockswap_active = (
+-        block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0
++            block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0
+     )
+-    
++
+     # Pre-initialize RoPE cache for optimal performance if BlockSwap is NOT active
+     if not blockswap_active:
+         t = time.time()
+@@ -201,26 +209,26 @@ def configure_runner(model, base_cache_dir, preserve_vram=False, debug=False, bl
+     else:
+         if debug:
+             print(f"🔄 RUNNER : Skipping RoPE pre-init due to BlockSwap")
+-    
++
+     # Apply BlockSwap if configured
+     if blockswap_active:
+         apply_block_swap_to_dit(runner, block_swap_config)
+-    #clear_vram_cache()
++    # clear_vram_cache()
+     return runner
+ 
+ 
+ def load_quantized_state_dict(checkpoint_path, device="cpu", keep_native_fp8=True):
+     """
+     Load state dict from SafeTensors or PyTorch with optimal FP8 native support
+-    
++
+     Args:
+         checkpoint_path (str): Path to model checkpoint (.safetensors or .pth)
+         device (str): Target device for loading
+         keep_native_fp8 (bool): Whether to preserve native FP8 format for performance
+-        
++
+     Returns:
+         dict: State dictionary with optimal dtype handling
+-        
++
+     Features:
+         - Automatic format detection (SafeTensors vs PyTorch)
+         - Native FP8 preservation for 2x speedup and 50% VRAM reduction
+@@ -235,18 +243,18 @@ def load_quantized_state_dict(checkpoint_path, device="cpu", keep_native_fp8=Tru
+         state = torch.load(checkpoint_path, map_location=device, mmap=True)
+     else:
+         raise ValueError(f"Unsupported format. Expected .safetensors or .pth, got: {checkpoint_path}")
+-    
++
+     # FP8 optimization: Keep native format for maximum performance
+     fp8_detected = False
+     fp8_types = (torch.float8_e4m3fn, torch.float8_e5m2) if hasattr(torch, 'float8_e4m3fn') else ()
+-    
++
+     if fp8_types:
+         # Check if model contains FP8 tensors
+         for key, tensor in state.items():
+             if hasattr(tensor, 'dtype') and tensor.dtype in fp8_types:
+                 fp8_detected = True
+                 break
+-    
++
+     if fp8_detected:
+         if keep_native_fp8:
+             # Keep native FP8 format for optimal performance
+@@ -256,31 +264,31 @@ def load_quantized_state_dict(checkpoint_path, device="cpu", keep_native_fp8=Tru
+             # Convert FP8 → BFloat16 for compatibility
+             converted_state = {}
+             converted_count = 0
+-            
++
+             for key, tensor in state.items():
+                 if hasattr(tensor, 'dtype') and tensor.dtype in fp8_types:
+                     converted_state[key] = tensor.to(torch.bfloat16)
+                     converted_count += 1
+                 else:
+                     converted_state[key] = tensor
+-            
++
+             return converted_state
+-    
+-    return state
+ 
++    return state
+ 
+ 
+-def configure_dit_model_inference(runner, device, checkpoint, config, preserve_vram=False, model_weight=None, vram_info=None, debug=False, block_swap_config=None):
++def configure_dit_model_inference(runner, device, checkpoint, config, preserve_vram=False, model_weight=None,
++                                  vram_info=None, debug=False, block_swap_config=None):
+     """
+     Configure DiT model for inference without distributed decorators
+-    
++
+     Args:
+         runner: VideoDiffusionInfer instance
+         device (str): Target device
+         checkpoint (str): Path to model checkpoint
+         config: Model configuration
+         block_swap_config (dict): Optional BlockSwap configuration
+-        
++
+     Features:
+         - Automatic format detection and optimal loading
+         - Native FP8 support with universal compatibility wrapper
+@@ -288,17 +296,18 @@ def configure_dit_model_inference(runner, device, checkpoint, config, preserve_v
+         - Intelligent dtype handling for all model architectures
+         - BlockSwap support for low VRAM systems
+     """
+-    
++
+     # Create dit model
+     t = time.time()
+ 
+     # Check if BlockSwap is active
+     blockswap_active = (
+-        block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0
++            block_swap_config and block_swap_config.get("blocks_to_swap", 0) > 0
+     )
+ 
+     loading_device = "cpu" if (preserve_vram or blockswap_active) else device
+-    
++    loading_device="cpu"
++
+     if blockswap_active and debug:
+         print(f"🔄 CONFIG DIT : BlockSwap active - creating model on CPU")
+ 
+@@ -316,6 +325,7 @@ def configure_dit_model_inference(runner, device, checkpoint, config, preserve_v
+ 
+     t = time.time()
+     state_loading_device = "cpu" if "7b" in model_weight and vram_info['total_gb'] < 25 else device
++    state_loading_device="cpu"
+     state = load_quantized_state_dict(checkpoint, state_loading_device, keep_native_fp8=True)
+ 
+     if debug:
+@@ -325,11 +335,11 @@ def configure_dit_model_inference(runner, device, checkpoint, config, preserve_v
+ 
+     if 'state' in locals():
+         del state
+-            
++
+     if debug:
+         print(f"🔄 CONFIG DIT : DiT load time: {time.time() - t} seconds")
+-    #state.to("cpu")
+-    #runner.dit = runner.dit.to(device)
++    # state.to("cpu")
++    # runner.dit = runner.dit.to(device)
+ 
+     # Apply universal compatibility wrapper to ALL models
+     # This ensures RoPE compatibility and optimal performance across all architectures
+@@ -349,38 +359,40 @@ def configure_dit_model_inference(runner, device, checkpoint, config, preserve_v
+             clear_vram_cache()
+     else:
+         if state_loading_device == "cpu" and not blockswap_active:
+-            runner.dit.to(device)
++            runner.dit.to(state_loading_device)
+ 
+     # Log BlockSwap status if active
+     if blockswap_active and debug:
+-        print(f"🔄 CONFIG DIT : BlockSwap active ({block_swap_config.get('blocks_to_swap', 0)} blocks) - placement handled by BlockSwap")
++        print(
++            f"🔄 CONFIG DIT : BlockSwap active ({block_swap_config.get('blocks_to_swap', 0)} blocks) - placement handled by BlockSwap")
+ 
+     return runner
+
+
+-def configure_vae_model_inference(runner, device, checkpoint_path, config, preserve_vram=False, model_weight=None, vram_info=None, debug=False, block_swap_config=None):
++def configure_vae_model_inference(runner, device, checkpoint_path, config, preserve_vram=False, model_weight=None,
++                                  vram_info=None, debug=False, block_swap_config=None):
+     """
+     Configure VAE model for inference without distributed decorators
+-    
++
+     Args:
+-        runner: VideoDiffusionInfer instance  
++        runner: VideoDiffusionInfer instance
+         config: Model configuration
+         device (str): Target device
+         block_swap_config (dict): Optional BlockSwap configuration
+-        
++
+     Features:
+         - Dynamic path resolution for VAE checkpoints
+         - SafeTensors and PyTorch format support
+         - FP8 and FP16 VAE handling
+         - Causal slicing configuration
+     """
+-    
++
+     # Create vae model
+-    
++
+     dtype = getattr(torch, config.vae.dtype)
+     t = time.time()
+-    loading_device = "cpu" if preserve_vram else device
+-    
++    loading_device = device
++
+     with torch.device(device):
+         runner.vae = create_object(config.vae.model)
+     if debug:
+@@ -390,14 +402,14 @@ def configure_vae_model_inference(runner, device, checkpoint_path, config, prese
+     if debug:
+         print(f"🔄 CONFIG VAE : MODEL REQUIRES GRAD TIME: {time.time() - t} seconds device: {device} dtype: {dtype}")
+     t = time.time()
+-    
+-    #runner.vae.to(device=loading_device, dtype=dtype)
+-    #if debug:
++
++    # runner.vae.to(device=loading_device, dtype=dtype)
++    # if debug:
+     #    print(f"🔄 CONFIG VAE : TO CPU TIME: {time.time() - t} seconds device: {device} dtype: {dtype}")
+     # Resolve VAE checkpoint path dynamically
+     '''
+     checkpoint_path = config.vae.checkpoint
+-    
++
+     possible_paths = [
+         checkpoint_path,  # Original path
+         os.path.join("ComfyUI", checkpoint_path),  # With ComfyUI prefix
+@@ -419,7 +431,7 @@ def configure_vae_model_inference(runner, device, checkpoint_path, config, prese
+     '''
+     # Load VAE with format detection
+     t = time.time()
+-    state_loading_device = "cpu" if "7b" in model_weight and vram_info['total_gb'] < 25 else device
++    state_loading_device = device
+     print(f"🚀 Loading VAE SafeTensors: {checkpoint_path}")
+     # Use optimized loading for all SafeTensors formats
+     if "fp8_e4m3fn" in checkpoint_path:
+@@ -448,4 +460,4 @@ def configure_vae_model_inference(runner, device, checkpoint_path, config, prese
+         print(f"🔄 CONFIG VAE : VAE SET CAUSAL SLICING TIME: {time.time() - t} seconds")
+ 
+     return runner
+-    #runner.vae.to("cpu")
+\ No newline at end of file
++    # runner.vae.to("cpu")
+diff --git a/src/models/dit/nadit.py b/src/models/dit/nadit.py
+index a676952..b61d976 100644
+--- a/src/models/dit/nadit.py
++++ b/src/models/dit/nadit.py
+@@ -161,18 +161,24 @@ class NaDiT(nn.Module):
+             txt, txt_shape = na.repeat(txt, txt_shape, "l c -> t l c", t=vid_shape[:, 0])
+         # slice vid after patching in when using sequence parallelism
+         txt = slice_inputs(txt, dim=0)
++        
++        #self.txt_in.to("cuda")
+         txt = self.txt_in(txt)
+ 
+         # Video input.
+         # Sequence parallel slicing is done inside patching class.
++        #self.vid_in.to("cuda")
+         vid, vid_shape = self.vid_in(vid, vid_shape)
+ 
+         # Embedding input.
++        #self.emb_in.to("cuda")
+         emb = self.emb_in(timestep, device=vid.device, dtype=vid.dtype)
+ 
+         # Body
++
+         cache = Cache(disable=disable_cache)
+         for i, block in enumerate(self.blocks):
++            #block.to("cuda")
+             vid, txt, vid_shape, txt_shape = gradient_checkpointing(
+                 enabled=(self.gradient_checkpointing and self.training),
+                 module=block,
+@@ -183,11 +189,12 @@ class NaDiT(nn.Module):
+                 emb=emb,
+                 cache=cache,
+             )
++            #block.to("cpu")
+ 
++        #self.vid_out.to("cuda")
+         vid, vid_shape = self.vid_out(vid, vid_shape, cache)
+         return NaDiTOutput(vid_sample=vid)
+ 
+-
+ class NaDiTUpscaler(nn.Module):
+     """
+     Native Resolution Diffusion Transformer (NaDiT)
+diff --git a/src/models/video_vae_v3/modules/attn_video_vae.py b/src/models/video_vae_v3/modules/attn_video_vae.py
+index 83964fb..dfe8c40 100644
+--- a/src/models/video_vae_v3/modules/attn_video_vae.py
++++ b/src/models/video_vae_v3/modules/attn_video_vae.py
+@@ -28,6 +28,7 @@ from diffusers.models.upsampling import Upsample2D
+ from diffusers.utils import is_torch_version
+ from diffusers.utils.accelerate_utils import apply_forward_hook
+ from einops import rearrange
++import torch.distributed as dist
+ from ....common.half_precision_fixes import safe_pad_operation, safe_interpolate_operation
+ 
+ from ....common.distributed.advanced import get_sequence_parallel_world_size
+@@ -60,13 +61,13 @@ class Upsample3D(Upsample2D):
+     """A 3D upsampling layer with an optional convolution."""
+ 
+     def __init__(
+-        self,
+-        *args,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        temporal_up: bool = False,
+-        spatial_up: bool = True,
+-        slicing: bool = False,
+-        **kwargs,
++            self,
++            *args,
++            inflation_mode: _inflation_mode_t = "tail",
++            temporal_up: bool = False,
++            spatial_up: bool = True,
++            slicing: bool = False,
++            **kwargs,
+     ):
+         super().__init__(*args, **kwargs)
+         conv = self.conv if self.name == "conv" else self.Conv2d_0
+@@ -91,7 +92,7 @@ class Upsample3D(Upsample2D):
+         assert not self.interpolate
+         # [Override] MAGViT v2 implementation
+         if not self.interpolate:
+-            upscale_ratio = (self.spatial_ratio**2) * self.temporal_ratio
++            upscale_ratio = (self.spatial_ratio ** 2) * self.temporal_ratio
+             self.upscale_conv = nn.Conv3d(
+                 self.channels, self.channels * upscale_ratio, kernel_size=1, padding=0
+             )
+@@ -109,12 +110,12 @@ class Upsample3D(Upsample2D):
+             self.Conv2d_0 = conv
+ 
+     def forward(
+-        self,
+-        hidden_states: torch.FloatTensor,
+-        output_size: Optional[int] = None,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        preserve_vram: bool = False,
+-        **kwargs,
++            self,
++            hidden_states: torch.FloatTensor,
++            output_size: Optional[int] = None,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            preserve_vram: bool = False,
++            **kwargs,
+     ) -> torch.FloatTensor:
+         assert hidden_states.shape[1] == self.channels
+ 
+@@ -170,12 +171,12 @@ class Downsample3D(Downsample2D):
+     """A 3D downsampling layer with an optional convolution."""
+ 
+     def __init__(
+-        self,
+-        *args,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        spatial_down: bool = False,
+-        temporal_down: bool = False,
+-        **kwargs,
++            self,
++            *args,
++            inflation_mode: _inflation_mode_t = "tail",
++            spatial_down: bool = False,
++            temporal_down: bool = False,
++            **kwargs,
+     ):
+         super().__init__(*args, **kwargs)
+         conv = self.conv
+@@ -219,10 +220,10 @@ class Downsample3D(Downsample2D):
+             self.conv = conv
+ 
+     def forward(
+-        self,
+-        hidden_states: torch.FloatTensor,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        **kwargs,
++            self,
++            hidden_states: torch.FloatTensor,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            **kwargs,
+     ) -> torch.FloatTensor:
+ 
+         assert hidden_states.shape[1] == self.channels
+@@ -244,12 +245,12 @@ class Downsample3D(Downsample2D):
+ 
+ class ResnetBlock3D(ResnetBlock2D):
+     def __init__(
+-        self,
+-        *args,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
+-        slicing: bool = False,
+-        **kwargs,
++            self,
++            *args,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
++            slicing: bool = False,
++            **kwargs,
+     ):
+         super().__init__(*args, **kwargs)
+         self.conv1 = init_causal_conv3d(
+@@ -300,7 +301,8 @@ class ResnetBlock3D(ResnetBlock2D):
+             )
+ 
+     def forward(
+-        self, input_tensor, temb, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False, **kwargs
++            self, input_tensor, temb, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False,
++            **kwargs
+     ):
+         hidden_states = input_tensor
+ 
+@@ -357,23 +359,23 @@ class ResnetBlock3D(ResnetBlock2D):
+ 
+ class DownEncoderBlock3D(DownEncoderBlock2D):
+     def __init__(
+-        self,
+-        in_channels: int,
+-        out_channels: int,
+-        dropout: float = 0.0,
+-        num_layers: int = 1,
+-        resnet_eps: float = 1e-6,
+-        resnet_time_scale_shift: str = "default",
+-        resnet_act_fn: str = "swish",
+-        resnet_groups: int = 32,
+-        resnet_pre_norm: bool = True,
+-        output_scale_factor: float = 1.0,
+-        add_downsample: bool = True,
+-        downsample_padding: int = 1,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
+-        temporal_down: bool = True,
+-        spatial_down: bool = True,
++            self,
++            in_channels: int,
++            out_channels: int,
++            dropout: float = 0.0,
++            num_layers: int = 1,
++            resnet_eps: float = 1e-6,
++            resnet_time_scale_shift: str = "default",
++            resnet_act_fn: str = "swish",
++            resnet_groups: int = 32,
++            resnet_pre_norm: bool = True,
++            output_scale_factor: float = 1.0,
++            add_downsample: bool = True,
++            downsample_padding: int = 1,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
++            temporal_down: bool = True,
++            spatial_down: bool = True,
+     ):
+         super().__init__(
+             in_channels=in_channels,
+@@ -436,10 +438,10 @@ class DownEncoderBlock3D(DownEncoderBlock2D):
+             self.downsamplers = None
+ 
+     def forward(
+-        self,
+-        hidden_states: torch.FloatTensor,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        **kwargs,
++            self,
++            hidden_states: torch.FloatTensor,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            **kwargs,
+     ) -> torch.FloatTensor:
+         for resnet, temporal in zip(self.resnets, self.temporal_modules):
+             hidden_states = resnet(hidden_states, temb=None, memory_state=memory_state)
+@@ -454,24 +456,24 @@ class DownEncoderBlock3D(DownEncoderBlock2D):
+ 
+ class UpDecoderBlock3D(UpDecoderBlock2D):
+     def __init__(
+-        self,
+-        in_channels: int,
+-        out_channels: int,
+-        dropout: float = 0.0,
+-        num_layers: int = 1,
+-        resnet_eps: float = 1e-6,
+-        resnet_time_scale_shift: str = "default",  # default, spatial
+-        resnet_act_fn: str = "swish",
+-        resnet_groups: int = 32,
+-        resnet_pre_norm: bool = True,
+-        output_scale_factor: float = 1.0,
+-        add_upsample: bool = True,
+-        temb_channels: Optional[int] = None,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
+-        temporal_up: bool = True,
+-        spatial_up: bool = True,
+-        slicing: bool = False,
++            self,
++            in_channels: int,
++            out_channels: int,
++            dropout: float = 0.0,
++            num_layers: int = 1,
++            resnet_eps: float = 1e-6,
++            resnet_time_scale_shift: str = "default",  # default, spatial
++            resnet_act_fn: str = "swish",
++            resnet_groups: int = 32,
++            resnet_pre_norm: bool = True,
++            output_scale_factor: float = 1.0,
++            add_upsample: bool = True,
++            temb_channels: Optional[int] = None,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
++            temporal_up: bool = True,
++            spatial_up: bool = True,
++            slicing: bool = False,
+     ):
+         super().__init__(
+             in_channels=in_channels,
+@@ -537,11 +539,11 @@ class UpDecoderBlock3D(UpDecoderBlock2D):
+             self.upsamplers = None
+ 
+     def forward(
+-        self,
+-        hidden_states: torch.FloatTensor,
+-        temb: Optional[torch.FloatTensor] = None,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        preserve_vram: bool = False,
++            self,
++            hidden_states: torch.FloatTensor,
++            temb: Optional[torch.FloatTensor] = None,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            preserve_vram: bool = False,
+     ) -> torch.FloatTensor:
+         for resnet, temporal in zip(self.resnets, self.temporal_modules):
+             hidden_states = resnet(hidden_states, temb=None, memory_state=memory_state, preserve_vram=preserve_vram)
+@@ -556,21 +558,21 @@ class UpDecoderBlock3D(UpDecoderBlock2D):
+ 
+ class UNetMidBlock3D(nn.Module):
+     def __init__(
+-        self,
+-        in_channels: int,
+-        temb_channels: int,
+-        dropout: float = 0.0,
+-        num_layers: int = 1,
+-        resnet_eps: float = 1e-6,
+-        resnet_time_scale_shift: str = "default",  # default, spatial
+-        resnet_act_fn: str = "swish",
+-        resnet_groups: int = 32,
+-        resnet_pre_norm: bool = True,
+-        add_attention: bool = True,
+-        attention_head_dim: int = 1,
+-        output_scale_factor: float = 1.0,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
++            self,
++            in_channels: int,
++            temb_channels: int,
++            dropout: float = 0.0,
++            num_layers: int = 1,
++            resnet_eps: float = 1e-6,
++            resnet_time_scale_shift: str = "default",  # default, spatial
++            resnet_act_fn: str = "swish",
++            resnet_groups: int = 32,
++            resnet_pre_norm: bool = True,
++            add_attention: bool = True,
++            attention_head_dim: int = 1,
++            output_scale_factor: float = 1.0,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
+     ):
+         super().__init__()
+         resnet_groups = resnet_groups if resnet_groups is not None else min(in_channels // 4, 32)
+@@ -692,22 +694,22 @@ class Encoder3D(nn.Module):
+     """
+ 
+     def __init__(
+-        self,
+-        in_channels: int = 3,
+-        out_channels: int = 3,
+-        down_block_types: Tuple[str, ...] = ("DownEncoderBlock3D",),
+-        block_out_channels: Tuple[int, ...] = (64,),
+-        layers_per_block: int = 2,
+-        norm_num_groups: int = 32,
+-        act_fn: str = "silu",
+-        double_z: bool = True,
+-        mid_block_add_attention=True,
+-        # [Override] add extra_cond_dim, temporal down num
+-        temporal_down_num: int = 2,
+-        extra_cond_dim: int = None,
+-        gradient_checkpoint: bool = False,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
++            self,
++            in_channels: int = 3,
++            out_channels: int = 3,
++            down_block_types: Tuple[str, ...] = ("DownEncoderBlock3D",),
++            block_out_channels: Tuple[int, ...] = (64,),
++            layers_per_block: int = 2,
++            norm_num_groups: int = 32,
++            act_fn: str = "silu",
++            double_z: bool = True,
++            mid_block_add_attention=True,
++            # [Override] add extra_cond_dim, temporal down num
++            temporal_down_num: int = 2,
++            extra_cond_dim: int = None,
++            gradient_checkpoint: bool = False,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
+     ):
+         super().__init__()
+         self.layers_per_block = layers_per_block
+@@ -800,11 +802,11 @@ class Encoder3D(nn.Module):
+         self.gradient_checkpointing = gradient_checkpoint
+ 
+     def forward(
+-        self,
+-        sample: torch.FloatTensor,
+-        extra_cond=None,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        preserve_vram: bool = False,
++            self,
++            sample: torch.FloatTensor,
++            extra_cond=None,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            preserve_vram: bool = False,
+     ) -> torch.FloatTensor:
+         r"""The forward method of the `Encoder` class."""
+         sample = self.conv_in(sample, memory_state=memory_state, preserve_vram=preserve_vram)
+@@ -878,22 +880,22 @@ class Decoder3D(nn.Module):
+     """
+ 
+     def __init__(
+-        self,
+-        in_channels: int = 3,
+-        out_channels: int = 3,
+-        up_block_types: Tuple[str, ...] = ("UpDecoderBlock3D",),
+-        block_out_channels: Tuple[int, ...] = (64,),
+-        layers_per_block: int = 2,
+-        norm_num_groups: int = 32,
+-        act_fn: str = "silu",
+-        norm_type: str = "group",  # group, spatial
+-        mid_block_add_attention=True,
+-        # [Override] add temporal up block
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "half",
+-        temporal_up_num: int = 2,
+-        slicing_up_num: int = 0,
+-        gradient_checkpoint: bool = False,
++            self,
++            in_channels: int = 3,
++            out_channels: int = 3,
++            up_block_types: Tuple[str, ...] = ("UpDecoderBlock3D",),
++            block_out_channels: Tuple[int, ...] = (64,),
++            layers_per_block: int = 2,
++            norm_num_groups: int = 32,
++            act_fn: str = "silu",
++            norm_type: str = "group",  # group, spatial
++            mid_block_add_attention=True,
++            # [Override] add temporal up block
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "half",
++            temporal_up_num: int = 2,
++            slicing_up_num: int = 0,
++            gradient_checkpoint: bool = False,
+     ):
+         super().__init__()
+         self.layers_per_block = layers_per_block
+@@ -931,7 +933,7 @@ class Decoder3D(nn.Module):
+         # up
+         reversed_block_out_channels = list(reversed(block_out_channels))
+         output_channel = reversed_block_out_channels[0]
+-        #print(f"slicing_up_num: {slicing_up_num}")
++        # print(f"slicing_up_num: {slicing_up_num}")
+         for i, up_block_type in enumerate(up_block_types):
+             prev_output_channel = output_channel
+             output_channel = reversed_block_out_channels[i]
+@@ -976,17 +978,17 @@ class Decoder3D(nn.Module):
+ 
+     # Note: Just copy from Decoder.
+     def forward(
+-        self,
+-        sample: torch.FloatTensor,
+-        latent_embeds: Optional[torch.FloatTensor] = None,
+-        memory_state: MemoryState = MemoryState.DISABLED,
+-        preserve_vram: bool = False,
++            self,
++            sample: torch.FloatTensor,
++            latent_embeds: Optional[torch.FloatTensor] = None,
++            memory_state: MemoryState = MemoryState.DISABLED,
++            preserve_vram: bool = False,
+     ) -> torch.FloatTensor:
+         r"""The forward method of the `Decoder` class."""
+ 
+         sample = self.conv_in(sample, memory_state=memory_state)
+ 
+-        #upscale_dtype = next(iter(self.up_blocks.parameters())).dtype
++        # upscale_dtype = next(iter(self.up_blocks.parameters())).dtype
+         upscale_dtype = sample.dtype
+         if self.training and self.gradient_checkpointing:
+ 
+@@ -1067,34 +1069,34 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+     """
+ 
+     def __init__(
+-        self,
+-        in_channels: int = 3,
+-        out_channels: int = 3,
+-        down_block_types: Tuple[str] = ("DownEncoderBlock3D",),
+-        up_block_types: Tuple[str] = ("UpDecoderBlock3D",),
+-        block_out_channels: Tuple[int] = (64,),
+-        layers_per_block: int = 1,
+-        act_fn: str = "silu",
+-        latent_channels: int = 4,
+-        norm_num_groups: int = 32,
+-        sample_size: int = 32,
+-        scaling_factor: float = 0.18215,
+-        force_upcast: float = True,
+-        attention: bool = True,
+-        temporal_scale_num: int = 2,
+-        slicing_up_num: int = 0,
+-        gradient_checkpoint: bool = False,
+-        inflation_mode: _inflation_mode_t = "tail",
+-        time_receptive_field: _receptive_field_t = "full",
+-        slicing_sample_min_size: int = 32,
+-        use_quant_conv: bool = True,
+-        use_post_quant_conv: bool = True,
+-        *args,
+-        **kwargs,
++            self,
++            in_channels: int = 3,
++            out_channels: int = 3,
++            down_block_types: Tuple[str] = ("DownEncoderBlock3D",),
++            up_block_types: Tuple[str] = ("UpDecoderBlock3D",),
++            block_out_channels: Tuple[int] = (64,),
++            layers_per_block: int = 1,
++            act_fn: str = "silu",
++            latent_channels: int = 4,
++            norm_num_groups: int = 32,
++            sample_size: int = 32,
++            scaling_factor: float = 0.18215,
++            force_upcast: float = True,
++            attention: bool = True,
++            temporal_scale_num: int = 2,
++            slicing_up_num: int = 0,
++            gradient_checkpoint: bool = False,
++            inflation_mode: _inflation_mode_t = "tail",
++            time_receptive_field: _receptive_field_t = "full",
++            slicing_sample_min_size: int = 32,
++            use_quant_conv: bool = True,
++            use_post_quant_conv: bool = True,
++            *args,
++            **kwargs,
+     ):
+         extra_cond_dim = kwargs.pop("extra_cond_dim") if "extra_cond_dim" in kwargs else None
+         self.slicing_sample_min_size = slicing_sample_min_size
+-        self.slicing_latent_min_size = slicing_sample_min_size // (2**temporal_scale_num)
++        self.slicing_latent_min_size = slicing_sample_min_size // (2 ** temporal_scale_num)
+ 
+         super().__init__(
+             in_channels=in_channels,
+@@ -1180,7 +1182,8 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+             self.decoder.mid_block.attentions = torch.nn.ModuleList([None])
+ 
+     @apply_forward_hook
+-    def encode(self, x: torch.FloatTensor, return_dict: bool = True, preserve_vram: bool = False) -> AutoencoderKLOutput:
++    def encode(self, x: torch.FloatTensor, return_dict: bool = True,
++               preserve_vram: bool = False) -> AutoencoderKLOutput:
+         h = self.slicing_encode(x, preserve_vram=preserve_vram)
+         posterior = DiagonalGaussianDistribution(h)
+ 
+@@ -1191,7 +1194,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+ 
+     @apply_forward_hook
+     def decode(
+-        self, z: torch.Tensor, preserve_vram: bool = False, return_dict: bool = True
++            self, z: torch.Tensor, preserve_vram: bool = False, return_dict: bool = True
+     ) -> Union[DecoderOutput, torch.Tensor]:
+         decoded = self.slicing_decode(z, preserve_vram=preserve_vram)
+ 
+@@ -1201,7 +1204,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+         return DecoderOutput(sample=decoded)
+ 
+     def _encode(
+-        self, x: torch.Tensor, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False
++            self, x: torch.Tensor, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False
+     ) -> torch.Tensor:
+         _x = x.to(self.device)
+         _x = causal_conv_slice_inputs(_x, self.slicing_sample_min_size, memory_state=memory_state)
+@@ -1214,7 +1217,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+         return output.to(x.device)
+ 
+     def _decode(
+-        self, z: torch.Tensor, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False
++            self, z: torch.Tensor, memory_state: MemoryState = MemoryState.DISABLED, preserve_vram: bool = False
+     ) -> torch.Tensor:
+         _z = z.to(self.device)
+         _z = causal_conv_slice_inputs(_z, self.slicing_latent_min_size, memory_state=memory_state)
+@@ -1227,7 +1230,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+     def slicing_encode(self, x: torch.Tensor, preserve_vram: bool = False) -> torch.Tensor:
+         sp_size = get_sequence_parallel_world_size()
+         if self.use_slicing and (x.shape[2] - 1) > self.slicing_sample_min_size * sp_size:
+-            x_slices = x[:, :, 1:].split(split_size=self.slicing_sample_min_size * sp_size, dim=2)
++            x_slices = x[:, :, 1:].split(self.slicing_sample_min_size * sp_size, dim=2)
+             encoded_slices = [
+                 self._encode(
+                     torch.cat((x[:, :, :1], x_slices[0]), dim=2),
+@@ -1243,7 +1246,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+         else:
+             return self._encode(x, preserve_vram=preserve_vram)
+ 
+-    def slicing_decode(self, z: torch.Tensor, preserve_vram: bool = False) -> torch.Tensor:
++    def slicing_decode_old(self, z: torch.Tensor, preserve_vram: bool = False) -> torch.Tensor:
+         sp_size = get_sequence_parallel_world_size()
+         if self.use_slicing and (z.shape[2] - 1) > self.slicing_latent_min_size * sp_size:
+             z_slices = z[:, :, 1:].split(split_size=self.slicing_latent_min_size * sp_size, dim=2)
+@@ -1262,6 +1265,14 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+         else:
+             return self._decode(z, preserve_vram=preserve_vram)
+ 
++    def slicing_decode(self, z: torch.Tensor, preserve_vram: bool = False) -> torch.Tensor:
++        if z.shape[2] > 1:
++            sample = self._decode(z, memory_state=MemoryState.INITIALIZING, preserve_vram=preserve_vram)
++        else:
++            sample = self._decode(z, memory_state=MemoryState.ACTIVE, preserve_vram=preserve_vram)
++
++        return sample
++
+     def tiled_encode(self, x: torch.Tensor, **kwargs) -> torch.Tensor:
+         raise NotImplementedError
+ 
+@@ -1269,7 +1280,7 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+         raise NotImplementedError
+ 
+     def forward(
+-        self, x: torch.FloatTensor, mode: Literal["encode", "decode", "all"] = "all", **kwargs
++            self, x: torch.FloatTensor, mode: Literal["encode", "decode", "all"] = "all", **kwargs
+     ):
+         # x: [b c t h w]
+         if mode == "encode":
+@@ -1298,12 +1309,12 @@ class VideoAutoencoderKL(diffusers.AutoencoderKL):
+ 
+ class VideoAutoencoderKLWrapper(VideoAutoencoderKL):
+     def __init__(
+-        self,
+-        *args,
+-        spatial_downsample_factor: int,
+-        temporal_downsample_factor: int,
+-        freeze_encoder: bool,
+-        **kwargs,
++            self,
++            *args,
++            spatial_downsample_factor: int,
++            temporal_downsample_factor: int,
++            freeze_encoder: bool,
++            **kwargs,
+     ):
+         self.spatial_downsample_factor = spatial_downsample_factor
+         self.temporal_downsample_factor = temporal_downsample_factor
+@@ -1339,13 +1350,13 @@ class VideoAutoencoderKLWrapper(VideoAutoencoderKL):
+         return x
+ 
+     def set_causal_slicing(
+-        self,
+-        *,
+-        split_size: Optional[int],
+-        memory_device: _memory_device_t,
++            self,
++            *,
++            split_size: Optional[int],
++            memory_device: _memory_device_t,
+     ):
+         assert (
+-            split_size is None or memory_device is not None
++                split_size is None or memory_device is not None
+         ), "if split_size is set, memory_device must not be None."
+         if split_size is not None:
+             self.enable_slicing()

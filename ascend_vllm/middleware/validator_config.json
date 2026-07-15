@@ -9,7 +9,10 @@
                 "subfield": ["messages", "messages.name", "messages.role", "messages.tool_call_id", "messages.tool_calls",
                              "messages.tool_calls.type", "messages.tool_calls.function", "messages.tool_calls.function.arguments", 
                              "messages.tool_calls.function.name", "messages.tool_calls.id", "messages.content", "messages.content.type",
-                             "messages.content.text", "messages.prefix"]
+                             "messages.content.text", "messages.prefix", "messages.content.image_url", "messages.content.image_base64",
+                             "messages.content.video_url", "messages.content.video_base64"],
+                "skip_check_subfield": ["messages.content.image_url", "messages.content.image_base64",
+                                        "messages.content.video_url", "messages.content.video_base64"]
             },
             {
                 "validator_type": "nested_value",
@@ -24,7 +27,7 @@
             {
                 "validator_type": "nested_value",
                 "subfield": ["messages.content.type"],
-                "target_value": ["text"]
+                "target_value": ["text", "image_url", "image_base64", "video_url", "video_base64"]
             }
         ],
         "prompt": {

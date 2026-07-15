@@ -1,0 +1,8 @@
+DBCache_config:
+  Fn_compute_blocks: 8
+  Bn_compute_blocks: 0
+  max_warmup_steps: 8
+  warmup_interval: 1
+  max_cached_steps: -1
+  max_continuous_cached_steps: -1
+  residual_diff_threshold: 0.08

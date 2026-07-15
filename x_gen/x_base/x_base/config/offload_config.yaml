@@ -1,0 +1,15 @@
+# ============================================================
+# 用于OffloadManager中transformer_block_name映射
+# 模型类型映射（自动推断）
+# 将模型类名/transformer_block_name
+# ============================================================
+transformer_block_mapping:
+  "default": "transformer_blocks"
+  "QwenImageTransformer2DModel": "transformer_blocks"
+  "WanTransformer3DModel": "blocks"
+  "AscendWanTransformer3DModel": "blocks"
+  "HunyuanVideoTransformer3DModel": "transformer_blocks"
+  "CogVideoXTransformer3DModel": "transformer_blocks"
+  "AscendCogVideoXTransformer3DModel": "transformer_blocks"
+  "ZImageTransformer2DModel": "layers"
+  "LongCatImageTransformer2DModel": "transformer_blocks"

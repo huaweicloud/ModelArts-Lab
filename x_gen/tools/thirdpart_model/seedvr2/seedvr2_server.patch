@@ -1,0 +1,99 @@
+diff --git a/src/core/generation.py b/src/core/generation.py
+index ad35d56..e5e508c 100644
+--- a/src/core/generation.py
++++ b/src/core/generation.py
+@@ -23,7 +23,7 @@ import time
+ import numpy as np
+ from torchvision.transforms import Compose, Lambda, Normalize
+ import torch.distributed as dist
+-
++import torch.nn.functional as F
+ # Import required modules
+ from src.optimization.memory_manager import reset_vram_peak
+ from src.optimization.performance import (
+@@ -56,6 +56,8 @@ from ascendx_video.base.vae_parallelism.save_video_stream import SaveVideoStream
+ from ascendx_video.framework.diffusers_framework.vae.vfi_utils import generic_frame_loop, InterpolationStateList
+ from ascendx_video.framework.diffusers_framework.vae.IFRNet_S_arch import IRFNet_S
+ from ascendx_video.framework.diffusers_framework.vae.wan import vfi
++from ascendx_video.base.utils.infer_info import infer_info
++import cv2
+ 
+ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, temporal_overlap):
+     """
+@@ -379,6 +381,67 @@ def split_video_with_border(transformed_video, world_size, rank, overlap=32):
+     # 返回带缓存的视频块
+     return cropped_with_border
+ 
++def resize_video_tensor(merged_video: torch.Tensor) -> torch.Tensor:
++    """
++    根据环境变量配置调整视频张量的分辨率
++    核心逻辑：若加载T2V模型或强制缩放，按resolution环境变量指定的尺寸插值缩放
++
++    Args:
++        merged_video: 输入视频张量，格式为 [B, H, W, C]（批次、高度、宽度、通道）
++
++    Returns:
++        torch.Tensor: 调整后的视频张量，格式保持 [B, H, W, C]
++
++    Raises:
++        ValueError: 分辨率环境变量格式错误/宽高非整数
++        TypeError: 输入张量维度不符合要求
++    """
++    # 1. 校验输入张量维度（必须是4维 [B, H, W, C]）
++    if merged_video.dim() != 4:
++        raise TypeError(f"输入张量必须是4维 [B, H, W, C]，当前维度：{merged_video.dim()}")
++
++    # 2. 读取环境变量配置
++    load_model = os.getenv("LOAD_MODEL", "Wan2.2-I2V-A14B")
++    force_resize = os.getenv("force_size", "false").lower()  # 统一转小写，避免大小写问题
++
++    # 3. 判断是否需要缩放
++    need_resize = "T2V" in load_model or (force_resize in ("true", "1", "yes"))
++    res_str = os.environ.get("resolution", "devserver")
++    if res_str == "devserver":
++        if infer_info.task_type == "i2v" and infer_info.i2v_image_path:
++            img_path = infer_info.i2v_image_path
++            img = cv2.imread(img_path)
++            img_height, img_width, _ = img.shape
++            if (img_height == 1080 and img_width == 1920) or (img_height == 1920 and img_width == 1080) or (img_height == 720 and img_width == 1280) or (img_height == 1280 and img_width == 720):
++                need_resize = True
++    if not need_resize:
++        return merged_video  # 无需缩放，直接返回原张量
++
++    # 4. 解析分辨率环境变量
++    try:
++        if res_str == "devserver":
++            target_size = (img_height, img_width)
++        else:
++            target_width, target_height = map(int, res_str.split(","))
++            target_size = (target_height, target_width)
++    except (ValueError, AttributeError):
++        raise ValueError(
++            f"分辨率环境变量格式错误！当前值：{res_str}，请确保格式为 '宽度,高度'（如720,480）"
++        )
++
++    # 5. 调整张量维度并插值缩放
++    # [B, H, W, C] → [B, C, H, W]（适配F.interpolate的输入格式）
++    merged_video = merged_video.permute(0, 3, 1, 2)
++    # 双线性插值缩放
++    merged_video_resized = F.interpolate(
++        merged_video,
++        size=target_size,
++        mode="bilinear",
++        align_corners=False
++    )
++    # [B, C, H, W] → [B, H, W, C]（还原原始维度格式）
++    merged_video_resized = merged_video_resized.permute(0, 2, 3, 1)
++    return merged_video_resized
+ 
+ def merge_video_with_border(
+         h_block,
+@@ -551,7 +614,7 @@ def merge_video_with_border(
+             merged_video = merged_video[:, :, 32:full_long - 32, :]
+         else:
+             merged_video = merged_video[:, 32:full_long - 32, :, :]
+-
++    merged_video = resize_video_tensor(merged_video)
+     return merged_video
+ 
+ 

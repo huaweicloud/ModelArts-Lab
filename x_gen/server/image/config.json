@@ -1,0 +1,8 @@
+{
+    "model": "Qwen-Image",
+    "pretrained_model_name_or_path": "/home/models/Qwen-Image",
+    "dtype": "bf16",
+    "matmul_a8w8": true,
+    "atten_laser": true,
+    "cache_dit": true
+}

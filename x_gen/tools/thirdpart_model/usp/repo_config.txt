@@ -1,0 +1,3 @@
+# 格式：仓库名 克隆地址
+MindSpeed https://gitcode.com/Ascend/MindSpeed.git c357f9d2fd6f35365c9dc86f4792b8779420b667
+long-context-attention https://github.com/feifeibear/long-context-attention.git 7a52abd669efb35e550680a239e1745b620b2bae

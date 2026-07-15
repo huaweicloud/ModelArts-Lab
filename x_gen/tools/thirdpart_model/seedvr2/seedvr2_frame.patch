@@ -1,0 +1,69 @@
+diff --git a/inference.py b/inference.py
+index 4be38f5..2e5aaaf 100644
+--- a/inference.py
++++ b/inference.py
+@@ -358,6 +358,9 @@ def run_distributed_processing_tiling(runner, frames_np, args):
+         rank=rank,
+         world_size=world_size,
+         device=device,
++        frame_interpolation = args.frame_interpolation_sr,
++        frame_model_path = args.frame_model_path,
++        save_fps = args.save_fps,
+     )
+ 
+ 
+diff --git a/src/core/generation.py b/src/core/generation.py
+index 4a773cf..904715a 100644
+--- a/src/core/generation.py
++++ b/src/core/generation.py
+@@ -53,6 +53,9 @@ from src.data.image.transforms.na_resize import NaResize
+ 
+ from src.utils.color_fix import wavelet_reconstruction
+ from ascendx_video.base.vae_parallelism.save_video_stream import SaveVideoStream
++from ascendx_video.framework.diffusers_framework.vae.vfi_utils import generic_frame_loop, InterpolationStateList
++from ascendx_video.framework.diffusers_framework.vae.IFRNet_S_arch import IRFNet_S
++from ascendx_video.framework.diffusers_framework.vae.wan import vfi
+ 
+ def generation_step(runner, text_embeds_dict, preserve_vram, cond_latents, temporal_overlap):
+     """
+@@ -554,7 +557,7 @@ def merge_video_with_border(
+ 
+ def generation_loop_tiling(runner, images, cfg_scale=1.0, seed=666, res_w=720, batch_size=90, preserve_vram=False,
+                            temporal_overlap=0, debug=False, block_swap_config=None, progress_callback=None, rank=None,
+-                           world_size=None, device="cpu", ):
++                           world_size=None, device="cpu", frame_interpolation=False,frame_model_path=None, save_fps=16):
+     """
+     Main generation loop with context-aware temporal processing
+ 
+@@ -582,6 +585,15 @@ def generation_loop_tiling(runner, images, cfg_scale=1.0, seed=666, res_w=720, b
+         - Intelligent VRAM management throughout process
+         - Real-time progress reporting
+     """
++    if frame_interpolation :
++        interpolation_model = IRFNet_S()
++        interpolation_model.load_state_dict(torch.load(frame_model_path))
++        if save_fps % 16 == 0:
++            multiplier =  save_fps // 16
++            is_skip  = False
++        else:
++            multiplier =  save_fps // 16 + 1
++            is_skip = True if save_fps % 8 < 4 else False
+ 
+     # Log BlockSwap status
+     if block_swap_config:
+@@ -835,6 +847,15 @@ def generation_loop_tiling(runner, images, cfg_scale=1.0, seed=666, res_w=720, b
+ 
+             if rank == 0:
+                 result = merge_video_with_border(h, w, world_size, gathered_list, overlap_border=32)  # 4,h,w,c
++                
++                input_tensor = result.permute(0,3,1,2)
++                if frame_interpolation and i==0:
++                    result = vfi(input_tensor, rank, interpolation_model, 1, multiplier=multiplier, is_skip=is_skip).permute(0,2,3,1).contiguous()
++                elif frame_interpolation:
++                    input_tensor = torch.cat([first_frame, input_tensor], dim=0)
++                    result = vfi(input_tensor, rank, interpolation_model, 1, multiplier=multiplier, is_skip=is_skip)[1:].permute(0,2,3,1).contiguous()
++                first_frame = result[-1:].permute(0,3,1,2)
++                result = result.clip(0, 1)
+ 
+                 result = result * 255
+ 
