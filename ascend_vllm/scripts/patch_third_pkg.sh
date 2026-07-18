@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 set -x -euo pipefail
 
-export PIP_EXTRA_INDEX_URL="https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple https://mirrors.huaweicloud.com/ascend/repos/pypi"
-
 # refer to: https://github.com/numpy/numpy/pull/27472/files
-# refer to: https://clouddevops.huawei.com/#/bug/BUG2025101620089
 pip install --force-reinstall numpy==1.26.4
 
 # Find the installed numpy package path.

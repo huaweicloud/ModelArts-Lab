@@ -7,13 +7,6 @@
 
 set -x -eo pipefail
 
-# 获取 pip 安装根路径 + 拼接 torch_npu 目录
-PIP_ROOT=$(pip show torch-npu | grep "Location:" | awk '{print $2}')
-TORCH_NPU_PATH="$PIP_ROOT/torch_npu"
-
-# 设置环境变量
-export TORCH_NPU_PATH=$TORCH_NPU_PATH
-
 current_path=$(cd $(dirname $0);pwd)
 BUILD_ROOT=$current_path
 mkdir -p "$BUILD_ROOT"/build/
@@ -30,30 +23,12 @@ for arg in "$@"; do
   esac
 done
 
-# 定义重试函数
-retry() {
-    local max_attempts=$1
-    local delay=$2
-    shift 2
-    local cmd="$@"
-    local attempt=1
-    while [ $attempt -le $max_attempts ]; do
-        echo "[install_all] Attempt $attempt/$max_attempts: $cmd"
-        if eval "$cmd"; then return 0; fi
-        echo "[install_all] Failed, retrying in ${delay}s..."
-        if [ $attempt -lt $max_attempts ]; then sleep $delay; fi
-        attempt=$((attempt + 1))
-    done
-    echo "[install_all] Failed after $max_attempts attempts"
-    return 1
-}
-
 # 安装 jemalloc
-wget --secure-protocol=TLSv1_2  --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2
+wget --secure-protocol=TLSv1_2 --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2
 tar -xvf jemalloc-5.3.0.tar.bz2
 cd jemalloc-5.3.0
-sudo ./configure --prefix=/usr/local
-sudo make -j && sudo make install
+./configure --prefix=/usr/local
+make -j && make install
 cd ..
 rm -rf jemalloc-5.3.0.tar.bz2
 
@@ -104,7 +79,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=${vllm_version}
 VLLM_TARGET_DEVICE=empty python setup.py bdist_wheel
 mv dist/vllm* "${BUILD_ROOT}"/build/
 pip install "${BUILD_ROOT}"/build/vllm*whl
-# pip uninstall -y triton
 pip cache purge
 
 # 安装 vllm_ascend
@@ -154,31 +128,93 @@ bash patch_third_pkg.sh
 if [ "$compile_mooncake" = "TRUE" ]; then
   echo "[install_all] Installing mooncake with source code (compile_mooncake=${compile_mooncake})"
   cd "$current_path"
-  yum install -y rdma-core-devel gflags-devel yaml-cpp-devel gtest-devel jsoncpp-devel libunwind-devel numactl-devel boost-devel boost-system boost-thread openssl-devel grpc-devel protobuf-devel protobuf-compiler libcurl-devel hiredis-devel patchelf
+  openeuler_yum_mirror="[openEuler-everything]
+name=openEuler-everything
+baseurl=http://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP4/everything/aarch64/
+enabled=1
+gpgcheck=0
+gpgkey=http://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP4/everything/aarch64/RPM-GPG-KEY-openEuler
 
-  git clone -b v0.3.9 https://github.com/kvcache-ai/Mooncake.git
+[openEuler-EPOL]
+name=openEuler-epol
+baseurl=http://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP4/EPOL/main/aarch64/
+enabled=1
+gpgcheck=0
+
+[openEuler-update]
+name=openEuler-update
+baseurl=http://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP4/update/aarch64/
+enabled=1
+gpgcheck=0"
+  hce_yum_mirror="[base]
+name=HCE 3.0 base
+baseurl=https://repo.huaweicloud.com/hce/3.0/os/aarch64/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.huaweicloud.com/hce/3.0/os/RPM-GPG-KEY-HCE-3
+
+[updates]
+name=HCE 3.0 updates
+baseurl=https://repo.huaweicloud.com/hce/3.0/updates/aarch64/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
+  rm -rf /etc/yum.repos.d/*.repo
+  echo -e "${openeuler_yum_mirror}" | tee /etc/yum.repos.d/EulerOS.repo > /dev/null
+  echo -e "${hce_yum_mirror}" | tee /etc/yum.repos.d/HCE.repo > /dev/null
+  cat /etc/yum.repos.d/EulerOS.repo
+  cat /etc/yum.repos.d/HCE.repo
+  yum install -y rdma-core-devel \
+                 gflags-devel \
+                 yaml-cpp-devel \
+                 gtest-devel \
+                 jsoncpp-devel \
+                 libunwind-devel \
+                 numactl-devel \
+                 boost-devel \
+                 boost-system \
+                 boost-thread \
+                 openssl-devel \
+                 grpc-devel \
+                 protobuf-devel \
+                 protobuf-compiler \
+                 libcurl-devel \
+                 hiredis-devel \
+                 patchelf \
+                 libzstd-devel \
+                 xxhash-devel \
+                 libcurl-devel
+
+  git clone -b v0.3.11.post1 https://github.com/kvcache-ai/Mooncake.git
   cd "$current_path"/Mooncake/
 
-  mkdir thirdparties/
-  cd thirdparties
-  rm -rf yalantinglibs
-  git clone -b 0.5.5 https://github.com/alibaba/yalantinglibs.git
-  cd yalantinglibs
+  # Check if .gitmodules exists
+  if [ -f ".gitmodules" ]; then
+      echo "Initializing git submodules..."
+      git submodule sync --recursive
+      git submodule update --init --recursive
+      echo "Git submodules initialized and updated successfully"
+  else
+      echo -e "No .gitmodules file found. Skipping..."
+      exit 1
+  fi
+
+  cd ./extern/yalantinglibs
   mkdir build
   cd build
   cmake .. -DBUILD_EXAMPLES=OFF -DBUILD_BENCHMARK=OFF -DBUILD_UNIT_TESTS=OFF
   cmake --build . -j$(nproc)
   cmake --install .
 
-  cd "$current_path"/Mooncake/thirdparties/
+  cd "$current_path"/Mooncake/extern/
   rm -rf glog
   git clone -b v0.7.1 https://github.com/google/glog.git
   cd glog
   cmake -DWITH_GTEST=OFF -S . -B build -G "Unix Makefiles"
   cmake --build build --target install -j$(nproc)
 
-  cd "$current_path"/Mooncake/thirdparties/
-  go_version=1.23.8
+  cd "$current_path"/Mooncake/extern/
+  go_version=1.25.9
   if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
     echo "Go ${go_version} installed. Skipping..."
   else
@@ -201,26 +237,19 @@ if [ "$compile_mooncake" = "TRUE" ]; then
   go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
   go env -w GONOSUMDB=*
 
-  cd "$current_path"/Mooncake/
-  if [ -f ".gitmodules" ]; then
-    FIRST_SUBMODULE=$(grep "path" .gitmodules | head -1 | awk '{print $3}')
-    echo "Enter respository root: ${current_path}/Mooncake/"
-    if [ -d "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ] || [ -f "${current_path}/Mooncake/${FIRST_SUBMODULE}/.git" ]; then
-      echo "Git submodules already initialized. Skipping..."
-    else
-      echo "initializing git submodules..."
-      git submodule update --init
-      echo "Git submodules initialized and updated successfully"
-    fi
-  else
-    echo "No .gitmodules file."
-    exit 1
-  fi
+  cd "$current_path"/Mooncake/extern/
+  git clone -b cpp-6.0.0 https://github.com/msgpack/msgpack-c.git
+  cd msgpack-c
+  mkdir build && cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
+  make -j$(nproc) && make install
+  ldconfig
 
+  cd "$current_path"/Mooncake/
   rm -rf build
   mkdir build
   cd build
-  cmake -DUSE_ASCEND_DIRECT=ON -DUSE_CUDA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=4.0 -DUSE_ETCD=ON -DSTORE_USE_ETCD=ON -DBUILD_UNIT_TESTS=OFF -DBUILD_EXAMPLES=OFF ..
+  cmake -DUSE_ASCEND_DIRECT=ON -DUSE_CUDA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=4.0 -DUSE_ETCD=ON -DSTORE_USE_ETCD=ON -DBUILD_UNIT_TESTS=OFF -DBUILD_EXAMPLES=OFF -DWITH_STORE_RUST=OFF ..
   make -j
   make install
   ldconfig
@@ -228,3 +257,12 @@ else
   echo "[install_all] Installing mooncake with wheel package"
   pip install mooncake_transfer_engine_npu==0.3.11.post1
 fi
+
+# rebuild openssl
+wget --no-check-certificate https://github.com/openssl/openssl/releases/download/openssl-3.4.5/openssl-3.4.5.tar.gz
+tar -zxf openssl-3.4.5.tar.gz
+cd openssl-3.4.5
+mkdir -p /home/ma-user/AscendCloud/openssl
+./config enable-md2 --prefix=/home/ma-user/AscendCloud/openssl --openssldir=/home/ma-user/AscendCloud/openssl
+make -sj && make install -sj
+echo 'export LD_PRELOAD=/home/ma-user/AscendCloud/openssl/lib/libcrypto.so.3:/home/ma-user/AscendCloud/openssl/lib/libssl.so.3' >> ~/.bashrc
