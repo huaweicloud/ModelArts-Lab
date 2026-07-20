@@ -183,20 +183,21 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
                  patchelf \
                  libzstd-devel \
                  xxhash-devel \
-                 libcurl-devel
+                 libcurl-devel \
+                 glog-devel
 
   git clone -b v0.3.11.post1 https://github.com/kvcache-ai/Mooncake.git
   cd "$current_path"/Mooncake/
 
   # Check if .gitmodules exists
   if [ -f ".gitmodules" ]; then
-      echo "Initializing git submodules..."
-      git submodule sync --recursive
-      git submodule update --init --recursive
-      echo "Git submodules initialized and updated successfully"
+    echo "Initializing git submodules..."
+    git submodule sync --recursive
+    git submodule update --init --recursive
+    echo "Git submodules initialized and updated successfully"
   else
-      echo -e "No .gitmodules file found. Skipping..."
-      exit 1
+    echo -e "No .gitmodules file found. Skipping..."
+    exit 1
   fi
 
   cd ./extern/yalantinglibs
@@ -205,13 +206,6 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
   cmake .. -DBUILD_EXAMPLES=OFF -DBUILD_BENCHMARK=OFF -DBUILD_UNIT_TESTS=OFF
   cmake --build . -j$(nproc)
   cmake --install .
-
-  cd "$current_path"/Mooncake/extern/
-  rm -rf glog
-  git clone -b v0.7.1 https://github.com/google/glog.git
-  cd glog
-  cmake -DWITH_GTEST=OFF -S . -B build -G "Unix Makefiles"
-  cmake --build build --target install -j$(nproc)
 
   cd "$current_path"/Mooncake/extern/
   go_version=1.25.9
@@ -238,12 +232,9 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
   go env -w GONOSUMDB=*
 
   cd "$current_path"/Mooncake/extern/
-  git clone -b cpp-6.0.0 https://github.com/msgpack/msgpack-c.git
-  cd msgpack-c
-  mkdir build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-  make -j$(nproc) && make install
-  ldconfig
+  git clone -b cpp-7.0.0 https://github.com/msgpack/msgpack-c.git
+  cp -r msgpack-c/include/* /usr/local/include/
+  export CPLUS_INCLUDE_PATH=/usr/local/include:${CPLUS_INCLUDE_PATH}
 
   cd "$current_path"/Mooncake/
   rm -rf build
