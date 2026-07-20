@@ -58,7 +58,7 @@ cd ..
 rm -rf jemalloc-5.3.0.tar.bz2
 
 # prepare to install by setuptools.
-pip install setuptools==77.0.3 setuptools_scm  build numpy==1.26.4 msgpack==1.1.2 concurrent-log-handler==0.9.28
+pip install setuptools==77.0.3 setuptools_scm  build numpy==1.26.4 msgpack==1.1.2 concurrent-log-handler==0.9.28 setuptools_rust
 
 # 下载 vllm
 VLLM_DIR="vllm-gpu-${vllm_version}"
@@ -69,7 +69,7 @@ if [ -d "./${VLLM_DIR}" ]; then
   rm -rf "$VLLM_DIR"
 fi
 echo "vllm_version: ${vllm_version}"
-git clone -b v"${vllm_version}" https://github.com/vllm-project/vllm.git --depth 1 "${VLLM_DIR}"
+git clone -b "${vllm_version}" https://github.com/vllm-project/vllm.git --depth 1 "${VLLM_DIR}"
 
 # 下载 vllm-ascend
 VLLM_ASCEND_DIR="vllm-ascend-${vllm_ascend_version}"
@@ -80,7 +80,7 @@ if [ -d "./${VLLM_ASCEND_DIR}" ]; then
   rm -rf "$VLLM_ASCEND_DIR"
 fi
 echo "vllm_ascend_version: ${vllm_ascend_version}"
-git clone -b v"${vllm_ascend_version}" https://github.com/vllm-project/vllm-ascend.git --depth 1 "${VLLM_ASCEND_DIR}"
+git clone -b "${vllm_ascend_version}" https://github.com/vllm-project/vllm-ascend.git --depth 1 "${VLLM_ASCEND_DIR}"
 
 # 安装 vllm patch
 VLLM_PATH=${BUILD_ROOT}/${VLLM_DIR}
