@@ -11,29 +11,36 @@ import torch
 from tests.conftest import MockNPUModule, MockParallelManager
 
 
+def setup_vae_mocks(*, parallel_manager: bool = False, patch_torch_npu: bool = False):
+    npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
+    npu_patcher.start()
+
+    mock_x_base = MagicMock()
+    if parallel_manager:
+        mock_x_base.ParallelManager = MockParallelManager
+
+    x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
+    x_base_patcher.start()
+
+    torch_npu_patcher = patch.object(torch, "npu", MockNPUModule()) if patch_torch_npu else None
+    if torch_npu_patcher is not None:
+        torch_npu_patcher.start()
+
+    yield
+
+    npu_patcher.stop()
+    x_base_patcher.stop()
+    if torch_npu_patcher is not None:
+        torch_npu_patcher.stop()
+
+
 class TestWanVAEWithMock:
     """Tests for Wan VAE with mocked NPU."""
 
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-        mock_x_base.ParallelManager = MockParallelManager
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        self.torch_npu_patcher = patch.object(torch, "npu", MockNPUModule())
-        self.torch_npu_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
-        self.torch_npu_patcher.stop()
+        yield from setup_vae_mocks(parallel_manager=True, patch_torch_npu=True)
 
     def test_decode_ascend_post_quant_conv(self):
         """Test post quant conv in decode."""
@@ -125,18 +132,7 @@ class TestWanResampleWithMock:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
+        yield from setup_vae_mocks()
 
     def test_init_upsample2d(self):
         """Test Upsample2D initialization."""
@@ -192,18 +188,7 @@ class TestFeatureCacheWithMock:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
+        yield from setup_vae_mocks()
 
     def test_feat_cache_none(self):
         """Test feature cache when None."""
@@ -232,18 +217,7 @@ class TestModelTypeWithMock:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
+        yield from setup_vae_mocks()
 
     def test_model_type(self):
         """Test model type detection."""
@@ -259,19 +233,7 @@ class TestHunyuanVAEWithMock:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-        mock_x_base.ParallelManager = MockParallelManager
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
+        yield from setup_vae_mocks(parallel_manager=True)
 
     def test_autoencoder_config(self):
         """Test AutoencoderKLHunyuanVideo can be imported."""
@@ -343,18 +305,7 @@ class TestCogVideoXVAEWithMock:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Set up mocks before each test."""
-        self.npu_patcher = patch.dict(sys.modules, {"torch_npu": MockNPUModule()})
-        self.npu_patcher.start()
-
-        mock_x_base = MagicMock()
-
-        self.x_base_patcher = patch.dict(sys.modules, {"x_base": mock_x_base})
-        self.x_base_patcher.start()
-
-        yield
-
-        self.npu_patcher.stop()
-        self.x_base_patcher.stop()
+        yield from setup_vae_mocks()
 
     def test_causal_conv3d_init(self):
         """Test CausalConv3d initialization."""

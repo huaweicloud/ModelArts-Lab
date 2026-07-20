@@ -26,6 +26,7 @@ except ImportError:
 import sys
 
 from x_diffusers import init_cfg_env, parse_args
+from x_diffusers.adaptor.infer_tools import build_infer_params
 from x_diffusers.adaptor.load_pipe import load_pipe, pipe_to_device, update_lora, update_pipe, update_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -298,28 +299,7 @@ class CachedImageInferenceManager:
         logger.info(f"[Rank {dist.get_rank() if dist.is_initialized() else 0}] Pipe for {model_name} loaded and cached")  # noqa: G004
 
     def set_infer_params(self, args):
-        infer_params = dict(
-            prompt=args.prompt,
-            negative_prompt=args.negative_prompt,
-            num_inference_steps=args.num_inference_steps,
-            width=args.width,
-            height=args.height,
-            generator=torch.Generator().manual_seed(args.seed),
-            cfg_parallel_size=args.cfg_parallel_size,
-            true_cfg_scale=args.true_cfg_scale,
-        )
-
-        if args.guidance_scale is not None:
-            infer_params["guidance_scale"] = args.guidance_scale
-
-        if args.image_path is not None and args.image_path != "":
-            image = self.load_image(args.image_path)
-            infer_params.update(image=image)
-        elif args.image_path_list:
-            image = [self.load_image(image_path) for image_path in args.image_path_list]
-            infer_params.update(image=image)
-
-        return infer_params
+        return build_infer_params(args, self.load_image)
 
     def infer(self, args) -> float:
         """执行推理"""

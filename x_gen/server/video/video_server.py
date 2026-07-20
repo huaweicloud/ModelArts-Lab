@@ -858,58 +858,6 @@ class VideoGenerationService:
             warnings.append(f"High resolution ({resolution}p) with 10s + SR may require significant memory")
         return frame_interpolation
 
-    def _validate_negative_prompt(self, data: dict[str, Any], errors: list[str]) -> str:
-        negative_prompt = data.get("negative_prompt")
-        if negative_prompt is None:
-            return ""
-        if not isinstance(negative_prompt, str):
-            errors.append("negative_prompt must be a string")
-            return ""
-        if len(negative_prompt) > 2000:
-            errors.append("negative_prompt length cannot exceed 2000 characters")
-            return ""
-        return negative_prompt
-
-    def _validate_i2v_params(self, data: dict[str, Any], errors: list[str], warnings: list[str]) -> str | None:
-        task_type = self.default_config.get("task_type", "t2v")
-        i2v_image_path = data.get("i2v_image_path")
-        if task_type == "i2v":
-            if not i2v_image_path:
-                errors.append("i2v_image_path is required for I2V model")
-            elif not isinstance(i2v_image_path, str):
-                errors.append("i2v_image_path must be a string")
-        elif i2v_image_path is not None:
-            warnings.append("i2v_image_path is ignored for T2V model")
-        return i2v_image_path
-
-    def _generate_param_warnings(
-        self,
-        frames: int,
-        unknown_params: set,
-        ten_second: bool,
-        adopt_sr: bool,
-        resolution: int,
-        save_fps: int,
-        frame_interpolation: bool,
-        duration: int,
-        data: dict,
-        warnings: list[str],
-    ) -> bool:
-        if frames and frames > 81:
-            warnings.append(f"Large frame count ({frames}) will significantly increase generation time")
-        if unknown_params:
-            warnings.append(f"Unknown parameters ignored: {', '.join(unknown_params)}")
-        if data.get("ten_second") is not None:
-            explicit_ten_second = self._validate_boolean_param(data.get("ten_second"), [], "ten_second")
-            if explicit_ten_second != (duration == 10):
-                warnings.append(f"ten_second={explicit_ten_second} is overridden by duration={duration}")
-        if save_fps > 16 and not frame_interpolation:
-            frame_interpolation = True
-            warnings.append(f"save_fps={save_fps} > 16, auto-enabling frame_interpolation")
-        if ten_second and adopt_sr and resolution > 720:
-            warnings.append(f"High resolution ({resolution}p) with 10s + SR may require significant memory")
-        return frame_interpolation
-
     def _validate_generate_params(self, data: dict[str, Any]) -> tuple:
         errors = []
         warnings = []
