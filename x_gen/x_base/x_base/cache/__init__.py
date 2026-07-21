@@ -52,12 +52,6 @@ from .models import (
     magcache_wan_calibration_init,
     magcache_wan_forward,
     magcache_wan_init,
-    # CogVideoX
-    teacache_cogvideox_forward,
-    teacache_cogvideox_init,
-    # Hunyuan
-    teacache_hunyuan_forward,
-    teacache_hunyuan_init,
     # Wan
     teacache_wan_forward,
     teacache_wan_init,
