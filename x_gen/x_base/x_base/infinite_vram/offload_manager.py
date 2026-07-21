@@ -4,8 +4,8 @@ from collections.abc import Sequence
 import torch
 import torch.distributed as dist
 
-from .utils import foreach_copy_
 from .offload_common import OffloadCommonMixin
+from .utils import foreach_copy_
 
 
 class OffloadManager(OffloadCommonMixin):
