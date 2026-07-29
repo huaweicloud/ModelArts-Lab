@@ -21,6 +21,8 @@ from ascend_vllm.patch.platform import patch_layernorm as patch_layernorm  # noq
 from ascend_vllm.patch.platform import patch_chunk_fla as patch_chunk_fla  # noqa: F401
 from ascend_vllm.patch.platform import patch_health as patch_health
 from ascend_vllm.patch.platform import patch_detokenizer as patch_detokenizer
+from ascend_vllm.patch.platform import patch_api_server as patch_api_server
+from ascend_vllm.patch.platform import patch_image as patch_image
 from ascend_vllm.patch.platform import (
     patch_disable_completion_tokens_details as patch_disable_completion_tokens_details,
 )
