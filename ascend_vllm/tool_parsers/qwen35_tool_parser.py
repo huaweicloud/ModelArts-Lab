@@ -431,7 +431,7 @@ class Qwen3CoderToolParser(ToolParser):
                     self.prev_tool_call_arr.append(
                         {
                             "name": self.current_function_name,
-                            "arguments": "{}",
+                            "arguments": "",
                         }
                     )
 
