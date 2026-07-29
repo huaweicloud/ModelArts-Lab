@@ -463,6 +463,7 @@ class Qwen3CoderToolParser(ToolParser):
             # and parameter data; skipping "{" here would desync
             # json_started from what was actually streamed.
             if not self.json_started and self.tool_call_end_token in delta_text:
+                self.streamed_args_for_tool[self.current_tool_index] = "{}"
                 self.in_function = False
                 self.is_tool_call_started = False
                 self.header_sent = False
