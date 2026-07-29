@@ -12,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from vllm_ascend.utils import vllm_version_is
 
 _GLOBAL_PATCH_APPLIED = False
 
@@ -79,4 +80,6 @@ def register_kv_failure_patch():
 
 def register_general_plugin_patch():
     """Load ModelArts patches that require vLLM general-plugin timing."""
-    register_kv_failure_patch()
+    if vllm_version_is("0.21.0"):
+        register_kv_failure_patch()
+    from ascend_vllm.patch.platform import patch_scheduler  # noqa: F401
