@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-
-from ascend_vllm.patch.platform.patch_image import InvalidMediaInputError
 from vllm.entrypoints.openai import api_server
 from vllm.logger import init_logger
+
+from ascend_vllm.patch.platform.patch_image import InvalidMediaInputError
 
 logger = init_logger(__name__)
 
