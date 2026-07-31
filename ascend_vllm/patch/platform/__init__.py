@@ -6,6 +6,7 @@ from ascend_vllm.patch.platform import patch_request as patch_request
 from ascend_vllm.patch.platform import patch_detokenizer as patch_detokenizer
 from ascend_vllm.patch.platform import patch_scheduler as patch_scheduler
 from ascend_vllm.patch.platform import patch_recompute_scheduler_023 as patch_recompute_scheduler_023
+from ascend_vllm.patch.platform import patch_mooncake_connector as patch_mooncake_connector
 
 if vllm_version_is("0.21.0"):
     from ascend_vllm.patch.platform import (
