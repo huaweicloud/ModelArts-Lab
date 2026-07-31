@@ -28,9 +28,7 @@ def request_finished(
     """
 
     params = request.kv_transfer_params
-    logger.debug(
-        "MooncakeConnector request_finished, request_status=%s, kv_transfer_params=%s", request.status, params
-    )
+    logger.debug("MooncakeConnector request_finished, request_status=%s, kv_transfer_params=%s", request.status, params)
 
     # adapt begin
     # Original code only allowed FINISHED_LENGTH_CAPPED, which dropped
@@ -40,7 +38,8 @@ def request_finished(
     if (
         params is None
         or not params.get("do_remote_decode")
-        or request.status not in (
+        or request.status
+        not in (
             RequestStatus.FINISHED_LENGTH_CAPPED,
             RequestStatus.FINISHED_STOPPED,
         )
