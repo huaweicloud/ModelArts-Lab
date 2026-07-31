@@ -8,7 +8,6 @@ from typing import TYPE_CHECKING, Any
 from vllm.distributed.kv_transfer.kv_connector.utils import BlockIds
 from vllm.logger import logger
 from vllm.v1.request import RequestStatus
-
 from vllm_ascend.distributed.kv_transfer.kv_p2p.mooncake_connector import (
     MooncakeConnectorScheduler,
 )
