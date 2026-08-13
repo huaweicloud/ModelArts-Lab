@@ -70,6 +70,9 @@ def request_finished(
         remote_multi_nodes_meta_mapping=self.multi_nodes_meta_mapping,
         num_prompt_blocks=num_prompt_blocks,
         remote_block_size=self.block_size,
+        # adapt begin: add num cached tokens
+        num_cached_tokens=request.prefill_stats.num_cached_tokens if request.prefill_stats is not None else None,
+        # adapt end
     )
 
 
