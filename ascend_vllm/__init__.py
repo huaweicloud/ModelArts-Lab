@@ -82,4 +82,3 @@ def register_general_plugin_patch():
     """Load ModelArts patches that require vLLM general-plugin timing."""
     if vllm_version_is("0.21.0"):
         register_kv_failure_patch()
-    from ascend_vllm.patch.platform import patch_scheduler  # noqa: F401
