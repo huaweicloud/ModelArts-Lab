@@ -1,3 +1,7 @@
+[tool.ascend_vllm.dependencies]
+vllm_version = "v0.23.0"
+vllm_ascend_version = "85143af63daba9fce6039a2c6d181232a6124bfb"
+
 [tool.ruff]
 line-length = 120
 target-version = "py311"

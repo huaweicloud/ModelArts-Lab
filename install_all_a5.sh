@@ -7,12 +7,16 @@
 
 set -x -eo pipefail
 
-current_path=$(cd $(dirname $0);pwd)
-BUILD_ROOT=$current_path
-mkdir -p "$BUILD_ROOT"/build/
+SCRIPT_DIR=$(cd $(dirname $0);pwd)
 
-vllm_version="$1"
-vllm_ascend_version="$2"
+vllm_version="$(grep -oP 'vllm_version\s*=\s*"\K[^"]+' ${SCRIPT_DIR}/pyproject.toml | head -1)"
+vllm_ascend_version="$(grep -oP 'vllm_ascend_version\s*=\s*"\K[^"]+' ${SCRIPT_DIR}/pyproject.toml | head -1)"
+echo "vllm_version: ${vllm_version}, vllm_ascend_version: ${vllm_ascend_version}"
+
+if [[ -z "${vllm_version}" ]] || [[ -z "${vllm_ascend_version}" ]]; then
+  echo "ERROR: vllm or vllm-ascend version not found in pyproject.toml and not provided as argument" >&2
+  exit 1
+fi
 
 # 解析可选参数
 compile_mooncake="FALSE"
@@ -44,7 +48,7 @@ if [ -d "./${VLLM_DIR}" ]; then
   rm -rf "$VLLM_DIR"
 fi
 echo "vllm_version: ${vllm_version}"
-git clone -b v"${vllm_version}" https://github.com/vllm-project/vllm.git --depth 1 "${VLLM_DIR}"
+git clone -b "${vllm_version}" https://github.com/vllm-project/vllm.git --depth 1 "${VLLM_DIR}"
 
 # 下载 vllm-ascend
 VLLM_ASCEND_DIR="vllm-ascend-${vllm_ascend_version}"
@@ -62,27 +66,26 @@ git -C "${VLLM_ASCEND_DIR}" fetch origin "${vllm_ascend_version}"
 git -C "${VLLM_ASCEND_DIR}" checkout FETCH_HEAD
 
 # 安装 vllm patch
-VLLM_PATH=${BUILD_ROOT}/${VLLM_DIR}
+VLLM_PATH=${SCRIPT_DIR}/${VLLM_DIR}
 cd "${VLLM_PATH}"
 # 修改 vllm 的 torch 版本和 vllm_ascend 的 torch 版本保持一致
-torch_version=$(grep -o -P "torch\s*==\s*\K[0-9.]+" ${BUILD_ROOT}/${VLLM_ASCEND_DIR}/pyproject.toml)
+torch_version=$(grep -o -P "torch\s*==\s*\K[0-9.]+" ${SCRIPT_DIR}/${VLLM_ASCEND_DIR}/pyproject.toml)
 echo "vllm-ascend torch version: ${torch_version}"
 sed -i -E "s/(torch)([[:space:]]*==[[:space:]]*)[0-9.]+/\1\2$torch_version/g" pyproject.toml
 
-if [ -d "${BUILD_ROOT}/ascend_vllm/third_patch/vllm_patch" ]; then
-  sed -i 's/\r//g' ${BUILD_ROOT}/ascend_vllm/third_patch/vllm_patch/*.patch
+if [ -d "${SCRIPT_DIR}/ascend_vllm/third_patch/vllm_patch" ]; then
+  sed -i 's/\r//g' ${SCRIPT_DIR}/ascend_vllm/third_patch/vllm_patch/*.patch
 fi
 
 # 安装 vllm
 pip install setuptools_rust
 export SETUPTOOLS_SCM_PRETEND_VERSION=${vllm_version}
 VLLM_TARGET_DEVICE=empty python setup.py bdist_wheel
-mv dist/vllm* "${BUILD_ROOT}"/build/
-pip install "${BUILD_ROOT}"/build/vllm*whl
+pip install dist/vllm*whl
 pip cache purge
 
 # 安装 vllm_ascend
-VLLM_ASCEND_PATH=${BUILD_ROOT}/${VLLM_ASCEND_DIR}
+VLLM_ASCEND_PATH=${SCRIPT_DIR}/${VLLM_ASCEND_DIR}
 cd "${VLLM_ASCEND_PATH}"
 # 解决A3出包A5不可用的问题，6月份950DT的芯片型号是ascend950dt_9582，后续如果有新型号可做成可配置
 export SOC_VERSION=ascend950dt_9582
@@ -90,7 +93,7 @@ pip install -v -e .
 pip cache purge
 
 # 安装 ascend_vllm
-cd "$current_path"
+cd "$SCRIPT_DIR"
 pip install -v -e .
 
 # 安装 benchmark 工具
@@ -121,13 +124,13 @@ fi
 # 前面安装过程urllib3会被升级，修复urllib3版本
 pip install "ray>=2.47.1,<=2.48.0" "protobuf>3.20.0" "urllib3==1.26.11"
 
-cd "$current_path"/ascend_vllm/scripts/
+cd "$SCRIPT_DIR"/ascend_vllm/scripts/
 bash patch_third_pkg.sh
 
 # install mooncake
 if [ "$compile_mooncake" = "TRUE" ]; then
   echo "[install_all] Installing mooncake with source code (compile_mooncake=${compile_mooncake})"
-  cd "$current_path"
+  cd "$SCRIPT_DIR"
   openeuler_yum_mirror="[openEuler-everything]
 name=openEuler-everything
 baseurl=http://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP4/everything/aarch64/
@@ -187,7 +190,7 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
                  glog-devel
 
   git clone -b v0.3.11.post1 https://github.com/kvcache-ai/Mooncake.git
-  cd "$current_path"/Mooncake/
+  cd "$SCRIPT_DIR"/Mooncake/
 
   # Check if .gitmodules exists
   if [ -f ".gitmodules" ]; then
@@ -207,7 +210,7 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
   cmake --build . -j$(nproc)
   cmake --install .
 
-  cd "$current_path"/Mooncake/extern/
+  cd "$SCRIPT_DIR"/Mooncake/extern/
   go_version=1.25.9
   if command -v go &> /dev/null && [ "$(go version | awk '{print $3}')" == "${go_version}" ]; then
     echo "Go ${go_version} installed. Skipping..."
@@ -231,12 +234,12 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
   go env -w GOPROXY=http://mirrors.huaweicloud.com/repository/goproxy/
   go env -w GONOSUMDB=*
 
-  cd "$current_path"/Mooncake/extern/
+  cd "$SCRIPT_DIR"/Mooncake/extern/
   git clone -b cpp-7.0.0 https://github.com/msgpack/msgpack-c.git
   cp -r msgpack-c/include/* /usr/local/include/
   export CPLUS_INCLUDE_PATH=/usr/local/include:${CPLUS_INCLUDE_PATH}
 
-  cd "$current_path"/Mooncake/
+  cd "$SCRIPT_DIR"/Mooncake/
   rm -rf build
   mkdir build
   cd build
