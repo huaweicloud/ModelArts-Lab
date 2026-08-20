@@ -2,11 +2,8 @@
 
 from .framework.transformer import (
     attention_backend,
-    cogvideox,
-    hunyuan,
     transformer_z_image,
     wan,
-    wan_vace,
 )
 from .adaptor import ImageInferenceManager, InferenceManager, init_cfg_env, init_env, parse_args
 from .framework.lora import lora
@@ -19,4 +16,4 @@ from .framework.pipeline import (
     z_image,
 )
 from .framework.schedulers import FlowMatchEulerDiscreteSchedulerPusa
-from .framework.vae import cogvideox, hunyuan, wan
+from .framework.vae import wan

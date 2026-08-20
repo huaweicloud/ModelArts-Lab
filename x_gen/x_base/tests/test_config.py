@@ -78,6 +78,42 @@ REQUIRED_MODEL_MAPPINGS = [
 ]
 
 
+def setup_torch_mocks():
+    """Temporarily install minimal torch mocks used by quant config tests."""
+    import sys
+    import types
+
+    torch_mock = types.ModuleType("torch")
+    nn_mock = types.ModuleType("torch.nn")
+
+    class MockModule:
+        def __init__(self, *args, **kwargs):
+            pass
+
+    class MockLinear(MockModule):
+        def __init__(self, in_features, out_features, *args, **kwargs):
+            self.in_features = in_features
+            self.out_features = out_features
+
+    nn_mock.Module = MockModule
+    nn_mock.Linear = MockLinear
+    nn_mock.Conv2d = MockModule
+    nn_mock.Conv3d = MockModule
+    torch_mock.nn = nn_mock
+
+    original_torch = sys.modules.get("torch")
+    original_torch_nn = sys.modules.get("torch.nn")
+    sys.modules["torch"] = torch_mock
+    sys.modules["torch.nn"] = nn_mock
+
+    yield
+
+    if original_torch:
+        sys.modules["torch"] = original_torch
+    if original_torch_nn:
+        sys.modules["torch.nn"] = original_torch_nn
+
+
 # ============================================================
 # Cache Config Tests
 # ============================================================
@@ -225,43 +261,7 @@ class TestQuantLayerConfig:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Setup torch mocks before each test."""
-        import sys
-        import types
-
-        # Create mock torch modules
-        torch_mock = types.ModuleType("torch")
-        nn_mock = types.ModuleType("torch.nn")
-
-        # Create proper Module base class
-        class MockModule:
-            def __init__(self, *args, **kwargs):
-                pass
-
-        # Create mock Linear that accepts any args
-        class MockLinear(MockModule):
-            def __init__(self, in_features, out_features, *args, **kwargs):
-                self.in_features = in_features
-                self.out_features = out_features
-
-        nn_mock.Module = MockModule
-        nn_mock.Linear = MockLinear
-        nn_mock.Conv2d = MockModule
-        nn_mock.Conv3d = MockModule
-        torch_mock.nn = nn_mock
-
-        # Register mocks
-        original_torch = sys.modules.get("torch")
-        original_torch_nn = sys.modules.get("torch.nn")
-        sys.modules["torch"] = torch_mock
-        sys.modules["torch.nn"] = nn_mock
-
-        yield
-
-        # Restore original modules
-        if original_torch:
-            sys.modules["torch"] = original_torch
-        if original_torch_nn:
-            sys.modules["torch.nn"] = original_torch_nn
+        yield from setup_torch_mocks()
 
     def test_import_quant_layer_config(self):
         """Test that QuantLayerConfig can be imported."""
@@ -381,40 +381,7 @@ class TestQuantConfigManager:
     @pytest.fixture(autouse=True)
     def setup_mocks(self):
         """Setup torch mocks before each test."""
-        import sys
-        import types
-
-        torch_mock = types.ModuleType("torch")
-        nn_mock = types.ModuleType("torch.nn")
-
-        # Create proper Module base class
-        class MockModule:
-            def __init__(self, *args, **kwargs):
-                pass
-
-        # Create mock Linear that accepts any args
-        class MockLinear(MockModule):
-            def __init__(self, in_features, out_features, *args, **kwargs):
-                self.in_features = in_features
-                self.out_features = out_features
-
-        nn_mock.Module = MockModule
-        nn_mock.Linear = MockLinear
-        nn_mock.Conv2d = MockModule
-        nn_mock.Conv3d = MockModule
-        torch_mock.nn = nn_mock
-
-        original_torch = sys.modules.get("torch")
-        original_torch_nn = sys.modules.get("torch.nn")
-        sys.modules["torch"] = torch_mock
-        sys.modules["torch.nn"] = nn_mock
-
-        yield
-
-        if original_torch:
-            sys.modules["torch"] = original_torch
-        if original_torch_nn:
-            sys.modules["torch.nn"] = original_torch_nn
+        yield from setup_torch_mocks()
 
     def test_get_default_config(self):
         """Test getting default config."""

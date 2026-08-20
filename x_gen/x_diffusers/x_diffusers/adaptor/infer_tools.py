@@ -59,6 +59,29 @@ GUIDANCE_SCALE_MAP = {
 }
 
 
+def build_infer_params(args, load_image_fn):
+    infer_params = dict(
+        prompt=args.prompt,
+        negative_prompt=args.negative_prompt,
+        num_inference_steps=args.num_inference_steps,
+        width=args.width,
+        height=args.height,
+        generator=torch.Generator().manual_seed(args.seed),
+        cfg_parallel_size=args.cfg_parallel_size,
+        true_cfg_scale=args.true_cfg_scale,
+    )
+
+    if args.guidance_scale is not None:
+        infer_params["guidance_scale"] = args.guidance_scale
+
+    if args.image_path is not None and args.image_path != "":
+        infer_params.update(image=load_image_fn(args.image_path))
+    elif args.image_path_list:
+        infer_params.update(image=[load_image_fn(image_path) for image_path in args.image_path_list])
+
+    return infer_params
+
+
 class InferenceManager:
     def __init__(self):
         self.init_args = None
@@ -720,29 +743,7 @@ class ImageInferenceManager:
         return Image.open(image_path).convert("RGB")
 
     def set_infer_params(self, args):
-        infer_params = dict(
-            prompt=args.prompt,
-            negative_prompt=args.negative_prompt,
-            num_inference_steps=args.num_inference_steps,
-            width=args.width,
-            height=args.height,
-            generator=torch.Generator().manual_seed(args.seed),
-            cfg_parallel_size=args.cfg_parallel_size,
-            true_cfg_scale=args.true_cfg_scale,
-        )
-
-        if args.guidance_scale is not None:
-            infer_params["guidance_scale"] = args.guidance_scale
-
-        # for image to image
-        if args.image_path is not None and args.image_path != "":
-            image = self.load_image(args.image_path)
-            infer_params.update(image=image)
-        elif args.image_path_list:
-            image = [self.load_image(image_path) for image_path in args.image_path_list]
-            infer_params.update(image=image)
-
-        return infer_params
+        return build_infer_params(args, self.load_image)
 
     def infer(self, args) -> float:
         self.pipe = load_pipe(args)
