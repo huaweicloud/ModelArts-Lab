@@ -18,7 +18,7 @@ def get_requirements() -> list[str]:
 
 setup(
     name="ascend_vllm",
-    version="6.5.923",
+    version="6.5.935",
     packages=find_packages(include=("ascend_vllm", "ascend_vllm.*")),
     package_data={"ascend_vllm.middleware": ["validator_config.json"]},
     entry_points={
