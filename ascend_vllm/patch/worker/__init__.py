@@ -17,6 +17,9 @@ from ascend_vllm.patch.worker import (
 from ascend_vllm.patch.worker import (
     patch_spec_decode_utils as patch_spec_decode_utils,
 )
+from ascend_vllm.patch.worker import (
+    patch_model_runner_v1 as patch_model_runner_v1,
+)
 
 if get_ascend_device_type() == AscendDeviceType.A5 and vllm_version_is("0.25.1"):
     from ascend_vllm.patch.worker import patch_deepseek_v4_dspark as patch_deepseek_v4_dspark
