@@ -124,6 +124,9 @@ else
   echo "The Python version required by the acs-quant tool does not match. The installation is skipped.";
 fi
 
+# 前面安装vllm-ascend时覆盖torch_npu版本，修复torch_npu版本
+pip install "torch_npu==2.10.0.post4"
+
 # 前面安装过程urllib3会被升级，修复urllib3版本
 pip install "ray>=2.47.1,<=2.48.0" "protobuf>3.20.0" "urllib3==1.26.11"
 
