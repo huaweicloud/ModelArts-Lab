@@ -1,6 +1,6 @@
 [tool.ascend_vllm.dependencies]
 vllm_version = "v0.25.1"
-vllm_ascend_version = "releases/v0.25.1rc"
+vllm_ascend_version = "a675940faf823f773ee2fb720e181aa15c28200d"
 
 [tool.ruff]
 line-length = 120
