@@ -13,12 +13,9 @@ from ascend_vllm.patch.worker import (
 )
 from ascend_vllm.patch.worker import (
     patch_spec_decode_utils as patch_spec_decode_utils,
-<<<<<<< HEAD
-=======
 )
 from ascend_vllm.patch.worker import (
     patch_model_runner_v1 as patch_model_runner_v1,
->>>>>>> 1dac1115b4b92e54cbf75a9202ba4eeca06fd63b
 )
 
 if get_ascend_device_type() == AscendDeviceType.A5 and vllm_version_is("0.25.1"):
