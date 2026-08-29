@@ -1,6 +1,12 @@
 from __future__ import annotations
 
+import functools
+from typing import Any
+
 _PATCH_APPLIED = False
+_KV_FAILURE_PATCH_MARKER = "_modelarts_kv_load_failure_recompute_scheduler_patch_applied"
+_FAILED_REQUEST_IDS_ATTR = "_modelarts_kv_load_failed_request_ids"
+_MISSING = object()
 
 
 def _patch_recompute_scheduler() -> None:
@@ -55,6 +61,44 @@ def _patch_recompute_scheduler() -> None:
     rs.AsyncRecomputeScheduler._update_requests_with_invalid_blocks = update_requests_with_invalid_blocks
 
 
+def _patch_kv_load_failure_outputs() -> None:
+    from vllm_ascend.core.recompute_scheduler import RecomputeScheduler
+
+    current_update_from_output = RecomputeScheduler.update_from_output
+    if getattr(current_update_from_output, _KV_FAILURE_PATCH_MARKER, False):
+        return
+
+    @functools.wraps(current_update_from_output)
+    def patched_update_from_output(
+        self: RecomputeScheduler,
+        *args: Any,
+        **kwargs: Any,
+    ) -> dict[int, Any]:
+        previous_capture = getattr(self, _FAILED_REQUEST_IDS_ATTR, _MISSING)
+        current_capture: set[str] = set()
+        setattr(self, _FAILED_REQUEST_IDS_ATTR, current_capture)
+
+        try:
+            engine_core_outputs = current_update_from_output(self, *args, **kwargs)
+            for client_outputs in engine_core_outputs.values():
+                for output in client_outputs.outputs:
+                    if output.request_id not in current_capture:
+                        continue
+                    if output.kv_transfer_params is None:
+                        output.kv_transfer_params = {"kv_load_failed": True}
+                    else:
+                        output.kv_transfer_params["kv_load_failed"] = True
+            return engine_core_outputs
+        finally:
+            if previous_capture is _MISSING:
+                delattr(self, _FAILED_REQUEST_IDS_ATTR)
+            else:
+                setattr(self, _FAILED_REQUEST_IDS_ATTR, previous_capture)
+
+    setattr(patched_update_from_output, _KV_FAILURE_PATCH_MARKER, True)
+    RecomputeScheduler.update_from_output = patched_update_from_output
+
+
 def apply_patch() -> None:
     global _PATCH_APPLIED
 
@@ -62,6 +106,7 @@ def apply_patch() -> None:
         return
 
     _patch_recompute_scheduler()
+    _patch_kv_load_failure_outputs()
     _PATCH_APPLIED = True
 
 
