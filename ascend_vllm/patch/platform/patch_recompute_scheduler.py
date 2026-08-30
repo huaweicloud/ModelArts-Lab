@@ -45,6 +45,9 @@ _PATCH_APPLIED = False
 _KV_FAILURE_PATCH_MARKER = "_modelarts_kv_load_failure_recompute_scheduler_patch_applied"
 _FAILED_REQUEST_IDS_ATTR = "_modelarts_kv_load_failed_request_ids"
 _MISSING = object()
+_KV_LOAD_FAILURE_MSG = "KV cache load failed for one or more remote blocks. The request can be retried."
+_VLLM_ABORT_WAITING_TIMEOUT_MSG = "KV cache load failed for one or more remote blocks expired. The request can be retried."
+
 
 def _patch_schedule(self, throttle_prefills: bool = False) -> RecomputeSchedulerOutput:
     self.current_step += 1
@@ -698,7 +701,10 @@ def _patch_schedule(self, throttle_prefills: bool = False) -> RecomputeScheduler
     # adapt begin: Fail waiting/deferred requests whose producer KV has expired, right
     # after the waiting queue is drained, so the finished IDs are
     # snapshotted into the scheduler output.
-    self._fail_expired_waiting_requests()
+    try:
+        self._fail_expired_waiting_requests()
+    except Exception as e:
+        logger.error("_fail_expired_waiting_requests execute exception: %s", e)
     # adapt end
 
     # Check if the scheduling constraints are satisfied.
@@ -1060,6 +1066,9 @@ def _patch_update_from_output(
                     request_id=request.request_id,
                     new_token_ids=[],
                     finish_reason=request.get_finished_reason(),
+                    # adapt begin: add kv load failure msg in output
+                    stop_reason=_KV_LOAD_FAILURE_MSG,
+                    # adapt end
                     events=request.take_events(),
                     trace_headers=request.trace_headers,
                 )
@@ -1076,6 +1085,7 @@ def _patch_update_from_output(
                     request_id=request.request_id,
                     new_token_ids=[],
                     finish_reason=request.get_finished_reason(),
+                    stop_reason=_VLLM_ABORT_WAITING_TIMEOUT_MSG,
                     events=request.take_events(),
                     trace_headers=request.trace_headers,
                 )
@@ -1244,7 +1254,6 @@ def apply_patch() -> None:
         return
 
     _patch_recompute_scheduler()
-    _patch_kv_load_failure_outputs()
     _PATCH_APPLIED = True
 
 

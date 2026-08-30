@@ -20,12 +20,11 @@ async def _checked_result_generator(
 ) -> AsyncIterator[Any]:
     """Raise before vLLM emits the first logical streaming response chunk."""
     async for result in result_generator:
-        kv_transfer_params = getattr(result, "kv_transfer_params", None)
         for output in result.outputs:
             serving._raise_if_error(
                 output.finish_reason,
                 request_id,
-                kv_transfer_params,
+                output.stop_reason,
             )
         yield result
 

@@ -31,6 +31,11 @@ _PATCH_MARKER = "_modelarts_cached_tokens_patch_applied"
 _KV_FAILURE_PATCH_MARKER = "_modelarts_kv_load_failure_scheduler_patch_applied"
 _FAILED_REQUEST_IDS_ATTR = "_modelarts_kv_load_failed_request_ids"
 _MISSING = object()
+_VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT = 0.95
+_VLLM_REQUEST_SCHEDULE_WAITING_TIMEOUT = envs.VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT * _VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT
+_KV_LOAD_FAILURE_MSG = "KV cache load failed for one or more remote blocks. The request can be retried."
+_VLLM_ABORT_WAITING_TIMEOUT_MSG = "KV cache load failed for one or more remote blocks expired. The request can be retried."
+
 
 def _fail_expired_waiting_requests(self) -> None:
     """Fail waiting/deferred requests whose producer-side KV has expired.
@@ -47,16 +52,12 @@ def _fail_expired_waiting_requests(self) -> None:
     kv_transfer_config = self.vllm_config.kv_transfer_config
     if kv_transfer_config is None or not kv_transfer_config.is_kv_consumer:
         return
-        
-    threshold = (
-        envs.VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT
-        * 0.9
-    )
+
     now = time.time()
     expired: list[Request] = []
     for queue in (self.waiting, self.skipped_waiting):
         for req in queue:
-            if now - req.arrival_time > threshold:
+            if now - req.arrival_time > _VLLM_REQUEST_SCHEDULE_WAITING_TIMEOUT:
                 expired.append(req)
 
     if not expired:
@@ -70,9 +71,9 @@ def _fail_expired_waiting_requests(self) -> None:
             req.request_id,
             req.status.name,
             now - req.arrival_time,
-            threshold,
+            _VLLM_REQUEST_SCHEDULE_WAITING_TIMEOUT,
             envs.VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT,
-            envs.VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT,
+            _VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT,
         )
 
     # Capture the objects before finish_requests frees them from
@@ -712,7 +713,10 @@ def _patch_schedule(self, throttle_prefills: bool = False) -> SchedulerOutput:
     # adapt begin: Fail waiting/deferred requests whose producer KV has expired, right
     # after the waiting queue is drained, so the finished IDs are
     # snapshotted into the scheduler output.
-    self._fail_expired_waiting_requests()
+    try:
+        self._fail_expired_waiting_requests()
+    except Exception as e:
+        logger.error("_fail_expired_waiting_requests execute exception: %s", e)
     # adapt end
 
     # Check if the scheduling constraints are satisfied.
@@ -1105,6 +1109,9 @@ def _patch_update_from_output(
                     request_id=request.request_id,
                     new_token_ids=[],
                     finish_reason=request.get_finished_reason(),
+                    # adapt begin: add kv load failure msg in output
+                    stop_reason=_KV_LOAD_FAILURE_MSG,
+                    # adapt end
                     events=request.take_events(),
                     trace_headers=request.trace_headers,
                 )
@@ -1121,6 +1128,7 @@ def _patch_update_from_output(
                     request_id=request.request_id,
                     new_token_ids=[],
                     finish_reason=request.get_finished_reason(),
+                    stop_reason=_VLLM_ABORT_WAITING_TIMEOUT_MSG,
                     events=request.take_events(),
                     trace_headers=request.trace_headers,
                 )
@@ -1318,7 +1326,6 @@ def apply_patch() -> None:
         return
 
     _patch_scheduler()
-    _patch_kv_load_failure_outputs()
     _PATCH_APPLIED = True
 
 

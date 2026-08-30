@@ -12,8 +12,6 @@ from vllm.logger import init_logger
 
 logger = init_logger("vllm.ascend_vllm.patch.platform.patch_generate_base_serving")
 
-KV_LOAD_FAILURE_MSG = "KV cache load failed for one or more remote blocks. The request can be retried."
-
 _PATCH_APPLIED = False
 _PATCH_MARKER = "_modelarts_generate_base_serving_kv_load_failure_patch_applied"
 
@@ -28,13 +26,13 @@ def _patch_raise_if_error() -> None:
         self: GenerateBaseServing,
         finish_reason: str | None,
         request_id: str,
-        kv_transfer_params: dict[str, Any] | None = None,
+        stop_reason: str | None = None,
     ) -> None:
         if finish_reason != "error":
             return
 
-        if kv_transfer_params and kv_transfer_params.get("kv_load_failed"):
-            message = KV_LOAD_FAILURE_MSG
+        if stop_reason:
+            message = stop_reason
         else:
             message = "Internal server error"
 
