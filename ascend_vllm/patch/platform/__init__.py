@@ -5,6 +5,7 @@ from vllm_ascend.utils import (
     AscendDeviceType,
     get_ascend_device_type,
 )
+from ascend_vllm.patch.platform import patch_envs as patch_envs
 from ascend_vllm.patch.platform import patch_health as patch_health
 from ascend_vllm.patch.platform import patch_request as patch_request
 from ascend_vllm.patch.platform import patch_detokenizer as patch_detokenizer
