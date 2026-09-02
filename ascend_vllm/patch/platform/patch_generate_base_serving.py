@@ -4,11 +4,16 @@
 from __future__ import annotations
 
 import functools
+from http import HTTPStatus
 from typing import Any
 
 from vllm.entrypoints.generate.base.serving import GenerateBaseServing
 from vllm.entrypoints.openai.engine.protocol import GenerationError
 from vllm.logger import init_logger
+
+from ascend_vllm.patch.platform.patch_scheduler import (
+    _VLLM_ABORT_WAITING_TIMEOUT_MSG,
+)
 
 logger = init_logger("vllm.ascend_vllm.patch.platform.patch_generate_base_serving")
 
@@ -41,7 +46,16 @@ def _patch_raise_if_error() -> None:
             request_id,
             message,
         )
-        raise GenerationError(message)
+
+        err = GenerationError(message)
+        # The decode node kept this request queued past
+        # VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT and the producer has
+        # force-freed its remote KV. Surface it as a 504 Gateway Timeout
+        # (retryable upstream timeout) instead of a generic 500 so callers
+        # can distinguish this scenario and retry.
+        if message == _VLLM_ABORT_WAITING_TIMEOUT_MSG:
+            err.status_code = HTTPStatus.GATEWAY_TIMEOUT
+        raise err
 
     setattr(patched_raise_if_error, _PATCH_MARKER, True)
     GenerateBaseServing._raise_if_error = patched_raise_if_error

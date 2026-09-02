@@ -46,7 +46,7 @@ _KV_FAILURE_PATCH_MARKER = "_modelarts_kv_load_failure_recompute_scheduler_patch
 _FAILED_REQUEST_IDS_ATTR = "_modelarts_kv_load_failed_request_ids"
 _MISSING = object()
 _KV_LOAD_FAILURE_MSG = "KV cache load failed for one or more remote blocks. The request can be retried."
-_VLLM_ABORT_WAITING_TIMEOUT_MSG = "KV cache load failed for one or more remote blocks expired. The request can be retried."
+_VLLM_ABORT_WAITING_TIMEOUT_MSG = "Abort for kvcache waiting timeout. The request can be retried."
 
 
 def _patch_schedule(self, throttle_prefills: bool = False) -> RecomputeSchedulerOutput:

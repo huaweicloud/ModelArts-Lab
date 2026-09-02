@@ -34,7 +34,7 @@ _MISSING = object()
 _VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT = 0.95
 _VLLM_REQUEST_SCHEDULE_WAITING_TIMEOUT = envs.VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT * _VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT
 _KV_LOAD_FAILURE_MSG = "KV cache load failed for one or more remote blocks. The request can be retried."
-_VLLM_ABORT_WAITING_TIMEOUT_MSG = "KV cache load failed for one or more remote blocks expired. The request can be retried."
+_VLLM_ABORT_WAITING_TIMEOUT_MSG = "Abort for kvcache waiting timeout. The request can be retried."
 
 
 def _fail_expired_waiting_requests(self) -> None:
