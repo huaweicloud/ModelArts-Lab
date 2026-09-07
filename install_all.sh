@@ -187,12 +187,11 @@ gpgkey=https://repo.huaweicloud.com/hce/3.0/updates/RPM-GPG-KEY-HCE-3"
                  grpc-devel \
                  protobuf-devel \
                  protobuf-compiler \
-                 libcurl-devel \
                  hiredis-devel \
                  patchelf \
                  libzstd-devel \
                  xxhash-devel \
-                 libcurl-devel \
+                 libcurl-devel-8.4.0-14.r15.hce3 \
                  glog-devel \
                  etcd
 
