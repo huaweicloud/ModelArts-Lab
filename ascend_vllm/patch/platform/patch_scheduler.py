@@ -838,10 +838,20 @@ def _patch_update_from_output(
     scheduler_output: SchedulerOutput,
     model_runner_output: ModelRunnerOutput,
 ) -> dict[int, EngineCoreOutputs]:
+    # adapt begin : fix SWA recycling by decrementing _inflight in update_from_output
+    num_scheduled_tokens = scheduler_output.num_scheduled_tokens
+
+    from vllm_ascend.patch.platform.patch_swa_inflight_free import _inflight
+    for rid, n in num_scheduled_tokens.items():
+        v = _inflight.get(rid, 0) - n
+        if v <= 0:
+            _inflight.pop(rid, None)
+        else:
+            _inflight[rid] = v
+    # adapt end
     sampled_token_ids = model_runner_output.sampled_token_ids
     logprobs = model_runner_output.logprobs
     prompt_logprobs_dict = model_runner_output.prompt_logprobs_dict
-    num_scheduled_tokens = scheduler_output.num_scheduled_tokens
     pooler_outputs = model_runner_output.pooler_output
     num_nans_in_logits = model_runner_output.num_nans_in_logits
     kv_connector_output = model_runner_output.kv_connector_output
