@@ -272,10 +272,12 @@ def _patch_mooncake_hybrid_connector() -> None:
         if (
             params is None
             or not params.get("do_remote_decode")
+            # adapt begin : fix  kv_transfer_params is null for the first token is the end flag error.
             or request.status not in (
                 RequestStatus.FINISHED_LENGTH_CAPPED,
                 RequestStatus.FINISHED_STOPPED,
             )
+            # adapt end
         ):
             return False, None
 
