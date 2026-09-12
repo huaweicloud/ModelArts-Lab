@@ -305,8 +305,6 @@ def _patch_mooncake_hybrid_connector() -> None:
             num_prompt_blocks=num_prompt_blocks,
         )
 
-    mhc.MooncakeConnectorScheduler.request_finished_all_groups = patched_request_finished_all_groups
-
     def connector_get_block_ids_with_load_errors(self) -> set[int]:
         """Forward load errors from the connector facade to the worker."""
         if self.connector_worker is None:
@@ -329,6 +327,7 @@ def _patch_mooncake_hybrid_connector() -> None:
 
     mhc.MooncakeConnector.get_block_ids_with_load_errors = connector_get_block_ids_with_load_errors
     mhc.MooncakeConnectorWorker.get_block_ids_with_load_errors = worker_get_block_ids_with_load_errors
+    mhc.MooncakeConnectorScheduler.request_finished_all_groups = patched_request_finished_all_groups
 
 
 def apply_patch() -> None:
