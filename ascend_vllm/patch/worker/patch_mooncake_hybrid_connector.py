@@ -5,7 +5,9 @@ import threading
 import time
 from numbers import Integral
 from typing import Any
+import math
 
+from vllm.v1.request import RequestStatus
 from vllm.logger import init_logger
 from vllm_ascend import envs as ascend_envs
 
@@ -261,6 +263,47 @@ def _patch_mooncake_hybrid_connector() -> None:
         wrap_transfer("_transfer_kv_cache_all_groups")
 
         recv_cls._modelarts_mooncake_hybrid_connector_patch_applied = True
+
+    # Patch MooncakeConnectorScheduler.request_finished_all_groups to also
+    # handle FINISHED_STOPPED status (in addition to FINISHED_LENGTH_CAPPED).
+
+    def patched_request_finished_all_groups(self, request, block_ids):
+        params = request.kv_transfer_params
+        if (
+            params is None
+            or not params.get("do_remote_decode")
+            or request.status not in (
+                RequestStatus.FINISHED_LENGTH_CAPPED,
+                RequestStatus.FINISHED_STOPPED,
+            )
+        ):
+            return False, None
+
+        computed_block_ids = self._compute_transfer_block_ids(block_ids, request.num_prompt_tokens)
+        computed_block_ids = self.get_sw_clipped_blocks(computed_block_ids)
+        computed_block_lens = [len(block_id_list) for block_id_list in computed_block_ids]
+        delay_free_blocks = sum(computed_block_lens) > 0
+        if delay_free_blocks:
+            logger.info("Delaying free of %d blocks for request %s", sum(computed_block_lens), request.request_id)
+            self._reqs_need_send[request.request_id] = time.time()
+
+        num_prompt_blocks = math.ceil(request.num_prompt_tokens / self.block_size)
+
+        return delay_free_blocks, dict(
+            do_remote_prefill=True,
+            do_remote_decode=False,
+            remote_block_ids=computed_block_ids,
+            remote_engine_id=self.engine_id,
+            remote_request_id=request.request_id,
+            remote_host=self.side_channel_host,
+            remote_port=self.side_channel_port,
+            remote_ptp_size=self.tp_size,
+            last_token_id=request.output_token_ids[-1],
+            remote_multi_nodes_meta_mapping=self.multi_nodes_meta_mapping,
+            num_prompt_blocks=num_prompt_blocks,
+        )
+
+    mhc.MooncakeConnectorScheduler.request_finished_all_groups = patched_request_finished_all_groups
 
     def connector_get_block_ids_with_load_errors(self) -> set[int]:
         """Forward load errors from the connector facade to the worker."""
