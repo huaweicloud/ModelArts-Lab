@@ -35,3 +35,7 @@ from ascend_vllm.patch.platform import (
 from ascend_vllm.patch.platform import (
     patch_recompute_scheduler as patch_recompute_scheduler,
 )
+from ascend_vllm import envs
+
+if envs.VLLM_ASCEND_LOPT_ENABLE:
+    from ascend_vllm.patch.platform import patch_lopt_tokenization as patch_lopt_tokenization  # noqa: F401

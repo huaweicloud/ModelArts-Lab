@@ -15,7 +15,17 @@
 
 import importlib
 import importlib.abc
+import os
 import sys
+
+from ascend_vllm import envs
+
+# When LoPT is enabled, set conservative defaults for Rayon and HuggingFace
+# tokenizers parallelism before any vLLM import.  These are applied via
+# os.environ.setdefault so explicit user tuning is still respected.
+if envs.VLLM_ASCEND_LOPT_ENABLE:
+    os.environ.setdefault("RAYON_NUM_THREADS", "1")
+    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 _GLOBAL_PATCH_APPLIED = False
 

@@ -14,19 +14,67 @@
 # limitations under the License.
 #
 
-"""Patch vllm_ascend.envs to register VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO.
+"""Patch vllm_ascend.envs to register cloud runtime env vars.
 
-This env var toggles cloud_ops_turbo custom AscendC operators
-(cloud_chunk_scaled_dot_kkt / cloud_solve_tril / cloud_recompute_wu /
-cloud_rmsnorm_silu). When set to 1 the operators fall back to the legacy
-Triton implementations for debugging.
+- VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO toggles cloud_ops_turbo custom AscendC
+  operators (cloud_chunk_scaled_dot_kkt / cloud_solve_tril / cloud_recompute_wu
+  / cloud_rmsnorm_silu). When set to 1 the operators fall back to the legacy
+  Triton implementations for debugging.
+- LoPT env vars control the lossless overlapping parallel tokenization.
 """
 
 import os
+from collections.abc import Callable
+from typing import Any
 
-import vllm_ascend.envs as _envs
+from vllm_ascend import envs
 
-_ENV_VAR = "VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO"
+env_variables: dict[str, Callable[[], Any]] = {
+    "VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO": lambda: bool(int(os.getenv("VLLM_ASCEND_DISABLE_CLOUD_OPS_TURBO", "0"))),
+    "VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT": lambda: float(
+        os.getenv("VLLM_MOONCAKE_ABORT_REQUEST_TIMEOUT_COEFFICIENT", 0.95)
+    ),
+    # Peer-level circuit breaker for decode-side KV pulls: after this many
+    # consecutive transfer failures to a P host, its circuit opens for
+    # MODELARTS_KV_CIRCUIT_BREAKER_WINDOW_SECONDS and pulls are skipped (the
+    # destination blocks are marked invalid and recomputed locally).
+    "MODELARTS_KV_CIRCUIT_BREAKER_THRESHOLD": lambda: int(os.getenv("MODELARTS_KV_CIRCUIT_BREAKER_THRESHOLD", 3)),
+    "MODELARTS_KV_CIRCUIT_BREAKER_WINDOW_SECONDS": lambda: float(
+        os.getenv("MODELARTS_KV_CIRCUIT_BREAKER_WINDOW_SECONDS", 60)
+    ),
+    # Number of long-lived worker threads used to tokenize overlapping chunks.
+    "VLLM_ASCEND_LOPT_THREAD_WORKERS": lambda: int(os.getenv("VLLM_ASCEND_LOPT_THREAD_WORKERS", "4")),
+    # Minimum prompt length, in Python Unicode characters, required for LoPT.
+    "VLLM_ASCEND_LOPT_MIN_CHARS": lambda: int(os.getenv("VLLM_ASCEND_LOPT_MIN_CHARS", "32768")),
+    # Non-overlapping body length of each LoPT text chunk, in characters.
+    "VLLM_ASCEND_LOPT_CHUNK_CHARS": lambda: int(os.getenv("VLLM_ASCEND_LOPT_CHUNK_CHARS", "32768")),
+    # Character overlap appended to adjacent LoPT chunks.
+    "VLLM_ASCEND_LOPT_OVERLAP_CHARS": lambda: int(os.getenv("VLLM_ASCEND_LOPT_OVERLAP_CHARS", "512")),
+    # Minimum number of position-identical tokens required to splice chunks.
+    "VLLM_ASCEND_LOPT_MIN_MATCH_TOKENS": lambda: int(os.getenv("VLLM_ASCEND_LOPT_MIN_MATCH_TOKENS", "2")),
+    # Maximum number of retries that double the LoPT chunk body length.
+    "VLLM_ASCEND_LOPT_MAX_RETRIES": lambda: int(os.getenv("VLLM_ASCEND_LOPT_MAX_RETRIES", "3")),
+    # Compare LoPT output with standard tokenization before returning it.
+    # This is intended for validation and has the cost of tokenizing twice.
+    "VLLM_ASCEND_LOPT_VERIFY": lambda: bool(int(os.getenv("VLLM_ASCEND_LOPT_VERIFY", "0"))),
+}
 
-if _ENV_VAR not in _envs.env_variables:
-    _envs.env_variables[_ENV_VAR] = lambda: bool(int(os.getenv(_ENV_VAR, "0")))
+
+def add_dynamic_module_envs():
+    for env_name, value in env_variables.items():
+        if env_name not in envs.env_variables:
+            envs.env_variables[env_name] = value
+
+
+add_dynamic_module_envs()
+
+
+def __getattr__(name: str):
+    # lazy evaluation of environment variables
+    if name in env_variables:
+        return env_variables[name]()
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def __dir__():
+    return list(env_variables.keys())
